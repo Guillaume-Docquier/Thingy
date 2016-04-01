@@ -1,0 +1,2 @@
+# Thingy
+STS Independent project
