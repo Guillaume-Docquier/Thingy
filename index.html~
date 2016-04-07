@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html ng-app="Thingy">
     <head>
-        <title>Homepages</title>
+        <title>Homepage</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Latest compiled and minified CSS
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-      --><link rel="stylesheet" type="text/css" href="styles/styles.css" />
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
     </head>
 
     <body>
       <div class="container-fluid">
         <div id='header' class='row'>
           <div class='col-xs-3'>
-            <a href='index.html'><img id='logo' src='images/phlogo.png'/></a>
+            <a href='index.html'><img id='logo' src='img/phlogo.png'/></a>
           </div>
           <div class='col-xs-7'>Useful links hello whatever</div>
           <div id='register' class='col-xs-2'>
             <div class='wrapper'>
-              <input class="btn btn-primary" type="button" value="Login"><input class="btn btn-info" type="button" value="Sign up">
+              <input class="btn btn-primary" type="button" value="Login">
+              <input class="btn btn-info" type="button" value="Sign up">
             </div>
           </div>
         </div>
@@ -34,13 +38,13 @@
                   <h3>Sign up</h3>
                   <form>
                     <div class="form-group">
-                      <input type="name" class="form-control" id="examplename" placeholder="Full name">
+                      <input type="email" class="form-control" id="examplename" placeholder="Full name">
                     </div>
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleemail" placeholder="Email">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" id="examplepassword" placeholder="Password">
+                      <input type="email" class="form-control" id="examplepassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <button type="submit" class="btn btn-info">Sign up!</button>
@@ -65,13 +69,7 @@
           </div>
         </div>
       </div>
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="scripts/bootstrap.min.js"></script>
-      <!-- Latest compiled and minified JavaScript
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>-->
-      <script src="scripts/angular/angular.min.js"></script>
-      <script src="scripts/angular/app.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+      <script src="app.js"></script>
     </body>
 </html>
