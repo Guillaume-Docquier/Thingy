@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="Thingy">
     <head>
-        <title>Homepages</title>
+        <title>Homepage</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/normalize.css" />
         <!-- Latest compiled and minified CSS -->
