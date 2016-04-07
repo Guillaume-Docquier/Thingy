@@ -17,7 +17,7 @@ var del = require('del');
 
 var bases = {
   src: 'src/',
-  build: 'build/'
+  build: 'client/'
 };
 
 var paths = {
