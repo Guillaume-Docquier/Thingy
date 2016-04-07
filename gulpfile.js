@@ -12,71 +12,79 @@ var uglify = require('gulp-uglify');
 var autoprefix = require('gulp-autoprefixer');
 var minifyCSS = require('gulp-minify-css');
 var less = require('gulp-less');
+var runSequence = require('run-sequence');
+var del = require('del');
+
+var bases = {
+  src: 'src/',
+  build: 'build/'
+};
+
+var paths = {
+  scripts:'src/scripts/**/*.js',
+  libs: 'src/libs/**/*.js',
+  images: 'src/images/**/*',
+  html: ['src/*.html', '!src/template.html'],
+  less: 'src/styles/**/*.less'
+};
 
 // JS hint task
 gulp.task('jshint', function(){
-  gulp.src('./src/scripts/*.js')
+  gulp.src(paths.scripts)
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
 });
 // minify new images
 gulp.task('imagemin', function(){
-  var imgSrc = './src/images/**/*',
-      imgDst = './build/images';
-
-  gulp.src(imgSrc)
-      .pipe(changed(imgDst))
+  return gulp.src(paths.images, {base:bases.src})
+      .pipe(changed(bases.build))
       .pipe(imagemin())
-      .pipe(gulp.dest(imgDst));
+      .pipe(gulp.dest(bases.build));
 });
 // minify new or changed HTML pages
 gulp.task('htmlpage', function(){
-  var htmlSrc = './src/*.html';
-      htmlDst = './build';
-
-  gulp.src(htmlSrc)
-      .pipe(changed(htmlDst))
+  return gulp.src(paths.html, {base:bases.src})
+      .pipe(changed(bases.build))
       .pipe(minifyHTML())
-      .pipe(gulp.dest(htmlDst));
+      .pipe(gulp.dest(bases.build));
 });
 // JS concat, strip debugging and minify
 gulp.task('scripts', function(){
-  gulp.src(['./src/scripts/lib.js', './src/scripts/*.js'])
-      .pipe(concat('script.js'))
+  return gulp.src(paths.scripts, {base:bases.src})
+      .pipe(concat('scripts.min.js'))
       .pipe(stripDebug())
       .pipe(uglify())
-      .pipe(gulp.dest('./build/scripts/'));
+      .pipe(gulp.dest(bases.build));
 });
-// Compiles LESS into CSS
+// Compiles LESS into auto-prefixed and minified CSS
 gulp.task('cless', function(){
-    gulp.src('./src/styles/styles.less')
+    return gulp.src('src/styles/styles.less', {base:bases.src})
         .pipe(less())
-        .pipe(gulp.dest('./src/styles'));
+        .pipe(autoprefix('last 2 versions'))
+        .pipe(minifyCSS())
+        .pipe(gulp.dest(bases.build));
 });
-// CSS concat, auto-prefix and minify
-gulp.task('styles', function() {
-  gulp.src(['./src/styles/*.css'])
-      .pipe(concat('styles.css'))
-      .pipe(autoprefix('last 2 versions'))
-      .pipe(minifyCSS())
-      .pipe(gulp.dest('./build/styles/'));
+// Cleans the build directory
+gulp.task('clean', function(){
+  return del(bases.build);
+});
+// Copies relevant files into build
+gulp.task('init', function(){
+  return gulp.src([paths.scripts, paths.libs], {base:bases.src})
+      .pipe(gulp.dest(bases.build));
+});
+// Builds the project
+gulp.task('build', ['clean'], function(){
+  runSequence('init', ['htmlpage', 'cless', 'imagemin']);
 });
 // Default gulp
-gulp.task('default', ['imagemin', 'htmlpage', 'scripts', 'cless', 'styles'], function() {
+gulp.task('default', ['build'], function() {
+  // watch for IMAGE changes
+  gulp.watch(paths.images, ['imagemin']);
   // watch for HTML changes
-  gulp.watch('./src/*.html', function(){
-    gulp.run('htmlpage');
-  });
-  // watch for js changes
-  gulp.watch('./src/scripts/*.js', function(){
-    gulp.run('jshint', 'scripts');
-  });
+  gulp.watch(paths.html, ['htmlpage']);
   // watch for LESS changes
-  gulp.watch('./src/styles/*.less', function(){
-    gulp.run('cless');
-  });
-  // watch for CSS changes
-  gulp.watch('./src/styles/*.css', function(){
-    gulp.run('styles');
-  });
+  gulp.watch(paths.less, ['cless']);
+  // watch for JS changes
+  // gulp.watch('./src/scripts/**/*.js', ['jshint', 'scripts']);
 });
