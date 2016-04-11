@@ -16,12 +16,12 @@ var runSequence = require('run-sequence');
 var del = require('del');
 
 var bases = {
-  src: 'src/',
-  build: 'build/'
+  src: 'build/',
+  build: 'static/'
 };
 
 var paths = {
-  scripts:'src/scripts/**/*.js',
+  scripts:'src/javascript/**/*.js',
   libs: 'src/libs/**/*.js',
   images: 'src/images/**/*',
   html: ['src/*.html', '!src/template.html'],
