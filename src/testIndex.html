@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="thingy">
+<head>
+  <title>Thingy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+  <!-- change this -->
+  <base href="/Users/Guillaume/Documents/Thingy/" />
+</head>
+
+<body>
+  <nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as vm">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#not-google-plus-nav">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Not Google Plus</a>
+      </div> <!-- ./navbar-header -->
+
+      <div class="collapse navbar-collapse" id="not-google-plus-nav">
+        <ul class="nav navbar-nav pull-right">
+            <!--<li><a href="/{{ user.username }}">{{ user.username }}</a></li>
+            <li><a href="/{{ user.username }}/settings">Settings</a></li>
+            <li><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>-->
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+      </div> <!-- /.collapse.navbar-collapse -->
+    </div> <!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 ng-view"></div>
+    </div>
+  </div>
+
+  <script src="src/libs/jquery.min.js"></script>
+  <script src="src/libs/bootstrap.min.js"></script>
+  <script src="src/libs/angular.min.js"></script>
+  <script src="src/libs/angular-route.min.js"></script>
+  <script src="src/libs/angular-cookies.min.js"></script>
+  <script src="src/libs/angular-dialog.js"></script>
+
+  <script type="text/javascript" src="src/javascript/thingy.js"></script>
+
+  <script type="text/javascript" src="src/javascript/thingy.config.js"></script>
+  <script type="text/javascript" src="src/javascript/thingy.routes.js"></script>
+  <script type="text/javascript" src="src/javascript/authentication/authentication.module.js"></script>
+  <script type="text/javascript" src="src/javascript/authentication/services/authentication.service.js"></script>
+  <script type="text/javascript" src="src/javascript/authentication/controllers/register.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/authentication/controllers/login.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/layout/layout.module.js"></script>
+  <script type="text/javascript" src="src/javascript/layout/controllers/navbar.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/layout/controllers/index.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/posts.module.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/services/posts.service.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/directives/posts.directive.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/controllers/posts.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/directives/post.directive.js"></script>
+  <script type="text/javascript" src="src/javascript/posts/controllers/new-post.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/profiles/profiles.module.js"></script>
+  <script type="text/javascript" src="src/javascript/profiles/services/profile.service.js"></script>
+  <script type="text/javascript" src="src/javascript/profiles/controllers/profile.controller.js"></script>
+  <script type="text/javascript" src="src/javascript/profiles/controllers/profile-settings.controller.js"></script>
+</body>
+</html>
