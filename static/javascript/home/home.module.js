@@ -2,10 +2,10 @@
   'use strict'
 
   angular
-    .module('route.home', [
-      'route.home.controllers',
+    .module('thingy.home', [
+      'thingy.home.controllers',
     ]);
 
   angular
-    .module('route.home.controllers', []);
+    .module('thingy.home.controllers', []);
 })();

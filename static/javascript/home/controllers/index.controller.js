@@ -2,7 +2,7 @@
   'use strict'
 
   angular
-    .module('route.home.controllers')
+    .module('thingy.home.controllers')
     .controller('IndexController', IndexController);
 
   IndexController.$inject = ['$scope'];

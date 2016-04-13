@@ -2,7 +2,7 @@
   'use strict'
 
   angular
-    .module('route.authentication.controllers')
+    .module('thingy.authentication.controllers')
     .controller('RegisterController', RegisterController);
 
   RegisterController.$inject = ['$location', '$scope'];

@@ -2,14 +2,14 @@
   'use strict'
 
   angular
-    .module('route.authentication', [
-      'route.authentication.controllers',
-      'route.authentication.services',
+    .module('thingy.authentication', [
+      'thingy.authentication.controllers',
+      'thingy.authentication.services',
     ]);
 
   angular
-    .module('route.authentication.controllers', ['ngDialog']);
+    .module('thingy.authentication.controllers', ['ngDialog']);
 
   angular
-    .module('route.authentication.services', ['ngCookies']);
+    .module('thingy.authentication.services', ['ngCookies']);
 })();
