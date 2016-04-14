@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
+    'thingyads
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -76,9 +78,13 @@ WSGI_APPLICATION = 'thingyproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'thingy',
+        'USER': 'root',
+        'PASSWORD': '731992',
+        'HOST': '',
+        'PORT': '',
+   }
 }
 
 
@@ -130,6 +136,4 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-#TEMPLATE_DIRS = (
-#    os.path.join(BASE_DIR, 'templates'),
-#)
+
