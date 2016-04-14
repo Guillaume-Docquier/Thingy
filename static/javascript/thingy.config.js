@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('route.config')
+    .module('thingy.config')
     .config(config);
 
   config.$inject = ['$locationProvider'];

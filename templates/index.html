@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="route">
+<html ng-app="thingy">
 <head>
-  <title>Route-test</title>
+  <title>Thingy-dev</title>
   <base href="/" />
 
   {% include 'styles.html' %}
-  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.0/css/ngDialog.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.0/css/ngDialog-theme-default.css" rel="stylesheet">-->
-
 
 </head>
 
 <body>
-  <h1><a href='/'>Hello World!</a></h1>
+  {% include 'navbar.html' with ng=1 %}
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 ng-view"></div>
     </div>
   </div>
 
-{% include 'javascript.html' %}
+  {% include 'javascript.html' %}
 
 </body>
 </html>

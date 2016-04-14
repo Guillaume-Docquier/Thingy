@@ -2,21 +2,23 @@
   'use strict';
 
   angular
-    .module('route', [
-      'route.config',
-      'route.routes',
-      'route.authentication',
-      'route.home',
+    .module('thingy', [
+      'thingy.config',
+      'thingy.routes',
+      'thingy.authentication',
+      'thingy.home',
+      'thingy.profiles',
+      'thingy.posts',
     ]);
 
   angular
-    .module('route.routes', ['ngRoute']);
+    .module('thingy.routes', ['ngRoute']);
 
   angular
-    .module('route.config', []);
+    .module('thingy.config', []);
 
   angular
-    .module('route')
+    .module('thingy')
     .run(run);
 
   run.$inject = ['$http'];

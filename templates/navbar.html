@@ -1,0 +1,29 @@
+<nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as vm">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#not-google-plus-nav">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Thingy!</a>
+    </div> <!-- ./navbar-header -->
+
+    <div class="collapse navbar-collapse" id="not-google-plus-nav">
+      <ul class="nav navbar-nav pull-right">
+          <li ng-show={{vm.isAuthenticated}}><a href="/">Username</a></li>
+          <li ng-show={{vm.isAuthenticated}}><a href="/settings">Settings</a></li>
+          <li ng-show={{vm.isAuthenticated}}><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>
+
+          <li ng-hide={{vm.isAuthenticated}}><a href="javascript:void(0)"
+            ng-dialog="/static/templates/authentication/login-register.html"
+            ng-dialog-controller="LoginRegisterController as vm">Login</a></li>
+          <li ng-hide={{vm.isAuthenticated}}><a href="javascript:void(0)"
+            ng-dialog="/static/templates/authentication/login-register.html"
+            ng-dialog-controller="LoginRegisterController as vm">Register</a></li>
+
+      </ul>
+    </div> <!-- /.collapse.navbar-collapse -->
+  </div> <!-- /.container-fluid -->
+</nav>
