@@ -1,17 +1,11 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="well">
-      <div class="post">
-        <div class="post__meta">
-          <a href="/+{{ post.author.username }}">
-            +{{ post.author.username }}
-          </a>
-        </div>
-
-        <div class="post__content">
-          {{ post.content }}
-        </div>
-      </div>
+      <blockquote>
+        <h2>{{ thingy.title }}</h2>
+        <p>{{ thingy.description }}</p>
+        <footer><a href="/{{ thingy.user }}">{{ thingy.user }}</a></footer>
+      </blockquote>
     </div>
   </div>
 </div>

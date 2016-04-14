@@ -25,9 +25,9 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/login.html'
     }).when('/test', {
-      controller: 'LoginRegisterController',
+      controller: 'LoginController',
       controllerAs: 'vm',
-      templateUrl: '/static/templates/authentication/login-register.html'
+      templateUrl: '/static/templates/authentication/login.html'
     }).when('/me', {
       controller: 'ProfileController',
       controllerAs: 'vm',
