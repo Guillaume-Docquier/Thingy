@@ -18,7 +18,7 @@
     var vm = this;
 
     vm.logout = logout;
-    vm.isAuthenticated = !!Authentication.isAuthenticated();
+    vm.isAuthenticated = Authentication.isAuthenticated();
 
     activate();
 
