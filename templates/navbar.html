@@ -14,13 +14,13 @@
       <ul class="nav navbar-nav pull-right">
           <li ng-show={{vm.isAuthenticated}}><a href="/">Username</a></li>
           <li ng-show={{vm.isAuthenticated}}><a href="/settings">Settings</a></li>
-          <li ng-show={{vm.isAuthenticated}}><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>
+          <li ng-hide={{vm.isAuthenticated}}><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>
 
           <li ng-hide={{vm.isAuthenticated}}><a href="javascript:void(0)"
-            ng-dialog="/static/templates/authentication/login-register.html"
+            ng-dialog="/static/templates/authentication/login.html"
             ng-dialog-controller="LoginRegisterController as vm">Login</a></li>
           <li ng-hide={{vm.isAuthenticated}}><a href="javascript:void(0)"
-            ng-dialog="/static/templates/authentication/login-register.html"
+            ng-dialog="/static/templates/authentication/register.html"
             ng-dialog-controller="LoginRegisterController as vm">Register</a></li>
 
       </ul>

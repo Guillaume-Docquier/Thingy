@@ -11,5 +11,5 @@
     .module('thingy.authentication.controllers', ['ngDialog']);
 
   angular
-    .module('thingy.authentication.services', ['ngCookies']);
+    .module('thingy.authentication.services', ['ngCookies', 'ngRoute']);
 })();

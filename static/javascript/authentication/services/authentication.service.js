@@ -5,9 +5,9 @@
     .module('thingy.authentication.services')
     .service('Authentication', Authentication);
 
-  Authentication.$inject = ['$cookies', '$http'];
+  Authentication.$inject = ['$cookies', '$http', '$route'];
 
-  function Authentication($cookies, $http) {
+  function Authentication($cookies, $http, $route) {
     var vm = this;
 
     vm.getAuthenticatedAccount = getAuthenticatedAccount;
@@ -26,7 +26,8 @@
 
       function loginSuccessFn(email){
         console.log('Logged in as ' + email);
-        setAuthenticatedAccount({email:email});
+        setAuthenticatedAccount({email:email, user:'Guillaume Docquier'});
+        $route.reload();
         return true;
         //window.location = '/';
       }
@@ -58,6 +59,7 @@
     function logout() {
       console.log("Logout!");
       unauthenticate();
+      window.location = '/';
     }
 
     /**
@@ -67,10 +69,10 @@
    * @memberOf thinkster.authentication.services.Authentication
    */
     function getAuthenticatedAccount() {
-      if (!$cookies.authenticatedAccount) {
+      if (!$cookies.get('authenticatedAccount')) {
         return;
       }
-      return JSON.parse($cookies.authenticatedAccount);
+      return $cookies.getObject('authenticatedAccount');
     }
 
     /**
@@ -80,7 +82,7 @@
    * @memberOf thinkster.authentication.services.Authentication
    */
     function isAuthenticated() {
-      return !!$cookies.authenticatedAccount;
+      return !!$cookies.get('authenticatedAccount');
     }
 
     /**
@@ -91,7 +93,9 @@
    * @memberOf thinkster.authentication.services.Authentication
    */
     function setAuthenticatedAccount(account) {
-      $cookies.authenticatedAccount = JSON.stringify(account);
+      var now = Date.now(),
+      exp = new Date(now + (24*60*60*1000)); // a day from now
+      $cookies.putObject('authenticatedAccount', account, {expires:exp});
     }
 
     /**
@@ -101,7 +105,7 @@
    * @memberOf thinkster.authentication.services.Authentication
    */
     function unauthenticate() {
-      delete $cookies.authenticatedAccount;
+      $cookies.remove('authenticatedAccount');
     }
   }
 })();
