@@ -58,6 +58,7 @@
     function logout() {
       console.log("Logout!");
       unauthenticate();
+      window.location = '/';
     }
 
     /**
