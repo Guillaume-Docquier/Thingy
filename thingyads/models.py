@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from authentication import models as Userinfo
+from django.contrib.auth import models as Userinfo
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class Category(models.Model):
 	return self.cname
 
 class Item(models.Model):
-    user = models.ForeignKey(Userinfo.auth_user, on_delete=models.CASCADE) 
+    user = models.ForeignKey(Userinfo.User, on_delete=models.CASCADE, null=True) 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     itemID = models.IntegerField(default=0)
     title = models.CharField(max_length=200)
