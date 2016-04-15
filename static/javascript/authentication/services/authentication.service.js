@@ -23,7 +23,8 @@
       if (password == "yes") return loginSuccessFn(username);
       if (password == "no") return loginErrorFn(username, password);
 	console.log("user: " + username + "password: " + password);
-      return $http.post('/api/login', {
+
+      return $http.post('/api/login/', {
         username: username, password: password
       }).then(loginAjaxSuccessFn, loginAjaxErrorFn);
 

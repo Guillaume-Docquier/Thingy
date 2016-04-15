@@ -11,7 +11,7 @@ from rest_framework import status, views
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 
-from authentication.serializers import AccountSerializer
+#from authentication.serializers import AccountSerializer
 
 class LoginView(views.APIView):
     def post(self, request, format=None):
@@ -64,10 +64,6 @@ def signup(request):
 
 def index(request):
     pass
-
-
-class loginView():
-	def post
 
 #def addpage(request):
 #    add_dict = {}

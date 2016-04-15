@@ -6,10 +6,10 @@ from django.contrib import admin
 
 urlpatterns = [
   
-    url('^.*$', IndexView.as_view(), name='index'),
+    url('^index/*$', IndexView.as_view(), name='index'),
     #url(r'^$', thingyads.test),
     url(r'^authentication/', include('authentication.urls')),
     url(r'^thingyads/', include('thingyads.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls'), namespace='rest_framework'),
+    url(r'^api-auth/', include('rest_framework.urls'), name='rest_framework'),
 ]

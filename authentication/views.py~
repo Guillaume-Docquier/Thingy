@@ -6,6 +6,39 @@ from django.views.decorators.http import require_POST
 from forms import UserForm
 from django.contrib.auth import authenticate, login
 
+from rest_framework import permissions
+from rest_framework import status, views
+from rest_framework import permissions, viewsets
+from rest_framework.response import Response
+
+from authentication.serializers import AccountSerializer
+
+class LoginView(views.APIView):
+    def post(self, request, format=None):
+        data = json.loads(request.body)
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                #serialized = AccountSerializer(account)
+
+                #return Response(serialized.data)
+                return JsonResponse({'success': True})
+            else:
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': 'This account has been disabled.'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                'status': 'Unauthorized',
+                'message': 'Username/password combination invalid.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
 @require_POST
 def login(request):
@@ -31,9 +64,6 @@ def signup(request):
 
 def index(request):
     pass
-
-
-
 
 #def addpage(request):
 #    add_dict = {}
