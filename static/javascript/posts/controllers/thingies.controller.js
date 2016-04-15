@@ -46,8 +46,8 @@
       resetForms();
     }
 
-    function remove(){
-      vm.posts = Thingies.remove(vm.thingyId);
+    function remove(id){
+      vm.posts = Thingies.remove(id);
       updateNumPosts();
     }
 

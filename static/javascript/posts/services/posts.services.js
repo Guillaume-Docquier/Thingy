@@ -48,7 +48,13 @@
 
     function remove(id){
       // For testing only
-      vm.testValues.splice(id,1);
+      for(var i = 0; i < vm.testValues.length; i++){
+        if(vm.testValues[i].id == id)
+        {
+          vm.testValues.splice(i, 1);
+          break;
+        }
+      }
       return vm.testValues;
     }
   }
