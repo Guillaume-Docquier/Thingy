@@ -35,7 +35,7 @@
 
     function login() {
       console.log("Logging in...");
-      success(Authentication.login(vm.email, vm.password));
+      Authentication.login(vm.email, vm.password);
     }
 
     function register() {
