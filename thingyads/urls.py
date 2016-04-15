@@ -5,6 +5,6 @@ from thingyproject.views import IndexView
 
 urlpatterns = [
    
-    url('^.*$', IndexView.as_view(), name='index'),
+    #url('^.*$', IndexView.as_view(), name='index'),
     url(r'^Tests/$', views.test, name = 'test'),
 ]

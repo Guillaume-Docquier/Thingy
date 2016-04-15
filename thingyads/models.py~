@@ -4,25 +4,27 @@ from django.db import models
 
 # Create your models here.
 
+class Category(models.Model):
+    cname = models.CharField(max_length=50)
 
-class User(models.Model):
-    question_text = models.CharField(max_length=200)
+    def __str__(self):
+	return self.cname
+
+class Item(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    itemID = models.IntegerField(default=0)
+    title = models.CharField(max_length=200)
+    price = models.IntegerField(default=0) 
+    description = models.CharField(max_length=200)
+   
+    #owner = models.ForeignKey(User)
+    #condition 
+    #category 
+    #photo
+    #geolocation
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
-	return self.question.text
+	return self.title
 
 
-class Item(models.Model):
-    question = models.ForeignKey(User, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-	return self.choice_text
-
-
-
-class Owner(models.Model):
-    userID = models.ForeignKey(User)
-    itemID = models.ForeignKey(Item)

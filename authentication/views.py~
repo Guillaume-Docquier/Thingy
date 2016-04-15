@@ -29,6 +29,9 @@ def signup(request):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': form.errors})
 
+def index(request):
+    pass
+
 
 #def addpage(request):
 #    add_dict = {}

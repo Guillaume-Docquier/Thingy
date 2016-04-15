@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
-from models import User,Item,Owner
+#from models import User,Item,Owner
 from forms import UserForm
 from django.contrib.auth import authenticate, login
 

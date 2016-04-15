@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 def test(request):
 	#template_name = 'test.html'
-	return HttpResponse("Hello world!")
+	return render(request, 'test.html')
