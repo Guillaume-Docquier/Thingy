@@ -18,11 +18,22 @@
     vm.setAuthenticatedAccount = setAuthenticatedAccount;
     vm.unauthenticate = unauthenticate;
 
-    function login(email, password) {
+    function login(username, password) {
       // For tesing only. We will return the ajax promise instead of boolean
       if (password == "yes") return loginSuccessFn(email);
       if (password == "no") return loginErrorFn(email, password);
-      //$http.post('/thingy/signin')
+      return $http.post('/login/', {
+        username: username, password: password
+      }).then(loginAjaxSuccessFn, loginAjaxErrorFn);
+
+      function loginAjaxSuccessFn() {
+        setAuthenticatedAccount({email:email, user:'Guillaume Docquier'});
+        $route.reload();
+      }
+
+      function loginAjaxErrorFn() {
+        alert('You wanted login to fail');
+      }
 
       function loginSuccessFn(email){
         console.log('Logged in as ' + email);
