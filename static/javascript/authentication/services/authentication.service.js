@@ -5,9 +5,9 @@
     .module('thingy.authentication.services')
     .service('Authentication', Authentication);
 
-  Authentication.$inject = ['$cookies', '$http'];
+  Authentication.$inject = ['$cookies', '$http', '$route'];
 
-  function Authentication($cookies, $http) {
+  function Authentication($cookies, $http, $route) {
     var vm = this;
 
     vm.getAuthenticatedAccount = getAuthenticatedAccount;
@@ -27,6 +27,7 @@
       function loginSuccessFn(email){
         console.log('Logged in as ' + email);
         setAuthenticatedAccount({email:email, user:'Guillaume Docquier'});
+        $route.reload();
         return true;
         //window.location = '/';
       }
