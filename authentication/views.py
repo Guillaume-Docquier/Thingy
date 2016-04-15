@@ -33,6 +33,9 @@ def index(request):
     pass
 
 
+class loginView():
+	def post
+
 #def addpage(request):
 #    add_dict = {}
 #    try:
