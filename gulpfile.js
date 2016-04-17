@@ -16,16 +16,16 @@ var runSequence = require('run-sequence');
 var del = require('del');
 
 var bases = {
-  src: 'build/',
+  src: 'static/',
   build: 'static/'
 };
 
 var paths = {
-  scripts:'src/javascript/**/*.js',
-  libs: 'src/libs/**/*.js',
-  images: 'src/images/**/*',
-  html: ['src/*.html', '!src/template.html'],
-  less: 'src/styles/**/*.less'
+  scripts:'static/javascript/**/*.js',
+  libs: 'static/libs/**/*.js',
+  images: 'static/images/**/*',
+  html: 'static/templates/*.html',
+  less: 'static/styles/**/*.less'
 };
 
 // JS hint task
@@ -58,7 +58,7 @@ gulp.task('scripts', function(){
 });
 // Compiles LESS into auto-prefixed and minified CSS
 gulp.task('cless', function(){
-    return gulp.src('src/styles/styles.less', {base:bases.src})
+    return gulp.src(paths.less, {base:bases.src})
         .pipe(less())
         .pipe(autoprefix('last 2 versions'))
         .pipe(minifyCSS())
@@ -78,13 +78,13 @@ gulp.task('build', ['clean'], function(){
   runSequence('init', ['htmlpage', 'cless', 'imagemin']);
 });
 // Default gulp
-gulp.task('default', ['build'], function() {
+gulp.task('default', ['cless'], function() {
   // watch for IMAGE changes
-  gulp.watch(paths.images, ['imagemin']);
+  //gulp.watch(paths.images, ['imagemin']);
   // watch for HTML changes
-  gulp.watch(paths.html, ['htmlpage']);
+  //gulp.watch(paths.html, ['htmlpage']);
   // watch for LESS changes
   gulp.watch(paths.less, ['cless']);
   // watch for JS changes
-  // gulp.watch('./src/scripts/**/*.js', ['jshint', 'scripts']);
+  // gulp.watch('./static/scripts/**/*.js', ['jshint', 'scripts']);
 });
