@@ -1,0 +1,3 @@
+pip install django djangorestframework markdown django-filters mysqlclient drf-nested-routers
+
+You can use $pip freeze to see which packages are installed

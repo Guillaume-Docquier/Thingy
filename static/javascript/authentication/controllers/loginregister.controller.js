@@ -21,6 +21,14 @@
     * @memberOf thingy.home.controllers.NavbarController
     */
     function activate() {
+      // Already authenticated users should not be here
+      if (Authentication.isAuthenticated()) {
+        $location.url('/');
+      }
+
+      // For some reason this doesn't work
+      // Prevent url hashing, will need to unbind
+      //$('.nav-tabs a').click(function(e) { e.preventDefault(); });
 
       // ============================================================ //
       // The LoginRegisterController is bound to a ngDialog window.   //
@@ -28,19 +36,22 @@
       // ============================================================ //
 
       // Close the dialog when clicking back/next browser buttons
-      var cleanUp = $rootScope.$on('$routeChangeStart', function (scope, next, current) { $scope.closeThisDialog(); });
-      // Unbind the event
-      $scope.$on('$destroy', function() { cleanUp(); });
+      var cleanDialog = $rootScope.$on('$routeChangeStart', function (scope, next, current) { $scope.closeThisDialog(); });
+      // Unbind the event handlers
+      $scope.$on('$destroy', function() {
+        cleanDialog();
+        // Was bound on the template, need to unbind here
+        $('.nav-tabs a').unbind('click'); });
     }
 
     function login() {
       console.log("Logging in...");
-      Authentication.login(vm.email, vm.password);
+      Authentication.login(vm.username, vm.password);
     }
 
     function register() {
       console.log("Registering...");
-      success(Authentication.register(vm.email, vm.fullName, vm.password));
+      success(Authentication.register(vm.username, vm.email, vm.password));
     }
 
     // For tesing only. The ajax promise will be returned instead of boolean

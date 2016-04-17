@@ -5,9 +5,9 @@
     .module('thingy.authentication.services')
     .service('Authentication', Authentication);
 
-  Authentication.$inject = ['$cookies', '$http', '$route'];
+  Authentication.$inject = ['$cookies', '$http', '$route', '$rootScope'];
 
-  function Authentication($cookies, $http, $route) {
+  function Authentication($cookies, $http, $route, $rootScope) {
     var vm = this;
 
     vm.getAuthenticatedAccount = getAuthenticatedAccount;
@@ -19,60 +19,75 @@
     vm.unauthenticate = unauthenticate;
 
     function login(username, password) {
-      // For tesing only. We will return the ajax promise instead of boolean
-      if (password == "yes") return loginSuccessFn(username);
-      if (password == "no") return loginErrorFn(username, password);
-	console.log("user: " + username + "password: " + password);
-
-      return $http.post('/api/login/', {
+      return $http.post('/api/v1/auth/login/', {
         username: username, password: password
-      }).then(loginAjaxSuccessFn, loginAjaxErrorFn);
+      }).then(loginSuccessFn, loginErrorFn);
 
-      function loginAjaxSuccessFn() {
-        setAuthenticatedAccount({email:username, user:'Guillaume Docquier'});
-        $route.reload();
+      /**
+       * @name loginSuccessFn
+       * @desc Set the authenticated account and redirect to index
+       */
+      function loginSuccessFn(data, status, headers, config) {
+        vm.setAuthenticatedAccount(data.data);
+        // Allows pages to save data before refresh
+        $rootScope.$broadcast('login');
+        // Soft refresh
+        location.reload();
       }
 
-      function loginAjaxErrorFn() {
-        alert('You wanted ajax login to fail');
-      }
-
-      function loginSuccessFn(email){
-        console.log('Logged in as ' + email);
-        setAuthenticatedAccount({email:email, user:'Guillaume Docquier'});
-        $route.reload();
-        return true;
-        //window.location = '/';
-      }
-      function loginErrorFn(email, password){
-        console.log("Login failed.");
-        alert('You wanted login to fail');
-        return false;
+      /**
+       * @name loginErrorFn
+       * @desc Log "Epic failure!" to the console
+       */
+      function loginErrorFn(data, status, headers, config) {
+        console.error(data.data.message);
       }
     }
 
-    function register(email, fullName, password) {
-      // For tesing only. We will return the ajax promise instead of boolean
-      if (password == "yes") return registerSuccessFn(email, password);
-      if (password == "no") return registerErrorFn();
-      //$http.post('/thingy/signin')
+    function register(username, email, password) {
+      return $http.post('/api/v1/accounts/', {
+        username: username,
+        email: email,
+        password: password
+      }).then(registerSuccessFn, registerErrorFn);
 
-      function registerSuccessFn(email, password){
-        console.log('Registering ' + email);
-        return login(email, password);
-        //window.location = '/';
+      /**
+      * @name registerSuccessFn
+      * @desc Log the new user in
+      */
+      function registerSuccessFn(data, status, headers, config) {
+        vm.login(email, password);
       }
-      function registerErrorFn(){
-        console.log("Register failed.");
-        alert('You wanted register to fail');
-        return false;
+
+      /**
+      * @name registerErrorFn
+      * @desc Log "Epic failure!" to the console
+      */
+      function registerErrorFn(data, status, headers, config) {
+        console.error('Epic failure!');
       }
     }
 
     function logout() {
-      console.log("Logout!");
-      unauthenticate();
-      window.location = '/';
+      return $http.post('/api/v1/auth/logout/')
+        .then(logoutSuccessFn, logoutErrorFn);
+
+      /**
+       * @name logoutSuccessFn
+       * @desc Unauthenticate and redirect to index with page reload
+       */
+      function logoutSuccessFn(data, status, headers, config) {
+        vm.unauthenticate();
+        window.location = '/';
+      }
+
+      /**
+       * @name logoutErrorFn
+       * @desc Log "Epic failure!" to the console
+       */
+      function logoutErrorFn(data, status, headers, config) {
+        console.error('Epic failure!');
+      }
     }
 
     /**
@@ -81,11 +96,11 @@
    * @returns {object|undefined} Account if authenticated, else `undefined`
    * @memberOf thinkster.authentication.services.Authentication
    */
-    function getAuthenticatedAccount() {
+   function getAuthenticatedAccount() {
       if (!$cookies.get('authenticatedAccount')) {
         return;
       }
-      return $cookies.getObject('authenticatedAccount');
+      return JSON.parse($cookies.getObject('authenticatedAccount'));
     }
 
     /**
@@ -100,7 +115,7 @@
 
     /**
    * @name setAuthenticatedAccount
-   * @desc Stringify the account object and store it in a cookie
+   * @desc Stringify the account object and store it in a cookie for 1 day
    * @param {Object} user The account object to be stored
    * @returns {undefined}
    * @memberOf thinkster.authentication.services.Authentication
@@ -108,7 +123,7 @@
     function setAuthenticatedAccount(account) {
       var now = Date.now(),
       exp = new Date(now + (24*60*60*1000)); // a day from now
-      $cookies.putObject('authenticatedAccount', account, {expires:exp});
+      $cookies.putObject('authenticatedAccount', JSON.stringify(account), {expires:exp});
     }
 
     /**

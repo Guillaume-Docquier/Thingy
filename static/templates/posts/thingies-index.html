@@ -1,25 +1,17 @@
-<!-- Prevent adding #whatever when clicking tabs -->
-<script type="text/javascript">
-  $('.nav-tabs a').on('click',function(e)
-  {
-    e.preventDefault();
-  });
-</script>
-
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#find">Find a thingy</a></li>
-  <li><a data-toggle="tab" href="#add">Add a thingy</a></li>
+  <li id="search-tab" class="active"><a data-toggle="tab" href="#search">Find a thingy</a></li>
+  <li id="create-tab"><a data-toggle="tab" href="#create">Add a thingy</a></li>
 </ul>
 
 <div class="tab-content">
-  <!-- Find tab -->
-  <div id="find" class="tab-pane fade in active">
+  <!-- Search tab -->
+  <div id="search" class="tab-pane fade in active">
     <p>
-      <form role="form" ng-submit="vm.get()">
+      <form role="get-form">
 
         <div class="form-group">
-          <label for="find__name">Id or username</label>
-          <input type="text" class="form-control" id="find__name" ng-model="vm.getuser" placeholder="ex: Guillaume Docquier" />
+          <label for="thingy__search">Id or username</label>
+          <input type="text" class="form-control" id="thingy__search" ng-model="vm.search" placeholder="ex: Guillaume Docquier" />
         </div>
 
         <div class="form-group">
@@ -29,7 +21,7 @@
     </p>
   </div>
   <!-- Create tab -->
-  <div id="add" class="tab-pane fade">
+  <div id="create" class="tab-pane fade">
     <p>
       <form role="form" ng-submit="vm.create()">
 
@@ -44,8 +36,8 @@
         </div>
 
         <div class="form-group">
-          <label for="thingy__user">Full name</label>
-          <input type="text" class="form-control" id="thingy__user" ng-model="vm.user" placeholder="ex: John Doe" />
+          <label for="thingy__user">Username</label>
+          <input type="text" class="form-control" id="thingy__user" ng-model="vm.username" placeholder="ex: John Doe" />
         </div>
 
         <div class="form-group">
@@ -56,7 +48,7 @@
   </div>
 </div>
 
-<h1>Such wow! There are {{vm.numPosts}} Thingies for rent!</h1>
+<h1 ng-cloak>Such wow! There are {{vm.posts.length}} Thingies for rent!</h1>
 
 <div ng-repeat='thingy in vm.posts'>
     <post thingy="thingy"></post>

@@ -5,58 +5,108 @@
     .module('thingy.posts.controllers')
     .controller('ThingiesController', ThingiesController);
 
-  ThingiesController.$inject = ['$scope', 'Authentication', 'Thingies'];
+  ThingiesController.$inject = ['$rootScope', '$scope', 'Authentication', 'Thingies', '$route', '$cookies', '$location'];
 
-  function ThingiesController($scope, Authentication, Thingies) {
+  function ThingiesController($rootScope, $scope, Authentication, Thingies, $route, $cookies, $location) {
     var vm = this;
 
-    vm.posts = Thingies.all();
-    vm.numPosts = vm.posts.length;
-    vm.get = get;
+    vm.isAuthenticated = Authentication.isAuthenticated();
+    vm.posts = [];
     vm.create = create;
-    vm.remove = remove;
 
     activate();
 
     function activate() {
-      // Set the owned property
-      if(Authentication.isAuthenticated())
-      {
-        var auth = Authentication.getAuthenticatedAccount();
-        for(var i = 0; i < vm.numPosts; i++)
+      restoreSearch();
+
+      Thingies.all().then(postsSuccessFn, postsErrorFn);
+
+      bindEvents();
+
+      /* Prompts the user on refresh
+      window.onbeforeunload = function (e) {
+        console.log("Refresh");
+        return "Are you sure?";
+      };*/
+
+      /**
+      * @name postsSuccessFn
+      * @desc Update posts array on view
+      */
+      function postsSuccessFn(data, status, headers, config) {
+        vm.posts = data.data;
+      }
+
+      /**
+      * @name postsErrorFn
+      * @desc Show snackbar with error
+      */
+      function postsErrorFn(data, status, headers, config) {
+        alert(data.error);
+      }
+
+      function restoreSearch() {
+        var tabId = $location.hash();
+        var savedForm = $cookies.getObject('savedForm');
+        if (!jQuery.isEmptyObject(tabId))
         {
-          if(vm.posts[i].user == auth.user) vm.posts[i].owned = true;
+          // Tabs
+          $(".nav-tabs li").removeClass("active");
+          $("#" + tabId + "-tab").addClass("active");
+          // Panes
+          $(".tab-pane").removeClass("in active");
+          $("#" + tabId).addClass("in active");
         }
+        if (savedForm)
+        {
+          // Forms
+          vm.search = savedForm.search;
+          vm.title = savedForm.title;
+          vm.description = savedForm.description;
+          vm.username = savedForm.username;
+          // Actions
+          //if (searchObject.action) vm.search();
+        }
+      }
+
+      function bindEvents() {
+        // Save form on refresh
+        $rootScope.$on('login', function (event, post) {
+          $cookies.putObject('savedForm', {
+              search: vm.search,
+              title: vm.title,
+              description: vm.description,
+              username: vm.username
+            }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
+          );
+        });
       }
     }
 
-    function get(){
-      vm.posts = Thingies.get(vm.getuser);
-      updateNumPosts();
-    }
 
-    function create(){
-      // Create post
-      vm.posts = Thingies.create(vm.user, vm.title, vm.description);
-      // Update number of posts
-      updateNumPosts();
-      // Make sure to set the owned property
-      vm.posts[vm.numPosts-1].owned = true;
-      // Reset the form
-      resetForms();
-    }
+    function create() {
+      Thingies.create(vm.title, vm.description).then(createPostSuccessFn, createPostErrorFn);
 
-    function remove(id){
-      vm.posts = Thingies.remove(id);
-      updateNumPosts();
-    }
+      /**
+      * @name createPostSuccessFn
+      * @desc Show snackbar with success message
+      */
+      function createPostSuccessFn(data, status, headers, config) {
+        resetForms();
+        $route.reload();
+      }
 
-    function updateNumPosts() {
-      vm.numPosts = vm.posts.length;
+      /**
+      * @name createPostErrorFn
+      * @desc Propogate error event and show snackbar with error message
+      */
+      function createPostErrorFn(data, status, headers, config) {
+        alert('Ooops...');
+      };
     }
 
     function resetForms() {
-      vm.title = vm.description = vm.user = vm.getuser = "";
+      vm.title = vm.description = vm.username = vm.find = "";
     }
   }
 })();

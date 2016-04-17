@@ -24,18 +24,19 @@
       controller: 'LoginController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/login.html'
-    }).when('/test', {
-      controller: 'LoginController',
-      controllerAs: 'vm',
-      templateUrl: '/static/templates/authentication/login.html'
-    }).when('/me', {
-      controller: 'ProfileController',
-      controllerAs: 'vm',
-      templateUrl: '/static/templates/profiles/profile-index.html'
     }).when('/thingies', {
       controller: 'ThingiesController',
       controllerAs: 'vm',
-      templateUrl: '/static/templates/posts/thingies-index.html'
+      templateUrl: '/static/templates/posts/thingies-index.html',
+      reloadOnSearch: false
+    }).when('/:username', {
+      controller: 'ProfileController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/profiles/profile.html'
+    }).when('/:username/settings', {
+      controller: 'ProfileSettingsController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/profiles/settings.html'
     }).otherwise('/');
   }
 })();

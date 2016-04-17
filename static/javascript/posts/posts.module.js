@@ -9,7 +9,7 @@
     ]);
 
   angular
-    .module('thingy.posts.controllers', []);
+    .module('thingy.posts.controllers', ['ngRoute', 'ngCookies']);
 
   angular
     .module('thingy.posts.services', []);

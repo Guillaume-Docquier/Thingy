@@ -4,7 +4,7 @@
     <blockquote class="col-sm-9">
       <h2>{{ thingy.title }}</h2>
       <p>{{ thingy.description }}</p>
-      <footer><a href="/{{ thingy.user }}">{{ thingy.user }}</a></footer>
+      <footer><a href="/{{ thingy.author.email }}">{{ thingy.author.email || thingy.author.username }}</a></footer>
     </blockquote>
     <div class="col-sm-2 col-sm-offset-1" ng-show="thingy.owned">
       <a ng-click="vm.remove(thingy.id)">Remove your Thingy</a>

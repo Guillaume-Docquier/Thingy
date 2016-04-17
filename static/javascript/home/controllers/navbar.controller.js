@@ -28,10 +28,8 @@
     * @memberOf thingy.home.controllers.NavbarController
     */
     function activate() {
-      console.log('Activate: ' + vm.isAuthenticated);
       $scope.$on('user.authentication', function(){
         vm.isAuthenticated = Authentication.isAuthenticated();
-        console.log('Auth: ' + vm.isAuthenticated);
       });
     }
 

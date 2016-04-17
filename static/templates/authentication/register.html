@@ -3,7 +3,7 @@
 
 <!-- Prevent adding #whatever when clicking tabs -->
 <script type="text/javascript">
-  $('.nav-tabs a').on('click',function(e)
+  $('.nav-tabs a').click(function(e)
   {
     e.preventDefault();
   });
@@ -21,8 +21,8 @@
       <form role="form" ng-submit="vm.login()">
 
         <div class="form-group">
-          <label for="login__email">Email</label>
-          <input type="email" class="form-control" id="login__email" ng-model="vm.email" placeholder="E-mail" />
+          <label for="login__username">Email or username</label>
+          <input type="text" class="form-control" id="login__username" ng-model="vm.username" placeholder="E-mail or username" />
         </div>
 
         <div class="form-group">
@@ -42,8 +42,8 @@
       <form role="form" ng-submit="vm.register()">
 
         <div class="form-group">
-          <label for="register__name">Full name</label>
-          <input type="text" class="form-control" id="register__name" ng-model="vm.fullName" placeholder="ex: Guillaume Docquier" />
+          <label for="register__username">Username</label>
+          <input type="text" class="form-control" id="register__username" ng-model="vm.username" placeholder="ex: gudoc123" />
         </div>
 
         <div class="form-group">
@@ -53,7 +53,7 @@
 
         <div class="form-group">
           <label for="register__password">Password</label>
-          <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Password" />
+          <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Secret password" />
         </div>
 
         <div class="form-group">

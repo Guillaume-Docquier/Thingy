@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authentication',
-    'thingyads',
     'rest_framework',
+    'authentication',
+    'posts',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -136,3 +136,5 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+AUTH_USER_MODEL = 'authentication.Account'
