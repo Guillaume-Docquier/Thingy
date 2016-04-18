@@ -2,5 +2,3 @@
 <p>{{vm.welcome}}</p>
 
 <a href='/thingies'>Browse</a>
-
-<p>THIS IS AWESOME!</p>
