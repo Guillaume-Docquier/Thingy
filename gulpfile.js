@@ -12,8 +12,6 @@ var uglify = require('gulp-uglify');
 var autoprefix = require('gulp-autoprefixer');
 var minifyCSS = require('gulp-minify-css');
 var less = require('gulp-less');
-var runSequence = require('run-sequence');
-var del = require('del');
 
 var bases = {
   src: 'static/',
@@ -25,7 +23,8 @@ var paths = {
   libs: 'static/libs/**/*.js',
   images: 'static/images/**/*',
   html: 'static/templates/*.html',
-  less: 'static/styles/**/*.less'
+  less: 'static/styles/**/*.less',
+  styles: 'static/styles/styles.less',
 };
 
 // JS hint task
@@ -58,7 +57,7 @@ gulp.task('scripts', function(){
 });
 // Compiles LESS into auto-prefixed and minified CSS
 gulp.task('cless', function(){
-    return gulp.src(paths.less, {base:bases.src})
+    return gulp.src(paths.styles, {base:bases.src})
         .pipe(less())
         .pipe(autoprefix('last 2 versions'))
         .pipe(minifyCSS())
@@ -72,10 +71,6 @@ gulp.task('clean', function(){
 gulp.task('init', function(){
   return gulp.src([paths.scripts, paths.libs], {base:bases.src})
       .pipe(gulp.dest(bases.build));
-});
-// Builds the project
-gulp.task('build', ['clean'], function(){
-  runSequence('init', ['htmlpage', 'cless', 'imagemin']);
 });
 // Default gulp
 gulp.task('default', ['cless'], function() {
