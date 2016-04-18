@@ -29,11 +29,11 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/thingies-index.html',
       reloadOnSearch: false
-    }).when('/:username', {
+    }).when('/users/:username', {
       controller: 'ProfileController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/profile.html'
-    }).when('/:username/settings', {
+    }).when('/users/:username/settings', {
       controller: 'ProfileSettingsController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/settings.html'
