@@ -117,7 +117,7 @@
         if(vm.profile.username != vm.profile.oldUsername)
         {
           Authentication.setAuthenticatedAccount(vm.profile);
-          window.location = "/" + vm.profile.username + "/settings";
+          window.location = "/users/" + vm.profile.username + "/settings";
         }
       }
 

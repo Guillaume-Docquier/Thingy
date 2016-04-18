@@ -138,5 +138,3 @@ STATICFILES_FINDERS = (
 )
 
 AUTH_USER_MODEL = 'authentication.Account'
-
-
