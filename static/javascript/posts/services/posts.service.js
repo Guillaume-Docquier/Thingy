@@ -12,6 +12,7 @@
 
     vm.allPosts = allPosts;
     vm.allCategories = allCategories;
+    vm.allRegions = allRegions;
     vm.create = create;
     vm.get = get;
 
@@ -25,8 +26,14 @@
       return $http.get('/api/v1/categories/');
     }
 
+    // Returns all regions
+    function allRegions() {
+      return $http.get('/api/v1/regions/');
+    }
+
+    // TODO
     // Creates a new post
-    function create(title, description, price) {
+    function create(title, description, price, category, subcategory, region, subregion) {
       return $http.post('/api/v1/posts/', {
         title: title, description: description, price: price
       });

@@ -14,11 +14,15 @@
     vm.posts = [];
     vm.create = create;
     vm.categories = [];
+    vm.regions = [];
     activate();
 
     function activate() {
       Thingies.allPosts().then(postsSuccessFn, postsErrorFn);
       Thingies.allCategories().then(categoriesSuccessFn, categoriesErrorFn);
+      Thingies.allRegions().then(regionsSuccessFn, regionsErrorFn);
+
+      restoreForms();
       bindEvents();
 
       /* Prompts the user on refresh
@@ -45,10 +49,17 @@
 
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
-        restoreForms();
       }
 
       function categoriesErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
+      function regionsSuccessFn(data, status, headers, config) {
+        vm.regions = data.data;
+      }
+
+      function regionsErrorFn(data, status, headers, config) {
         alert(data.data.error);
       }
 
@@ -72,8 +83,11 @@
           vm.description = savedForm.description;
           vm.username = savedForm.username;
           vm.price = savedForm.price;
-          //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
+          // TODO
           //vm.category = JSON.parse(savedForm.category); // Working weird
+          //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
+          //vm.region = JSON.parse(savedForm.region); // Working weird
+          //vm.subregion = JSON.parse(savedForm.subregion); // Working weird
           // Actions
           //if (searchObject.action) vm.search();
         }
@@ -87,8 +101,11 @@
               title: vm.title,
               description: vm.description,
               price: vm.price,
+              // TODO
               // category: JSON.stringify(vm.category), // Working weird
               // subcategory: JSON.stringify(vm.subcategory) // Working weird
+              // category: JSON.stringify(vm.region), // Working weird
+              // subcategory: JSON.stringify(vm.subregion) // Working weird
             }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
           );
         });
@@ -97,7 +114,7 @@
 
 
     function create() {
-      Thingies.create( vm.description, vm.title, vm.price, vm.category).then(createPostSuccessFn, createPostErrorFn);
+      Thingies.create(vm.title, vm.description, vm.price, vm.category, vm.subcategory, vm.region, vm.subregion).then(createPostSuccessFn, createPostErrorFn);
 
       /**
       * @name createPostSuccessFn
@@ -113,12 +130,12 @@
       * @desc Propogate error event and show snackbar with error message
       */
       function createPostErrorFn(data, status, headers, config) {
-        alert('Ooops...');
+        alert('You need to log in first... I could open the login window instead.');
       };
     }
 
     function resetForms() {
-      vm.find = vm.title = vm.description = vm.price = vm.category = vm.subcategory = "";
+      vm.find = vm.title = vm.description = vm.price = vm.category = vm.subcategory = vm.region = vm.subregion = "";
     }
   }
 })();
