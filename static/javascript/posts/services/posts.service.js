@@ -10,13 +10,19 @@
   function Thingies($http) {
     var vm = this;
 
-    vm.all = all;
+    vm.allPosts = allPosts;
+    vm.allCategories = allCategories;
     vm.create = create;
     vm.get = get;
 
     // Returns all posts made
-    function all() {
+    function allPosts() {
       return $http.get('/api/v1/posts/');
+    }
+
+    // Returns all categories
+    function allCategories() {
+      return $hhtp.get('/api/v1/categories/');
     }
 
     // Creates a new post
