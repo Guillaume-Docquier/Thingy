@@ -13,15 +13,12 @@
     vm.isAuthenticated = Authentication.isAuthenticated();
     vm.posts = [];
     vm.create = create;
-    vm.categories = [{id:1,cname:'tools'}, {id:2,cname:'cars'}];
-
+    vm.categories = [];
     activate();
 
     function activate() {
-      restoreSearch();
       Thingies.allPosts().then(postsSuccessFn, postsErrorFn);
       Thingies.allCategories().then(categoriesSuccessFn, categoriesErrorFn);
-
       bindEvents();
 
       /* Prompts the user on refresh
@@ -48,13 +45,14 @@
 
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
+        restoreForms();
       }
 
       function categoriesErrorFn(data, status, headers, config) {
         alert(data.data.error);
       }
 
-      function restoreSearch() {
+      function restoreForms() {
         var tabId = $location.hash();
         var savedForm = $cookies.getObject('savedForm');
         if (!jQuery.isEmptyObject(tabId))
@@ -74,7 +72,8 @@
           vm.description = savedForm.description;
           vm.username = savedForm.username;
           vm.price = savedForm.price;
-          vm.categoryId = savedForm.categoryId;
+          //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
+          //vm.category = JSON.parse(savedForm.category); // Working weird
           // Actions
           //if (searchObject.action) vm.search();
         }
@@ -88,7 +87,8 @@
               title: vm.title,
               description: vm.description,
               price: vm.price,
-              categoryId: vm.categoryId
+              // category: JSON.stringify(vm.category), // Working weird
+              // subcategory: JSON.stringify(vm.subcategory) // Working weird
             }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
           );
         });
@@ -118,7 +118,7 @@
     }
 
     function resetForms() {
-      vm.title = vm.description = vm.username = vm.find = "";
+      vm.find = vm.title = vm.description = vm.price = vm.category = vm.subcategory = "";
     }
   }
 })();
