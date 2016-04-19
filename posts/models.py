@@ -7,7 +7,7 @@ class Category(models.Model):
     cname = models.CharField(max_length=50)
     
     def __unicode__(self):
-        return '{0}'.format(self.content)
+        return '{0}'.format(self.cname)
 
 class Subcategory(models.Model):
     sub_cat_name = models.CharField(max_length=50)
