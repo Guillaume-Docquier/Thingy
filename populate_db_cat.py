@@ -1,4 +1,6 @@
-import os, sys 
+# -*- coding: utf-8 -*-
+
+import os, sys
 #from thingy
 #print(settings.BASE_DIR)
 script_path = '/home/alexandergroth/Desktop/Thingy-github'
@@ -14,15 +16,15 @@ django.setup()
 from posts.models import Category, Subcategory
 
 def populate():
-	category_list = ["Fordon", "Hemmasaker", "Kladsel", "Evenemang", "Hobby", "Bocker", "ovrigt"]
+	category_list = ["Fordon", "Hemmasaker", "Klädsel", "Evenemang", "Hobby", "Böcker", "Övrigt"]
 	subcategory_list = [
-["Bilar", "Reservdelar", "Verktyg", "Cyklar", "Husvagnar", "Batar", "Motorcyklar", "Skotrar", "ovrigt"],
-["Malning", "Snickra", "Tradgardsverktyg", "Mobler","ovrigt"],
-["Finklader herr", "Finklader dam", "ovrigt"],
-["Koksutrustning", "Ljud", "Bild", "Ljus", "Mobler", "ovrigt"],
-["Sportutrustning", "Fritidsutrustning", "Instrument", "Fiske", "Leksaker", "Jakt", "ovrigt"],
-["Kurslitteratur", "Reseguider", "ovrigt"],
-["ovrigt"]
+["Bilar", "Reservdelar", "Verktyg", "Cyklar", "Husvagnar", "Båtar", "Motorcyklar", "Skotrar", "Övrigt"],
+["Målning", "Snickra", "Trädgårdsverktyg", "Möbler","Övrigt"],
+["Finkläder herr", "Finkläder dam", "Övrigt"],
+["Köksutrustning", "Ljud", "Bild", "Ljus", "Möbler", "Övrigt"],
+["Sportutrustning", "Fritidsutrustning", "Instrument", "Fiske", "Leksaker", "Jakt", "Övrigt"],
+["Kurslitteratur", "Reseguider", "Övrigt"],
+["Övrigt"]
 ]
 
 	for i in range(len(category_list)):

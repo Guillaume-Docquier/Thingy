@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os, sys
 #from django.utils.safestring import SafeUnicode 
 #from thingy
@@ -19,30 +20,31 @@ from posts.models import Region, Town
 #swedish letters is not working - need encoding
 
 def populate():
-	region_list = ['Norrbotten', "Vasterbotten", "Jamtland", " Vasternorrland", " Gavleborg", "Dalarna", "Varmland", " orebro", "Vastmanland", "Uppsala", "Stockholm", "Sodermanland", "Skaraborg", "ostergotland", "Goteborg", "alvsborg", "Jonkoping", "Kalmar", "Gotland", "Halland", "Kronoberg", "Blekinge", "Skane"]
-	town_list = [["Kiruna", "Pajala", "overtornea", "Kalix", "overkalix", "Haparanda", "Gallivare", "Jokkmokk", "Arjeplog", "Boden", "alvsbyn", "Arvidsjaur", "Pitea", "Lulea"],
-["Bjurholm", "Dorotea", "Lycksele", "Mala", "Nordmaling", "Norsjo", "Robertsfors", "Skelleftea", "Sorsele", "Storuman", "Umea", "Vilhelmina", "Vindeln", "Vannas", "asele"],
-["Berg", "Bracke", "Harjedalen", "Krokom", "Ragunda", "Stromsund", "are", "ostersund"],
-["Harnosand", "Kramfors", "Solleftea", "Sundsvall", "Timra", "ange", "ornskoldsvik"],
-["Bollnas", "Gavle", "Hofors", "Hudiksvall", "Ljusdal", "Nordanstig", "Ockelbo", "Ovanaker", "Sandviken", "Soderhamn"],
-["Avesta", "Borlange", "Falun", "Gagnef", "Hedemora", "Leksand", "Ludvika", "Malung-Salen", "Mora", "Orsa", "Rattvik", "Smedjebacken", "Sater", "Vansbro", "alvdalen"],
-["Arvika", "Eda", "Filipstad", "Forshaga", "Grums", "Hagfors", "Hammaro", "Karlstad", "Kil", "Kristinehamn", "Munkfors", "Storfors", "Sunne", "Saffle", "Torsby", "arjang"],
-["Askersund", "Degerfors", "Hallsberg", "Hallefors", "Karlskoga", "Kumla", "Laxa", "Lekeberg", "Lindesberg", "Ljusnarsberg", "Nora", "orebro"],
-["Arboga", "Fagersta", "Hallstahammar", "Kungsor", "Koping", "Norberg", "Sala", "Skinnskatteberg", "Surahammar", "Vasteras"],
-["Enkoping", "Heby", "Habo", "Knivsta", "Tierp", "Uppsala", "alvkarleby", "osthammar"],
-["Botkyrka", "Danderyd", "Ekero", "Haninge", "Huddinge", "Jarfalla", "Lidingo", "Nacka", "Norrtalje", "Nykvarn", "Nynashamn", "Salem", "Sigtuna", "Sollentuna", "Solna", "Stockholms Stad", "Sundbyberg", "Sodertalje", "Tyreso", "Taby", "Upplands Vasby", "Upplands-Bro", "Vallentuna", "Vaxholm", "Varmdo", "osterraker"],
-["Eskilstuna", "Flen", "Gnesta", "Katrineholm", "Nykoping", "Oxelosund", "Strangnas", "Trosa", "Vingaker"],
-["Essunga", "Falkoping", "Grastorp", "Gullspang", "Gotene", "Hjo", "Karlsborg", "Lidkoping", "Mariestad", "Skara", "Skovde", "Tibro", "Tidaholm", "Toreboda", "Vara"],
-["Boxholm", "Finspang", "Kinda", "Linkoping", "Mjolby", "Motala", "Norrkoping", "Soderkoping", "Vadstena", "Valdemarsvik", "Ydre", "atvidaberg", "odeshog"],
-["Goteborgs Stad", "Harryda", "Kungalv", "Lysekil", "Munkedal", "Molndal", "Orust", "Partille", "Sotenas", "Stenungsund", "Stromstad", "Tanum", "Tjorn", "Uddevalla", "ocerko"],
-["Ale", "Alingsas", "Bengtsfors", "Bollebygd", "Boras", "Dals-Ed", "Fargelanda", "Herrljunga", "Lerum", "Lilla Edet", "Mark", "Mellerud", "Svenljunga", "Tranemo", "Trollhattan", "Ulricehamn", "Vargarda", "Vanersborg", "amal"],
-["Aneby", "Eksjo", "Gislaved", "Gnosjo", "Habo", "Jonkoping", "Mullsjo", "Nassjo", "Savsjo", "Tranas", "Vaggeryd", "Vetlanda", "Varnamo"],
-["Borgholm", "Emmaboda", "Hultsfred", "Hogsby", "Kalmar", "Monsteras", "Morbylanga", "Nybro", "Oskarshamn", "Torsas", "Vimmerby", "Vastervik"],
+	region_list = ["Norrbotten", "Västerbotten", "Jämtland", "Västernorrland", "Gävleborg", "Dalarna", "Värmland", "Örebro", "Västmanland", "Uppsala", "Stockholm", "Södermanland", "Skaraborg", "Östergötland", "Göteborg", "Älvsborg", "Jönköping", "Kalmar", "Gotland", "Halland", "Kronoberg", "Blekinge", "Skåne"]
+	town_list = [
+["Kiruna", "Pajala", "Övertorneå", "Kalix", "Överkalix", "Haparanda", "Gällivare", "Jokkmokk", "Arjeplog", "Boden", "Älvsbyn", "Arvidsjaur", "Piteå", "Luleå"],
+["Bjurholm", "Dorotea", "Lycksele", "Malå", "Nordmaling", "Norsjö", "Robertsfors", "Skellefteå", "Sorsele", "Storuman", "Umeå", "Vilhelmina", "Vindeln", "Vännäs", "Åsele"],
+["Berg", "Bräcke", "Härjedalen", "Krokom", "Ragunda", "Strömsund", "Åre", "Östersund"],
+["Härnösand", "Kramfors", "Sollefteå", "Sundsvall", "Timrå", "Ånge", "Örnsköldsvik"],
+["Bollnäs", "Gävle", "Hofors", "Hudiksvall", "Ljusdal", "Nordanstig", "Ockelbo", "Ovanåker", "Sandviken", "Söderhamn"],
+["Avesta", "Borlänge", "Falun", "Gagnef", "Hedemora", "Leksand", "Ludvika", "Malung-Sälen", "Mora", "Orsa", "Rättvik", "Smedjebacken", "Säter", "Vansbro", "Älvdalen"],
+["Arvika", "Eda", "Filipstad", "Forshaga", "Grums", "Hagfors", "Hammarö", "Karlstad", "Kil", "Kristinehamn", "Munkfors", "Storfors", "Sunne", "Säffle", "Torsby", "Årjäng"],
+["Askersund", "Degerfors", "Hallsberg", "Hällefors", "Karlskoga", "Kumla", "Laxå", "Lekeberg", "Lindesberg", "Ljusnarsberg", "Nora", "Örebro"],
+["Arboga", "Fagersta", "Hallstahammar", "Kungsör", "Köping", "Norberg", "Sala", "Skinnskatteberg", "Surahammar", "Västerås"],
+["Enköping", "Heby", "Håbo", "Knivsta", "Tierp", "Uppsala", "Älvkarleby", "Östhammar"],
+["Botkyrka", "Danderyd", "Ekerö", "Haninge", "Huddinge", "Järfälla", "Lidingö", "Nacka", "Norrtälje", "Nykvarn", "Nynäshamn", "Salem", "Sigtuna", "Sollentuna", "Solna", "Stockholms Stad", "Sundbyberg", "Södertälje", "Tyresö", "Täby", "Upplands Väsby", "Upplands-Bro", "Vallentuna", "Vaxholm", "Värmdö", "Österråker"],
+["Eskilstuna", "Flen", "Gnesta", "Katrineholm", "Nyköping", "Oxelösund", "Strängnäs", "Trosa", "Vingåker"],
+["Essunga", "Falköping", "Grästorp", "Gullspång", "Götene", "Hjo", "Karlsborg", "Lidköping", "Mariestad", "Skara", "Skövde", "Tibro", "Tidaholm", "Töreboda", "Vara"],
+["Boxholm", "Finspång", "Kinda", "Linköping", "Mjölby", "Motala", "Norrköping", "Söderköping", "Vadstena", "Valdemarsvik", "Ydre", "Åtvidaberg", "Ödeshög"],
+["Göteborgs Stad", "Härryda", "Kungälv", "Lysekil", "Munkedal", "Mölndal", "Orust", "Partille", "Sotenäs", "Stenungsund", "Strömstad", "Tanum", "Tjörn", "Uddevalla", "Öcerkö"],
+["Ale", "Alingsås", "Bengtsfors", "Bollebygd", "Borås", "Dals-Ed", "Färgelanda", "Herrljunga", "Lerum", "Lilla Edet", "Mark", "Mellerud", "Svenljunga", "Tranemo", "Trollhättan", "Ulricehamn", "Vårgårda", "Vänersborg", "Åmål"],
+["Aneby", "Eksjö", "Gislaved", "Gnosjö", "Habo", "Jönköping", "Mullsjö", "Nässjö", "Sävsjö", "Tranås", "Vaggeryd", "Vetlanda", "Värnamo"],
+["Borgholm", "Emmaboda", "Hultsfred", "Högsby", "Kalmar", "Mönsterås", "Mörbylånga", "Nybro", "Oskarshamn", "Torsås", "Vimmerby", "Västervik"],
 ["Gotland"],
 ["Falkenberg", "Halmstad", "Hylte", "Kungsbacka", "Laholm", "Varberg"],
-["Alvesta", "Lessebo", "Ljungby", "Markaryd", "Tingsryd", "Uppvidinge", "Vaxjo", "almhult"],
-["Karlshamn", "Karlskrona", "Olofstrom", "Ronneby", "Solvesborg"],
-["Bastad", "Osby", "angelholm", "Klippan", "Hassleholm", "Helsingborg", "Kristianstad", "Hoor", "Horby", "Landskrona", "Eslov", "Lund", "Malmo", "Trelleborg", "Ystad", "Simrishamn"]
+["Alvesta", "Lessebo", "Ljungby", "Markaryd", "Tingsryd", "Uppvidinge", "Växjö", "Älmhult"],
+["Karlshamn", "Karlskrona", "Olofström", "Ronneby", "Sölvesborg"],
+["Båstad", "Osby", "Ängelholm", "Klippan", "Hässleholm", "Helsingborg", "Kristianstad", "Höör", "Hörby", "Landskrona", "Eslöv", "Lund", "Malmö", "Trelleborg", "Ystad", "Simrishamn"]
 ]
 
 	for i in range(len(region_list)):
