@@ -5,6 +5,7 @@ from authentication.models import Account
 
 class Category(models.Model):
     cname = models.CharField(max_length=50)
+    
     def __unicode__(self):
         return '{0}'.format(self.content)
 

@@ -1,4 +1,5 @@
-import os, sys 
+import os, sys
+#from django.utils.safestring import SafeUnicode 
 #from thingy
 #print(settings.BASE_DIR)
 script_path = '/home/alexandergroth/Desktop/Thingy-github'
@@ -10,8 +11,12 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'thingyproject.settings'
 
 import django 
 django.setup()
+#thingies
+#create
 
-from posts.models import Region, Town, Category, Subcategory
+from posts.models import Region, Town
+
+#swedish letters is not working - need encoding
 
 def populate():
 	region_list = ['Norrbotten', "Vasterbotten", "Jamtland", " Vasternorrland", " Gavleborg", "Dalarna", "Varmland", " orebro", "Vastmanland", "Uppsala", "Stockholm", "Sodermanland", "Skaraborg", "ostergotland", "Goteborg", "alvsborg", "Jonkoping", "Kalmar", "Gotland", "Halland", "Kronoberg", "Blekinge", "Skane"]

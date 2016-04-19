@@ -6,7 +6,7 @@ from django.contrib import admin
 
 from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView
-from posts.views import AccountPostsViewSet, PostViewSet
+from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet
 
 
 admin.autodiscover()
@@ -14,6 +14,8 @@ admin.autodiscover()
 router = routers.SimpleRouter()
 router.register(r'accounts', AccountViewSet)
 router.register(r'posts', PostViewSet)
+router.register(r'categories', CategoryViewSet)
+router.register(r'subcategories', SubCategoryViewSet)
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account'
@@ -24,6 +26,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include(accounts_router.urls)),
+
 
     url(r'^api/v1/auth/login/$', LoginView.as_view(), name='login'),
     url(r'^api/v1/auth/logout/$', LogoutView.as_view(), name='logout'),
