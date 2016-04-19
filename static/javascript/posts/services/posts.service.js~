@@ -28,7 +28,7 @@
     // Creates a new post
     function create(title, description, price) {
       return $http.post('/api/v1/posts/', {
-        title: title, description: description, price: price
+        title: title, description: description
       });
     }
 

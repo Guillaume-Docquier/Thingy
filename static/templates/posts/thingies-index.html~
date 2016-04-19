@@ -45,7 +45,7 @@
 
         <div class="form-group">
           <label for="thingy__category">Category</label>
-          <select class="form-control" id="thingy__category" ng-model="vm.category">
+          <select class="form-control" id="thingy__category" ng-model="vm.categoryId">
             <option ng-repeat='category in vm.categories' value="{{category.id}}">{{category.cname}}</option>
           </select>
         </div>

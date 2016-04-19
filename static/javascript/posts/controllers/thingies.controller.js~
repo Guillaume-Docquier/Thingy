@@ -105,7 +105,6 @@
       * @desc Show snackbar with success message
       */
       function createPostSuccessFn(data, status, headers, config) {
-	console.log(vm.price);
         resetForms();
         $route.reload();
       }
