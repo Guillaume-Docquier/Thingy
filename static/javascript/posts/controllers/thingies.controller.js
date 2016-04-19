@@ -22,7 +22,6 @@
       Thingies.allPosts().then(postsSuccessFn, postsErrorFn);
       Thingies.allCategories().then(categoriesSuccessFn, categoriesErrorFn);
 
-
       bindEvents();
 
       /* Prompts the user on refresh
@@ -105,7 +104,6 @@
       * @desc Show snackbar with success message
       */
       function createPostSuccessFn(data, status, headers, config) {
-	console.log(vm.price);
         resetForms();
         $route.reload();
       }
