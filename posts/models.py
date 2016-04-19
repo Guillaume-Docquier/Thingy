@@ -29,7 +29,7 @@ class Town(models.Model):
     name = models.CharField(max_length=50)
     region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True)
     def __unicode__(self):
-        return '{0}'.format(self.name)
+        return '{0}'.format(self.content)
 
 class Post(models.Model):
     author = models.ForeignKey(Account)

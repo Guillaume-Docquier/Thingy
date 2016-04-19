@@ -6,7 +6,7 @@ from django.contrib import admin
 
 from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView
-from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet
+from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, RegionViewSet
 
 
 admin.autodiscover()
@@ -16,6 +16,8 @@ router.register(r'accounts', AccountViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubCategoryViewSet)
+router.register(r'regions', RegionViewSet)
+
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account'

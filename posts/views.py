@@ -4,9 +4,9 @@ from rest_framework.response import Response
 from itertools import groupby
 from django.http import JsonResponse
 
-from posts.models import Post, Category, Subcategory
+from posts.models import Post, Category, Subcategory, Region, Town
 from posts.permissions import IsAuthorOfPost
-from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer
+from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, RegionSerializer, TownSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -55,5 +55,32 @@ class SubCategoryViewSet(viewsets.ViewSet):
 
     def list(self, request):
         queryset = Subcategory.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+class RegionViewSet(viewsets.ViewSet):
+    queryset = Region.objects.all()
+    serializer_class = RegionSerializer
+
+    def list(self, request):
+        towns = Town.objects.order_by(
+            'region__name', 'name').values(
+            'id', 'name', 'region__id', 'region__name')
+        regions = [
+            {
+                'rid': c[0],
+                'name': c[1],
+                'towns': [{'id': vv['id'], 'name': vv['name']} for vv in v]
+            } for c, v in groupby(towns, key=lambda s: (s['region__id'], s['region__name']))
+        ]
+        return Response(regions)
+
+
+class TownViewSet(viewsets.ViewSet):
+    queryset = Town.objects.all()
+    serializer_class = TownSerializer
+
+    def list(self, request):
+        queryset = Town.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
