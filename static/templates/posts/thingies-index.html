@@ -36,8 +36,18 @@
         </div>
 
         <div class="form-group">
-          <label for="thingy__user">Username</label>
-          <input type="text" class="form-control" id="thingy__user" ng-model="vm.username" placeholder="ex: John Doe" />
+          <label for="thingy__price">Price per day</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="thingy__price" ng-model="vm.price" placeholder="50">
+            <span class="input-group-addon">SEK</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="thingy__category">Category</label>
+          <select class="form-control" id="thingy__category" ng-model="vm.categoryId">
+            <option ng-repeat='category in vm.categories' value="{{category.id}}">{{category.cname}}</option>
+          </select>
         </div>
 
         <div class="form-group">

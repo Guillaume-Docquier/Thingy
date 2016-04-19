@@ -13,13 +13,15 @@
     vm.isAuthenticated = Authentication.isAuthenticated();
     vm.posts = [];
     vm.create = create;
+    vm.categories = [{id:1,cname:'tools'}, {id:2,cname:'cars'}];
 
     activate();
 
     function activate() {
       restoreSearch();
+      Thingies.allPosts().then(postsSuccessFn, postsErrorFn);
+      Thingies.allCategories().then(categoriesSuccessFn, categoriesErrorFn);
 
-      Thingies.all().then(postsSuccessFn, postsErrorFn);
 
       bindEvents();
 
@@ -45,6 +47,14 @@
         alert(data.error);
       }
 
+      function categoriesSuccessFn(data, status, headers, config) {
+        vm.categories = data.data;
+      }
+
+      function categoriesErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
       function restoreSearch() {
         var tabId = $location.hash();
         var savedForm = $cookies.getObject('savedForm');
@@ -64,6 +74,8 @@
           vm.title = savedForm.title;
           vm.description = savedForm.description;
           vm.username = savedForm.username;
+          vm.price = savedForm.price;
+          vm.categoryId = savedForm.categoryId;
           // Actions
           //if (searchObject.action) vm.search();
         }
@@ -76,7 +88,8 @@
               search: vm.search,
               title: vm.title,
               description: vm.description,
-              username: vm.username
+              price: vm.price,
+              categoryId: vm.categoryId
             }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
           );
         });
@@ -85,7 +98,7 @@
 
 
     function create() {
-      Thingies.create(vm.title, vm.description).then(createPostSuccessFn, createPostErrorFn);
+      Thingies.create(vm.title, vm.description, vm.price, vm.categoryId).then(createPostSuccessFn, createPostErrorFn);
 
       /**
       * @name createPostSuccessFn
