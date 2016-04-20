@@ -43,11 +43,32 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="thingy__category">Category</label>
-          <select class="form-control" id="thingy__category" ng-model="vm.category">
-            <option ng-repeat='category in vm.categories' value="{{category.id}}">{{category.cname}}</option>
-          </select>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label for="thingy__category">Category</label>
+            <select class="form-control" id="thingy__category" ng-model="vm.category" ng-options="category.cname for category in vm.categories">
+              <option value="" disabled>- Required -</option>
+            </select>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="thingy__subcategory">Sub-Category</label>
+            <select class="form-control" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
+              <option value="" disabled>- Required -</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label for="thingy__region">Region</label>
+            <select class="form-control" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
+            </select>
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="thingy__subregion">Town</label>
+            <select class="form-control" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
