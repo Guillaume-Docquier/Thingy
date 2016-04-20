@@ -4,9 +4,10 @@ from rest_framework.response import Response
 from itertools import groupby
 from django.http import JsonResponse
 
-from posts.models import Post, Category, Subcategory, Region, Town
+from posts.models import Post, Category, Subcategory, Region, Town, PostComment, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
-from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, RegionSerializer, TownSerializer
+from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, \
+    RegionSerializer, TownSerializer,PostReviewSerializer, PostCommentSerializer, ConditionSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -82,5 +83,33 @@ class TownViewSet(viewsets.ViewSet):
 
     def list(self, request):
         queryset = Town.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
+class PostReviewViewSet(viewsets.ViewSet):
+    queryset = PostReview.objects.all()
+    serializer_class = PostReviewSerializer
+
+    def list(self, request):
+        queryset = PostReview.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+class PostCommentViewSet(viewsets.ViewSet):
+    queryset = PostComment.objects.all()
+    serializer_class = PostCommentSerializer
+
+    def list(self, request, pk):
+        queryset = PostComment.objects.all().filter(postID=pk)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+class ConditionViewSet(viewsets.ViewSet):
+    queryset = Condition.objects.all()
+    serializer_class = ConditionSerializer
+
+    def list(self, request):
+        queryset = Condition.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)

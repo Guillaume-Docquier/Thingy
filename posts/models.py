@@ -13,10 +13,11 @@ class Subcategory(models.Model):
     sub_cat_name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)	
     def __unicode__(self):
-	return '{0}'.format(self.content)
+	    return '{0}'.format(self.content)
 
 class Condition(models.Model):
     cond_desc = models.CharField(max_length=50)
+    cond_grade = models.IntegerField(default=0)
     def __unicode__(self):
         return '{0}'.format(self.cond_desc)
 
@@ -46,15 +47,15 @@ class Post(models.Model):
     def __unicode__(self):
         return '{0}'.format(self.content)
 
-class PostRating(models.Model):
-    postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    avg_rating = models.IntegerField(default=0)
-    nr_of_ratings = models.IntegerField(default=0)
+class PostReview(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    rating = models.IntegerField(default=0)
+    comment = models.CharField(max_length=500)
     def __unicode__(self):
         return '{0}'.format(self.content)
 
-class PostComments(models.Model):
-    postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+class PostComment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     comment_title = models.CharField(max_length=50)
     comment_txt = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
