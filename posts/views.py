@@ -4,10 +4,10 @@ from rest_framework.response import Response
 from itertools import groupby
 from django.http import JsonResponse
 
-from posts.models import Post, Category, Subcategory, Region, Town, PostComment, PostReview, Condition
+from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, \
-    RegionSerializer, TownSerializer,PostReviewSerializer, PostCommentSerializer, ConditionSerializer
+    RegionSerializer, TownSerializer,PostReviewSerializer, ConditionSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -22,6 +22,22 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(PostViewSet, self).perform_create(serializer)
+
+    # def list(self, request):
+    #     postreviews = PostReview.objects.order_by(
+    #         'post__created_at', 'id').values(
+    #         'id', 'rating', 'post__id', 'post__title')
+    #     posts = [
+    #         {
+    #             'sid': c[0],
+    #             'title': c[1],
+    #             'postreviews': [{'id': vv['id'], 'title': vv['id']} for vv in v]
+    #         } for c, v in groupby(postreviews, key=lambda s: (s['post__id'], s['post__title']))
+    #     ]
+    #     return Response(postreviews)
+
+
+
 
 class AccountPostsViewSet(viewsets.ViewSet):
     queryset = Post.objects.select_related('author').all()
@@ -96,14 +112,7 @@ class PostReviewViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
-class PostCommentViewSet(viewsets.ViewSet):
-    queryset = PostComment.objects.all()
-    serializer_class = PostCommentSerializer
 
-    def list(self, request, pk):
-        queryset = PostComment.objects.all().filter(postID=pk)
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
 
 class ConditionViewSet(viewsets.ViewSet):
     queryset = Condition.objects.all()

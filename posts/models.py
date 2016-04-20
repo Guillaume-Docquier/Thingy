@@ -51,15 +51,16 @@ class PostReview(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     rating = models.IntegerField(default=0)
     comment = models.CharField(max_length=500)
+    reviewauthor = models.ForeignKey(Account, null=True)
     def __unicode__(self):
         return '{0}'.format(self.content)
 
-class PostComment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    comment_title = models.CharField(max_length=50)
-    comment_txt = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+#TA bort - Andre gav bra argument
+class UserReview(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
+    grade_of_description_of_item = models.IntegerField(default=0)
+    grade_of_communication = models.IntegerField(default=0)
+    comment = models.CharField(max_length=500, blank=True)
     def __unicode__(self):
         return '{0}'.format(self.content)
-

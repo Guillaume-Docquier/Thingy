@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from authentication.serializers import AccountSerializer
-from posts.models import Post, Category, Subcategory, Region, Town, PostComment, PostReview, Condition
+from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -71,22 +71,17 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostReviewSerializer(serializers.ModelSerializer):
-    #author = AccountSerializer(read_only=True, required=False)
+    reviewauthor = AccountSerializer(read_only=True, required=False)
     post = PostSerializer(read_only=True, required=False)
 
     class Meta:
         model = PostReview
-        fields = ('id', 'rating', 'comment', 'post')
+        fields = ('id', 'rating', 'comment', 'post', 'reviewauthor')
         read_only_fields = ('id')
 
+    def get_validation_exclusions(self, *args, **kwargs):
+        exclusions = super(PostReviewSerializer, self).get_validation_exclusions()
 
+        return exclusions + ['author']
 
-class PostCommentSerializer(serializers.ModelSerializer):
-    #author = AccountSerializer(read_only=True, required=False)
-    post = PostSerializer(read_only=True, required=False)
-
-    class Meta:
-        model = PostComment
-        fields = ('id', 'comment_title', 'comment_txt', 'created_at', 'updated_at', 'post')
-        read_only_fields = ('id')
 
