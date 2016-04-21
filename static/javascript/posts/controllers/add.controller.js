@@ -1,51 +1,39 @@
-(function(){
+(function (){
   'use strict'
 
   angular
     .module('thingy.posts.controllers')
-    .controller('ThingiesController', ThingiesController);
+    .controller('AddController', AddController);
 
-  ThingiesController.$inject = ['$rootScope', '$scope', 'Authentication', 'Thingies', '$route', '$cookies', '$location'];
+  AddController.$inject = ['$rootScope', '$scope', 'Authentication', '$route', '$cookies', '$location', 'Posts'];
 
-  function ThingiesController($rootScope, $scope, Authentication, Thingies, $route, $cookies, $location) {
+  function AddController($rootScope, $scope, Authentication, $route, $cookies, $location, Posts) {
     var vm = this;
 
-    vm.isAuthenticated = Authentication.isAuthenticated();
-    vm.posts = [];
-    vm.create = create;
+    // Functions and Data
+    vm.add = add;
     vm.categories = [];
     vm.regions = [];
+    vm.conditions = [];
+
+    // Bindings
+    vm.title;
+    vm.description;
+    vm.price;
+    vm.condition;
+    vm.category;
+    vm.subcategory;
+    vm.region;
+    vm.subregion;
+
     activate();
 
     function activate() {
-      Thingies.allPosts().then(postsSuccessFn, postsErrorFn);
-      Thingies.allCategories().then(categoriesSuccessFn, categoriesErrorFn);
-      Thingies.allRegions().then(regionsSuccessFn, regionsErrorFn);
+      Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
+      Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
+      Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
       restoreForms();
-      bindEvents();
-
-      /* Prompts the user on refresh
-      window.onbeforeunload = function (e) {
-        console.log("Refresh");
-        return "Are you sure?";
-      };*/
-
-      /**
-      * @name postsSuccessFn
-      * @desc Update posts array on view
-      */
-      function postsSuccessFn(data, status, headers, config) {
-        vm.posts = data.data;
-      }
-
-      /**
-      * @name postsErrorFn
-      * @desc Show snackbar with error
-      */
-      function postsErrorFn(data, status, headers, config) {
-        alert(data.error);
-      }
 
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
@@ -63,26 +51,23 @@
         alert(data.data.error);
       }
 
+      function conditionsSuccessFn(data, status, headers, config) {
+        vm.conditions = data.data;
+      }
+
+      function conditionsErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
       function restoreForms() {
-        var tabId = $location.hash();
         var savedForm = $cookies.getObject('savedForm');
-        if (!jQuery.isEmptyObject(tabId))
-        {
-          // Tabs
-          $(".nav-tabs li").removeClass("active");
-          $("#" + tabId + "-tab").addClass("active");
-          // Panes
-          $(".tab-pane").removeClass("in active");
-          $("#" + tabId).addClass("in active");
-        }
         if (savedForm)
         {
           // Forms
-          vm.search = savedForm.search;
           vm.title = savedForm.title;
           vm.description = savedForm.description;
-          vm.username = savedForm.username;
           vm.price = savedForm.price;
+          vm.condition = savedForm.condition;
           // TODO
           //vm.category = JSON.parse(savedForm.category); // Working weird
           //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
@@ -97,10 +82,10 @@
         // Save form on refresh
         $rootScope.$on('login', function (event, post) {
           $cookies.putObject('savedForm', {
-              search: vm.search,
               title: vm.title,
               description: vm.description,
               price: vm.price,
+              condition: vm.condition,
               // TODO
               // category: JSON.stringify(vm.category), // Working weird
               // subcategory: JSON.stringify(vm.subcategory) // Working weird
@@ -112,15 +97,23 @@
       }
     }
 
-
-    function create() {
-      Thingies.create(vm.title, vm.description, vm.price, vm.category, vm.subcategory, vm.region, vm.subregion).then(createPostSuccessFn, createPostErrorFn);
+    function add() {
+      if (Authentication.isAuthenticated())
+        Posts.add(
+          vm.title,
+          vm.description,
+          vm.price,
+          vm.condition.id,
+          vm.subcategory.id,
+          vm.subregion.id
+        ).then(addPostSuccessFn, addPostErrorFn);
+      else alert('You need to log in first');
 
       /**
       * @name createPostSuccessFn
       * @desc Show snackbar with success message
       */
-      function createPostSuccessFn(data, status, headers, config) {
+      function addPostSuccessFn(data, status, headers, config) {
         resetForms();
         $route.reload();
       }
@@ -129,13 +122,20 @@
       * @name createPostErrorFn
       * @desc Propogate error event and show snackbar with error message
       */
-      function createPostErrorFn(data, status, headers, config) {
-        alert('You need to log in first... I could open the login window instead.');
+      function addPostErrorFn(data, status, headers, config) {
+        alert('Something went wrong, check the console.');
       };
     }
 
     function resetForms() {
-      vm.find = vm.title = vm.description = vm.price = vm.category = vm.subcategory = vm.region = vm.subregion = "";
+      vm.title =
+      vm.description =
+      vm.price =
+      vm.category =
+      vm.subcategory =
+      vm.region =
+      vm.subregion =
+      "";
     }
   }
 })();

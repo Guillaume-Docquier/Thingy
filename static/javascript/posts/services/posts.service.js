@@ -3,45 +3,62 @@
 
   angular
     .module('thingy.posts.services')
-    .service('Thingies', Thingies);
+    .service('Posts', Posts);
 
-  Thingies.$inject = ['$http'];
+  Posts.$inject = ['$http'];
 
-  function Thingies($http) {
+  function Posts($http) {
     var vm = this;
 
-    vm.allPosts = allPosts;
-    vm.allCategories = allCategories;
-    vm.allRegions = allRegions;
-    vm.create = create;
-    vm.get = get;
+    vm.getAllPosts = getAllPosts;
+    vm.getAllCategories = getAllCategories;
+    vm.getAllRegions = getAllRegions;
+    vm.getAllConditions = getAllConditions;
+    vm.add = add;
+    vm.getUserPosts = getUserPosts;
+    vm.search = search;
 
     // Returns all posts made
-    function allPosts() {
+    function getAllPosts() {
       return $http.get('/api/v1/posts/');
     }
 
     // Returns all categories
-    function allCategories() {
+    function getAllCategories() {
       return $http.get('/api/v1/categories/');
     }
 
     // Returns all regions
-    function allRegions() {
+    function getAllRegions() {
       return $http.get('/api/v1/regions/');
     }
 
-    // TODO
-    // Creates a new post
-    function create(title, description, price, category, subcategory, region, subregion) {
+    // Returns all regions
+    function getAllConditions() {
+      return $http.get('/api/v1/conditions/');
+    }
+
+    // Adds a new post
+    function add(title, description, price, conditionId, subcategoryId, subregionId) {
       return $http.post('/api/v1/posts/', {
-        title: title, description: description, price: price
+        title: title,
+        description: description,
+        price: price,
+        condition: conditionId,
+        subcategory: subcategoryId,
+        location: subregionId
       });
     }
 
     // Gets posts made by a user
-    function get(username) {
+    function getUserPosts(username) {
       return $http.get('/api/v1/accounts/' + username + '/posts/');
+    }
+
+    // TODO
+    // Searches for Thingies in the db
+    function search() {
+      return $http.get();
     }
   }
 })();

@@ -21,14 +21,14 @@
     })
     // Thingy search
     .when('/thingies/search', {
-      controller: 'ThingiesController',
+      controller: 'SearchController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/search.html',
       reloadOnSearch: false
     })
     // Thingy add
     .when('/thingies/add', {
-      controller: 'ThingiesController',
+      controller: 'AddController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/add.html',
     })
@@ -46,20 +46,20 @@
     })
     // User Thingies
     .when('/users/:username/thingies', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/thingies.html'
     })
     // User rents
     .when('/users/:username/rents', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/rents.html'
     })
     // User reviews
     .when('/users/:username/reviews', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/reviews.html'
     }).otherwise('/');
   }

@@ -41,6 +41,18 @@
     <p>
       <form role="form" ng-submit="vm.register()">
 
+        <div class='row'>
+          <div class="form-group col-xs-6">
+            <label for="register__fname">First name</label>
+            <input type="text" class="form-control" id="register__fname" ng-model="vm.firstName" placeholder="ex: John" />
+          </div>
+
+          <div class="form-group col-xs-6">
+            <label for="register__lname">Last name</label>
+            <input type="text" class="form-control" id="register__lname" ng-model="vm.lastName" placeholder="ex: Doe" />
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="register__username">Username</label>
           <input type="text" class="form-control" id="register__username" ng-model="vm.username" placeholder="ex: gudoc123" />
