@@ -50,6 +50,7 @@
       }
 
       function restoreForms() {
+        var savedForm = $cookies.getObject('savedForm');
         if (savedForm)
         {
           // Forms
