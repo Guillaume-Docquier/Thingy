@@ -2,4 +2,8 @@
 
 @import './variables.less';
 @import './mixins.less';
-
+@import './header.less';
+@import './navbar.less';
+@import './home.less';
+@import './add.less';
+@import './general.less';
