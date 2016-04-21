@@ -13,6 +13,7 @@
     vm.getAllPosts = getAllPosts;
     vm.getAllCategories = getAllCategories;
     vm.getAllRegions = getAllRegions;
+    vm.getAllConditions = getAllConditions;
     vm.add = add;
     vm.getUserPosts = getUserPosts;
     vm.search = search;
@@ -30,6 +31,11 @@
     // Returns all regions
     function getAllRegions() {
       return $http.get('/api/v1/regions/');
+    }
+
+    // Returns all regions
+    function getAllConditions() {
+      return $http.get('/api/v1/conditions/');
     }
 
     // Adds a new post

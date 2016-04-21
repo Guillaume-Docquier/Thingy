@@ -14,6 +14,7 @@
     vm.add = add;
     vm.categories = [];
     vm.regions = [];
+    vm.conditions = [];
 
     // Bindings
     vm.title;
@@ -30,6 +31,7 @@
     function activate() {
       Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
+      Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
       restoreForms();
 
@@ -46,6 +48,14 @@
       }
 
       function regionsErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
+      function conditionsSuccessFn(data, status, headers, config) {
+        vm.conditions = data.data;
+      }
+
+      function conditionsErrorFn(data, status, headers, config) {
         alert(data.data.error);
       }
 
