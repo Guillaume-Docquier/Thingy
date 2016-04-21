@@ -2,7 +2,11 @@ from django.contrib.auth import update_session_auth_hash
 
 from rest_framework import serializers
 
+#from posts.serializers import PostSerializer
+
 from authentication.models import Account
+#from posts.models import Post
+
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -35,3 +39,11 @@ class AccountSerializer(serializers.ModelSerializer):
             update_session_auth_hash(self.context.get('request'), instance)
 
             return instance
+
+class AuthorPostSerializer(serializers.ModelSerializer):
+      posts = serializers.StringRelatedField(many=True)
+
+      class Meta:
+          model = Account
+          fields = ('id', 'username', 'posts')
+

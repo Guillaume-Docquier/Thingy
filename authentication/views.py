@@ -9,7 +9,35 @@ from rest_framework.response import Response
 
 from authentication.models import Account
 from authentication.permissions import IsAccountOwner
-from authentication.serializers import AccountSerializer
+from authentication.serializers import AccountSerializer, AuthorPostSerializer
+
+class AuthorPostsViewSet(viewsets.ViewSet):
+    queryset = Account.objects.all()
+    serializer_class = AuthorPostSerializer
+
+    def list(self, request,account_username=None):
+        queryset = Account.objects.all()
+
+#        queryset = self.queryset.filter(author__username=account_username)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self):
+        queryset = Account.objects.self()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
+class AuthorPostsViewSetDetail(viewsets.ViewSet):
+    queryset = Account.objects.all()
+    serializer_class = AuthorPostSerializer
+
+    def list(self, request):
+        queryset = Account.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
 
 
 class AccountViewSet(viewsets.ModelViewSet):

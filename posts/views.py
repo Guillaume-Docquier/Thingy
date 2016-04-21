@@ -1,18 +1,33 @@
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
+from rest_framework.filters import SearchFilter
 
 from itertools import groupby
 from django.http import JsonResponse
 
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
-from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, \
+from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
     RegionSerializer, TownSerializer,PostReviewSerializer, ConditionSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
+    filter_backends = (SearchFilter,)
+    search_fields = ('title', 'description', 'author__username', 'location__region__name', 'subcategory__category__cname')
+
+    def get_queryset(self):
+        queryset = Post.objects.order_by('-created_at')
+        if 'category' in self.request.query_params:
+            queryset = queryset.filter(subcategory__category=self.request.query_params['category'])
+        author = self.request.query_params.get('author', None)
+        if author is not None:
+            queryset = queryset.filter(author=author)
+        return queryset
+
+    def get_serializer_class(self):
+        return PostWithReviews if self.action == 'retrieve' else PostSerializer
 
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
@@ -35,8 +50,6 @@ class PostViewSet(viewsets.ModelViewSet):
     #         } for c, v in groupby(postreviews, key=lambda s: (s['post__id'], s['post__title']))
     #     ]
     #     return Response(postreviews)
-
-
 
 
 class AccountPostsViewSet(viewsets.ViewSet):
@@ -122,3 +135,4 @@ class ConditionViewSet(viewsets.ViewSet):
         queryset = Condition.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
