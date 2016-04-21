@@ -123,7 +123,7 @@
       * @desc Propogate error event and show snackbar with error message
       */
       function addPostErrorFn(data, status, headers, config) {
-        alert('You need to log in first... I could open the login window instead.');
+        alert('Something went wrong, check the console.');
       };
     }
 
