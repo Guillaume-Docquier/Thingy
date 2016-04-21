@@ -1,0 +1,31 @@
+
+#logo {
+  height: 3vh;
+  width:3vw;
+  display: block;
+  margin: 3vh auto 3vh auto;
+  
+	@ screen-tablet {
+		height: 10vh;
+		margin: 3vh auto 3vh auto;
+	}
+ }
+
+.navbar {
+  margin:0 0 0 0;
+}
+
+#dropdownmenu{ 
+min-width: 10em;
+
+}
+
+#dropdownmenu{
+  margin: 0;
+}
+
+#userButton {
+  background-color: green;
+  margin:1.4em 8em 1em 1em;
+}
+
