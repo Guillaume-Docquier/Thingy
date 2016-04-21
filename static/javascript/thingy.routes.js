@@ -21,15 +21,15 @@
     })
     // Thingy search
     .when('/thingies/search', {
-      //controller: 'ThingiesController',
-      //controllerAs: 'vm',
+      controller: 'SearchController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/posts/search.html',
       reloadOnSearch: false
     })
     // Thingy add
     .when('/thingies/add', {
-      //controller: 'ThingiesController',
-      //controllerAs: 'vm',
+      controller: 'AddController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/posts/add.html',
     })
     // User profile

@@ -31,7 +31,7 @@
         vm.setAuthenticatedAccount(data.data);
         // Allows pages to save data before refresh
         $rootScope.$broadcast('login');
-        // Soft refresh
+        // Refresh
         location.reload();
       }
 
@@ -44,10 +44,12 @@
       }
     }
 
-    function register(username, email, password) {
+    function register(username, email, firstName, lastName, password) {
       return $http.post('/api/v1/accounts/', {
         username: username,
         email: email,
+        first_name: firstName,
+        last_name: lastName,
         password: password
       }).then(registerSuccessFn, registerErrorFn);
 
@@ -64,7 +66,7 @@
       * @desc Log "Epic failure!" to the console
       */
       function registerErrorFn(data, status, headers, config) {
-        console.error('Epic failure!');
+        console.error('Register failed...');
       }
     }
 
@@ -86,7 +88,7 @@
        * @desc Log "Epic failure!" to the console
        */
       function logoutErrorFn(data, status, headers, config) {
-        console.error('Epic failure!');
+        console.error('Logout failed...');
       }
     }
 
