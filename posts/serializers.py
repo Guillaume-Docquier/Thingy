@@ -68,6 +68,20 @@ class PostSerializer(serializers.ModelSerializer):
         return exclusions + ['author']
 
 
+class SimplePostReviewSerializer(serializers.ModelSerializer):
+    reviewauthor = AccountSerializer(read_only=True, required=False)
+
+    class Meta:
+        model = PostReview
+        fields = ('id', 'rating', 'reviewauthor')
+
+
+class PostWithReviews(PostSerializer):
+    reviews = SimplePostReviewSerializer(read_only=True, required=False, many=True)
+
+    class Meta(PostSerializer.Meta):
+        fields = ('id', 'author', 'title', 'description', 'price',
+                  'condition', 'location', 'created_at', 'subcategory', 'updated_at', 'reviews')
 
 
 class PostReviewSerializer(serializers.ModelSerializer):
@@ -76,12 +90,11 @@ class PostReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostReview
-        fields = ('id', 'rating', 'comment', 'post', 'reviewauthor')
+        fields = ('id', 'rating', 'post', 'reviewauthor')
         read_only_fields = ('id')
 
     def get_validation_exclusions(self, *args, **kwargs):
         exclusions = super(PostReviewSerializer, self).get_validation_exclusions()
 
         return exclusions + ['author']
-
 

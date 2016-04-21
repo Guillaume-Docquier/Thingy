@@ -7,24 +7,24 @@ class Category(models.Model):
     cname = models.CharField(max_length=50)
     
     def __unicode__(self):
-        return '{0}'.format(self.cname)
+        return self.cname
 
 class Subcategory(models.Model):
     sub_cat_name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)	
     def __unicode__(self):
-	    return '{0}'.format(self.content)
+	    return self.content
 
 class Condition(models.Model):
     cond_desc = models.CharField(max_length=50)
     cond_grade = models.IntegerField(default=0)
     def __unicode__(self):
-        return '{0}'.format(self.cond_desc)
+        return self.cond_desc
 
 class Region(models.Model):
     name = models.CharField(max_length=50)
     def __unicode__(self):
-        return '{0}'.format(self.name)
+        return self.name
 
 class Town(models.Model):
     name = models.CharField(max_length=50)
@@ -33,7 +33,7 @@ class Town(models.Model):
         return '{0}'.format(self.content)
 
 class Post(models.Model):
-    author = models.ForeignKey(Account)
+    author = models.ForeignKey(Account, related_name='posts')
     #category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null=True)
@@ -44,8 +44,13 @@ class Post(models.Model):
     description = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
-        return '{0}'.format(self.content)
+        return self.title
+
+    # @property
+    def reviews(self):
+        return self.postreview_set.all()
 
 class PostReview(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
@@ -53,7 +58,7 @@ class PostReview(models.Model):
     comment = models.CharField(max_length=500)
     reviewauthor = models.ForeignKey(Account, null=True)
     def __unicode__(self):
-        return '{0}'.format(self.content)
+        return u'%s (%d)' % (self.post, self.id)
 
 
 #TA bort - Andre gav bra argument
