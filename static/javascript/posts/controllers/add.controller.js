@@ -88,7 +88,7 @@
     }
 
     function add() {
-      if (authentication.isAuthenticated())
+      if (Authentication.isAuthenticated())
         Posts.add(
           vm.title,
           vm.description,

@@ -46,20 +46,20 @@
     })
     // User Thingies
     .when('/users/:username/thingies', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/thingies.html'
     })
     // User rents
     .when('/users/:username/rents', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/rents.html'
     })
     // User reviews
     .when('/users/:username/reviews', {
-      //controller: 'ProfileController',
-      //controllerAs: 'vm',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/reviews.html'
     }).otherwise('/');
   }
