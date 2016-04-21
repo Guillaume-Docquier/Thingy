@@ -5,13 +5,13 @@
     .module('thingy.posts.controllers')
     .controller('AddController', AddController);
 
-  AddController.$inject = ['$rootScope', '$scope', 'Authentication', '$route', '$cookies', '$location'];
+  AddController.$inject = ['$rootScope', '$scope', 'Authentication', '$route', '$cookies', '$location', 'Posts'];
 
-  function AddController() {
+  function AddController($rootScope, $scope, Authentication, $route, $cookies, $location, Posts) {
     var vm = this;
 
     // Functions and Data
-    vm.create = create;
+    vm.add = add;
     vm.categories = [];
     vm.regions = [];
 
