@@ -6,7 +6,7 @@
           <label for="thingy__title">Title</label>
           <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" placeholder="Awesome title" />
         </div>
-        
+
           <div class="form-group">
             <label for="thingy__category">Category</label>
             <select class="form-control" id="thingy__category" ng-model="vm.category" ng-options="category.cname for category in vm.categories">
@@ -19,19 +19,19 @@
               <option value="">- Required -</option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label for="thingy__region">Region</label>
             <select class="form-control" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
             </select>
           </div>
-          
+
 		  <div class="form-group">
             <label for="thingy__subregion">Town</label>
             <select class="form-control" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
             </select>
           </div>
-		   
+
         <div class="form-group">
           <label for="thingy__price">Price per day</label>
           <div class="input-group">
@@ -40,41 +40,30 @@
           </div>
         </div>
 
-		 <!-- TODOJS -->
-          <div class="form-group">
-			<div class="dropdown">
-				<label for="thingy__condition">Condition</label>
-				  <button id="conditiondropdown" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-				  <span class="caret"></span></button>
-				  <ul class="dropdown-menu">
-					<li><a href="#"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									 <span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									 <span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-				  </ul>
-			</div>
-          </div>
+		 <div class="form-group">
+			 <label for="thingy__condition">Condition</label>
+			 <select class="form-control" id="thingy__condition" ng-model="vm.condition" ng-options="condition.cond_desc for condition in vm.conditions">
+				 <option value="">- Required -</option>
+			 </select>
+		 </div>
 
         <div class="form-group">
           <label for="thingy__description">Description</label>
           <input type="text" class="form-control" id="thingy__description" ng-model="vm.description" placeholder="Description of your Thingy" />
         </div>
-        
+
         <div class="form-group">
 			<label class="control-label"><span class="glyphicon glyphicon-camera"></span> Upload picture</label>
 			<input type="file" class="file" id="thingy__picture" placeholder="Select file"></input>
-			
+
         </div>
 
         <div class="form-group">
           <button type="submit" class="btn btn-default">Add my Thingy</button>
         </div>
       </form>
-  
+
   <h1 ng-cloak>Such wow! There are {{vm.posts.length}} Thingies for rent!</h1>
 	<div ng-repeat='thingy in vm.posts'>
 		<post thingy="thingy"></post>
 	</div>
-
