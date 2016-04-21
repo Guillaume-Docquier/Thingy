@@ -7,7 +7,7 @@
 
   SearchController.$inject = ['$rootScope', '$scope', 'Posts', '$route', '$cookies', '$location'];
 
-  function SearchController($rootScope, $scope, Authentication, Posts, $route, $cookies, $location) {
+  function SearchController($rootScope, $scope, Posts, $route, $cookies, $location) {
     var vm = this;
 
     // Function and Data
@@ -41,7 +41,8 @@
 
     // TODO
     function search() {
-      Posts.search(vm.searchTerm);
+      alert('Ooops, you got me! This is not ready yet.');
+      //Posts.search(vm.searchTerm);
     }
   }
 })();
