@@ -2,10 +2,10 @@
   <div class="container-fluid">
 	  <div class="row">
 		  
-		 <div class="col-xs-3 col-md-4">		
-					<button id="userbutton" type="button" class="btn btn-xs">
-					<span class="glyphicon glyphicon-user"></span>User	
-					</button>
+		 <div class="col-xs-3 col-md-4">
+				<div class="visible-xs">
+					<a id = "usericon" href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a>	
+				</div>
 		</div> <!-- /col-xs-4-->
 		  
 		
@@ -25,10 +25,9 @@
 			<div id= "dropdownmenu" class ="collapse navbar-collapse navHeaderCollapse">			
 				 <ul class="nav navbar-nav navbar-right">
 					{% if user.is_authenticated %}
-					  <li><a href="/users/{{ user.username }}">{{ user.username }}</a></li>
+					  <li><a href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
 					  <li><a href="/users/{{ user.username }}/settings">Settings</a></li>
 					  <li><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>
-					  <li><a href ="#">My Profile</a></li>
 					  <li><a href ='/thingies/search'>Search Thingy</a></li>
 					  <li><a href ='/thingies/add'>Add Thingy</a></li>
 					  
@@ -40,7 +39,6 @@
 						ng-dialog="/static/templates/authentication/register.html"
 						ng-dialog-controller="LoginRegisterController as vm">Register</a></li>
 						
-					  <li><a href ="#">My Profile</a></li>
 					  <li><a href ='/thingies/search'>Search Thingy</a></li>
 
 					{% endif %}
