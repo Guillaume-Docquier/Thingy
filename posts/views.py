@@ -15,12 +15,25 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
     filter_backends = (SearchFilter,)
-    search_fields = ('title', 'description', 'author__username', 'location__region__name', 'subcategory__category__cname')
+    search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
     def get_queryset(self):
         queryset = Post.objects.order_by('-created_at')
         if 'category' in self.request.query_params:
             queryset = queryset.filter(subcategory__category=self.request.query_params['category'])
+
+        if 'subcategory' in self.request.query_params:
+            queryset = queryset.filter(subcategory__id=self.request.query_params['subcategory'])
+
+        if 'region' in self.request.query_params:
+            queryset = queryset.filter(location__region=self.request.query_params['region'])
+
+        if 'location' in self.request.query_params:
+            queryset = queryset.filter(location__id=self.request.query_params['location'])
+
+        if 'condition' in self.request.query_params:
+            queryset = queryset.filter(condition__id=self.request.query_params['condition'])
+
         author = self.request.query_params.get('author', None)
         if author is not None:
             queryset = queryset.filter(author=author)
@@ -61,6 +74,10 @@ class AccountPostsViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def perform_create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(AccountPostsViewSet, self).perform_create(serializer)
+
 class CategoryViewSet(viewsets.ViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -78,6 +95,10 @@ class CategoryViewSet(viewsets.ViewSet):
         ]
         return Response(categories)
 
+    def create(self, serializer):
+        #instance = serializer.save(author=self.request.user)
+        return super(CategoryViewSet, self).perform_create(serializer)
+
 
 class SubCategoryViewSet(viewsets.ViewSet):
     queryset = Subcategory.objects.all()
@@ -87,6 +108,10 @@ class SubCategoryViewSet(viewsets.ViewSet):
         queryset = Subcategory.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(SubCategoryViewSet, self).perform_create(serializer)
 
 class RegionViewSet(viewsets.ViewSet):
     queryset = Region.objects.all()
@@ -105,6 +130,10 @@ class RegionViewSet(viewsets.ViewSet):
         ]
         return Response(regions)
 
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(RegionViewSet, self).perform_create(serializer)
+
 
 class TownViewSet(viewsets.ViewSet):
     queryset = Town.objects.all()
@@ -114,6 +143,10 @@ class TownViewSet(viewsets.ViewSet):
         queryset = Town.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(TownViewSet, self).perform_create(serializer)
 
 
 class PostReviewViewSet(viewsets.ViewSet):
@@ -125,6 +158,10 @@ class PostReviewViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(PostReviewViewSet, self).perform_create(serializer)
+
 
 
 class ConditionViewSet(viewsets.ViewSet):
@@ -135,4 +172,8 @@ class ConditionViewSet(viewsets.ViewSet):
         queryset = Condition.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(ConditionViewSet, self).perform_create(serializer)
 

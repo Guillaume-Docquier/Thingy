@@ -5,6 +5,7 @@ from posts.models import Post, Category, Subcategory, Region, Town, PostReview, 
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     #subcategory = SubCategorySerializer(read_only=True, required=False)
 
     class Meta:
@@ -14,6 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
         read_only_fields = ('id')
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     category = CategorySerializer(read_only=True, required=False)
 
     class Meta:
@@ -24,7 +26,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
 
 class RegionSerializer(serializers.ModelSerializer):
-
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Region
         fields = ('id', 'name')
@@ -32,6 +34,7 @@ class RegionSerializer(serializers.ModelSerializer):
 
 
 class TownSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     region = RegionSerializer(read_only=True, required=False)
 
     class Meta:
@@ -41,7 +44,7 @@ class TownSerializer(serializers.ModelSerializer):
         read_only_fields = ('id')
 
 class ConditionSerializer(serializers.ModelSerializer):
-
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Condition
         fields = ('id', 'cond_desc', 'cond_grade')
@@ -76,6 +79,8 @@ class SimplePostReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'rating', 'reviewauthor')
 
 
+
+
 class PostWithReviews(PostSerializer):
     reviews = SimplePostReviewSerializer(read_only=True, required=False, many=True)
 
@@ -90,7 +95,7 @@ class PostReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostReview
-        fields = ('id', 'rating', 'post', 'reviewauthor')
+        fields = ('id', 'rating', 'comment','post', 'reviewauthor')
         read_only_fields = ('id')
 
     def get_validation_exclusions(self, *args, **kwargs):

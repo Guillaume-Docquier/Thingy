@@ -34,14 +34,15 @@ class Town(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Account, related_name='posts')
-    #category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
-    condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null=True)
+    condition = models.ForeignKey(Condition, related_name='posts', null =True)
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
 
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0) 
     description = models.TextField(max_length=500)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
