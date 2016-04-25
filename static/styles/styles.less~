@@ -8,4 +8,4 @@
 @import './navbar.less';
 @import './home.less';
 @import './add.less';
-
+@import './search.less';

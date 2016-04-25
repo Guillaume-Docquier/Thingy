@@ -16,6 +16,7 @@
 
 <div class="tab-content">
   <!-- Login tab -->
+
   <div id="login" class="tab-pane fade">
     <p>
       <form role="form" ng-submit="vm.login()">
@@ -24,14 +25,13 @@
           <label for="login__username">Email or username</label>
           <input type="text" class="form-control" id="login__username" ng-model="vm.username" placeholder="E-mail or username" />
         </div>
-
         <div class="form-group">
           <label for="login__password">Password</label>
           <input type="password" class="form-control" id="login__password" ng-model="vm.password" placeholder="Password" />
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-default">Login</button>
         </div>
       </form>
     </p>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" class="btn btn-default">Register</button>
         </div>
       </form>
     </p>
