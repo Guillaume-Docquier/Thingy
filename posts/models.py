@@ -61,13 +61,3 @@ class PostReview(models.Model):
     reviewauthor = models.ForeignKey(Account, null=True)
     def __unicode__(self):
         return u'%s (%d)' % (self.post, self.id)
-
-
-#TA bort - Andre gav bra argument
-class UserReview(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
-    grade_of_description_of_item = models.IntegerField(default=0)
-    grade_of_communication = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500, blank=True)
-    def __unicode__(self):
-        return '{0}'.format(self.content)

@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 #from posts.serializers import PostSerializer
 
-from authentication.models import Account
+from authentication.models import Account, Review
 #from posts.models import Post
 
 
@@ -46,4 +46,37 @@ class AuthorPostSerializer(serializers.ModelSerializer):
       class Meta:
           model = Account
           fields = ('id', 'username', 'posts')
+
+
+
+
+class SimpleReviewSerializer(serializers.ModelSerializer):
+    revieweduser = AccountSerializer(read_only=True, required=False)
+
+    class Meta:
+        model = Review
+        fields = ('id', 'rating', 'revieweduser')
+
+
+class AccountWithReviews(AccountSerializer):
+    reviews = SimpleReviewSerializer(read_only=True, required=False, many=True)
+
+    class Meta(AccountSerializer.Meta):
+        fields = ('id', 'email', 'username', 'created_at', 'updated_at',
+                  'first_name', 'last_name', 'tagline', 'password',
+                  'confirm_password', 'reviews')
+
+class ReviewSerializer(serializers.ModelSerializer):
+    revieweduser = AccountSerializer(read_only=True, required=False)
+    #post = PostSerializer(read_only=True, required=False)
+
+    class Meta:
+        model = Review
+        fields = ('id', 'rating', 'comment', 'revieweduser')
+        read_only_fields = ('id')
+
+    def get_validation_exclusions(self, *args, **kwargs):
+        exclusions = super(ReviewSerializer, self).get_validation_exclusions()
+
+        return exclusions + ['author']
 

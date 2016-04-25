@@ -54,6 +54,22 @@ class Account(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
+    # @property
+    def reviews(self):
+        return self.review_set.all()
 
 
 
+
+class Review(models.Model):
+    revieweduser = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
+   # reviewauthor = models.ForeignKey(Account, related_name='posts')
+
+
+    rating = models.IntegerField(default=0)
+    comment = models.CharField(max_length=500)
+    #grade_of_communication = models.IntegerField(default=0)
+    #grade_of_description_of_item = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return u'%s (%d)' % (self.revieweduser, self.id)
