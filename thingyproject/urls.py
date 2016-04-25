@@ -7,7 +7,7 @@ from django.contrib import admin
 #from rest_framework.routers import DefaultRouter
 
 from thingyproject.views import IndexView
-from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet
+from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, PostReviewViewSet, ConditionViewSet
 
@@ -17,6 +17,7 @@ admin.autodiscover()
 router = routers.SimpleRouter()
 #router = DefaultRouter()
 router.register(r'accounts', AccountViewSet)
+router.register(r'reviews', ReviewViewSet)
 router.register(r'authorposts',AuthorPostsViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'categories', CategoryViewSet)

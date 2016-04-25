@@ -89,8 +89,8 @@
               // TODO
               // category: JSON.stringify(vm.category), // Working weird
               // subcategory: JSON.stringify(vm.subcategory) // Working weird
-              // category: JSON.stringify(vm.region), // Working weird
-              // subcategory: JSON.stringify(vm.subregion) // Working weird
+              // region = JSON.stringify(vm.region); // Working weird
+              // subregion = JSON.stringify(vm.subregion); // Working weird
             }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
           );
         });

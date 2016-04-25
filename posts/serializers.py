@@ -53,17 +53,20 @@ class ConditionSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = AccountSerializer(read_only=True, required=False)
-    subcategory = SubCategorySerializer(read_only=True, required=False)
-    condition = ConditionSerializer(read_only=True, required=False)
-    location = TownSerializer(read_only=True, required=False)
+    subcategory_details = SubCategorySerializer(source='subcategory', read_only=True, required=False)
+    subcategory = serializers.PrimaryKeyRelatedField(queryset=Subcategory.objects.all(), write_only=True)
+    condition_details = ConditionSerializer(source='condition', read_only=True, required=False)
+    condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
+    location_details = TownSerializer(source='location', read_only=True, required=False)
+    location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
 
 	
     class Meta:
         model = Post
 
         fields = ('id', 'author', 'title', 'description', 'price',
-                  'condition', 'location', 'created_at', 'subcategory', 'updated_at')
-        read_only_fields = ('id', 'created_at', 'updated_at')
+                  'condition_details', 'condition', 'location_details', 'location', 'created_at', 'subcategory_details' , 'subcategory', 'updated_at')
+        #read_only_fields = ('id', 'created_at', 'updated_at' )#, 'location_details', 'subcategory_details', 'condition_details')
 
     def get_validation_exclusions(self, *args, **kwargs):
         exclusions = super(PostSerializer, self).get_validation_exclusions()
@@ -86,7 +89,7 @@ class PostWithReviews(PostSerializer):
 
     class Meta(PostSerializer.Meta):
         fields = ('id', 'author', 'title', 'description', 'price',
-                  'condition', 'location', 'created_at', 'subcategory', 'updated_at', 'reviews')
+                  'condition_details', 'location_details', 'created_at', 'subcategory_details', 'updated_at', 'reviews')
 
 
 class PostReviewSerializer(serializers.ModelSerializer):

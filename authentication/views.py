@@ -7,9 +7,9 @@ from django.db.models.query_utils import Q
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 
-from authentication.models import Account
+from authentication.models import Account, Review
 from authentication.permissions import IsAccountOwner
-from authentication.serializers import AccountSerializer, AuthorPostSerializer
+from authentication.serializers import AccountSerializer, AuthorPostSerializer, ReviewSerializer
 
 class AuthorPostsViewSet(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -67,6 +67,10 @@ class AccountViewSet(viewsets.ModelViewSet):
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
+    def get_queryset(self):
+        queryset = Account.objects.order_by('-created_at')
+        return queryset
+
 class LoginView(views.APIView):
     def post(self, request, format=None):
         data = json.loads(request.body)
@@ -114,3 +118,17 @@ class LogoutView(views.APIView):
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ReviewViewSet(viewsets.ViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def list(self, request):
+        queryset = Review.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(ReviewViewSet, self).perform_create(serializer)

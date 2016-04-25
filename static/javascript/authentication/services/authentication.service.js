@@ -44,12 +44,12 @@
       }
     }
 
-    function register(username, email, firstName, lastName, password) {
+    function register(username, email, first_name, last_name, password) {
       return $http.post('/api/v1/accounts/', {
         username: username,
         email: email,
-        first_name: firstName,
-        last_name: lastName,
+        first_name: first_name,
+        last_name: last_name,
         password: password
       }).then(registerSuccessFn, registerErrorFn);
 
