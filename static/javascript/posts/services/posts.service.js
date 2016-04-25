@@ -44,9 +44,9 @@
         title: title,
         description: description,
         price: price,
-        condition_id: conditionID,
-        subcategory_id: subcategoryID,
-        location_id: subregionID
+        condition: conditionID,
+        subcategory: subcategoryID,
+        location: subregionID
       });
     }
 

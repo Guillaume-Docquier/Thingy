@@ -17,6 +17,21 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = (SearchFilter,)
     search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
+    # def get_query_set(self):
+    #     search_field = 'title'
+    #     model = Post
+    #
+    #     queryset = model.objects.all()
+    #     search_results = self.rewquest.query_params.get(search_field, None)
+    #
+    #     if search_results is not None:
+    #         queryset = queryset.filter(search_results_id=search_results)
+    #
+    #     author = self.request.query_params.get('author', None)
+    #     if author is not None:
+    #         queryset = queryset.filter(author=author)
+    #     return queryset
+
     def get_queryset(self):
         queryset = Post.objects.order_by('-created_at')
         if 'category' in self.request.query_params:
