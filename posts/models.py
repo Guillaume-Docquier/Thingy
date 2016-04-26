@@ -33,6 +33,7 @@ class Town(models.Model):
     def __unicode__(self):
         return u'%s / %s' % (self.region, self.name)
 
+
 class Post(models.Model):
     author = models.ForeignKey(Account, related_name='posts')
 
@@ -43,6 +44,8 @@ class Post(models.Model):
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0) 
     description = models.TextField(max_length=500)
+
+    image = models.ImageField(upload_to='postimages/', default='postimages/None-No-img.jpg')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,3 +64,8 @@ class PostReview(models.Model):
     reviewauthor = models.ForeignKey(Account, null=True)
     def __unicode__(self):
         return u'%s (%d)' % (self.post, self.id)
+
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post)
+    image = models.ImageField(max_length = None,  upload_to='Images', default = 'Images/None-No-img.jpg')
