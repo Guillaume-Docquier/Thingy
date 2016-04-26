@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'posts',
-    'crispy_forms',
+    #'crispy_forms',
 ]
 
 REST_FRAMEWORK = {

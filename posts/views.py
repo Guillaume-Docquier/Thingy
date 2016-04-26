@@ -1,8 +1,8 @@
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
-from rest_framework.filters import SearchFilter
+ #from rest_framework.filters import SearchFilter
 
-import django_filters
+#import django_filters
 from rest_framework import filters
 
 from itertools import groupby
