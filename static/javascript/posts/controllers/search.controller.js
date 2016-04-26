@@ -16,6 +16,13 @@
 
     // Bindings
     vm.searchTerm;
+    vm.category;
+    vm.subcategory;
+    vm.minPrice;
+    vm.maxPrice;
+    vm.region;
+    vm.subregion;
+    vm.condition;
 
     activate();
 
@@ -35,7 +42,8 @@
       * @desc Show snackbar with error
       */
       function postsErrorFn(data, status, headers, config) {
-        alert(data.error);
+        alert(data.statusText);
+        console.log(data);
       }
     }
 
