@@ -9,7 +9,7 @@ from rest_framework import filters
 from itertools import groupby
 from django.http import JsonResponse
 
-from posts.filters import PostFilter
+#from posts.filters import PostFilter
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
@@ -24,7 +24,7 @@ class PostViewSet(viewsets.ModelViewSet):
     #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_class = PostFilter
+    #filter_class = PostFilter
 
     #filter_backends = (filters.OrderingFilter)
     #ordering_fields = '__all__'
