@@ -103,3 +103,16 @@ class PostReviewSerializer(serializers.ModelSerializer):
 
         return exclusions + ['author']
 
+class ReviewSerializer(serializers.ModelSerializer):
+    reviewed_user = AccountSerializer(read_only=True, required=False)
+    reviewauthor = AccountSerializer(read_only=True, required=False)
+
+    class Meta:
+        model = Review
+        fields = ('id', 'reviewed_user', 'rating', 'comment', 'author_of_review')
+        read_only_fields = ('id')
+
+    # def get_validation_exclusions(self, *args, **kwargs):
+    #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
+    #
+    #     return exclusions + ['author']
