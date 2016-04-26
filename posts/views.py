@@ -17,13 +17,16 @@ from posts.serializers import PostSerializer, PostWithReviews, CategorySerialize
 
 
 class PostViewSet(viewsets.ModelViewSet):
+
+    #self.request.query_params
+
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
     #filter_fields = ('title')
     #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
-    filter_backends = (filters.DjangoFilterBackend,)
+    #filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter)
     filter_class = PostFilter
 
     #filter_backends = (filters.OrderingFilter)
