@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import django_filters
 from django.db import models
 from django.contrib.auth.models import User
@@ -8,6 +7,9 @@ from rest_framework import filters
 from rest_framework import generics
 
 class PostFilter(django_filters.FilterSet):
+
+    #http://django-filter.readthedocs.org/en/latest/ref/filterset.html
+
     min_price = django_filters.NumberFilter(name="price", lookup_type='gte')
     max_price = django_filters.NumberFilter(name="price", lookup_type='lte')
 
@@ -21,6 +23,7 @@ class PostFilter(django_filters.FilterSet):
     }
 
     location__region__name = django_filters.CharFilter(name='location__region__name', lookup_expr='exact')
+    location__name = django_filters.CharFilter(name='location__name', lookup_expr='exact')
 
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
@@ -30,7 +33,6 @@ class PostFilter(django_filters.FilterSet):
         fields =  ['title','min_price', 'max_price', 'description', 'location__name', 'subcategory__sub_cat_name',
                    'subcategory__category__cname', 'location__region__name','author__username', 'condition__cond_desc']
 
-=======
 # import django_filters
 # from django.contrib.auth.models import User
 # from posts.models import Post
@@ -59,4 +61,3 @@ class PostFilter(django_filters.FilterSet):
 #
 #        # , 'min_price', 'max_price'}
 #
->>>>>>> 84475b41c9e98bc3cd38a904881e2d236a1b9e08
