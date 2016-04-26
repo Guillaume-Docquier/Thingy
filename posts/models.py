@@ -33,6 +33,7 @@ class Town(models.Model):
     def __unicode__(self):
         return u'%s / %s' % (self.region, self.name)
 
+
 class Post(models.Model):
     author = models.ForeignKey(Account, related_name='posts')
 
@@ -43,6 +44,8 @@ class Post(models.Model):
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0) 
     description = models.TextField(max_length=500)
+
+    image = models.ImageField(upload_to='postimages/', default='postimages/None-No-img.jpg')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -60,20 +63,9 @@ class PostReview(models.Model):
     comment = models.CharField(max_length=500)
     reviewauthor = models.ForeignKey(Account, null=True)
     def __unicode__(self):
-<<<<<<< HEAD
         return u'%s (%d)' % (self.post, self.id)
 
 
-#TA bort - Andre gav bra argument
-class Review(models.Model):
-    reviewed_user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
-    rating = models.IntegerField(default=0)
-    #grade_of_description_of_item = models.IntegerField(default=0)
-    #grade_of_communication = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500, blank=True)
-    author_of_review = models.ForeignKey(Account, null=True)
-    def __unicode__(self):
-        return u'%s (%d)' % (self.reviewed_user, self.id)
-=======
-        return u'%s (%d)' % (self.post, self.id)
->>>>>>> be47bebbefbe3e1b310bb53e5e9487dbd2661455
+class PostImage(models.Model):
+    post = models.ForeignKey(Post)
+    image = models.ImageField(max_length = None,  upload_to='Images', default = 'Images/None-No-img.jpg')

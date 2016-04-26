@@ -40,6 +40,9 @@ class Account(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    image = models.ImageField(upload_to='userimages/', default='userimages/None-No-img.jpg')
+
+
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
@@ -73,3 +76,8 @@ class Review(models.Model):
 
     def __unicode__(self):
         return u'%s (%d)' % (self.revieweduser, self.id)
+
+
+class UserImage(models.Model):
+    user = models.ForeignKey(Account)
+    image = models.ImageField(max_length = None,  upload_to='userimages', default = 'userimages/None-No-img.jpg')
