@@ -6,18 +6,18 @@ from django.db import models
 >>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
 from django.contrib.auth.models import User
 from posts.models import Post
-#from posts.serializers import PostSerializer
+from posts.serializers import PostSerializer
 from rest_framework import filters
 from rest_framework import generics
 
-<<<<<<< HEAD
-#class PostFilter(filters.FilterSet):
-    #min_price = django_filters.NumberFilter(name="price", lookup_type='gte')
-    #max_price = django_filters.NumberFilter(name="price", lookup_type='lte')
-    #title = django_filters.CharFilter( )
-=======
+
+class PostFilter(filters.FilterSet):
+    min_price = django_filters.NumberFilter(name="price", lookup_type='gte')
+    max_price = django_filters.NumberFilter(name="price", lookup_type='lte')
+    title = django_filters.CharFilter( )
+
 class PostFilter(django_filters.FilterSet):
->>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
+
 
     #http://django-filter.readthedocs.org/en/latest/ref/filterset.html
 
@@ -39,19 +39,13 @@ class PostFilter(django_filters.FilterSet):
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
 
-<<<<<<< HEAD
- #   class Meta:
-  #      model = Post
-   #     fields =  {
-    #        'title': ['icontains']}
 
-       # , 'min_price', 'max_price'}
-=======
+ 
     class Meta:
         model = Post
         fields =  ['title','min_price', 'max_price', 'description', 'location__name', 'subcategory__sub_cat_name',
                    'subcategory__category__cname', 'location__region__name','author__username', 'condition__cond_desc']
->>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
+
 
 # import django_filters
 # from django.contrib.auth.models import User

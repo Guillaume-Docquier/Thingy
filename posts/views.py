@@ -26,13 +26,9 @@ class PostViewSet(viewsets.ModelViewSet):
     #filter_fields = ('title')
     #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
-<<<<<<< HEAD
-    filter_backends = (filters.DjangoFilterBackend,)
-=======
     filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter)
     filter_class = PostFilter
     #filter_backends = (filters.DjangoFilterBackend,)
->>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
     #filter_class = PostFilter
 
     #filter_backends = (filters.OrderingFilter)
