@@ -40,7 +40,7 @@ class Account(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    image = models.ImageField(upload_to='userimages/', default='userimages/None-No-img.jpg')
+    #image = models.ImageField(upload_to='userimages/', default='userimages/None-No-img.jpg')
 
 
     objects = AccountManager()
