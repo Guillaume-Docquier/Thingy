@@ -43,10 +43,10 @@ INSTALLED_APPS = [
     #'crispy_forms',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
-
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+#
+# }
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

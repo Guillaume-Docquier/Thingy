@@ -4,10 +4,12 @@ from rest_framework.response import Response
 
 #import django_filters
 from rest_framework import filters
+#from rest_framework import generics
 
 from itertools import groupby
 from django.http import JsonResponse
 
+from posts.filters import PostFilter
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
@@ -17,8 +19,12 @@ from posts.serializers import PostSerializer, PostWithReviews, CategorySerialize
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
-    #filter_backends = (SearchFilter,)
-    search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
+    #filter_fields = ('title')
+    #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
+
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = PostFilter
 
     #filter_backends = (filters.OrderingFilter)
     #ordering_fields = '__all__'
