@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-#import django_filters
-=======
+
 import django_filters
 from django.db import models
->>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
 from django.contrib.auth.models import User
 from posts.models import Post
 from posts.serializers import PostSerializer
