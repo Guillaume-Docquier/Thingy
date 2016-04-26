@@ -7,7 +7,11 @@
 		var $collapse = $this.closest('.collapse-group').find('.collapse');
 		$collapse.collapse('toggle');
 	});	}	
-															
+	
+	
+	{
+	object.onclick=function(){clickpanel}; 
+	}											
 </script>
 
 <div class="container-fluid">
@@ -108,21 +112,36 @@
 					</div>
 			  </form>
 			
-			<!-- TODOJS here are the thingy-ads suppose to appear-->
-			<h3>Search Results</h3>  
-			<div id="search__result__panel" class="panel panel-default">
-			  <div class="panel-heading"><h5>Thingy title</h5></div>
+			<!-- TODOJS this is where we have the ads, load thingyname, price, location from database istead of the static words we have now -->
+			<div id="searchresult"><h3>Search Results</h3></div>  
+			<div onclick="alert('You are clicking on me');" id="search__result__panel" class="panel panel-default">
 			  <div class="panel-body">
 				 <div class="row">
-					<div class="col-xs-6">
-						<img id='box' src='/static/images/box.png'></img>
-					</div> <!-- /col-xs-6 -->
-					<div class="col-xs-6">
-						<p>Price</p>
-						<p>Descrition</p>
-						<p>Location</p>
-						<p>Supplier Contact</p>
-					</div> <!-- /col-xs-6 -->
+					<div class="col-xs-4" id="">
+						<img id='box' src='/static/images/hammer.jpg'></img>
+					</div> <!-- /col-xs-4 -->
+					<div class="col-xs-4">
+						<h5>Thingy name</h5>
+						<div id="location">
+						<p><span class="glyphicon glyphicon-map-marker"></span> Town, Region</p>
+						</div>
+						<div id="suppliername">
+						<p><span class="glyphicon glyphicon-user"></span> Supplier Name</p>
+						</div>
+						<div id="reviews"class="hidden-xs">
+							<p>Reviews 	<span class="glyphicon glyphicon-star yellow"></span>
+										<span class="glyphicon glyphicon-star yellow"></span>
+										<span class="glyphicon glyphicon-star yellow"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+							</p>
+						</div> <!-- /hidden-xs -->
+					</div> <!-- /col-xs-4 -->
+					<div class="col-xs-4">
+						<div id="price">
+						<h5>000 SEK/day</h5>
+						</div>
+					</div><!-- /col-xs-4 -->
 				</div> <!-- /row -->
 			  </div>
 			</div>
@@ -132,7 +151,7 @@
 		<!-- TODOJS add the thingy you have clicked on in the box, make the map work -->
 		<div class="col-sm-4">
 			<div class="hidden-xs">
-			<p><img id='box' src='/static/images/box.png'></img></p>
+			<div id="thingyaddbox"><p>hej</p></div>
 			<div class="form-group">
 				<button type="button" class="btn btn-default">Rent/Read more</button>
 			</div>

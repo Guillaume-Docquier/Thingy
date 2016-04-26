@@ -9,7 +9,7 @@ from rest_framework import filters
 from itertools import groupby
 from django.http import JsonResponse
 
-from posts.filters import PostFilter
+#from posts.filters import PostFilter
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
