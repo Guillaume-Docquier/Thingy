@@ -40,7 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'posts',
+    #'crispy_forms',
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+#
+# }
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,11 +144,3 @@ STATICFILES_FINDERS = (
 )
 
 AUTH_USER_MODEL = 'authentication.Account'
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}

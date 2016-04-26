@@ -3,32 +3,62 @@
 
   angular
     .module('thingy.posts.services')
-    .service('Thingies', Thingies);
+    .service('Posts', Posts);
 
-  Thingies.$inject = ['$http'];
+  Posts.$inject = ['$http'];
 
-  function Thingies($http) {
+  function Posts($http) {
     var vm = this;
 
-    vm.all = all;
-    vm.create = create;
-    vm.get = get;
+    vm.getAllPosts = getAllPosts;
+    vm.getAllCategories = getAllCategories;
+    vm.getAllRegions = getAllRegions;
+    vm.getAllConditions = getAllConditions;
+    vm.add = add;
+    vm.getUserPosts = getUserPosts;
+    vm.search = search;
 
     // Returns all posts made
-    function all() {
+    function getAllPosts() {
       return $http.get('/api/v1/posts/');
     }
 
-    // Creates a new post
-    function create(title, description) {
+    // Returns all categories
+    function getAllCategories() {
+      return $http.get('/api/v1/categories/');
+    }
+
+    // Returns all regions
+    function getAllRegions() {
+      return $http.get('/api/v1/regions/');
+    }
+
+    // Returns all regions
+    function getAllConditions() {
+      return $http.get('/api/v1/conditions/');
+    }
+
+    // Adds a new post
+    function add(title, description, price, conditionID, subcategoryID, subregionID) {
       return $http.post('/api/v1/posts/', {
-        title: title, description: description
+        title: title,
+        description: description,
+        price: price,
+        condition: conditionID,
+        subcategory: subcategoryID,
+        location: subregionID
       });
     }
 
     // Gets posts made by a user
-    function get(username) {
+    function getUserPosts(username) {
       return $http.get('/api/v1/accounts/' + username + '/posts/');
+    }
+
+    // TODO
+    // Searches for Thingies in the db
+    function search() {
+      return $http.get();
     }
   }
 })();

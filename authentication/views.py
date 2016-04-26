@@ -7,9 +7,37 @@ from django.db.models.query_utils import Q
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 
-from authentication.models import Account
+from authentication.models import Account, Review
 from authentication.permissions import IsAccountOwner
-from authentication.serializers import AccountSerializer
+from authentication.serializers import AccountSerializer, AuthorPostSerializer, ReviewSerializer
+
+class AuthorPostsViewSet(viewsets.ViewSet):
+    queryset = Account.objects.all()
+    serializer_class = AuthorPostSerializer
+
+    def list(self, request,account_username=None):
+        queryset = Account.objects.all()
+
+#        queryset = self.queryset.filter(author__username=account_username)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self):
+        queryset = Account.objects.self()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
+class AuthorPostsViewSetDetail(viewsets.ViewSet):
+    queryset = Account.objects.all()
+    serializer_class = AuthorPostSerializer
+
+    def list(self, request):
+        queryset = Account.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
 
 
 class AccountViewSet(viewsets.ModelViewSet):
@@ -38,6 +66,10 @@ class AccountViewSet(viewsets.ModelViewSet):
             'status': 'Bad request',
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_queryset(self):
+        queryset = Account.objects.order_by('-created_at')
+        return queryset
 
 class LoginView(views.APIView):
     def post(self, request, format=None):
@@ -86,3 +118,17 @@ class LogoutView(views.APIView):
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+class ReviewViewSet(viewsets.ViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def list(self, request):
+        queryset = Review.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(ReviewViewSet, self).perform_create(serializer)

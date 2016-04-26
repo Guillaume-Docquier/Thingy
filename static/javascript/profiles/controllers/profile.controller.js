@@ -5,9 +5,9 @@
     .module('thingy.profiles.controllers')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Thingies'];
+  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts'];
 
-  function ProfileController($scope, $location, $routeParams, Profile, Thingies) {
+  function ProfileController($scope, $location, $routeParams, Profile, Posts) {
     var vm = this;
 
     vm.profile = undefined;
@@ -30,7 +30,7 @@
       }
 
       Profile.get(username).then(profileSuccessFn, profileErrorFn);
-      Thingies.get(username).then(postsSuccessFn, postsErrorFn);
+      Posts.getUserPosts(username).then(postsSuccessFn, postsErrorFn);
 
       /**
       * @name profileSuccessProfile

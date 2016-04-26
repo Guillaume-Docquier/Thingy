@@ -51,15 +51,7 @@
 
     function register() {
       console.log("Registering...");
-      success(Authentication.register(vm.username, vm.email, vm.password));
-    }
-
-    // For tesing only. The ajax promise will be returned instead of boolean
-    function success(isTrue) {
-      if (isTrue) {
-        $scope.closeThisDialog();
-        $rootScope.$broadcast('user.authentication');
-      }
+      Authentication.register(vm.username, vm.email, vm.first_name, vm.last_name, vm.password);
     }
   }
 })();
