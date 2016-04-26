@@ -39,14 +39,16 @@
     }
 
     // Adds a new post
-    function add(title, description, price, conditionID, subcategoryID, subregionID) {
+    function add(title, description, price, conditionID, subcategoryID, subregionID, image) {
+      console.log('image: ' + image);
       return $http.post('/api/v1/posts/', {
         title: title,
         description: description,
         price: price,
         condition: conditionID,
         subcategory: subcategoryID,
-        location: subregionID
+        location: subregionID,
+        image: image
       });
     }
 
