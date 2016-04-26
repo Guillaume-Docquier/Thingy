@@ -16,15 +16,15 @@ django.setup()
 from posts.models import Category, Subcategory
 
 def populate():
-	category_list = ["Fordon", "Hemmasaker", "Klädsel", "Evenemang", "Hobby", "Böcker", "Övrigt"]
+	category_list = ["Automotive", "Home", "Fashion", "Events", "Hobby", "Books", "Other"]
 	subcategory_list = [
-["Bilar", "Reservdelar", "Verktyg", "Cyklar", "Husvagnar", "Båtar", "Motorcyklar", "Skotrar", "Övrigt"],
-["Målning", "Snickra", "Trädgårdsverktyg", "Möbler","Övrigt"],
-["Finkläder herr", "Finkläder dam", "Övrigt"],
-["Köksutrustning", "Ljud", "Bild", "Ljus", "Möbler", "Övrigt"],
-["Sportutrustning", "Fritidsutrustning", "Instrument", "Fiske", "Leksaker", "Jakt", "Övrigt"],
-["Kurslitteratur", "Reseguider", "Övrigt"],
-["Övrigt"]
+[ "Cars", "Parts", "Tools", "Bicycles," "Caravans," "Boats", "Motorcycles", "Scooters", "Other"],
+[ "Painting", "Woodwork", "Garden Tools", "Furniture", "Other"],
+[ "Formalwear Men," "Formalwear Women", "Other"],
+[ "Kitchen", "Audio", "Picture", "Lighting", "Furniture", "Other"],
+[ "Sports Equipment", "Leisure Equipment", "Tools", "Fishing", "Toys", "Hunting", "Other"],
+[ "Course Literature", "Travel Guides", "Other"],
+["Other"]
 ]
 
 	for i in range(len(category_list)):

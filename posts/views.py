@@ -2,7 +2,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 
-#import django_filters
+import django_filters
 from rest_framework import filters
 #from rest_framework import generics
 
@@ -17,17 +17,26 @@ from posts.serializers import PostSerializer, PostWithReviews, CategorySerialize
 
 
 class PostViewSet(viewsets.ModelViewSet):
+
+    #self.request.query_params
+
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
-    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
+    #filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
     #filter_fields = ('title')
     #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
+<<<<<<< HEAD
     filter_backends = (filters.DjangoFilterBackend,)
+=======
+    filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter)
+    filter_class = PostFilter
+    #filter_backends = (filters.DjangoFilterBackend,)
+>>>>>>> dbaffffbc7b93922135e347ec48d218cde6a1b31
     #filter_class = PostFilter
 
     #filter_backends = (filters.OrderingFilter)
-    #ordering_fields = '__all__'
+    ordering_fields = '__all__'
 
     # def get_query_set(self):
     #     search_field = 'title'
@@ -43,7 +52,7 @@ class PostViewSet(viewsets.ModelViewSet):
     #     if author is not None:
     #         queryset = queryset.filter(author=author)
     #     return queryset
-
+    #
     # def get_queryset(self):
     #     queryset = Post.objects.order_by('-created_at')
     #     if 'category' in self.request.query_params:
