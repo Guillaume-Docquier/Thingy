@@ -1,3 +1,5 @@
-pip install django djangorestframework markdown django-filters mysqlclient drf-nested-routers
+pip install django djangorestframework markdown django-filters drf-nested-routers pillow mysqlclient
+
+On Linux you might need to install MySQL workbench and server first from apt-get
 
 You can use $pip freeze to see which packages are installed
