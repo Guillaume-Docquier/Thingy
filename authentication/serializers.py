@@ -82,7 +82,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         return exclusions + ['author']
 
-class UserImageSerializer(serializers.ModelSerializer):
+class UserImageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = UserImage

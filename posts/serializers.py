@@ -111,12 +111,12 @@ class PostReviewSerializer(serializers.ModelSerializer):
 
         return exclusions + ['author']
 
-class PostImageSerializer(serializers.ModelSerializer):
-    post = PostSerializer(read_only=True, required=False)
-
+class PostImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PostImage
-        fields = ('id', 'post', 'image')
+        fields = ('url','id', 'post', 'image')
+        post = serializers.Field(source='post.id')
+
 
 
 # class ReviewSerializer(serializers.ModelSerializer):
