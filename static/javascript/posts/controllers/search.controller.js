@@ -19,8 +19,8 @@
     vm.selection = selection;
 
     // Bindings
-    // Empty string to prevent errors due to undefined values
-    vm.searchTerm = '';
+    // Empty strings to prevent errors due to undefined values
+    vm.searchTerm = $location.search().search;
     vm.category = '';
     vm.subcategory = '';
     vm.minPrice = '';
@@ -33,10 +33,14 @@
     activate();
 
     function activate() {
-      Posts.getAllPosts().then(postsSuccessFn, postsErrorFn);
+      //Posts.getAllPosts().then(postsSuccessFn, postsErrorFn);
       Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
+
+      // This will search as specified in the url or return all posts
+      console.log(vm.searchTerm);
+      vm.search();
 
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
@@ -80,6 +84,7 @@
     }
 
     function search() {
+      console.log('Searching...');
       Posts.search(
         vm.searchTerm,  // Title or Description
         vm.category.cname,
