@@ -16,8 +16,10 @@
     vm.regions = [];
     vm.conditions = [];
     vm.search = search;
+    vm.selection = selection;
 
     // Bindings
+    // Empty string to prevent errors due to undefined values
     vm.searchTerm = '';
     vm.category = '';
     vm.subcategory = '';
@@ -26,6 +28,7 @@
     vm.region = '';
     vm.subregion = '';
     vm.condition = '';
+    vm.selectedPost;
 
     activate();
 
@@ -76,7 +79,6 @@
       }
     }
 
-    // TODO
     function search() {
       Posts.search(
         vm.searchTerm,  // Title or Description
@@ -105,6 +107,10 @@
         alert(data.statusText);
         console.log(data);
       }
+    }
+
+    function selection(thingy) {
+      vm.selectedPost = thingy;
     }
   }
 })();
