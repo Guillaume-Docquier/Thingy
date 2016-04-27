@@ -1,51 +1,40 @@
-<nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as vm">
-  <div class="container-fluid">
-	  <div class="row">
-		  
-		 <div class="col-xs-3 col-md-4">
-				<div class="visible-xs">
-					<a id = "usericon" href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a>	
-				</div>
-		</div> <!-- /col-xs-4-->
-		  
-		
-		<div class="col-xs-4 col-md-4">
-			<a href='index.html'>
-				<img id='logo' src='/static/images/phlogo.png'></img>
-			</a>
-		</div> <!-- /col-xs-4-->
-		
-		<div class= "col-xs-5 col-md-4">
-			<button class="navbar-toggle" data-toggle = "collapse" data-target =".navHeaderCollapse">
-					
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<div id= "dropdownmenu" class ="collapse navbar-collapse navHeaderCollapse">			
-				 <ul class="nav navbar-nav navbar-right">
-					{% if user.is_authenticated %}
-					  <li><a href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
-					  <li><a href="/users/{{ user.username }}/settings">Settings</a></li>
-					  <li><a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></li>
-					  <li><a href ='/thingies/search'>Search Thingy</a></li>
-					  <li><a href ='/thingies/add'>Add Thingy</a></li>
-					  
-					{% else %}
-					  <li><a href="javascript:void(0)"
-						ng-dialog="/static/templates/authentication/login.html"
-						ng-dialog-controller="LoginRegisterController as vm">Login</a></li>
-					  <li><a href="javascript:void(0)"
-						ng-dialog="/static/templates/authentication/register.html"
-						ng-dialog-controller="LoginRegisterController as vm">Register</a></li>
-						
-					  <li><a href ='/thingies/search'>Search Thingy</a></li>
 
-					{% endif %}
-						</ul>
-			  </div> <!-- /.collapse.navbar-collapse -->
-		  </div> <!-- /col-xs-4-->		
-    </div> <!-- /.row -->
-  </div> <!-- /.container-fluid -->
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarController as vm">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a href='index.html'>
+				<img id='logo' src='/static/images/thingylogotrans.png'></img>
+			</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+		{% if user.is_authenticated %}
+		<li><a href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
+		<li><a href ='/thingies/search'>SEARCH THINGY</a></li>
+		<li><a href ='/thingies/add'>ADD THINGY</a></li>
+		<li><a href="/users/{{ user.username }}/settings">SETTINGS</a></li>
+        <li><a href="javascript:void(0)" ng-click="vm.logout()">LOGOUT</a></li>
+        
+        
+        {% else %}
+		<li><a href="javascript:void(0)"
+			ng-dialog="/static/templates/authentication/login.html"
+			ng-dialog-controller="LoginRegisterController as vm">LOG IN</a></li>
+		<li><a href="javascript:void(0)"
+			ng-dialog="/static/templates/authentication/register.html"
+			ng-dialog-controller="LoginRegisterController as vm">REGISTER</a></li>
+						
+		{% endif %}
+      </ul>
+    </div>
+  </div>
 </nav>
-				
+</body>
+</html>
