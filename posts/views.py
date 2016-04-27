@@ -4,7 +4,7 @@ from rest_framework.filters import SearchFilter
 
 import django_filters
 from rest_framework import filters
-#from rest_framework import generics
+from rest_framework import generics
 
 from itertools import groupby
 from django.http import JsonResponse

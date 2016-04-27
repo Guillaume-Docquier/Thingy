@@ -1,0 +1,60 @@
+
+<!--
+<p>{{vm.welcome}}</p>
+-->		
+<base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/">	
+<div class= "container-fluid">
+		<div id="gallery" class="row">		
+		<div class="col-xs-2 col-sm-3"></div>
+		<div class="col-xs-8 col-sm-6">
+			<div id="slider">
+				<figure>
+				<img src="/static/images/fox1.jpg" alt>
+				<img src="/static/images/fox2.jpg" alt>
+				<img src="/static/images/fox3.jpg" alt>
+				<img src="/static/images/fox4.jpg" alt>
+				<img src="/static/images/fox5.jpg" alt>
+				</figure>
+			</div><!--div slider-->
+			<div id='description'>
+				<h1>Welcome to Thingy!</h1>
+				<p> Here you can rent things blabla.. som info text.</p>
+			</div>
+			
+		<form action="/thingies/search">
+			<div class="form-group">
+				<input type="text" class="form-control input-xs" placeholder="Search for Thingys or a user">
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+					   <div class="dropdown">
+										<button class="btn btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Category
+										<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+											<li><a href="#">Tools</a></li>
+											<li><a href="#">Electronics</a></li>
+											<li><a href="#">Books</a></li>
+										</ul>
+						</div> <!-- /dropdown -->
+					</div> <!-- /formgroup -->
+				</div>  <!-- /col-sm-6 -->
+				<div class="col-sm-6">
+					<div class="form-group">
+						<input type="submit" class="btn btn-xs btn-block">Search</input>
+						<a href ='/thingies/search'>Advanced search</a>
+					</div> <!-- /formgroup -->
+				</div> <!-- /col-sm-6 -->
+			</div> <!-- /row-->
+		</form>
+		<div class="col-xs-2 col-sm-3"></div>
+		</div> <!-- /col-xs-8 col-sm-6 -->
+		
+		</div><!--/row /gallery--> 
+		
+
+		
+</div> <!--/container--> 
