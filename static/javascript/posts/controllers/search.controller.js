@@ -79,9 +79,7 @@
     // TODO
     function search() {
       Posts.search(
-        vm.author,  // Author
-        vm.title,  // Title
-        vm.description,  // Description
+        vm.searchTerm,  // Title or Description
         vm.category.cname,
         vm.subcategory.name,
         vm.minPrice,
