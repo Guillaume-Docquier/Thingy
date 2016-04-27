@@ -10,6 +10,15 @@
   function IndexController($scope) {
     var vm = this;
 
-    vm.welcome = 'Be my guest!';
+    // Functions and data
+    vm.search = search;
+
+    // Bindings
+    // Empty strings to prevent unwanted behaviour due to undefined values
+    vm.searchTerm = '';
+
+    function search(advanced){
+      window.location = '/thingies/search?advanced=' + advanced + '&search=' + vm.searchTerm;
+    }
   }
 })();

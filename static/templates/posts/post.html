@@ -1,5 +1,5 @@
 <!-- The directive is rendered before being inserted so we need a container here -->
-    <div onclick="alert('You are clicking on me');" id="search__result__panel" class="panel panel-default">
+    <div id="search__result__panel" class="panel panel-default">
       <div class="panel-body">
        <div class="row">
          <!-- TODOJS display image -->
@@ -8,6 +8,7 @@
         </div> <!-- /col-xs-4 -->
         <div class="col-xs-4">
           <h5>{{thingy.title}}</h5>
+          <p>{{thingy.description}}</p>
           <div id="location">
             <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}, {{thingy.location_details.name}}</p>
           </div>

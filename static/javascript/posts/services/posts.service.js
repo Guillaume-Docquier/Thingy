@@ -59,14 +59,13 @@
 
     // TODO
     // Searches for Thingies in the db
-    function search(author, title, description, category, subcategory, minPrice, maxPrice, region, subregion, condition) {
+    function search(search, category, subcategory, minPrice, maxPrice, region, subregion, condition) {
       var query, argumentNames, i, j;
 
       query = '?';
+      // Use argumentNames to match db fields
       argumentNames = [
-        'author__username',
-        'title',
-        'description',
+        'search',
         'subcategory__category__cname',
         'subcategory__sub_cat_name',
         'min_price',
@@ -78,19 +77,7 @@
       i = 0;
       j = arguments.length;
 
-      // The 3 first arguments are always the same
-      // We want to use them to search for author, title OR description
-      /*if(arguments[0])
-      {
-        for(; i < 3; i++)
-        {
-          query += (argumentNames[i] + '=' + arguments[i]);
-          if (i == 2) query += '&';
-          else query += '|';
-        }
-      }*/
-
-      // Rest of the arguments must match exactly
+      // Loop through arguments and create a query string
       for(; i < j; i++)
       {
         console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));

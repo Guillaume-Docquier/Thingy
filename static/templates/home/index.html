@@ -1,12 +1,12 @@
 
 <!--
 <p>{{vm.welcome}}</p>
--->		
-<base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/">	
+-->
+<base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/">
 <div class= "container-fluid">
 		<div id="gallery" class="row">
-		
-			
+
+
 		<div class="col-xs-2 col-sm-3"></div>
 		<div class="col-xs-8 col-sm-6">
 			<div id="slider">
@@ -22,12 +22,12 @@
 				<h1>Welcome to Thingy!</h1>
 				<p> Here you can rent things blabla.. som info text.</p>
 			</div>
-			
+
 		<form>
 			<div class="form-group">
-				<input type="text" class="form-control input-xs" placeholder="Search for Thingys or a user">
+				<input type="text" class="form-control input-xs" placeholder="Search for Thingys or a user" ng-model="vm.searchTerm">
 			</div>
-			
+
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -46,17 +46,18 @@
 				</div>  <!-- /col-sm-6 -->
 				<div class="col-sm-6">
 					<div class="form-group">
-						<button type="submit" class="btn btn-xs btn-block">Search</button>
-						<a href='index.html'>Advanced search</a>
+						<!-- The btn-info class makes if blue, you can change it -->
+						<button type="button" class="btn btn-xs btn-block" ng-click="vm.search(false)">Search</button>
+						<a href='' ng-click="vm.search(true)">Advanced search</a>
 					</div> <!-- /formgroup -->
 				</div> <!-- /col-sm-6 -->
 			</div> <!-- /row-->
 		</form>
 		<div class="col-xs-2 col-sm-3"></div>
 		</div> <!-- /col-xs-8 col-sm-6 -->
-		
-		</div><!--/row /gallery--> 
-		
 
-		
-</div> <!--/container--> 
+		</div><!--/row /gallery-->
+
+
+
+</div> <!--/container-->
