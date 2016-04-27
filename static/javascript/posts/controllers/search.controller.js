@@ -12,21 +12,79 @@
 
     // Function and Data
     vm.posts = [];
+    vm.categories = [];
+    vm.regions = [];
+    vm.conditions = [];
     vm.search = search;
+    vm.selection = selection;
+    vm.advanced = ($location.search().advanced == 'true');
 
     // Bindings
-    vm.searchTerm;
+    // Empty strings to prevent errors due to undefined values
+    vm.searchTerm = $location.search().search;
+    vm.category = '';
+    vm.subcategory = '';
+    vm.minPrice = '';
+    vm.maxPrice = '';
+    vm.region = '';
+    vm.subregion = '';
+    vm.condition = '';
+    vm.selectedPost;
 
     activate();
 
     function activate() {
-      Posts.getAllPosts().then(postsSuccessFn, postsErrorFn);
+      // Get db data
+      Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
+      Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
+      Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
+
+      // This will search as specified in the url or return all posts
+      vm.search();
+
+      function categoriesSuccessFn(data, status, headers, config) {
+        vm.categories = data.data;
+      }
+
+      function categoriesErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
+      function regionsSuccessFn(data, status, headers, config) {
+        vm.regions = data.data;
+      }
+
+      function regionsErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+
+      function conditionsSuccessFn(data, status, headers, config) {
+        vm.conditions = data.data;
+      }
+
+      function conditionsErrorFn(data, status, headers, config) {
+        alert(data.data.error);
+      }
+    }
+
+    function search() {
+      console.log('Searching...');
+      Posts.search(
+        vm.searchTerm,  // Matches Title or Description
+        vm.category.cname,
+        vm.subcategory.name,
+        vm.minPrice,
+        vm.maxPrice,
+        vm.region.name,
+        vm.subregion.name,
+        vm.condition.cond_desc
+      ).then(searchSuccessFn, searchErrorFn);
 
       /**
       * @name postsSuccessFn
       * @desc Update posts array on view
       */
-      function postsSuccessFn(data, status, headers, config) {
+      function searchSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
       }
 
@@ -34,15 +92,14 @@
       * @name postsErrorFn
       * @desc Show snackbar with error
       */
-      function postsErrorFn(data, status, headers, config) {
-        alert(data.error);
+      function searchErrorFn(data, status, headers, config) {
+        alert(data.statusText);
+        console.log(data);
       }
     }
 
-    // TODO
-    function search() {
-      alert('Ooops, you got me! This is not ready yet.');
-      //Posts.search(vm.searchTerm);
+    function selection(thingy) {
+      vm.selectedPost = thingy;
     }
   }
 })();

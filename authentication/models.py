@@ -31,14 +31,17 @@ class Account(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=40, unique=True)
 
-    first_name = models.CharField(max_length=40, blank=True)
-    last_name = models.CharField(max_length=40, blank=True)
-    tagline = models.CharField(max_length=140, blank=True)
+    first_name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=40)
+    tagline = models.CharField(max_length=140)
 
     is_admin = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    image = models.ImageField(upload_to='userimages/', default='userimages/None-No-img.jpg')
+
 
     objects = AccountManager()
 
@@ -49,7 +52,7 @@ class Account(AbstractBaseUser):
         return self.email
 
     def get_full_name(self):
-        return ' '.join([self.first_name, self.last_name])
+        return u' '.join([self.first_name, self.last_name])
 
     def get_short_name(self):
         return self.first_name
@@ -73,3 +76,8 @@ class Review(models.Model):
 
     def __unicode__(self):
         return u'%s (%d)' % (self.revieweduser, self.id)
+
+
+class UserImage(models.Model):
+    user = models.ForeignKey(Account)
+    image = models.ImageField(max_length = None,  upload_to='userimages', default = 'userimages/None-No-img.jpg')

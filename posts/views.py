@@ -1,15 +1,15 @@
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
- #from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter
 
-#import django_filters
+import django_filters
 from rest_framework import filters
-#from rest_framework import generics
+from rest_framework import generics
 
 from itertools import groupby
 from django.http import JsonResponse
 
-#from posts.filters import PostFilter
+from posts.filters import PostFilter
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
@@ -17,54 +17,15 @@ from posts.serializers import PostSerializer, PostWithReviews, CategorySerialize
 
 
 class PostViewSet(viewsets.ModelViewSet):
+
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
-    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
-    #filter_fields = ('title')
-    #search_fields = ('title', 'description', 'author__username', 'location__region__name', 'location__name', 'subcategory__category__cname', 'subcategory__sub_cat_name')
 
-    filter_backends = (filters.DjangoFilterBackend,)
-  #  filter_class = PostFilter
+    filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter, filters.SearchFilter)
+    filter_class = PostFilter
+    ordering_fields = ('title', 'price', 'created_at')
 
-    #filter_backends = (filters.OrderingFilter)
-    #ordering_fields = '__all__'
-
-    # def get_query_set(self):
-    #     search_field = 'title'
-    #     model = Post
-    #
-    #     queryset = model.objects.all()
-    #     search_results = self.rewquest.query_params.get(search_field, None)
-    #
-    #     if search_results is not None:
-    #         queryset = queryset.filter(search_results_id=search_results)
-    #
-    #     author = self.request.query_params.get('author', None)
-    #     if author is not None:
-    #         queryset = queryset.filter(author=author)
-    #     return queryset
-
-    # def get_queryset(self):
-    #     queryset = Post.objects.order_by('-created_at')
-    #     if 'category' in self.request.query_params:
-    #         queryset = queryset.filter(subcategory__category=self.request.query_params['category'])
-    #
-    #     if 'subcategory' in self.request.query_params:
-    #         queryset = queryset.filter(subcategory__id=self.request.query_params['subcategory'])
-    #
-    #     if 'region' in self.request.query_params:
-    #         queryset = queryset.filter(location__region=self.request.query_params['region'])
-    #
-    #     if 'location' in self.request.query_params:
-    #         queryset = queryset.filter(location__id=self.request.query_params['location'])
-    #
-    #     if 'condition' in self.request.query_params:
-    #         queryset = queryset.filter(condition__id=self.request.query_params['condition'])
-    #
-    #     author = self.request.query_params.get('author', None)
-    #     if author is not None:
-    #         queryset = queryset.filter(author=author)
-    #     return queryset
+    search_fields = ('title', 'description')
 
     def get_serializer_class(self):
         return PostWithReviews if self.action == 'retrieve' else PostSerializer
@@ -77,19 +38,6 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(PostViewSet, self).perform_create(serializer)
-
-    # def list(self, request):
-    #     postreviews = PostReview.objects.order_by(
-    #         'post__created_at', 'id').values(
-    #         'id', 'rating', 'post__id', 'post__title')
-    #     posts = [
-    #         {
-    #             'sid': c[0],
-    #             'title': c[1],
-    #             'postreviews': [{'id': vv['id'], 'title': vv['id']} for vv in v]
-    #         } for c, v in groupby(postreviews, key=lambda s: (s['post__id'], s['post__title']))
-    #     ]
-    #     return Response(postreviews)
 
 
 class AccountPostsViewSet(viewsets.ViewSet):
