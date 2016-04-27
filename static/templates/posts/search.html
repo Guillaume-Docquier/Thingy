@@ -38,7 +38,7 @@
 					<div class="form-group">
 
 						<div class="span4 collapse-group">
-						    <div class="collapse" id="advancedSearch">
+						    <div class="collapse" ng-class="{'in': vm.advanced}" id="advancedSearch">
 
 								 <div class="row">
 									  <div class="col-xs-6">
@@ -86,7 +86,7 @@
 
 							</div>
 							  <p>
-									<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false" aria-controls="collapseExample">Advanced search &raquo;</button>
+									<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="{{vm.advanced}}" aria-controls="collapseExample">Advanced search &raquo;</button>
 								</p>
 							</div>
 					</div> <!--/form-group-->

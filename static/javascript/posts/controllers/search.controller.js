@@ -17,6 +17,7 @@
     vm.conditions = [];
     vm.search = search;
     vm.selection = selection;
+    vm.advanced = ($location.search().advanced == 'true');
 
     // Bindings
     // Empty strings to prevent errors due to undefined values
@@ -33,13 +34,12 @@
     activate();
 
     function activate() {
-      //Posts.getAllPosts().then(postsSuccessFn, postsErrorFn);
+      // Get db data
       Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
       // This will search as specified in the url or return all posts
-      console.log(vm.searchTerm);
       vm.search();
 
       function categoriesSuccessFn(data, status, headers, config) {
@@ -65,28 +65,12 @@
       function conditionsErrorFn(data, status, headers, config) {
         alert(data.data.error);
       }
-      /**
-      * @name postsSuccessFn
-      * @desc Update posts array on view
-      */
-      function postsSuccessFn(data, status, headers, config) {
-        vm.posts = data.data;
-      }
-
-      /**
-      * @name postsErrorFn
-      * @desc Show snackbar with error
-      */
-      function postsErrorFn(data, status, headers, config) {
-        alert(data.statusText);
-        console.log(data);
-      }
     }
 
     function search() {
       console.log('Searching...');
       Posts.search(
-        vm.searchTerm,  // Title or Description
+        vm.searchTerm,  // Matches Title or Description
         vm.category.cname,
         vm.subcategory.name,
         vm.minPrice,
