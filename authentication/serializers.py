@@ -12,14 +12,14 @@ from authentication.models import Account, Review, UserImage
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    #image = serializers.ImageField(max_length=None, use_url = True, )
+    image = serializers.ImageField(max_length=None, use_url = True, required=False)
 
 
     class Meta:
         model = Account
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password') #, 'image')
+                  'confirm_password' , 'image')
         read_only_fields = ('created_at', 'updated_at',)
 
         def create(self, validated_data):
@@ -66,7 +66,7 @@ class AccountWithReviews(AccountSerializer):
     class Meta(AccountSerializer.Meta):
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password', 'reviews') #, 'image')
+                  'confirm_password', 'reviews' , 'image')
 
 class ReviewSerializer(serializers.ModelSerializer):
     revieweduser = AccountSerializer(read_only=True, required=False)
