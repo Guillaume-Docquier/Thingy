@@ -19,7 +19,7 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password', 'image')
+                  'confirm_password' , 'image')
         read_only_fields = ('created_at', 'updated_at',)
 
         def create(self, validated_data):
@@ -66,7 +66,7 @@ class AccountWithReviews(AccountSerializer):
     class Meta(AccountSerializer.Meta):
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password', 'reviews', 'image')
+                  'confirm_password', 'reviews' , 'image')
 
 class ReviewSerializer(serializers.ModelSerializer):
     revieweduser = AccountSerializer(read_only=True, required=False)
