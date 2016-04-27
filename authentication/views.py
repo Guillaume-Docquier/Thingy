@@ -60,9 +60,12 @@ class AccountViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            Account.objects.create_user(**serializer.validated_data)
+            account = Account.objects.create_user(**serializer.validated_data)
+            account.image = serializer.validated_data['image']
+            account.save()
+            #account.image.save("TEST", serializer.validated_data['image'])
 
-            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',

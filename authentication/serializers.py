@@ -18,8 +18,8 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
-                  'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password' , 'image')
+                  'first_name', 'last_name', 'tagline', 'password', 'confirm_password',
+                    'image')
         read_only_fields = ('created_at', 'updated_at',)
 
         def create(self, validated_data):
