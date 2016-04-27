@@ -25,7 +25,6 @@
     vm.subcategory;
     vm.region;
     vm.subregion;
-    vm.image;
 
     activate();
 
@@ -99,6 +98,7 @@
     }
 
     function add() {
+      console.log($('#thingy__picture')[0].files[0]);
       if (Authentication.isAuthenticated())
         Posts.add(
           vm.title,
@@ -107,7 +107,7 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
-          vm.image
+          $('#thingy__picture')[0].files[0]
         ).then(addPostSuccessFn, addPostErrorFn);
       else alert('You need to log in first');
 

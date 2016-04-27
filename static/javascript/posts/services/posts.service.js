@@ -49,6 +49,8 @@
         subcategory: subcategoryID,
         location: subregionID,
         image: image
+      }, {
+        headers: {'Content-Type': 'multipart/form-data'}
       });
     }
 
