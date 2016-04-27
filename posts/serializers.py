@@ -62,7 +62,7 @@ class PostSerializer(serializers.ModelSerializer):
     condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
     location_details = TownSerializer(source='location', read_only=True, required=False)
     location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
-    image = serializers.ImageField(max_length=None, use_url = True, )
+    image = serializers.ImageField(max_length=None, use_url = True, required=False)
 
 	
     class Meta:
