@@ -15,11 +15,12 @@
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
+    vm.files = [];
 
     // Bindings
-    vm.title;
-    vm.description;
-    vm.price;
+    vm.title = "sniff";
+    vm.description = "sniff";
+    vm.price = 40;
     vm.condition;
     vm.category;
     vm.subcategory;
@@ -33,6 +34,8 @@
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
+      bindEvents();
+      // Not useful right now
       restoreForms();
 
       function categoriesSuccessFn(data, status, headers, config) {
@@ -79,27 +82,23 @@
       }
 
       function bindEvents() {
-        // Save form on refresh
-        $rootScope.$on('login', function (event, post) {
-          $cookies.putObject('savedForm', {
-              title: vm.title,
-              description: vm.description,
-              price: vm.price,
-              condition: vm.condition,
-              // TODO
-              // category: JSON.stringify(vm.category), // Working weird
-              // subcategory: JSON.stringify(vm.subcategory) // Working weird
-              // region = JSON.stringify(vm.region); // Working weird
-              // subregion = JSON.stringify(vm.subregion); // Working weird
-            }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
-          );
+        //listen for the file selected event broadcasted by the directive
+        $scope.$on("fileSelected", function (event, args) {
+            // Could handle multiple files
+            $scope.$apply(function () {
+                //add the file object to the scope's files collection
+                vm.files.push(
+                  //window.btoa(args.file));
+                  args.file);
+            });
         });
       }
     }
 
     function add() {
-      console.log($('#thingy__picture')[0].files[0]);
+      console.log(vm.files[0]);
       if (Authentication.isAuthenticated())
+      {
         Posts.add(
           vm.title,
           vm.description,
@@ -107,8 +106,9 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
-          $('#thingy__picture')[0].files[0]
+          vm.files
         ).then(addPostSuccessFn, addPostErrorFn);
+      }
       else alert('You need to log in first');
 
       /**
@@ -137,7 +137,6 @@
       vm.subcategory =
       vm.region =
       vm.subregion =
-      vm.image =
       "";
     }
   }
