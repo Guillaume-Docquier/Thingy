@@ -34,10 +34,6 @@
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
-      bindEvents();
-      // Not useful right now
-      restoreForms();
-
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
       }
@@ -60,28 +56,6 @@
 
       function conditionsErrorFn(data, status, headers, config) {
         alert(data.data.error);
-      }
-
-      function restoreForms() {
-        var savedForm = $cookies.getObject('savedForm');
-        if (savedForm)
-        {
-          // Forms
-          vm.title = savedForm.title;
-          vm.description = savedForm.description;
-          vm.price = savedForm.price;
-          vm.condition = savedForm.condition;
-          // TODO
-          //vm.category = JSON.parse(savedForm.category); // Working weird
-          //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
-          //vm.region = JSON.parse(savedForm.region); // Working weird
-          //vm.subregion = JSON.parse(savedForm.subregion); // Working weird
-          // Actions
-          //if (searchObject.action) vm.search();
-        }
-      }
-
-      function bindEvents() {
       }
     }
 
@@ -106,7 +80,8 @@
       * @desc Show snackbar with success message
       */
       function addPostSuccessFn(data, status, headers, config) {
-        //$route.reload();
+        $route.reload();
+        alert('Post created!');
       }
 
       /**
@@ -114,7 +89,7 @@
       * @desc Propogate error event and show snackbar with error message
       */
       function addPostErrorFn(data, status, headers, config) {
-        alert('Something went wrong, check the console.');
+        alert('Ooops, you entered wrong information.');
         console.log(data);
       };
     }
