@@ -79,7 +79,7 @@
       // Loop through arguments and create a query string
       for(; i < j; i++)
       {
-        console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
+        //console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
         if(arguments[i])
         {
           query += (argumentNames[i] + '=' + arguments[i] + '&');

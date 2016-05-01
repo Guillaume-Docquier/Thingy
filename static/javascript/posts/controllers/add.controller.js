@@ -26,7 +26,6 @@
     vm.subcategory = '';
     vm.region = '';
     vm.subregion = '';
-    vm.displayImage = '/static/images/camera.png';
 
     activate();
 
