@@ -1,17 +1,18 @@
 from django.db import models
 #from __future__ import unicode_literals
 
+from posts.fields import Base64ImageField
 from authentication.models import Account
 
 class Category(models.Model):
     cname = models.CharField(max_length=50)
-    
+
     def __unicode__(self):
         return self.cname
 
 class Subcategory(models.Model):
     sub_cat_name = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)	
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     def __unicode__(self):
         return u'%s / %s' % (self.category, self.sub_cat_name)
 
@@ -42,7 +43,7 @@ class Post(models.Model):
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
 
     title = models.CharField(max_length=35)
-    price = models.IntegerField(default=0) 
+    price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
 
     image = models.ImageField(upload_to='postimages/', default='postimages/None-No-img.jpg')

@@ -39,26 +39,7 @@
     }
 
     // Adds a new post
-    function add(title, description, price, conditionID, subcategoryID, subregionID, images) {
-      console.log('images: ' + images);
-      // See http://shazwazza.com/post/uploading-files-and-json-data-in-the-same-request-with-angular-js/
-      /*return $http({
-        method: 'POST',
-        url: '/api/v1/posts/',
-        headers: { 'Content-Type': 'multipart/form-data' },
-        //Create an object that contains the model and files which will be transformed
-        // in the above transformRequest method
-        data: {
-          title: title,
-          description: description,
-          price: price,
-          condition: conditionID,
-          subcategory: subcategoryID,
-          location: subregionID,
-          image: images[0]
-        }
-      });*/
-
+    function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
       return $http.post('/api/v1/posts/', {
         title: title,
         description: description,
@@ -66,7 +47,7 @@
         condition: conditionID,
         subcategory: subcategoryID,
         location: subregionID,
-        image: images[0]
+        image: image64.base64
       });
     }
 

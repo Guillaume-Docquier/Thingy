@@ -15,17 +15,17 @@
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
-    vm.files = [];
+    vm.imageUpload;
 
-    // Bindings
-    vm.title = "sniff";
-    vm.description = "sniff";
-    vm.price = 40;
-    vm.condition;
-    vm.category;
-    vm.subcategory;
-    vm.region;
-    vm.subregion;
+    // Bindings, empty string to prevent unwanted behaviour
+    vm.title;
+    vm.description;
+    vm.price;
+    vm.condition = '';
+    vm.category = '';
+    vm.subcategory = '';
+    vm.region = '';
+    vm.subregion = '';
 
     activate();
 
@@ -82,21 +82,11 @@
       }
 
       function bindEvents() {
-        //listen for the file selected event broadcasted by the directive
-        $scope.$on("fileSelected", function (event, args) {
-            // Could handle multiple files
-            $scope.$apply(function () {
-                //add the file object to the scope's files collection
-                vm.files.push(
-                  //window.btoa(args.file));
-                  args.file);
-            });
-        });
       }
     }
 
     function add() {
-      console.log(vm.files[0]);
+      console.log(vm.imageUpload);
       if (Authentication.isAuthenticated())
       {
         Posts.add(
@@ -106,7 +96,7 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
-          vm.files
+          vm.imageUpload
         ).then(addPostSuccessFn, addPostErrorFn);
       }
       else alert('You need to log in first');
@@ -116,8 +106,7 @@
       * @desc Show snackbar with success message
       */
       function addPostSuccessFn(data, status, headers, config) {
-        resetForms();
-        $route.reload();
+        //$route.reload();
       }
 
       /**
@@ -126,18 +115,8 @@
       */
       function addPostErrorFn(data, status, headers, config) {
         alert('Something went wrong, check the console.');
+        console.log(data);
       };
-    }
-
-    function resetForms() {
-      vm.title =
-      vm.description =
-      vm.price =
-      vm.category =
-      vm.subcategory =
-      vm.region =
-      vm.subregion =
-      "";
     }
   }
 })();

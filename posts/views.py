@@ -1,12 +1,13 @@
+import django_filters
+
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
-
-import django_filters
 from rest_framework import filters
 from rest_framework import generics
 
 from itertools import groupby
+
 from django.http import JsonResponse
 
 from posts.filters import PostFilter
@@ -151,4 +152,3 @@ class ConditionViewSet(viewsets.ViewSet):
     def create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(ConditionViewSet, self).perform_create(serializer)
-

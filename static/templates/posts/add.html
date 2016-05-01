@@ -8,6 +8,7 @@
 			</div>
 		</div> <!--row-->
 		<form role="form" ng-submit="vm.add()" enctype="multipart/form-data">
+		<!-- <form role="form" action="/api/v1/posts/" method="POST" enctype="multipart/form-data"> -->
 		<div class="row">
 			<div class="col-sm-2">
 			</div> <!--col-sm-2-->
@@ -70,7 +71,7 @@
 					<label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Upload picture</label>
 
 					<p><img id='camera' src='/static/images/camera.png'></img></p>
-					<input type="file" file-upload class="file" id="thingy__picture" name="thingy__picture" placeholder="Select image"/>
+					<input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
 
 				</div>
 

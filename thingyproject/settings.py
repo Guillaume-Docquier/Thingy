@@ -147,3 +147,23 @@ STATICFILES_FINDERS = (
 )
 
 AUTH_USER_MODEL = 'authentication.Account'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'mode': 'w',
+            'filename': os.path.join(BASE_DIR, 'base64.log'),
+        },
+    },
+    'loggers': {
+        'posts': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
