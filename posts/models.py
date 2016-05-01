@@ -46,7 +46,7 @@ class Post(models.Model):
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
 
-    image = models.ImageField(upload_to='postimages/', default='postimages/None-No-img.jpg')
+    image = models.ImageField(upload_to='postimages/', default='postimages/default.png')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
