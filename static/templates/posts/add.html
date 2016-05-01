@@ -70,7 +70,7 @@
 
 					<label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Upload picture</label>
 
-					<p><img id='camera' src='/static/images/camera.png'></img></p>
+					<p><img id='camera' src={{vm.displayImage}}></img></p>
 					<input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
 
 				</div>

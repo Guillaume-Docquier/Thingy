@@ -26,6 +26,7 @@
     vm.subcategory = '';
     vm.region = '';
     vm.subregion = '';
+    vm.displayImage = '/static/images/camera.png';
 
     activate();
 
@@ -34,6 +35,19 @@
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
+      bindEvents();
+
+
+      function bindEvents() {
+        // Live preview of the uploaded image
+        $scope.$watch(function() { return vm.imageUpload }, function() {
+          if (vm.imageUpload)
+          {
+            var src = 'data:' + vm.imageUpload.filetype + ';base64,' + vm.imageUpload.base64;
+            $('#camera').attr('src', src);
+          }
+        });
+      }
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
       }
