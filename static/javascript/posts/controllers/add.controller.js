@@ -15,7 +15,7 @@
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
-    vm.imageUpload;
+    vm.imageUpload = '';
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.title;
@@ -83,7 +83,7 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
-          vm.imageUpload
+          vm.imageUpload.base64
         ).then(addPostSuccessFn, addPostErrorFn);
       }
       else alert('You need to log in first');

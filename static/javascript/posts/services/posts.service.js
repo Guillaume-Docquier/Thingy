@@ -47,7 +47,7 @@
         condition: conditionID,
         subcategory: subcategoryID,
         location: subregionID,
-        image: image64.base64
+        image: image64
       });
     }
 
