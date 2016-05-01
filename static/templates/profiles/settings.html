@@ -21,9 +21,27 @@
         <input type="text" class="form-control" id="settings__username" ng-model="vm.profile.username" placeholder="ex. guicool" />
       </div>
 
+      <div class='row'>
+        <div class="form-group col-xs-6">
+          <label for="register__fname">First name</label>
+          <input type="text" class="form-control" id="register__fname" ng-model="vm.profile.first_name" placeholder="ex: John" />
+        </div>
+
+        <div class="form-group col-xs-6">
+          <label for="register__lname">Last name</label>
+          <input type="text" class="form-control" id="register__lname" ng-model="vm.profile.last_name" placeholder="ex: Doe" />
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="settings__tagline">Tagline</label>
         <textarea class="form-control" id="settings__tagline" ng-model="vm.profile.tagline" placeholder="ex. Gui's the coolest" />
+      </div>
+
+      <div class="form-group">
+        <label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Profile picture</label>
+        <p><img id='profilePicture' src={{vm.profilePicture}}></img></p>
+        <input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
       </div>
 
       <div class="form-group">
