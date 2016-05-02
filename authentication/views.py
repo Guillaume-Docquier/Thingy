@@ -60,12 +60,27 @@ class AccountViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            account = Account.objects.create_user(**serializer.validated_data)
-            account.first_name = serializer.validated_data.get('first_name')
-            account.last_name = serializer.validated_data.get('last_name')
-            account.save()
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            if 'image' in serializer.validated_data:
+                account = Account.objects.create_user(**serializer.validated_data)
+                account.image = serializer.validated_data['image']
+                account.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            else:
+                Account.objects.create_user(**serializer.validated_data)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+
+        # if serializer.is_valid():
+        #     account = Account.objects.create_user(**serializer.validated_data)
+        #     account.first_name = serializer.validated_data.get('first_name')
+        #     account.last_name = serializer.validated_data.get('last_name')
+        #     account.save()
+        #
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',
