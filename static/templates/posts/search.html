@@ -107,16 +107,25 @@
 		<!-- TODOJS make the map work -->
 		<div class="col-sm-4" ng-show="vm.selectedPost">
 			<div class= "fixed col-sm-4" >
-			<div class="hidden-xs">
-				<div id="thingyaddbox"><post thingy="vm.selectedPost"></post></div>
-				<div class="form-group">
-					<button type="button" class="btn btn-default">Rent/Read more</button>
-				</div>
-				<p><img id='map' src='/static/images/map.jpg'></img></p>
-			</div>
+                <div class="hidden-xs">
+                    <div id="thingyaddbox"><post thingy="vm.selectedPost"></post></div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default">Rent/Read more</button>
+                    </div>
+                    <p>
+                        <iframe
+                            width="100%"
+                            height="300px"
+                            frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc &q= Uppsala,Sweden" allowfullscreen>
+                        </iframe>
+                    </p>
+                </div>
 			</div>
 		</div> <!-- /col-sm-4 -->
+
 		<div class="col-sm-2">
 		</div> <!-- /col-sm-2 -->
+
 	</div> <!-- /row -->
 </div> <!-- /container-fluid -->
