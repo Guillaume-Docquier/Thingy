@@ -30,6 +30,7 @@
     vm.subregion = '';
     vm.condition = '';
     vm.selectedPost;
+    vm.geoloc = '';
 
     activate();
 
@@ -100,6 +101,7 @@
 
     function selection(thingy) {
       vm.selectedPost = thingy;
+      vm.geoloc = thingy.subregion.name
     }
   }
 })();
