@@ -33,15 +33,14 @@ class Account(AbstractBaseUser):
 
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
-    tagline = models.CharField(max_length=140)
+    tagline = models.CharField(max_length=140, blank=True)
 
     is_admin = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    image = models.ImageField(upload_to='userimages/', default='userimages/None-No-img.jpg')
-
+    image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
 
     objects = AccountManager()
 

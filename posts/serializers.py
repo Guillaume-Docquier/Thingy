@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from authentication.serializers import AccountSerializer
 from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition, PostImage
+from posts.fields import Base64ImageField
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -62,9 +63,10 @@ class PostSerializer(serializers.ModelSerializer):
     condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
     location_details = TownSerializer(source='location', read_only=True, required=False)
     location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
-    image = serializers.ImageField(max_length=None, use_url = True, required=False)
+    #image = serializers.ImageField(source='image', max_length=None, use_url = True, required=False)
+    image = Base64ImageField(required=False)
 
-	
+
     class Meta:
         model = Post
 

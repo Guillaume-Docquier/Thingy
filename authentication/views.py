@@ -61,9 +61,9 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             account = Account.objects.create_user(**serializer.validated_data)
-            account.image = serializer.validated_data['image']
+            account.first_name = serializer.validated_data.get('first_name')
+            account.last_name = serializer.validated_data.get('last_name')
             account.save()
-            #account.image.save("TEST", serializer.validated_data['image'])
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

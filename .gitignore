@@ -66,3 +66,6 @@ node_modules/
 
 # Backups made by gedit
 *~
+
+# Local thumbnails
+Thumbs.db

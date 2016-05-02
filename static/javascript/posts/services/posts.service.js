@@ -39,8 +39,7 @@
     }
 
     // Adds a new post
-    function add(title, description, price, conditionID, subcategoryID, subregionID, image) {
-      console.log('image: ' + image);
+    function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
       return $http.post('/api/v1/posts/', {
         title: title,
         description: description,
@@ -48,7 +47,7 @@
         condition: conditionID,
         subcategory: subcategoryID,
         location: subregionID,
-        image: image
+        image: image64
       });
     }
 
@@ -80,7 +79,7 @@
       // Loop through arguments and create a query string
       for(; i < j; i++)
       {
-        console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
+        //console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
         if(arguments[i])
         {
           query += (argumentNames[i] + '=' + arguments[i] + '&');

@@ -5,6 +5,8 @@ from rest_framework import serializers
 #from posts.serializers import PostSerializer
 
 from authentication.models import Account, Review, UserImage
+
+from posts.fields import Base64ImageField
 #from posts.models import Post
 
 
@@ -12,8 +14,7 @@ from authentication.models import Account, Review, UserImage
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    image = serializers.ImageField(max_length=None, use_url = True, required=False)
-
+    image = Base64ImageField(required=False)
 
     class Meta:
         model = Account

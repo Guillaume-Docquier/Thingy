@@ -15,17 +15,17 @@
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
+    vm.imageUpload = '';
 
-    // Bindings
+    // Bindings, empty string to prevent unwanted behaviour
     vm.title;
     vm.description;
     vm.price;
-    vm.condition;
-    vm.category;
-    vm.subcategory;
-    vm.region;
-    vm.subregion;
-    vm.image;
+    vm.condition = '';
+    vm.category = '';
+    vm.subcategory = '';
+    vm.region = '';
+    vm.subregion = '';
 
     activate();
 
@@ -34,8 +34,19 @@
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
 
-      restoreForms();
+      bindEvents();
 
+
+      function bindEvents() {
+        // Live preview of the uploaded image
+        $scope.$watch(function() { return vm.imageUpload }, function() {
+          if (vm.imageUpload)
+          {
+            var src = 'data:' + vm.imageUpload.filetype + ';base64,' + vm.imageUpload.base64;
+            $('#camera').attr('src', src);
+          }
+        });
+      }
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
       }
@@ -59,47 +70,12 @@
       function conditionsErrorFn(data, status, headers, config) {
         alert(data.data.error);
       }
-
-      function restoreForms() {
-        var savedForm = $cookies.getObject('savedForm');
-        if (savedForm)
-        {
-          // Forms
-          vm.title = savedForm.title;
-          vm.description = savedForm.description;
-          vm.price = savedForm.price;
-          vm.condition = savedForm.condition;
-          // TODO
-          //vm.category = JSON.parse(savedForm.category); // Working weird
-          //vm.subcategory = JSON.parse(savedForm.subcategory); // Working weird
-          //vm.region = JSON.parse(savedForm.region); // Working weird
-          //vm.subregion = JSON.parse(savedForm.subregion); // Working weird
-          // Actions
-          //if (searchObject.action) vm.search();
-        }
-      }
-
-      function bindEvents() {
-        // Save form on refresh
-        $rootScope.$on('login', function (event, post) {
-          $cookies.putObject('savedForm', {
-              title: vm.title,
-              description: vm.description,
-              price: vm.price,
-              condition: vm.condition,
-              // TODO
-              // category: JSON.stringify(vm.category), // Working weird
-              // subcategory: JSON.stringify(vm.subcategory) // Working weird
-              // region = JSON.stringify(vm.region); // Working weird
-              // subregion = JSON.stringify(vm.subregion); // Working weird
-            }, {expires: new Date(Date.now() + 2000)} // valid for 2 seconds
-          );
-        });
-      }
     }
 
     function add() {
+      console.log(vm.imageUpload);
       if (Authentication.isAuthenticated())
+      {
         Posts.add(
           vm.title,
           vm.description,
@@ -107,8 +83,9 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
-          vm.image
+          vm.imageUpload.base64
         ).then(addPostSuccessFn, addPostErrorFn);
+      }
       else alert('You need to log in first');
 
       /**
@@ -116,8 +93,8 @@
       * @desc Show snackbar with success message
       */
       function addPostSuccessFn(data, status, headers, config) {
-        resetForms();
         $route.reload();
+        alert('Post created!');
       }
 
       /**
@@ -125,20 +102,9 @@
       * @desc Propogate error event and show snackbar with error message
       */
       function addPostErrorFn(data, status, headers, config) {
-        alert('Something went wrong, check the console.');
+        alert('Ooops, you entered wrong information.');
+        console.log(data);
       };
-    }
-
-    function resetForms() {
-      vm.title =
-      vm.description =
-      vm.price =
-      vm.category =
-      vm.subcategory =
-      vm.region =
-      vm.subregion =
-      vm.image =
-      "";
     }
   }
 })();

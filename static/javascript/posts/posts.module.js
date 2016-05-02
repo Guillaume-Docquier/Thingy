@@ -9,7 +9,7 @@
     ]);
 
   angular
-    .module('thingy.posts.controllers', ['ngRoute', 'ngCookies']);
+    .module('thingy.posts.controllers', ['ngRoute', 'ngCookies', 'naif.base64']);
 
   angular
     .module('thingy.posts.services', []);
