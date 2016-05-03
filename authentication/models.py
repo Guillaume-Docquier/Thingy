@@ -40,6 +40,7 @@ class Account(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # The default image is default.png so we should always have it in media/userimages/
     image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
 
     objects = AccountManager()

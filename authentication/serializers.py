@@ -14,8 +14,11 @@ from posts.fields import Base64ImageField
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    #image = Base64ImageField(required=False)
-    image = serializers.ImageField(max_length=None, use_url=True, required=False)
+    # The client-side will send a base64 string of the image binary data.
+    # Base64ImageField is in posts.fields.py and converts the string to binary data.
+    # The model uses a normal ImageField after that.
+    image = Base64ImageField(required=False)
+    #image = serializers.ImageField(max_length=None, use_url=True, required=False)
 
     class Meta:
         model = Account

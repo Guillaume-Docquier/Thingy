@@ -64,7 +64,7 @@
         // Updating the username will require both the old and new one.
         vm.profile.oldUsername = vm.profile.username;
         vm.profilePicture = 'media/' + vm.profile.image;
-        
+
         bindEvents();
 
 
@@ -149,7 +149,8 @@
       * @desc Show error snackbar
       */
       function profileErrorFn(data, status, headers, config) {
-        alert(data.data);
+        alert('An error occurred');
+        console.log(data.data);
       }
     }
   }
