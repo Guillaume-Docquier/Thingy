@@ -1,6 +1,6 @@
 <div class="jumbotron text-center" id='homeJumbotron'>
-  <h1>Thingy</h1> 
-  <h5>Collaborative consumtion made easy for you</h5> 
+  <h1>Thingy</h1>
+  <h5>Collaborative consumtion made easy for you</h5>
   <form class="form-inline">
     <input type="Search" class="form-control" size="50" placeholder="Search thingy" ng-model="vm.searchTerm" required>
     <button type="button" id="search_btn_home" class="btn" ng-click="vm.search(false)">Search</button>
@@ -8,27 +8,30 @@
 </div>
 
 
-<div class="container-fluid bg-3 text-center">    
-	
-<div class="hidden-xs">	
+<div class="container-fluid bg-3 text-center">
+
+<div class="hidden-xs">
   <div class="row">
     <div class="col-sm-3">
       <p>Tools</p>
       <!-- TODOJS when clicking on a picture we want to search on that special category -->
-      <a href="http://127.0.0.1:8000/thingies/search?advanced=false&search=">
+      <a href="/thingies/search?advanced=false&category=hobby&subcategory=tools">
       <img src="/static/images/tools.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
     </div>
-    <div class="col-sm-3"> 
+    <div class="col-sm-3">
       <p>Automotive</p>
-      <img src="/static/images/automotive.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=automotive">
+      <img src="/static/images/automotive.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
     </div>
-    <div class="col-sm-3"> 
+    <div class="col-sm-3">
       <p>Books</p>
-      <img src="/static/images/books.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=books">
+      <img src="/static/images/books.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
     </div>
     <div class="col-sm-3">
       <p>Events</p>
-      <img src="/static/images/events.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=events">
+      <img src="/static/images/events.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
     </div>
   </div>
   </div> <!-- hidden-xs-->
@@ -37,25 +40,28 @@
 
 
 <div class="container-fluid bg-3 text-center">
-	<div class="hidden-xs">	    
+	<div class="hidden-xs">
 	  <div class="row">
 		<div class="col-sm-3">
 		  <p>Fashion</p>
-		  <img src="/static/images/fashion.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=fashion">
+		  <img src="/static/images/fashion.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
 		</div>
-		<div class="col-sm-3"> 
+		<div class="col-sm-3">
 		  <p>Hobby</p>
-		  <img src="/static/images/Paint.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=hobby">
+		  <img src="/static/images/Paint.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
 		</div>
-		<div class="col-sm-3"> 
+		<div class="col-sm-3">
 		  <p>Home</p>
-		  <img src="/static/images/home.jpg" class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=home">
+		  <img src="/static/images/home.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
 		</div>
 		<div class="col-sm-3">
 		  <p>Other</p>
-		  <img src="/static/images/other.jpg"  class="img-responsive" style="width:100%" alt="Image">
+      <a href="/thingies/search?advanced=false&category=other">
+		  <img src="/static/images/other.jpg"  class="img-responsive" style="width:100%" alt="Image"></a>
 		</div>
 	  </div>
 	</div> <!-- hidden-xs-->
 </div><br><br>
-
