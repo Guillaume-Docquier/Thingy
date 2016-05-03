@@ -46,7 +46,7 @@
         if($location.search().category)
         {
           vm.category = findObjectContainingKey(vm.categories, 'cname', $location.search().category);
-          vm.subcategory = findObjectContainingKey(vm.category.subcategories, 'name', $location.search().subcategory);
+          vm.subcategory = findObjectContainingKey(vm.category.subcategories, 'name', ($location.search().subcategory || ''));
         }
         // Done
         Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
@@ -61,7 +61,7 @@
         if($location.search().region)
         {
           vm.region = findObjectContainingKey(vm.regions, 'name', $location.search().region);
-          vm.subregion = findObjectContainingKey(vm.regions.towns, 'name', $location.search().subregion);
+          vm.subregion = findObjectContainingKey(vm.regions.towns, 'name', ($location.search().subregion || ''));
         }
         // Done
         Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
@@ -103,6 +103,7 @@
       */
       function searchSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
+        console.log(data);
       }
 
       /**
