@@ -5,9 +5,9 @@
     .module('thingy.posts.controllers')
     .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$rootScope', '$scope', 'Posts', '$route', '$cookies', '$location'];
+  SearchController.$inject = ['$rootScope', '$scope', 'Posts', '$route', '$cookies', '$location', '$sce'];
 
-  function SearchController($rootScope, $scope, Posts, $route, $cookies, $location) {
+  function SearchController($rootScope, $scope, Posts, $route, $cookies, $location, $sce) {
     var vm = this;
 
     // Function and Data
@@ -118,7 +118,10 @@
 
     function selection(thingy) {
       vm.selectedPost = thingy;
-      vm.geoloc = thingy.subregion.name
+      vm.locationUrl ='https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc&q=' + thingy.location_details.name + ',Sweden';
+      //vm.trustedLocationUrl = $sce.getTrustedResourceUrl(vm.locationUrl);
+      vm.locationUrlt = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc &q= Stockholm,Sweden';
+      console.log('vm.locationUrl: ' + vm.locationUrl);
     }
 
     // Finds which object contains value as key.
