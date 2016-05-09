@@ -26,7 +26,6 @@
 
     // Bindings
     vm.profile;
-    vm.profilePicture;
 
     activate();
 
@@ -63,7 +62,6 @@
         vm.profile = data.data;
         // Updating the username will require both the old and new one.
         vm.profile.oldUsername = vm.profile.username;
-        vm.profilePicture = 'media/' + vm.profile.image;
 
         bindEvents();
 
