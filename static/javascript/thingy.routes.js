@@ -46,7 +46,7 @@
     })
     // User settings
     .when('/users/:username/settings', {
-      controller: 'ProfileSettingsController',
+      controller: 'SettingsController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/settings.html'
     })
