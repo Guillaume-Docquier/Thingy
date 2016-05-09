@@ -10,13 +10,15 @@
   function Posts($http) {
     var vm = this;
 
-    vm.getAllPosts = getAllPosts;
     vm.getAllCategories = getAllCategories;
     vm.getAllRegions = getAllRegions;
     vm.getAllConditions = getAllConditions;
     vm.add = add;
+    vm.getAllPosts = getAllPosts;
+    vm.getSinglePost = getSinglePost;
     vm.getUserPosts = getUserPosts;
     vm.search = search;
+    vm.rent = rent;
 
     // Returns all posts made
     function getAllPosts() {
@@ -51,12 +53,16 @@
       });
     }
 
+    // Gets a post by its ID
+    function getSinglePost(id) {
+      return $http.get('/api/v1/posts/' + id + '/');
+    }
+
     // Gets posts made by a user
     function getUserPosts(username) {
       return $http.get('/api/v1/accounts/' + username + '/posts/');
     }
 
-    // TODO
     // Searches for Thingies in the db
     function search(search, category, subcategory, minPrice, maxPrice, region, subregion, condition) {
       var query, argumentNames, i, j;
@@ -86,6 +92,13 @@
         }
       }
       return $http.get('/api/v1/posts/' + query);
+    }
+
+    // Sends a rent request/reply (request,accept,decline)
+    function rent(postId, request) {
+      return $http.post('api/v1/posts/' + postId + '/rent/', {
+        request: request
+      });
     }
   }
 })();
