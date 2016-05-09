@@ -26,6 +26,12 @@
       templateUrl: '/static/templates/posts/search.html',
       reloadOnSearch: false
     })
+    // Thingy detailed
+    .when('/thingies/:thingyid', {
+      controller: 'ThingyController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/posts/thingy.html',
+    })
     // Thingy add
     .when('/thingies/add', {
       controller: 'AddController',
