@@ -1,5 +1,5 @@
 /**
-* ProfileSettingsController
+* SettingsController
 * @namespace thingy.profiles.controllers
 */
 (function () {
@@ -7,16 +7,16 @@
 
   angular
     .module('thingy.profiles.controllers')
-    .controller('ProfileSettingsController', ProfileSettingsController);
+    .controller('SettingsController', SettingsController);
 
-  ProfileSettingsController.$inject = [
+  SettingsController.$inject = [
     '$location', '$scope', '$routeParams', 'Authentication', 'Profile',
   ];
 
   /**
-  * @namespace ProfileSettingsController
+  * @namespace SettingsController
   */
-  function ProfileSettingsController($location, $scope, $routeParams, Authentication, Profile) {
+  function SettingsController($location, $scope, $routeParams, Authentication, Profile) {
     var vm = this;
 
     // Functions and Data
@@ -33,7 +33,7 @@
     /**
     * @name activate
     * @desc Actions to be performed when this controller is instantiated.
-    * @memberOf thingy.profiles.controllers.ProfileSettingsController
+    * @memberOf thingy.profiles.controllers.SettingsController
     */
     function activate() {
       var authenticatedAccount = Authentication.getAuthenticatedAccount();
@@ -43,12 +43,14 @@
       if (!authenticatedAccount) {
         $location.url('/');
         alert('You are not authorized to view this page.');
+        return;
       }
       else {
         // Redirect if logged in, but not the owner of this profile.
         if (authenticatedAccount.username !== username) {
           $location.url('/');
           alert('You are not authorized to view this page.');
+          return;
         }
       }
 
@@ -92,7 +94,7 @@
     /**
     * @name destroy
     * @desc Destroy this user's profile
-    * @memberOf thingy.profiles.controllers.ProfileSettingsController
+    * @memberOf thingy.profiles.controllers.SettingsController
     */
     function destroy() {
       Profile.destroy(vm.profile.username).then(profileSuccessFn, profileErrorFn);
@@ -122,7 +124,7 @@
     /**
     * @name update
     * @desc Update this user's profile
-    * @memberOf thingy.profiles.controllers.ProfileSettingsController
+    * @memberOf thingy.profiles.controllers.SettingsController
     */
     function update() {
       vm.profile.image = vm.imageUpload.base64;
