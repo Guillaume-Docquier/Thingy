@@ -27,7 +27,7 @@
       reloadOnSearch: false
     })
     // Thingy detailed
-    .when('/thingies/:thingyid', {
+    .when('/thingies/detailed/:thingyid', {
       controller: 'ThingyController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/thingy.html',
