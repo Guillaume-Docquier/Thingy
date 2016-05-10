@@ -6,7 +6,7 @@ from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
 
-from rest_framework import permissions, viewsets, status, views
+from rest_framework import permissions, viewsets, status, views, generics
 from rest_framework.response import Response
 
 from authentication.models import Account, Review
@@ -152,6 +152,10 @@ class ReviewViewSet(viewsets.ViewSet):
     def create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(ReviewViewSet, self).perform_create(serializer)
+
+class ReviewList(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
 
 
 class PhotoList(views.APIView):

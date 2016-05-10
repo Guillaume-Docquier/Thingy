@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from thingyproject.views import IndexView
-from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail
+from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, PostReviewViewSet, ConditionViewSet
 
@@ -20,6 +20,7 @@ router = routers.SimpleRouter()
 #router = DefaultRouter()
 router.register(r'accounts', AccountViewSet)
 router.register(r'reviews', ReviewViewSet)
+#router.register(r'reviews', ReviewList)
 router.register(r'authorposts',AuthorPostsViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'categories', CategoryViewSet)
@@ -34,6 +35,7 @@ accounts_router = routers.NestedSimpleRouter(
 accounts_router.register(r'posts', AccountPostsViewSet)
 
 urlpatterns = [
+    url(r'^review/$', views.ReviewList.as_view()),
     url(r'', include(router.urls)),
     url(r'^authorposts/(?P<pk>[0-9]+)/$', AuthorPostsViewSet.as_view({'get': 'retrieve'}), name='index'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -43,6 +45,7 @@ urlpatterns = [
     url(r'^api/v1/auth/logout/$', LogoutView.as_view(), name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     url(r'^.*$', IndexView.as_view(), name='index'),
+
 ]
 
     # [url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
