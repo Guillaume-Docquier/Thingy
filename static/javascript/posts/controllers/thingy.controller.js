@@ -12,10 +12,11 @@
 
     // Functions and Data
     vm.rent = rent;
+    vm.profile = '';
     vm.post = '';
 
     // Bindings, empty string to prevent unwanted behaviour
-
+    vm.dates = [];
 
     activate()
 
@@ -23,6 +24,7 @@
       var thingyId = $routeParams.thingyid;
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
+      vm.profile = Authentication.getAuthenticatedAccount();
 
       function postSuccessFn(data, status, headers, config) {
         vm.post = data.data;
@@ -38,7 +40,7 @@
     function rent() {
       // Requires authentication
       if(Authentication.isAuthenticated)
-        Posts.rent(vm.post.id, 'request').then(rentSuccessFn, rentErrorFn);
+        Posts.rent(vm.profile.id, vm.post.id, 'request', vm.dates).then(rentSuccessFn, rentErrorFn);
       else
         alert('You need to be logged in.');
 

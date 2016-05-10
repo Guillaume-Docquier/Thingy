@@ -95,9 +95,11 @@
     }
 
     // Sends a rent request/reply (request,accept,decline)
-    function rent(postId, request) {
+    function rent(userId, postId, request, dates) {
       return $http.post('api/v1/posts/' + postId + '/rent/', {
-        request: request
+        userId: userId,
+        request: request,
+        dates: JSON.stringify(dates)
       });
     }
   }
