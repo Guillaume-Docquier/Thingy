@@ -24,6 +24,8 @@
       // Already authenticated users should not be here
       if (Authentication.isAuthenticated()) {
         $location.url('/');
+        alert('You are already logged in');
+        return
       }
 
       // For some reason this doesn't work
