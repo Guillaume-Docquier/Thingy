@@ -1,3 +1,7 @@
+/**
+* Authentication
+* @namespace thingy.authentication.services
+*/
 (function(){
   'use strict'
 
@@ -7,6 +11,10 @@
 
   Authentication.$inject = ['$cookies', '$http', '$route', '$rootScope'];
 
+  /**
+  * @namespace Authentication
+  * @desc Service for authenticating users
+  */
   function Authentication($cookies, $http, $route, $rootScope) {
     var vm = this;
 
@@ -18,6 +26,14 @@
     vm.setAuthenticatedAccount = setAuthenticatedAccount;
     vm.unauthenticate = unauthenticate;
 
+    /**
+    * @name login
+    * @desc Try to log a user in
+    * @param {string} username The username entered by the user
+    * @param {string} password The password entered by the user
+    * @returns {Promise}
+    * @memberOf thingy.authentication.services.Authentication
+    */
     function login(username, password) {
       return $http.post('/api/v1/auth/login/', {
         username: username, password: password
@@ -25,25 +41,35 @@
 
       /**
        * @name loginSuccessFn
-       * @desc Set the authenticated account and redirect to index
+       * @desc Set the authenticated account and reload the page
        */
       function loginSuccessFn(data, status, headers, config) {
         vm.setAuthenticatedAccount(data.data);
         // Allows pages to save data before refresh
         $rootScope.$broadcast('login');
-        // Refresh
         location.reload();
       }
 
       /**
        * @name loginErrorFn
-       * @desc Log "Epic failure!" to the console
+       * @desc Log the error in the console
        */
       function loginErrorFn(data, status, headers, config) {
         console.error(data.data.message);
       }
     }
 
+    /**
+    * @name register
+    * @desc Try to register a new user
+    * @param {string} username The username entered by the user
+    * @param {string} email The email entered by the user
+    * @param {string} first_name The first name entered by the user
+    * @param {string} last_name The last name entered by the user
+    * @param {string} password The password entered by the user
+    * @returns {Promise}
+    * @memberOf thingy.authentication.services.Authentication
+    */
     function register(username, email, first_name, last_name, password) {
       console.log('username:' + username + ', email: '+ email + ', first_name: ' + first_name + ', last_name: ' + last_name + ', password: ' + password);
       return $http.post('/api/v1/accounts/', {
@@ -64,14 +90,20 @@
 
       /**
       * @name registerErrorFn
-      * @desc Log "Epic failure!" to the console
+      * @desc Log the error in the console
       */
       function registerErrorFn(data, status, headers, config) {
         console.error('Register failed...');
-        console.log(data);
+        console.log(data.data.error);
       }
     }
 
+    /**
+    * @name logout
+    * @desc Log the user out
+    * @returns {Promise}
+    * @memberOf thingy.authentication.services.Authentication
+    */
     function logout() {
       return $http.post('/api/v1/auth/logout/')
         .then(logoutSuccessFn, logoutErrorFn);
@@ -87,7 +119,7 @@
 
       /**
        * @name logoutErrorFn
-       * @desc Log "Epic failure!" to the console
+       * @desc Log "Logout failed..." to the console
        */
       function logoutErrorFn(data, status, headers, config) {
         console.error('Logout failed...');
@@ -98,7 +130,7 @@
    * @name getAuthenticatedAccount
    * @desc Return the currently authenticated account
    * @returns {object|undefined} Account if authenticated, else `undefined`
-   * @memberOf thinkster.authentication.services.Authentication
+   * @memberOf thingy.authentication.services.Authentication
    */
    function getAuthenticatedAccount() {
       if (!$cookies.get('authenticatedAccount')) {
@@ -111,7 +143,7 @@
    * @name isAuthenticated
    * @desc Check if the current user is authenticated
    * @returns {boolean} True is user is authenticated, else false.
-   * @memberOf thinkster.authentication.services.Authentication
+   * @memberOf thingy.authentication.services.Authentication
    */
     function isAuthenticated() {
       return !!$cookies.get('authenticatedAccount');
@@ -122,7 +154,7 @@
    * @desc Stringify the account object and store it in a cookie for 1 day
    * @param {Object} user The account object to be stored
    * @returns {undefined}
-   * @memberOf thinkster.authentication.services.Authentication
+   * @memberOf thingy.authentication.services.Authentication
    */
     function setAuthenticatedAccount(account) {
       var now = Date.now(),
@@ -134,7 +166,7 @@
    * @name unauthenticate
    * @desc Delete the cookie where the user object is stored
    * @returns {undefined}
-   * @memberOf thinkster.authentication.services.Authentication
+   * @memberOf thingy.authentication.services.Authentication
    */
     function unauthenticate() {
       $cookies.remove('authenticatedAccount');
