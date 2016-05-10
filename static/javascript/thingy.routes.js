@@ -27,7 +27,7 @@
       reloadOnSearch: false
     })
     // Thingy detailed
-    .when('/thingies/detailed/:thingyid', {
+    .when('/thingies/details/:thingyid', {
       controller: 'ThingyController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/thingy.html',
@@ -46,23 +46,29 @@
     })
     // User settings
     .when('/users/:username/settings', {
-      controller: 'ProfileSettingsController',
+      controller: 'SettingsController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/settings.html'
     })
-    // User Thingies
+    // User messages
+    .when('/users/:username/messages', {
+      controller: 'MessagesController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/profiles/messages.html'
+    })
+    // TODO User Thingies
     .when('/users/:username/thingies', {
       controller: 'ProfileController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/thingies.html'
     })
-    // User rents
+    // TODO User rents
     .when('/users/:username/rents', {
       controller: 'ProfileController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/rents.html'
     })
-    // User reviews
+    // TODO User reviews
     .when('/users/:username/reviews', {
       controller: 'ProfileController',
       controllerAs: 'vm',

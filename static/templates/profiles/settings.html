@@ -40,7 +40,7 @@
 
       <div class="form-group">
         <label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Profile picture</label>
-        <p><img id='profilePicture' ng-src={{vm.profilePicture}}></img></p>
+        <p><img id='profilePicture' ng-src='media/{{vm.profile.image}}'></img></p>
         <input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
       </div>
 
