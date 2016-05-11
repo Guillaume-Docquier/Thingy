@@ -6,14 +6,11 @@ from authentication.models import Account
 
 class messTypes(models.Model):
 
-<<<<<<< HEAD
     type = models.CharField(max_length=400,blank=True)
 
     def __unicode__(self):
         return self.type
-=======
-    type = models.CharField(max_length=400,blank=True,on_delete=models.CASCADE)
->>>>>>> 0db1ec02530626a3d18ad0d36ed851db4181d622
+    #type = models.CharField(max_length=400,blank=True,on_delete=models.CASCADE)
 
 class Message(models.Model):
 
@@ -26,9 +23,7 @@ class Message(models.Model):
 
     class Meta:
         ordering = ('created',)
-<<<<<<< HEAD
 
     def __unicode__(self):
         return u'%s / %s/ %s' % (self.body, self.author, self.recipient)
-=======
->>>>>>> 0db1ec02530626a3d18ad0d36ed851db4181d622
+
