@@ -15,11 +15,6 @@
   * @namespace Profile
   */
   function Profile($http, Authentication) {
-    /**
-    * @name Profile
-    * @desc The factory to be returned
-    * @memberOf thingy.profiles.services.Profile
-    */
     var vm = this;
 
     vm.destroy = destroy
@@ -31,12 +26,12 @@
     /**
     * @name destroy
     * @desc Destroys the given profile
-    * @param {Object} profile The profile to be destroyed
+    * @param {string} id The id of the profile to be destroyed
     * @returns {Promise}
     * @memberOf thingy.profiles.services.Profile
     */
-    function destroy(profile) {
-      return $http.delete('/api/v1/accounts/' + profile.id + '/');
+    function destroy(id) {
+      return $http.delete('/api/v1/accounts/' + id + '/');
     }
 
 
@@ -63,12 +58,24 @@
       return $http.put('/api/v1/accounts/' + profile.oldUsername + '/', profile);
     }
 
-    // Gets all received messages of the user
+    /**
+    * @name getReceivedMessages
+    * @desc Get all received messages of a user
+    * @param {string} id The id of the user
+    * @returns {Promise}
+    * @memberOf thingy.profiles.services.Profile
+    */
     function getReceivedMessages(id) {
       return $http.get('api/v1/messages/' + id + '/received/');
     }
 
-    // Gets all sent messages of the user
+    /**
+    * @name getSentMessages
+    * @desc Get all sent messages of the user
+    * @param {string} id The id of the user
+    * @returns {Promise}
+    * @memberOf thingy.profiles.services.Profile
+    */
     function getSentMessages(id) {
       return $http.get('api/v1/messages/' + id + '/sent/');
     }

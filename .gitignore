@@ -69,5 +69,6 @@ bower_components/
 # Backups made by gedit
 *~
 
-# Local thumbnails
+# Local thumbnails and images
 Thumbs.db
+media/
