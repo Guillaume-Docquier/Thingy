@@ -3,3 +3,8 @@ INSERT INTO `thingy`.`posts_condition` (`id`, `cond_desc`, `cond_grade`) VALUES 
 INSERT INTO `thingy`.`posts_condition` (`id`, `cond_desc`, `cond_grade`) VALUES ('3', 'Working', '3');
 INSERT INTO `thingy`.`posts_condition` (`id`, `cond_desc`, `cond_grade`) VALUES ('4', 'Bad', '2');
 INSERT INTO `thingy`.`posts_condition` (`id`, `cond_desc`, `cond_grade`) VALUES ('5', 'Very bad', '1');
+
+INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('1', 'Available');
+INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('2', 'Rented');
+INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('3', 'Unavailable');
+INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('4', 'Inactive');

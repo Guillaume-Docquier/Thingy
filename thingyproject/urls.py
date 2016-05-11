@@ -11,8 +11,13 @@ from django.conf import settings
 from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
+<<<<<<< HEAD
     RegionViewSet, PostReviewViewSet, ConditionViewSet
 from message.views import MessageViewSet, RecipientViewSet
+=======
+    RegionViewSet, PostReviewViewSet, ConditionViewSet, StatusViewSet
+
+>>>>>>> 0db1ec02530626a3d18ad0d36ed851db4181d622
 
 
 admin.autodiscover()
@@ -27,8 +32,10 @@ router.register(r'posts', PostViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubCategoryViewSet)
 router.register(r'regions', RegionViewSet)
-router.register(r'postreviews', PostReviewViewSet)
+router.register(r'postreviews', ReviewViewSet)
 router.register(r'conditions', ConditionViewSet)
+router.register(r'statuses', StatusViewSet)
+
 #router.register(r'userphotos', PhotoList)
 
 #Routing for message-app

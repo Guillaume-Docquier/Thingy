@@ -65,6 +65,7 @@ class SimpleReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'rating', 'revieweduser')
 
 
+
 class AccountWithReviews(AccountSerializer):
     reviews = SimpleReviewSerializer(read_only=True, required=False, many=True)
 
@@ -74,13 +75,23 @@ class AccountWithReviews(AccountSerializer):
                   'confirm_password', 'reviews' , 'image')
 
 class ReviewSerializer(serializers.ModelSerializer):
+
     revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+    #revieweduser = AccountSerializer()
+    #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
     #post = PostSerializer(read_only=True, required=False)
     #= AccountSerializer()
 
     class Meta:
         model = Review
         fields = ('id', 'rating', 'comment', 'revieweduser')
+        #read_only_fields = ('id')
+
+    #def create(self, validated_data):
+        #revieweduser_data = validated_data.pop('revieweduser')
+        #username = Review.objects.create(**validated_data)
+        #Account.objects.create(username=username, **profile_data)
+        #return username
         read_only_fields = ('id')
 
     # def get_validation_exclusions(self, *args, **kwargs):

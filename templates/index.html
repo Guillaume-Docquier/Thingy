@@ -3,19 +3,22 @@
 <head>
   <title>Thingy-dev</title>
   <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   {% include 'styles.html' %}
 
 </head>
 
 <body>
-  {% include 'navbar.html' with ng=1 %}
+  {% include 'navbar.html' %}
 
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 ng-view"></div>
     </div>
   </div>
+
+  {% include 'footer.html' %}
 
   {% include 'javascript.html' %}
 

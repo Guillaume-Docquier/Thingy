@@ -151,12 +151,16 @@ class ReviewViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, serializer):
-        instance = serializer.save(author=self.request.user)
+        instance = serializer.save()
         return super(ReviewViewSet, self).perform_create(serializer)
 
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+
+    
 
 
 class PhotoList(views.APIView):

@@ -31,7 +31,6 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(unique=True)
 
-
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     tagline = models.CharField(max_length=140, blank=True)
@@ -69,8 +68,7 @@ class Review(models.Model):
     revieweduser = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
     comment = models.CharField(max_length=500)
-    #grade_of_communication = models.IntegerField(default=0)
-    #grade_of_description_of_item = models.IntegerField(default=0)
+    #comments = models.CharField(max_length=500)
 
     def __unicode__(self):
         return u'%s (%d)' % (self.revieweduser, self.id)
