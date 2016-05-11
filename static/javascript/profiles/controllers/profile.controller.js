@@ -14,6 +14,16 @@
     var vm = this;
 
     vm.profile = undefined;
+    vm.messages = [
+      {
+        author: {username:'gudoc'},
+        body: 'Wassup bro'
+      },
+      {
+        author: {username:'gudoc'},
+        body: 'Wrong person'
+      }
+    ];
     vm.posts = [];
 
     activate();

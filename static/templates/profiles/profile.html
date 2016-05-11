@@ -72,7 +72,9 @@
 					<p>reviews...</p>
 				  </div>
 				  <div id="messages__tab" class="tab-pane fade">
-					<p>Messages...</p>
+            <div ng-repeat='message in vm.messages'>
+  						<message message="message">hi</message>
+            </div>
 				  </div>
 				</div>
 
