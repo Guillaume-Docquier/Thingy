@@ -12,6 +12,7 @@ from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, PostReviewViewSet, ConditionViewSet
+from message.views import MessageViewSet, RecipientViewSet
 
 
 admin.autodiscover()
@@ -29,6 +30,11 @@ router.register(r'regions', RegionViewSet)
 router.register(r'postreviews', PostReviewViewSet)
 router.register(r'conditions', ConditionViewSet)
 #router.register(r'userphotos', PhotoList)
+
+#Routing for message-app
+router.register(r'messages', MessageViewSet)
+router.register(r'recipient', RecipientViewSet)
+
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account')
