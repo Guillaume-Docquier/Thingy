@@ -1,8 +1,16 @@
+<!-- Prevent adding #whatever when clicking tabs -->
+<script type="text/javascript">
+  $('.nav-tabs a').click(function(e)
+  {
+    e.preventDefault();
+  });
+</script>
+
 <div class="profile" ng-show="vm.profile">
-	
+
 <div class="container-fluid">
-  <div class="hidden-xs">	
-	<div class="row">		
+  <div class="hidden-xs">
+	<div class="row">
 		<div class="col-xs-1"></div>
 		<div class="col-xs-10">
 			<h3>Profile</h3>
@@ -22,7 +30,7 @@
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
 					<!-- TODOJS add hometown? Should we have this -->
-					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>	    
+					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
 					<h6>
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					  <span class="glyphicon glyphicon-star yellow"></span>
@@ -37,7 +45,7 @@
 				</div>
 			</div> <!-- /row --->
 			</div> <!-- cliente -->
-		</div> <!-- /col-sm-3 --> 
+		</div> <!-- /col-sm-3 -->
 		<div class="col-sm-7">
 			<div class="row">
 				<div class="col-xs-12">
@@ -47,15 +55,16 @@
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
 					  <li><a data-toggle="tab" href="#messages__tab">Messages <span class="badge">4</span></a></li>
 					</ul>
-					
+
 				</div><!-- col-xs-12 -->
 				</div><!-- /row -->
 				<div class="row">
-					
+
 				<div class="tab-content">
 				  <div id="thingies__tab" class="tab-pane fade in active">
 						<div ng-repeat='thingy in vm.posts'>
-						<post thingy="thingy"></post>
+  						<post thingy="thingy"></post>
+            </div>
 				  </div>
 				  <div id="contacts__tab" class="tab-pane fade">
 					<p>Contacts...</p>
@@ -67,12 +76,12 @@
 					<p>Messages...</p>
 				  </div>
 				</div>
-						
-				
+
+
 				</div> <!-- row -->
 		</div> <!-- col-sm-7 -->
-		<div class="col-sm-1"></div> 
+		<div class="col-sm-1"></div>
 		</div> <!-- /row -->
 </div> <!-- /container-fluid -->
 
-</div> 
+</div>
