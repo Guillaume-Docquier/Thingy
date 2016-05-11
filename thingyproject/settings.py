@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'thingyproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'thingy',
-        'USER': 'root',
-        'PASSWORD': '731992',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '',
    }
@@ -138,9 +138,32 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 AUTH_USER_MODEL = 'authentication.Account'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'mode': 'w',
+            'filename': os.path.join(BASE_DIR, 'base64.log'),
+        },
+    },
+    'loggers': {
+        'posts': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

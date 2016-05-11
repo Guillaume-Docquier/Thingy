@@ -39,14 +39,15 @@
     }
 
     // Adds a new post
-    function add(title, description, price, conditionID, subcategoryID, subregionID) {
+    function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
       return $http.post('/api/v1/posts/', {
         title: title,
         description: description,
         price: price,
         condition: conditionID,
         subcategory: subcategoryID,
-        location: subregionID
+        location: subregionID,
+        image: image64
       });
     }
 
@@ -57,8 +58,34 @@
 
     // TODO
     // Searches for Thingies in the db
-    function search() {
-      return $http.get();
+    function search(search, category, subcategory, minPrice, maxPrice, region, subregion, condition) {
+      var query, argumentNames, i, j;
+
+      query = '?';
+      // Use argumentNames to match db fields
+      argumentNames = [
+        'search',
+        'subcategory__category__cname',
+        'subcategory__sub_cat_name',
+        'min_price',
+        'max_price',
+        'location__region__name',
+        'location__name',
+        'condition__cond_desc'
+      ];
+      i = 0;
+      j = arguments.length;
+
+      // Loop through arguments and create a query string
+      for(; i < j; i++)
+      {
+        //console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
+        if(arguments[i])
+        {
+          query += (argumentNames[i] + '=' + arguments[i] + '&');
+        }
+      }
+      return $http.get('/api/v1/posts/' + query);
     }
   }
 })();

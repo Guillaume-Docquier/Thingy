@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.db.models.query_utils import Q
 
+from rest_framework.views import APIView
+
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 
@@ -58,9 +60,27 @@ class AccountViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            Account.objects.create_user(**serializer.validated_data)
 
-            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+            if 'image' in serializer.validated_data:
+                account = Account.objects.create_user(**serializer.validated_data)
+                account.image = serializer.validated_data['image']
+                account.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            else:
+                Account.objects.create_user(**serializer.validated_data)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+
+        # if serializer.is_valid():
+        #     account = Account.objects.create_user(**serializer.validated_data)
+        #     account.first_name = serializer.validated_data.get('first_name')
+        #     account.last_name = serializer.validated_data.get('last_name')
+        #     account.save()
+        #
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',
@@ -130,5 +150,60 @@ class ReviewViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, serializer):
-        instance = serializer.save(author=self.request.user)
+        instance = serializer.save()
         return super(ReviewViewSet, self).perform_create(serializer)
+
+
+
+    
+
+
+class PhotoList(views.APIView):
+    #permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+    def get(self, request, format=None):
+        photo = UserImage.objects.all()
+        serializer = UserImageSerializer(photo, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+       serializer = UserImageSerializer(data=request.DATA, files=request.FILES)
+       if serializer.is_valid():
+           serializer.save()
+           return Response(serializer.data, status=status.HTTP_201_CREATED)
+       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user
+
+
+class PhotoDetail(views.APIView):
+
+   # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+    def get_object(self, pk):
+        try:
+            return UserImage.objects.get(pk=pk)
+        except UserImage.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        photo = self.get_object(pk)
+        serializer = UserImageSerializer(photo)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        photo = self.get_object(pk)
+        serializer = UserImageSerializer(photo, data=request.DATA, files=request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        photo = self.get_object(pk)
+        photo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user

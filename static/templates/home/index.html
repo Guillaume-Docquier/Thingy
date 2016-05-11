@@ -1,62 +1,53 @@
+<div class="jumbotron text-center" id='homeJumbotron'>
+  <h1>Thingy</h1> 
+  <h5>We specialize in making people exchange services</h5> 
+  <form class="form-inline">
+    <input type="Search" class="form-control" size="50" placeholder="Search thingy" ng-model="vm.searchTerm" required>
+    <button type="button" id="search_btn_home" class="btn" ng-click="vm.search(false)">Search</button>
+  </form>
+</div>
 
-<!--
-<p>{{vm.welcome}}</p>
--->		
-<base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/">	
-<div class= "container-fluid">
-		<div id="gallery" class="row">
-		
-			
-		<div class="col-xs-2 col-sm-3"></div>
-		<div class="col-xs-8 col-sm-6">
-			<div id="slider">
-				<figure>
-				<img src="/static/images/fox1.jpg" alt>
-				<img src="/static/images/fox2.jpg" alt>
-				<img src="/static/images/fox3.jpg" alt>
-				<img src="/static/images/fox4.jpg" alt>
-				<img src="/static/images/fox5.jpg" alt>
-				</figure>
-			</div><!--div slider-->
-			<div id='description'>
-				<h1>Welcome to Thingy!</h1>
-				<p> Here you can rent things blabla.. som info text.</p>
-			</div>
-			
-		<form>
-			<div class="form-group">
-				<input type="text" class="form-control input-xs" placeholder="Search for Thingys or a user">
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-					   <div class="dropdown">
-										<button class="btn btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										Category
-										<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-											<li><a href="#">Tools</a></li>
-											<li><a href="#">Electronics</a></li>
-											<li><a href="#">Books</a></li>
-										</ul>
-						</div> <!-- /dropdown -->
-					</div> <!-- /formgroup -->
-				</div>  <!-- /col-sm-6 -->
-				<div class="col-sm-6">
-					<div class="form-group">
-						<button type="submit" class="btn btn-xs btn-block">Search</button>
-						<a href='index.html'>Advanced search</a>
-					</div> <!-- /formgroup -->
-				</div> <!-- /col-sm-6 -->
-			</div> <!-- /row-->
-		</form>
-		<div class="col-xs-2 col-sm-3"></div>
-		</div> <!-- /col-xs-8 col-sm-6 -->
-		
-		</div><!--/row /gallery--> 
-		
 
-		
-</div> <!--/container--> 
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Tools</p>
+      <!-- TODOJS when clicking on a picture we want to search on that special category -->
+      <a href="http://127.0.0.1:8000/thingies/search?advanced=false&search=">
+      <img src="/static/images/tools.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+    </div>
+    <div class="col-sm-3"> 
+      <p>Automotive</p>
+      <img src="/static/images/automotive.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3"> 
+      <p>Books</p>
+      <img src="/static/images/books.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <p>Events</p>
+      <img src="/static/images/events.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+  </div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+    <div class="col-sm-3">
+      <p>Fashion</p>
+      <img src="/static/images/fashion.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3"> 
+      <p>Hobby</p>
+      <img src="/static/images/Paint.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3"> 
+      <p>Home</p>
+      <img src="/static/images/home.jpg" class="img-responsive" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-3">
+      <p>Other</p>
+      <img src="/static/images/other.jpg"  class="img-responsive" style="width:100%" alt="Image">
+    </div>
+  </div>
+</div><br><br>

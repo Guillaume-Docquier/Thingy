@@ -1,4 +1,0 @@
-<p>Welcome home</p>
-<p>{{vm.welcome}}</p>
-
-<a href='/thingies'>Browse</a>

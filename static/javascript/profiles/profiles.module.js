@@ -8,7 +8,7 @@
     ]);
 
   angular
-    .module('thingy.profiles.controllers', []);
+    .module('thingy.profiles.controllers', ['naif.base64']);
 
   angular
     .module('thingy.profiles.services', []);

@@ -10,17 +10,23 @@
     .controller('ProfileSettingsController', ProfileSettingsController);
 
   ProfileSettingsController.$inject = [
-    '$location', '$routeParams', 'Authentication', 'Profile',
+    '$location', '$scope', '$routeParams', 'Authentication', 'Profile',
   ];
 
   /**
   * @namespace ProfileSettingsController
   */
-  function ProfileSettingsController($location, $routeParams, Authentication, Profile) {
+  function ProfileSettingsController($location, $scope, $routeParams, Authentication, Profile) {
     var vm = this;
 
+    // Functions and Data
     vm.destroy = destroy;
     vm.update = update;
+    vm.imageUpload;
+
+    // Bindings
+    vm.profile;
+    vm.profilePicture;
 
     activate();
 
@@ -55,7 +61,23 @@
       */
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
+        // Updating the username will require both the old and new one.
         vm.profile.oldUsername = vm.profile.username;
+        vm.profilePicture = 'media/' + vm.profile.image;
+        
+        bindEvents();
+
+
+        function bindEvents() {
+          // Live preview of the uploaded image
+          $scope.$watch(function() { return vm.imageUpload }, function() {
+            if (vm.imageUpload)
+            {
+              var src = 'data:' + vm.imageUpload.filetype + ';base64,' + vm.imageUpload.base64;
+              $('#profilePicture').attr('src', src);
+            }
+          });
+        }
       }
 
       /**
@@ -105,6 +127,7 @@
     * @memberOf thingy.profiles.controllers.ProfileSettingsController
     */
     function update() {
+      vm.profile.image = vm.imageUpload.base64;
       Profile.update(vm.profile).then(profileSuccessFn, profileErrorFn);
 
       /**
@@ -121,13 +144,12 @@
         }
       }
 
-
       /**
       * @name profileErrorFn
       * @desc Show error snackbar
       */
       function profileErrorFn(data, status, headers, config) {
-        alert(data.error);
+        alert(data.data);
       }
     }
   }

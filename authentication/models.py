@@ -28,11 +28,10 @@ class AccountManager(BaseUserManager):
         return account
 
 class Account(AbstractBaseUser):
-    email = models.EmailField(unique=True)
     username = models.CharField(max_length=40, unique=True)
-
-    first_name = models.CharField(max_length=40, blank=True)
-    last_name = models.CharField(max_length=40, blank=True)
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=40)
     tagline = models.CharField(max_length=140, blank=True)
 
     is_admin = models.BooleanField(default=False)
@@ -40,16 +39,18 @@ class Account(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
+
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     def __unicode__(self):
-        return self.email
+        return self.username
 
     def get_full_name(self):
-        return ' '.join([self.first_name, self.last_name])
+        return u' '.join([self.first_name, self.last_name])
 
     def get_short_name(self):
         return self.first_name
@@ -63,13 +64,14 @@ class Account(AbstractBaseUser):
 
 class Review(models.Model):
     revieweduser = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-   # reviewauthor = models.ForeignKey(Account, related_name='posts')
-
-
     rating = models.IntegerField(default=0)
     comment = models.CharField(max_length=500)
-    #grade_of_communication = models.IntegerField(default=0)
-    #grade_of_description_of_item = models.IntegerField(default=0)
+    #comments = models.CharField(max_length=500)
 
     def __unicode__(self):
         return u'%s (%d)' % (self.revieweduser, self.id)
+
+
+class UserImage(models.Model):
+    user = models.ForeignKey(Account)
+    image = models.ImageField(max_length = None,  upload_to='userimages', default = 'userimages/None-No-img.jpg')
