@@ -18,7 +18,7 @@
     vm.eventSources = {};
 
     // Bindings, empty string to prevent unwanted behaviour
-    vm.dates = [];
+    vm.date = {};
 
     activate()
 
@@ -33,7 +33,7 @@
           height: 450,
           editable: true,
           header: {
-            left: 'month basicWeek',
+            left: '',
             center: 'title',
             right: 'today prev,next'
           },
@@ -66,6 +66,11 @@
         color: 'red',
         allDayDefault: 'true'
       };
+      vm.date = {
+        start: moment().format('ddd, MMMM Do'),
+        end: moment().add(1, 'days').format('ddd, MMMM Do')
+      }
+
 
       function postSuccessFn(data, status, headers, config) {
         vm.post = data.data;
