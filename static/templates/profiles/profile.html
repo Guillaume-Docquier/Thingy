@@ -63,7 +63,7 @@
 				<div class="tab-content">
 				  <div id="thingies__tab" class="tab-pane fade in active">
 						<div ng-repeat='thingy in vm.posts'>
-  						<post thingy="thingy"></post>
+  						<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
             </div>
 				  </div>
 				  <div id="contacts__tab" class="tab-pane fade">
