@@ -9,5 +9,6 @@
 @import './authentication.less';
 @import './add.less';
 @import './search.less';
-@import './homepageCSS.less';
+@import './index.less';
 @import './post.less';
+@import './profiles.less';
