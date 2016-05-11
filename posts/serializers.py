@@ -44,6 +44,7 @@ class TownSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'region')
         read_only_fields = ('id')
 
+
 class ConditionSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     class Meta:
@@ -69,11 +70,16 @@ class PostSerializer(serializers.ModelSerializer):
     condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
 
     location_details = TownSerializer(source='location', read_only=True, required=False)
+<<<<<<< HEAD
+    location =  serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
+    #image = serializers.ImageField(source='image', max_length=None, use_url = True, required=False)
+=======
     location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
 
     status_details = StatusSerializer(source='status', read_only=True, required=False)
     status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), write_only=True, required=False)
 
+>>>>>>> 0db1ec02530626a3d18ad0d36ed851db4181d622
     image = Base64ImageField(required=False)
 
 

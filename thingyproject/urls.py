@@ -11,8 +11,13 @@ from django.conf import settings
 from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
+<<<<<<< HEAD
+    RegionViewSet, PostReviewViewSet, ConditionViewSet
+from message.views import MessageViewSet, RecipientViewSet
+=======
     RegionViewSet, PostReviewViewSet, ConditionViewSet, StatusViewSet
 
+>>>>>>> 0db1ec02530626a3d18ad0d36ed851db4181d622
 
 
 admin.autodiscover()
@@ -32,6 +37,11 @@ router.register(r'conditions', ConditionViewSet)
 router.register(r'statuses', StatusViewSet)
 
 #router.register(r'userphotos', PhotoList)
+
+#Routing for message-app
+router.register(r'messages', MessageViewSet)
+router.register(r'recipient', RecipientViewSet)
+
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account')
