@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from authentication.serializers import AccountSerializer
-from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition, PostImage, Status
+from posts.models import Post, Category, Subcategory, Region, Town, Condition, PostImage, Status
 from posts.fields import Base64ImageField
 
 
@@ -92,35 +92,35 @@ class PostSerializer(serializers.ModelSerializer):
         return exclusions + ['author']
 
 
-class SimplePostReviewSerializer(serializers.ModelSerializer):
-    reviewauthor = AccountSerializer(read_only=True, required=False)
+# class SimplePostReviewSerializer(serializers.ModelSerializer):
+#     reviewauthor = AccountSerializer(read_only=True, required=False)
+#
+#     class Meta:
+#         model = PostReview
+#         fields = ('id', 'rating', 'reviewauthor')
 
-    class Meta:
-        model = PostReview
-        fields = ('id', 'rating', 'reviewauthor')
-
-
-class PostWithReviews(PostSerializer):
-    reviews = SimplePostReviewSerializer(read_only=True, required=False, many=True)
-
-    class Meta(PostSerializer.Meta):
-        fields = ('id', 'author', 'title', 'description', 'price',
-                  'condition_details', 'location_details', 'created_at', 'subcategory_details', 'status_details', 'updated_at', 'image', 'reviews')
-
-
-class PostReviewSerializer(serializers.ModelSerializer):
-    reviewauthor = AccountSerializer(read_only=True, required=False)
-    post = PostSerializer(read_only=True, required=False)
-
-    class Meta:
-        model = PostReview
-        fields = ('id', 'rating', 'comment','post', 'reviewauthor')
-        read_only_fields = ('id')
-
-    def get_validation_exclusions(self, *args, **kwargs):
-        exclusions = super(PostReviewSerializer, self).get_validation_exclusions()
-
-        return exclusions + ['author']
+#
+# class PostWithReviews(PostSerializer):
+#     reviews = SimplePostReviewSerializer(read_only=True, required=False, many=True)
+#
+#     class Meta(PostSerializer.Meta):
+#         fields = ('id', 'author', 'title', 'description', 'price',
+#                   'condition_details', 'location_details', 'created_at', 'subcategory_details', 'status_details', 'updated_at', 'image', 'reviews')
+#
+#
+# class PostReviewSerializer(serializers.ModelSerializer):
+#     reviewauthor = AccountSerializer(read_only=True, required=False)
+#     post = PostSerializer(read_only=True, required=False)
+#
+#     class Meta:
+#         model = PostReview
+#         fields = ('id', 'rating', 'comment','post', 'reviewauthor')
+#         read_only_fields = ('id')
+#
+#     def get_validation_exclusions(self, *args, **kwargs):
+#         exclusions = super(PostReviewSerializer, self).get_validation_exclusions()
+#
+#         return exclusions + ['author']
 
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

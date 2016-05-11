@@ -11,7 +11,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('recipient','author','type', 'created', 'body', 'unread')
+        fields = ('id','recipient','author','type', 'created', 'body', 'unread')
 
 class RecipientSerializer(serializers.ModelSerializer):
     messages = serializers.PrimaryKeyRelatedField(many=True,queryset=Message.objects.all())
