@@ -25,7 +25,7 @@
 			<div class="row">
 				<div class="col-xs-4 col-sm-12">
 					<!-- TODOJS put the real profilepicture here -->
-					<img src="/static/images/camera.png" class="img-responsive" style="width:100%"><img>
+					<img ng-src="/media/{{vm.profile.image}}" class="img-responsive" style="width:100%"><img>
 				</div>
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
@@ -39,8 +39,8 @@
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					</h6>
 					<div class="hidden-xs">
-						<button id="profile__button1" type="btn" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</button><br>
-						<button id="profile__button2" type="btn" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</button>
+						<a href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
+						<a href="users/{{vm.profile.username}}/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
 				</div>
 			</div> <!-- /row --->

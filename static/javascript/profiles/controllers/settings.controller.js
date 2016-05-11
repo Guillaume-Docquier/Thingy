@@ -10,22 +10,23 @@
     .controller('SettingsController', SettingsController);
 
   SettingsController.$inject = [
-    '$location', '$scope', '$routeParams', 'Authentication', 'Profile',
+    '$location', '$scope', '$routeParams', 'Authentication', 'Profile', '$route',
   ];
 
   /**
   * @namespace SettingsController
   */
-  function SettingsController($location, $scope, $routeParams, Authentication, Profile) {
+  function SettingsController($location, $scope, $routeParams, Authentication, Profile, $route) {
     var vm = this;
 
     // Functions and Data
     vm.destroy = destroy;
     vm.update = update;
-    vm.imageUpload;
+    vm.imageDisplay = '';
 
     // Bindings
     vm.profile;
+    vm.imageUpload = '';
 
     activate();
 
@@ -58,16 +59,21 @@
 
       /**
       * @name profileSuccessFn
-      * @desc Update `profile` for view
+      * @desc Update 'profile' for view
       */
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
         // Updating the username will require both the old and new one.
         vm.profile.oldUsername = vm.profile.username;
+        // We will change the image url to a base64 one later
+        vm.imageDisplay = 'media/' + vm.profile.image;
 
         bindEvents();
 
-
+        /**
+        * @name bindEvents
+        * @desc Offer an image preview
+        */
         function bindEvents() {
           // Live preview of the uploaded image
           $scope.$watch(function() { return vm.imageUpload }, function() {
@@ -97,26 +103,26 @@
     * @memberOf thingy.profiles.controllers.SettingsController
     */
     function destroy() {
-      Profile.destroy(vm.profile.username).then(profileSuccessFn, profileErrorFn);
+      Profile.destroy(vm.profile.id).then(destroySuccessFn, destroyErrorFn);
 
       /**
       * @name profileSuccessFn
-      * @desc Redirect to index and display success snackbar
+      * @desc Unauthenticate and redirect to index
       */
-      function profileSuccessFn(data, status, headers, config) {
+      function destroySuccessFn(data, status, headers, config) {
         Authentication.unauthenticate();
         window.location = '/';
 
         alert('Your account has been deleted.');
       }
 
-
       /**
       * @name profileErrorFn
       * @desc Display error snackbar
       */
-      function profileErrorFn(data, status, headers, config) {
-        alert(data.error);
+      function destroyErrorFn(data, status, headers, config) {
+        alert('Could not destroy your account.');
+        console.log(data.data.error);
       }
     }
 
@@ -132,21 +138,20 @@
 
       /**
       * @name profileSuccessFn
-      * @desc Show success snackbar
+      * @desc Log the user out if the username changed
       */
       function profileSuccessFn(data, status, headers, config) {
-        alert('Your profile has been updated.');
-        // Authenticate and reload the page to reflect the change of username
-        if(vm.profile.username != vm.profile.oldUsername)
-        {
-          Authentication.setAuthenticatedAccount(vm.profile);
-          window.location = "/users/" + vm.profile.username + "/settings";
-        }
+        alert('Your profile has been updated. If you changed your username, you will need to log in again');
+        // Logout if username changed, could also prompt to relog
+        if(vm.profile.oldUsername != vm.profile.username)
+          Authentication.logout();
+        else
+          $route.reload();
       }
 
       /**
       * @name profileErrorFn
-      * @desc Show error snackbar
+      * @desc Show error in console
       */
       function profileErrorFn(data, status, headers, config) {
         alert('An error occurred');

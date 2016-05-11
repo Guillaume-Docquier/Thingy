@@ -18,7 +18,7 @@
     vm.eventSources = {};
 
     // Bindings, empty string to prevent unwanted behaviour
-    vm.date = {};
+    vm.period = {};
 
     activate()
 
@@ -66,7 +66,7 @@
         color: 'red',
         allDayDefault: 'true'
       };
-      vm.date = {
+      vm.period = {
         start: moment().format('ddd, MMMM Do'),
         end: moment().add(1, 'days').format('ddd, MMMM Do')
       }
@@ -86,7 +86,7 @@
     function rent() {
       // Requires authentication
       if(Authentication.isAuthenticated)
-        Posts.rent(vm.profile.id, vm.post.id, 'request', vm.dates).then(rentSuccessFn, rentErrorFn);
+        Posts.rent(vm.profile.id, vm.post.id, 'request', vm.period, vm.message).then(rentSuccessFn, rentErrorFn);
       else
         alert('You need to be logged in.');
 
