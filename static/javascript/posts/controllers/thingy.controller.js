@@ -16,9 +16,11 @@
     vm.post = '';
     vm.uiConfig = '';
     vm.eventSources = {};
+    vm.availability = '';
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.period = {};
+    vm.message = '';
 
     activate()
 
@@ -73,7 +75,9 @@
 
 
       function postSuccessFn(data, status, headers, config) {
+        var classes = ['', 'btn-success', 'btn-warning', 'btn-danger']
         vm.post = data.data;
+        vm.availability = classes[vm.post.status_details.id];
       }
 
       function postErrorFn() {
