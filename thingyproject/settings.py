@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'thingyproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thingy',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'root',
+        'PASSWORD': '731992',
         'HOST': '',
         'PORT': '',
    }

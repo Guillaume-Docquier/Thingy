@@ -44,6 +44,7 @@ class Post(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    available =  models.BooleanField(default=True)
     def __unicode__(self):
         return u'%s / %s' % (self.category, self.sub_cat_name)
 

@@ -75,35 +75,29 @@ class AccountWithReviews(AccountSerializer):
                   'confirm_password', 'reviews' , 'image')
 
 class ReviewSerializer(serializers.ModelSerializer):
-<<<<<<< HEAD
-    
+
     revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
     #revieweduser = AccountSerializer()
-=======
-    revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+    #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
     #post = PostSerializer(read_only=True, required=False)
     #= AccountSerializer()
->>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
 
     class Meta:
         model = Review
         fields = ('id', 'rating', 'comment', 'revieweduser')
-<<<<<<< HEAD
-        read_only_fields = ('id') 
+        #read_only_fields = ('id')
 
     #def create(self, validated_data):
         #revieweduser_data = validated_data.pop('revieweduser')
         #username = Review.objects.create(**validated_data)
         #Account.objects.create(username=username, **profile_data)
         #return username
-=======
         read_only_fields = ('id')
 
     # def get_validation_exclusions(self, *args, **kwargs):
     #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
     #
     #     return exclusions + ['author']
->>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
 
 class UserImageSerializer(serializers.HyperlinkedModelSerializer):
 

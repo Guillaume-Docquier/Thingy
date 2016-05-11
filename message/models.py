@@ -4,6 +4,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from authentication.models import Account
 
+class messTypes(models.Model):
+
+    type = models.CharField(max_length=400,blank=True,on_delete=models.CASCADE)
+
 class Message(models.Model):
 
     recipient = models.ForeignKey(Account, related_name='recipient')
@@ -15,7 +19,3 @@ class Message(models.Model):
 
     class Meta:
         ordering = ('created',)
-
-class messTypes(models.Model):
-
-    type = models.CharField(max_length=400,blank=True,on_delete=models.CASCADE)

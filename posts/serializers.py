@@ -63,6 +63,7 @@ class PostSerializer(serializers.ModelSerializer):
     condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
     location_details = TownSerializer(source='location', read_only=True, required=False)
     location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
+    available = serializers.BooleanField(required=False)
     #image = serializers.ImageField(source='image', max_length=None, use_url = True, required=False)
     image = Base64ImageField(required=False)
 
@@ -72,7 +73,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         fields = ('id', 'author', 'title', 'description', 'price',
                   'condition_details', 'condition', 'location_details',
-                  'location', 'created_at', 'subcategory_details' , 'subcategory', 'updated_at', 'image')
+                  'location', 'created_at', 'subcategory_details' , 'subcategory', 'updated_at', 'image', 'available')
         #read_only_fields = ('id', 'created_at', 'updated_at' )#, 'location_details', 'subcategory_details', 'condition_details')
 
     def get_validation_exclusions(self, *args, **kwargs):
@@ -89,14 +90,12 @@ class SimplePostReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'rating', 'reviewauthor')
 
 
-
-
 class PostWithReviews(PostSerializer):
     reviews = SimplePostReviewSerializer(read_only=True, required=False, many=True)
 
     class Meta(PostSerializer.Meta):
         fields = ('id', 'author', 'title', 'description', 'price',
-                  'condition_details', 'location_details', 'created_at', 'subcategory_details', 'updated_at', 'image', 'reviews')
+                  'condition_details', 'location_details', 'created_at', 'subcategory_details', 'updated_at', 'image', 'reviews', 'available')
 
 
 class PostReviewSerializer(serializers.ModelSerializer):
