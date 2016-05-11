@@ -9,21 +9,24 @@
     .module('thingy.profiles.services')
     .service('Profile', Profile);
 
-  Profile.$inject = ['$http'];
+  Profile.$inject = ['$http', 'Authentication'];
 
   /**
   * @namespace Profile
   */
-  function Profile($http) {
+  function Profile($http, Authentication) {
     /**
     * @name Profile
     * @desc The factory to be returned
     * @memberOf thingy.profiles.services.Profile
     */
     var vm = this;
+
     vm.destroy = destroy
     vm.get = get
     vm.update = update;
+    vm.getReceivedMessages = getReceivedMessages;
+    vm.getSentMessages = getSentMessages;
 
     /**
     * @name destroy
@@ -58,6 +61,16 @@
     */
     function update(profile) {
       return $http.put('/api/v1/accounts/' + profile.oldUsername + '/', profile);
+    }
+
+    // Gets all received messages of the user
+    function getReceivedMessages(id) {
+      return $http.get('api/v1/messages/' + id + '/received/');
+    }
+
+    // Gets all sent messages of the user
+    function getSentMessages(id) {
+      return $http.get('api/v1/messages/' + id + '/sent/');
     }
   }
 })();

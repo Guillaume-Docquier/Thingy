@@ -61,8 +61,10 @@ target/
 # Ipython Notebook
 .ipynb_checkpoints
 
-# node_packages
+# packages
 node_modules/
+bower_components/
+
 
 # Backups made by gedit
 *~

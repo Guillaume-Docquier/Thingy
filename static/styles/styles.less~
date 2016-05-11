@@ -12,3 +12,8 @@
 @import './index.less';
 @import './post.less';
 @import './profiles.less';
+<<<<<<< HEAD
+@import './profile.less';
+=======
+@import './advertisement.less';
+>>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
