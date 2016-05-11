@@ -1,5 +1,5 @@
 <!-- TODOJS make the calender work-->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function () {
         $('#datetimepicker_start').datetimepicker();
         $('#datetimepicker_end').datetimepicker({
@@ -12,7 +12,7 @@
             $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
         });
     });
-</script>
+</script> -->
 
 
 <div class="container-fluid">
@@ -20,8 +20,7 @@
 	<div class="row">
 		<div class="col-xs-1 col-sm-2"></div>
 		<div class="col-xs-10 col-sm-8" id="thingy_picture">
-			<!--TODOJS get the picture of the Thingy-->
-			<img src="/static/images/tools.jpg"  style="width:100%"><img>
+			<img ng-src="/media/{{vm.post.image}}"  style="width:100%"><img>
 		</div>
 		<div class="col-xs-1 col-sm-2"></div>
 	</div><!--/row-->
@@ -29,8 +28,7 @@
 	<div class="row">
 		<div class="col-xs-2 col-sm-1"></div>
 		<div class="col-xs-8 col-sm-4">
-			<!--TODJS get the title-->
-			<h1>Title of Thingy</h1>
+			<h1>{{vm.post.title}}</h1>
 		</div>
 		<div class="col-xs-2 col-sm-7"></div>
 	</div><!--/row-->
@@ -67,23 +65,22 @@
 			<div class="row">
 				<div class="col-xs-2 col-sm-2"></div>
 				<div class="col-xs-8 col-sm-8">
-					<!-- TODOJS get the price-->
-				<h3>795 SEK/day</h3>
+				  <h3>{{vm.post.price}} SEK/day</h3>
 				</div>
 				<div class="col-xs-2 col-sm-2"></div>
 			</div><!--/row-->
+
 			<div class="row">
 				<div class="col-xs-12 col-sm-12">
-					<!-- TODOJS get the description-->
-				<p>This is a really nice hammer blablabla, its brand new and pink and is really heavy</p>
+				  <p>{{vm.post.description}}</p>
 				</div>
 			</div> <!--/row-->
 		</div>
+
 		<div class="col-sm-6">
 			<div class="hidden-sm hidden-md hidden-lg col-xs-12 form-group">
 				<button type="button" id="rent_thingy_btn" class="btn btn-default">Rent Thingy</button>
 			</div>
-
 
 		<div class="row">
 			<div class="col-xs-4 col-sm-2">
@@ -91,13 +88,13 @@
 			</div>
 			<div class="col-xs-8 col-sm-4">
 				<!-- TODOJS get the username-->
-				<h5>Felicia Hökars</h5>
+				<h5>{{vm.post.author.username}}</h5>
 
 				<!-- TODOJS get the town and region-->
-				<h6>Town, Region</h6>
+				<h6>{{thingy.location_details.region.name}}, {{thingy.location_details.name}}</h6>
 
-			    <!-- TODOJS get the reviews-->
-			    <h6>
+		    <!-- TODOJS get the reviews-->
+		    <h6>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
@@ -105,65 +102,62 @@
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				</h6>
 			</div>
-
 		</div> <!--/row-->
-				<div class=" hidden-xs col-xs-12 col-sm-12 form-group">
-				<button type="button" id="rent_thingy_btn" class="btn btn-default" data-toggle="modal" data-target="#myModal">Rent Thingy</button>
-				<div id="myModal" class="modal fade" role="dialog">
-					<div class="modal-dialog">
 
-				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Write a request to the owner</h4>
-				  </div>
-				  <div class="modal-body">
-			<div class="row">
-				<div class="col-xs-6 col-sm-6">
-					<div class="form-group">
-						Start date:
-						<div class='input-group date' id='datetimepicker_start'>
-							<input type='text' class="form-control input-sm" />
-							<span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-6">
-					<div class="form-group">
-						End date:
-						<div class='input-group date' id='datetimepicker_end'>
-							<input type='text' class="form-control input-sm" />
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-					   </div>
-					</div>
-				</div>
-			</div><!--/row-->
-				<div class="form-group">
-				  <label for="thingy__description">Message to the owner</label>
-				  <textarea type="text" class="form-control" rows="8"  ng-model="vm.description" placeholder="Input message here" />
-				</div>
+		<div class=" hidden-xs col-xs-12 col-sm-12 form-group">
+			<button type="button" id="rent_thingy_btn" class="btn btn-default" data-toggle="modal" data-target="#myModal">Rent Thingy</button>
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+				  <!-- Modal content-->
+				  <div class="modal-content">
+				    <div class="modal-header">
+				      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    					<h4 class="modal-title">Write a request to the owner</h4>
+  				  </div>
 
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Rent Thingy</button>
-				  </div>
-				</div>
-
+  				  <div class="modal-body">
+        			<div class="row">
+        				<div class="col-xs-6 col-sm-6">
+        					<div class="form-group">
+        						Start date:
+        						<div class='input-group date' id='datetimepicker_start'>
+        							<input type='text' class="form-control input-sm" />
+        							<span class="input-group-addon">
+        								<span class="glyphicon glyphicon-calendar"></span>
+        							</span>
+        						</div>
+        					</div>
+        				</div>
+        				<div class="col-xs-6 col-sm-6">
+        					<div class="form-group">
+        						End date:
+        						<div class='input-group date' id='datetimepicker_end'>
+        							<input type='text' class="form-control input-sm" />
+            						<span class="input-group-addon">
+            							<span class="glyphicon glyphicon-calendar"></span>
+            						</span>
+        					   </div>
+        					</div>
+        				</div>
+        			</div><!--/row-->
+      				<div class="form-group">
+      				  <label for="thingy__description">Message to the owner</label>
+      				  <textarea type="text" class="form-control" rows="8"  ng-model="vm.description" placeholder="Input message here" />
+      				</div>
+  				  </div>
+  				  <div class="modal-footer">
+  					  <button type="button" class="btn btn-default" data-dismiss="modal">Rent Thingy</button>
+  				  </div>
+  				</div>
 			  </div>
 			</div>
-
-			</div>
+		</div>
 	</div><!--/col-sm-6-->
 
 <!--
   Calendar test, you can remove it or place it where a calendar should be.
   Dimensions might not fit and are set in javascript, add TODOJS if you want me to take care of it.
 -->
-<div ui-calendar="vm.uiConfig.calendar" ng-model="vm.eventSources"></div>
+<!-- <div ui-calendar="vm.uiConfig.calendar" ng-model="vm.eventSources"></div> -->
 
 </div> <!--/container-fluid-->
