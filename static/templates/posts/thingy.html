@@ -118,7 +118,7 @@
         					<div class="form-group">
         						Start date:
         						<div class='input-group date' id='datetimepicker_start'>
-        							<input type='text' class="form-control input-sm" />
+        							<input type='text' class="form-control input-sm" ng-model="vm.period.start"/>
         							<span class="input-group-addon">
         								<span class="glyphicon glyphicon-calendar"></span>
         							</span>
@@ -129,7 +129,7 @@
         					<div class="form-group">
         						End date:
         						<div class='input-group date' id='datetimepicker_end'>
-        							<input type='text' class="form-control input-sm" />
+        							<input type='text' class="form-control input-sm" ng-model="vm.period.end"/>
             						<span class="input-group-addon">
             							<span class="glyphicon glyphicon-calendar"></span>
             						</span>
@@ -139,7 +139,7 @@
         			</div><!--/row-->
       				<div class="form-group">
       				  <label for="thingy__description">Message to the owner</label>
-      				  <textarea type="text" class="form-control" rows="8"  ng-model="vm.description" placeholder="Input message here" />
+      				  <textarea type="text" class="form-control" rows="8"  ng-model="vm.message" placeholder="Input message here" />
       				</div>
   				  </div>
   				  <div class="modal-footer">
