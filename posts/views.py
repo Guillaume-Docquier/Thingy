@@ -11,10 +11,10 @@ from itertools import groupby
 from django.http import JsonResponse
 
 from posts.filters import PostFilter
-from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition
+from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition, Status
 from posts.permissions import IsAuthorOfPost
 from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
-    RegionSerializer, TownSerializer,PostReviewSerializer, ConditionSerializer
+    RegionSerializer, TownSerializer,PostReviewSerializer, ConditionSerializer, StatusSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -152,3 +152,16 @@ class ConditionViewSet(viewsets.ViewSet):
     def create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(ConditionViewSet, self).perform_create(serializer)
+
+class StatusViewSet(viewsets.ViewSet):
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+
+    def list(self, request):
+        queryset = Status.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, serializer):
+        instance = serializer.save(author=self.request.user)
+        return super(StatusViewSet, self).perform_create(serializer)
