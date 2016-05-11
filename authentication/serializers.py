@@ -14,8 +14,11 @@ from posts.fields import Base64ImageField
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
-    #image = Base64ImageField(required=False)
-    image = serializers.ImageField(max_length=None, use_url=True, required=False)
+    # The client-side will send a base64 string of the image binary data.
+    # Base64ImageField is in posts.fields.py and converts the string to binary data.
+    # The model uses a normal ImageField after that.
+    image = Base64ImageField(required=False)
+    #image = serializers.ImageField(max_length=None, use_url=True, required=False)
 
     class Meta:
         model = Account
@@ -72,13 +75,20 @@ class AccountWithReviews(AccountSerializer):
                   'confirm_password', 'reviews' , 'image')
 
 class ReviewSerializer(serializers.ModelSerializer):
+<<<<<<< HEAD
     
     revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
     #revieweduser = AccountSerializer()
+=======
+    revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+    #post = PostSerializer(read_only=True, required=False)
+    #= AccountSerializer()
+>>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
 
     class Meta:
         model = Review
         fields = ('id', 'rating', 'comment', 'revieweduser')
+<<<<<<< HEAD
         read_only_fields = ('id') 
 
     #def create(self, validated_data):
@@ -86,6 +96,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         #username = Review.objects.create(**validated_data)
         #Account.objects.create(username=username, **profile_data)
         #return username
+=======
+        read_only_fields = ('id')
+
+    # def get_validation_exclusions(self, *args, **kwargs):
+    #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
+    #
+    #     return exclusions + ['author']
+>>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
 
 class UserImageSerializer(serializers.HyperlinkedModelSerializer):
 

@@ -1,3 +1,7 @@
+/**
+* LoginRegisterController
+* @namespace thingy.authentication.controllers
+*/
 (function(){
   'use strict'
 
@@ -7,6 +11,9 @@
 
   LoginRegisterController.$inject = ['$location', '$rootScope', '$scope', 'Authentication'];
 
+  /**
+  * @namespace LoginRegisterController
+  */
   function LoginRegisterController($location, $rootScope, $scope, Authentication) {
     var vm = this;
 
@@ -18,21 +25,19 @@
     /**
     * @name activate
     * @desc Actions to be performed when this controller is instantiated
-    * @memberOf thingy.home.controllers.NavbarController
+    * @memberOf thingy.authentication.controllers.LoginRegisterController
     */
     function activate() {
       // Already authenticated users should not be here
       if (Authentication.isAuthenticated()) {
         $location.url('/');
+        alert('You are already logged in');
+        return
       }
-
-      // For some reason this doesn't work
-      // Prevent url hashing, will need to unbind
-      //$('.nav-tabs a').click(function(e) { e.preventDefault(); });
 
       // ============================================================ //
       // The LoginRegisterController is bound to a ngDialog window.   //
-      // This window does not close when using the back/next buttons  //
+      // This window does not close when using the back/next buttons. //
       // ============================================================ //
 
       // Close the dialog when clicking back/next browser buttons
@@ -44,11 +49,21 @@
         $('.nav-tabs a').unbind('click'); });
     }
 
+    /**
+    * @name login
+    * @desc Log the user in
+    * @memberOf thingy.authentication.controllers.LoginRegisterController
+    */
     function login() {
       console.log("Logging in...");
       Authentication.login(vm.username, vm.password);
     }
 
+    /**
+    * @name register
+    * @desc Register a new user
+    * @memberOf thingy.authentication.controllers.LoginRegisterController
+    */
     function register() {
       console.log("Registering...");
       Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password);

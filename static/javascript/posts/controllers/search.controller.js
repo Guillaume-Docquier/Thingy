@@ -5,9 +5,9 @@
     .module('thingy.posts.controllers')
     .controller('SearchController', SearchController);
 
-  SearchController.$inject = ['$rootScope', '$scope', 'Posts', '$route', '$cookies', '$location'];
+  SearchController.$inject = ['$rootScope', '$scope', 'Posts', '$route', '$cookies', '$location', '$sce'];
 
-  function SearchController($rootScope, $scope, Posts, $route, $cookies, $location) {
+  function SearchController($rootScope, $scope, Posts, $route, $cookies, $location, $sce) {
     var vm = this;
 
     // Function and Data
@@ -18,6 +18,7 @@
     vm.search = search;
     vm.selection = selection;
     vm.advanced = ($location.search().advanced == 'true');
+    vm.buffer = [0,0,0];
 
     // Bindings
     // Empty strings to prevent errors due to undefined values
@@ -30,20 +31,25 @@
     vm.subregion = '';
     vm.condition = '';
     vm.selectedPost;
+    vm.geoloc = '';
 
     activate();
 
     function activate() {
-      // Get db data
+      // Get db data by nesting callbacks
+      // getAllCategories -> getAllRegions -> getAllConditions -> search
       Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
-      Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
-      Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
-
-      // This will search as specified in the url or return all posts
-      vm.search();
 
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
+        // Url might contain search settings
+        if($location.search().category)
+        {
+          vm.category = findObjectContainingKey(vm.categories, 'cname', $location.search().category);
+          vm.subcategory = findObjectContainingKey(vm.category.subcategories, 'name', ($location.search().subcategory || ''));
+        }
+        // Done
+        Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       }
 
       function categoriesErrorFn(data, status, headers, config) {
@@ -52,6 +58,13 @@
 
       function regionsSuccessFn(data, status, headers, config) {
         vm.regions = data.data;
+        if($location.search().region)
+        {
+          vm.region = findObjectContainingKey(vm.regions, 'name', $location.search().region);
+          vm.subregion = findObjectContainingKey(vm.regions.towns, 'name', ($location.search().subregion || ''));
+        }
+        // Done
+        Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
       }
 
       function regionsErrorFn(data, status, headers, config) {
@@ -60,6 +73,10 @@
 
       function conditionsSuccessFn(data, status, headers, config) {
         vm.conditions = data.data;
+        if($location.search().condition)
+          vm.condition = findObjectContainingKey(vm.conditions, 'cond_grade', $location.search().condition);
+        // This will search as specified in the url or return all posts
+        vm.search();
       }
 
       function conditionsErrorFn(data, status, headers, config) {
@@ -86,6 +103,7 @@
       */
       function searchSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
+        console.log(data);
       }
 
       /**
@@ -100,6 +118,20 @@
 
     function selection(thingy) {
       vm.selectedPost = thingy;
+      vm.locationUrl ='https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc&q=' + thingy.location_details.name + ',Sweden';
+      //vm.trustedLocationUrl = $sce.getTrustedResourceUrl(vm.locationUrl);
+      vm.locationUrlt = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc &q= Stockholm,Sweden';
+      console.log('vm.locationUrl: ' + vm.locationUrl);
+    }
+
+    // Finds which object contains value as key.
+    function findObjectContainingKey(objects, key, value) {
+      for(var i = 0; i < objects.length; i++)
+      {
+        if(objects[i][key].toLowerCase() == value.toLowerCase())
+          return objects[i];
+      }
+      return '';
     }
   }
 })();

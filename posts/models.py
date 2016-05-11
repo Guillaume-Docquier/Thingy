@@ -77,6 +77,7 @@ class Post(models.Model):
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
 
+    # The default image is default.png so we should always have it in media/postimages/
     image = models.ImageField(upload_to='postimages/', default='postimages/default.png')
 
     created_at = models.DateTimeField(auto_now_add=True)

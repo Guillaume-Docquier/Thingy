@@ -1,6 +1,6 @@
 /**
 * Post
-* @namespace thinkster.posts.directives
+* @namespace thingy.posts.directives
 */
 (function () {
   'use strict';
@@ -16,14 +16,14 @@
     /**
     * @name directive
     * @desc The directive to be returned
-    * @memberOf thinkster.posts.directives.Post
+    * @memberOf thingy.posts.directives.Post
     */
     var directive = {
       restrict: 'E',
       scope: {
         thingy: '='
       },
-      templateUrl: '/static/templates/posts/post.html'
+      templateUrl: '/static/templates/posts/post-directive.html'
     };
 
     return directive;

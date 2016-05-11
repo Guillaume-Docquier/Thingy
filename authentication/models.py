@@ -30,6 +30,11 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(unique=True)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cb628b9624bf521fe3f5c1482dfcf549003c76b4
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     tagline = models.CharField(max_length=140, blank=True)
@@ -39,6 +44,7 @@ class Account(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # The default image is default.png so we should always have it in media/userimages/
     image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
 
     objects = AccountManager()

@@ -6,7 +6,7 @@ from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
 
-from rest_framework import permissions, viewsets, status, views
+from rest_framework import permissions, viewsets, status, views, generics
 from rest_framework.response import Response
 
 from authentication.models import Account, Review
@@ -59,28 +59,29 @@ class AccountViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
 
+        # By default, create_user does not save first_name and last_name in the model. We have to do it here.
+        # There is no saving image here simply because the signup doesn't require one. default.png is used.
         if serializer.is_valid():
+            account = Account.objects.create_user(**serializer.validated_data)
+            account.first_name = serializer.validated_data.get('first_name')
+            account.last_name = serializer.validated_data.get('last_name')
+            account.save()
 
-            if 'image' in serializer.validated_data:
-                account = Account.objects.create_user(**serializer.validated_data)
-                account.image = serializer.validated_data['image']
-                account.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-            else:
-                Account.objects.create_user(**serializer.validated_data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-
+        # The following can be deleted
 
         # if serializer.is_valid():
-        #     account = Account.objects.create_user(**serializer.validated_data)
-        #     account.first_name = serializer.validated_data.get('first_name')
-        #     account.last_name = serializer.validated_data.get('last_name')
-        #     account.save()
         #
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #     if 'image' in serializer.validated_data:
+        #         account = Account.objects.create_user(**serializer.validated_data)
+        #         account.image = serializer.validated_data['image']
+        #         account.save()
+        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #
+        #     else:
+        #         Account.objects.create_user(**serializer.validated_data)
+        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',
@@ -152,6 +153,10 @@ class ReviewViewSet(viewsets.ViewSet):
     def create(self, serializer):
         instance = serializer.save()
         return super(ReviewViewSet, self).perform_create(serializer)
+
+class ReviewList(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
 
 
 

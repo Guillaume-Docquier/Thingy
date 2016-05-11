@@ -2,16 +2,18 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarController as vm">
+<!--
   <div class="container">
+-->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a href='index.html'>
-				<img id='logo' src='/static/images/thingylogotrans.png'></img>
-			</a>
+		<a href='index.html'>
+			<img id='logo' src='/static/images/LoggaVit.png'></img>
+		</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -27,14 +29,16 @@
 		<li><a href="javascript:void(0)"
 			ng-dialog="/static/templates/authentication/login.html"
 			ng-dialog-controller="LoginRegisterController as vm">LOG IN</a></li>
-		<li><a href="javascript:void(0)"
+		<li id="registerbtn"><a href="javascript:void(0)"
 			ng-dialog="/static/templates/authentication/register.html"
 			ng-dialog-controller="LoginRegisterController as vm">REGISTER</a></li>
 						
 		{% endif %}
       </ul>
     </div>
+<!--
   </div>
+-->
 </nav>
 </body>
 </html>

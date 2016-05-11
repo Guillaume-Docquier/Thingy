@@ -7,15 +7,17 @@ body {
 }
 
 #logo {
-  height: 8vh;
-  margin: 0 0 0 10;
-  display: block;
+  height: 5vh;
+  margin: 0.5em 1em 0.5em 1em;
   
 	@media (min-width: @screen-sm){
-		height: 10vh;
-		margin-left: 0;
+		height: 7vh;
 	}
  }
+
+#myNavbar {
+	margin-right: 5em;
+}
 
 .navbar {
   margin:0 0 0 0;
@@ -32,6 +34,34 @@ body {
 
 #usericon {
 	margin: 1vh;
+}
+
+  .navbar {
+      margin-bottom: 0px;
+      background-color: @standard-color;
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: black !important;
+      background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+ 
+#registerbtn{
+  background-color: #4ccd4c;
 }
 
 

@@ -7,6 +7,9 @@
 
   ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts'];
 
+  /**
+  * @namespace ProfileController
+  */
   function ProfileController($scope, $location, $routeParams, Profile, Posts) {
     var vm = this;
 
@@ -18,12 +21,12 @@
     /**
     * @name activate
     * @desc Actions to be performed when this controller is instantiated
-    * @memberOf thinkster.profiles.controllers.ProfileController
+    * @memberOf thingy.profiles.controllers.ProfileController
     */
     function activate() {
       var username = $routeParams.username;
 
-      // Prevents wierd bug where Profile.get("something.something") returns index.html's code...
+      // Prevents a bug where Profile.get("something.something") returns index.html's code...
       if (username.match(/\./)) {
         window.location = '/';
         return;
@@ -34,7 +37,7 @@
 
       /**
       * @name profileSuccessProfile
-      * @desc Update `profile` on viewmodel
+      * @desc Update 'profile' on viewmodel
       */
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
@@ -42,7 +45,7 @@
 
       /**
       * @name profileErrorFn
-      * @desc Redirect to index and show error Snackbar
+      * @desc Redirect to index and log error in the console
       */
       function profileErrorFn(data, status, headers, config) {
         $location.url('/');
@@ -51,7 +54,7 @@
 
       /**
         * @name postsSucessFn
-        * @desc Update `posts` on viewmodel
+        * @desc Update 'posts' on viewmodel
         */
       function postsSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
@@ -59,7 +62,7 @@
 
       /**
         * @name postsErrorFn
-        * @desc Show error snackbar
+        * @desc Log error in the console
         */
       function postsErrorFn(data, status, headers, config) {
         console.log("Error loading Thingies");
