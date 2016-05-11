@@ -61,8 +61,10 @@ class StatusSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = AccountSerializer(read_only=True, required=False)
+
     subcategory_details = SubCategorySerializer(source='subcategory', read_only=True, required=False)
     subcategory = serializers.PrimaryKeyRelatedField(queryset=Subcategory.objects.all(), write_only=True)
+
     condition_details = ConditionSerializer(source='condition', read_only=True, required=False)
     condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
 
@@ -70,11 +72,8 @@ class PostSerializer(serializers.ModelSerializer):
     location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
 
     status_details = StatusSerializer(source='status', read_only=True, required=False)
-    status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), write_only=True)
+    status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), write_only=True, required=False)
 
-
-    #status = StatusSerializer(read_only=True, required=False)
-    #image = serializers.ImageField(source='image', max_length=None, use_url = True, required=False)
     image = Base64ImageField(required=False)
 
 
