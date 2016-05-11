@@ -11,7 +11,7 @@ from django.conf import settings
 from thingyproject.views import IndexView
 from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
-    RegionViewSet, PostReviewViewSet, ConditionViewSet
+    RegionViewSet, PostReviewViewSet, ConditionViewSet, StatusViewSet
 
 
 
@@ -29,6 +29,8 @@ router.register(r'subcategories', SubCategoryViewSet)
 router.register(r'regions', RegionViewSet)
 router.register(r'postreviews', ReviewViewSet)
 router.register(r'conditions', ConditionViewSet)
+router.register(r'statuses', StatusViewSet)
+
 #router.register(r'userphotos', PhotoList)
 
 accounts_router = routers.NestedSimpleRouter(

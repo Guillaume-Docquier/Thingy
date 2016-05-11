@@ -15,39 +15,7 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def __unicode__(self):
-        return '{0}'.format(self.content)
-
-class Condition(models.Model):
-    cond_desc = models.CharField(max_length=50)
-
-    def __unicode__(self):
-        return '{0}'.format(self.content)
-
-class Region(models.Model):
-    name = models.CharField(max_length=50)
-	
-    def __unicode__(self):
-        return '{0}'.format(self.content)
-
-class Town(models.Model):
-    name = models.CharField(max_length=50)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True)
- 
-    def __unicode__(self):
-        return '{0}'.format(self.content)
-
-
-
-class Post(models.Model):
-    author = models.ForeignKey(Account)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
-    condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    available =  models.BooleanField(default=True)
-    def __unicode__(self):
         return u'%s / %s' % (self.category, self.sub_cat_name)
-
 
 class Condition(models.Model):
     cond_desc = models.CharField(max_length=50)
@@ -66,6 +34,12 @@ class Town(models.Model):
     def __unicode__(self):
         return u'%s / %s' % (self.region, self.name)
 
+class Status(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Post(models.Model):
     author = models.ForeignKey(Account, related_name='posts')
@@ -73,10 +47,13 @@ class Post(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null =True)
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default = 1)
+
 
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
+
 
     # The default image is default.png so we should always have it in media/postimages/
     image = models.ImageField(upload_to='postimages/', default='postimages/default.png')
