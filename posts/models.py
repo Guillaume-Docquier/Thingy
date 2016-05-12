@@ -13,9 +13,9 @@ class Category(models.Model):
 class Subcategory(models.Model):
     sub_cat_name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+
     def __unicode__(self):
         return u'%s / %s' % (self.category, self.sub_cat_name)
-
 
 class Condition(models.Model):
     cond_desc = models.CharField(max_length=50)
@@ -34,6 +34,12 @@ class Town(models.Model):
     def __unicode__(self):
         return u'%s / %s' % (self.region, self.name)
 
+class Status(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Post(models.Model):
     author = models.ForeignKey(Account, related_name='posts')
@@ -41,6 +47,7 @@ class Post(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE, null =True)
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default = 1)
 
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0)
@@ -55,19 +62,28 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
-    # @property
-    def reviews(self):
-        return self.postreview_set.all()
+# class Post_rating(models.Model):
+#     postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+#     avg_rating = models.IntegerField(default=0)
+#     nr_of_ratings = models.IntegerField(default=0)
+#
+#     def __unicode__(self):
+#         return '{0}'.format(self.content)
 
-class PostReview(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    rating = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500)
-    reviewauthor = models.ForeignKey(Account, null=True)
-    def __unicode__(self):
-        return u'%s (%d)' % (self.post, self.id)
+    # # @property
+    # def reviews(self):
+    #     return self.postreview_set.all()
+
+# class PostReview(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+#     rating = models.IntegerField(default=0)
+#     comment = models.CharField(max_length=500)
+#     reviewauthor = models.ForeignKey(Account, null=True)
+#     def __unicode__(self):
+#         return u'%s (%d)' % (self.post, self.id)
 
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post)
     image = models.ImageField(max_length = None,  upload_to='Images', default = 'Images/None-No-img.jpg')
+

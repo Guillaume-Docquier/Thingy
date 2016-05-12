@@ -31,7 +31,6 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(unique=True)
 
-
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     tagline = models.CharField(max_length=140, blank=True)
@@ -64,16 +63,15 @@ class Account(AbstractBaseUser):
 
 
 
-
-class Review(models.Model):
-    revieweduser = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500)
-    #grade_of_communication = models.IntegerField(default=0)
-    #grade_of_description_of_item = models.IntegerField(default=0)
-
-    def __unicode__(self):
-        return u'%s (%d)' % (self.revieweduser, self.id)
+#
+# class Review(models.Model):
+#     #revieweduser = models.ForeignKey(Account, related_name='reviews')
+#     author = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
+#     rating = models.IntegerField(default=0)
+#     comment = models.CharField(max_length=500)
+#
+#     def __unicode__(self):
+#         return u'%s (%d)' % (self.revieweduser, self.id)
 
 
 class UserImage(models.Model):

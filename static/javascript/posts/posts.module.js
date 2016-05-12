@@ -4,8 +4,8 @@
   angular
     .module('thingy.posts', [
       'thingy.posts.controllers',
-      'thingy.posts.services',
-      'thingy.posts.directives'
+      'thingy.posts.directives',
+      'thingy.posts.services'
     ]);
 
   angular
