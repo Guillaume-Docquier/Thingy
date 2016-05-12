@@ -20,8 +20,6 @@
     vm.destroy = destroy
     vm.get = get
     vm.update = update;
-    vm.getReceivedMessages = getReceivedMessages;
-    vm.getSentMessages = getSentMessages;
 
     /**
     * @name destroy
@@ -56,28 +54,6 @@
     */
     function update(profile) {
       return $http.put('/api/v1/accounts/' + profile.oldUsername + '/', profile);
-    }
-
-    /**
-    * @name getReceivedMessages
-    * @desc Get all received messages of a user
-    * @param {string} id The id of the user
-    * @returns {Promise}
-    * @memberOf thingy.profiles.services.Profile
-    */
-    function getReceivedMessages(id) {
-      return $http.get('api/v1/recipient/' + id + '/');
-    }
-
-    /**
-    * @name getSentMessages
-    * @desc Get all sent messages of the user
-    * @param {string} id The id of the user
-    * @returns {Promise}
-    * @memberOf thingy.profiles.services.Profile
-    */
-    function getSentMessages(id) {
-      return $http.get('api/v1/messages/' + id + '/sent/');
     }
   }
 })();
