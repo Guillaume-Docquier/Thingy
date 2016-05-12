@@ -12,10 +12,14 @@ class messTypeSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
 
     author = serializers.ReadOnlyField(source='author.username')
+    type_details = messTypeSerializer(source='messtypes', read_only=True, required=False)
     type = serializers.PrimaryKeyRelatedField(queryset=messTypes.objects.all())
+    #condition_details = ConditionSerializer(source='condition', read_only=True, required=False)
+    #condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
+
     class Meta:
         model = Message
-        fields = ('id','author', 'type', 'created', 'body', 'unread', 'recipient')
+        fields = ('id','author', 'type_details', 'type', 'created', 'body',  'unread','recipient')
 
 
 class RecipientSerializer(serializers.ModelSerializer):

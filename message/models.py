@@ -10,7 +10,7 @@ class messTypes(models.Model):
 
     def __unicode__(self):
         return self.type
-    #type = models.CharField(max_length=400,blank=True,on_delete=models.CASCADE)
+
 
 class Message(models.Model):
 
