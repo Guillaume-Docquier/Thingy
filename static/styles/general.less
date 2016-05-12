@@ -1,28 +1,28 @@
 body {
 	height: 100%;
-	display: table;
+	display: table; //<-- This causes the white space on the right of the page
 	width: 100%;
 
 	font-size: 12px;
-	margin-top: 70px;	
+	margin-top: 70px;
 	@media (min-width: @screen-sm) {
 		font-size: 18px;
 	}
 }
 
 .page-row {
-	display: table-row;
+	display: table-row; //<-- This one makes the footer wierd without the body property
 }
 
 h1 {
 	font-size: 18px;
 	@media (min-width: @screen-sm) {
 		font-size: 36px;
-	}	
+	}
 }
 
 h3 {
-	
+
 	margin-top: 5vh;
 	font-size: 18px;
 	@media (min-width: @screen-sm) {
@@ -66,4 +66,3 @@ h6 {
 	}
 
 }
-
