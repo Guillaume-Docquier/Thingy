@@ -54,8 +54,8 @@
        * @name loginErrorFn
        * @desc Log the error in the console
        */
-      function loginErrorFn(data, status, headers, config) {
-        console.error(data.data.message);
+      function loginErrorFn(data) {
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -92,9 +92,9 @@
       * @name registerErrorFn
       * @desc Log the error in the console
       */
-      function registerErrorFn(data, status, headers, config) {
-        console.error('Register failed...');
-        console.log(data.data.error);
+      function registerErrorFn(data) {
+        alert('Could not register.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -121,8 +121,9 @@
        * @name logoutErrorFn
        * @desc Log "Logout failed..." to the console
        */
-      function logoutErrorFn(data, status, headers, config) {
-        console.error('Logout failed...');
+      function logoutErrorFn(data) {
+        alert('Could not log out.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 

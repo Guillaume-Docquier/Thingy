@@ -52,8 +52,9 @@
         Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       }
 
-      function categoriesErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function categoriesErrorFn(data) {
+        alert('Could not load categories.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       function regionsSuccessFn(data, status, headers, config) {
@@ -67,8 +68,9 @@
         Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
       }
 
-      function regionsErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function regionsErrorFn(data) {
+        alert('Could not load regions.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       function conditionsSuccessFn(data, status, headers, config) {
@@ -79,8 +81,9 @@
         vm.search();
       }
 
-      function conditionsErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function conditionsErrorFn(data) {
+        alert('Could not load conditions.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -110,9 +113,9 @@
       * @name postsErrorFn
       * @desc Show snackbar with error
       */
-      function searchErrorFn(data, status, headers, config) {
-        alert(data.statusText);
-        console.log(data);
+      function searchErrorFn(data) {
+        alert('Could not proceed with the search.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 

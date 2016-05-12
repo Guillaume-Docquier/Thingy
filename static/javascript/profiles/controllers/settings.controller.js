@@ -90,9 +90,10 @@
       * @name profileErrorFn
       * @desc Redirect to index
       */
-      function profileErrorFn(data, status, headers, config) {
+      function profileErrorFn(data) {
         $location.url('/');
         alert('That user does not exist.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -120,9 +121,9 @@
       * @name profileErrorFn
       * @desc Display error snackbar
       */
-      function destroyErrorFn(data, status, headers, config) {
+      function destroyErrorFn(data) {
         alert('Could not destroy your account.');
-        console.log(data.data.error);
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -134,13 +135,13 @@
     */
     function update() {
       vm.profile.image = vm.imageUpload.base64;
-      Profile.update(vm.profile).then(profileSuccessFn, profileErrorFn);
+      Profile.update(vm.profile).then(updateSuccessFn, updateErrorFn);
 
       /**
       * @name profileSuccessFn
       * @desc Log the user out if the username changed
       */
-      function profileSuccessFn(data, status, headers, config) {
+      function updateSuccessFn(data, status, headers, config) {
         alert('Your profile has been updated. If you changed your username, you will need to log in again');
         // Logout if username changed, could also prompt to relog
         if(vm.profile.oldUsername != vm.profile.username)
@@ -153,9 +154,9 @@
       * @name profileErrorFn
       * @desc Show error in console
       */
-      function profileErrorFn(data, status, headers, config) {
-        alert('An error occurred');
-        console.log(data.data);
+      function updateErrorFn(data) {
+        alert('Could not update profile.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
   }
