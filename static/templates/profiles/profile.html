@@ -37,7 +37,7 @@
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					</h6>
-					<div class="hidden-xs">
+					<div class="hidden-xs" ng-show=vm.isOwner>
 						<a href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
 						<a href="users/{{vm.profile.username}}/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
@@ -50,9 +50,9 @@
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
-					  <li><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
-					  <li><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
 					</ul>
 
 				</div><!-- col-xs-12 -->

@@ -9,12 +9,12 @@
     .module('thingy.profiles.controllers')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts', 'Message'];
+  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts', 'Message', 'Authentication'];
 
   /**
   * @namespace ProfileController
   */
-  function ProfileController($scope, $location, $routeParams, Profile, Posts, Message) {
+  function ProfileController($scope, $location, $routeParams, Profile, Posts, Message, Authentication) {
     var vm = this;
 
     // Functions and data
@@ -22,6 +22,7 @@
     vm.validateRecipient = validateRecipient;
     vm.getUnreadMessages = getUnreadMessages;
     vm.unreadNum = 0;
+    vm.isOwner = false;
     vm.profile = '';
     vm.receivedMessages = [];
     vm.sentMessages = [];
@@ -62,8 +63,14 @@
       */
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
-        Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
+        // Fetch more info if own profile
+        if (Authentication.isAuthenticated())
+          vm.isOwner = vm.profile.username == Authentication.getAuthenticatedAccount().username;
+        if(vm.isOwner)
+        {
+          Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
+        }
         Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
       }
 
