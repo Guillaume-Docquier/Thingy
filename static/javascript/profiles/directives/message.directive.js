@@ -19,7 +19,7 @@
       scope: {
         message: '='
       },
-      templateUrl: '/static/templates/posts/message-directive.html'
+      templateUrl: '/static/templates/profiles/message-directive.html'
     };
 
     return directive;
