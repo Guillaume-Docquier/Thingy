@@ -13,6 +13,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     author = serializers.ReadOnlyField(source='author.username')
     type = serializers.PrimaryKeyRelatedField(queryset=messTypes.objects.all())
+
     class Meta:
         model = Message
 
@@ -24,7 +25,6 @@ class RecipientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('username', 'messages')
-
 
 # recipient = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
 # recipient = serializers.StringRelatedField(many=True)

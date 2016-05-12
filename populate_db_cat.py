@@ -18,9 +18,9 @@ from posts.models import Category, Subcategory
 def populate():
 	category_list = ["Automotive", "Home", "Fashion", "Events", "Hobby", "Books", "Other"]
 	subcategory_list = [
-[ "Cars", "Parts", "Tools", "Bicycles," "Caravans," "Boats", "Motorcycles", "Scooters", "Other"],
+[ "Cars", "Parts", "Tools", "Bicycles", "Caravans", "Boats", "Motorcycles", "Scooters", "Other"],
 [ "Painting", "Woodwork", "Garden Tools", "Furniture", "Other"],
-[ "Formalwear Men," "Formalwear Women", "Other"],
+[ "Formalwear Men", "Formalwear Women", "Other"],
 [ "Kitchen", "Audio", "Picture", "Lighting", "Furniture", "Other"],
 [ "Sports Equipment", "Leisure Equipment", "Tools", "Fishing", "Toys", "Hunting", "Other"],
 [ "Course Literature", "Travel Guides", "Other"],

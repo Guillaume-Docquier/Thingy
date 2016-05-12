@@ -9,7 +9,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
 
     def perform_create(self, serializer):
-        instance = serializer.save(author=self.request.user)
+        instance = serializer.save(review_author=self.request.user)
         return super(ReviewViewSet, self).perform_create(serializer)
 
 class ReviewedUserViewSet(viewsets.ModelViewSet):

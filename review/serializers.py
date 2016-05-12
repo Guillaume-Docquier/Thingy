@@ -11,7 +11,10 @@ class RatingSerializer(serializers.ModelSerializer):
         fields = ('id', 'rating_grade')
 
 class ReviewSerializer(serializers.ModelSerializer):
-    review_author = serializers.ReadOnlyField(source='author.username')
+
+    #review_author = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+    #review_author_details = AccountSerializer(read_only=True, required=False)
+    review_author = serializers.ReadOnlyField(source='review_author.username', read_only=True, required=False)
     #review_author = AccountSerializer(read_only=True, required=False)
 
     rating_details = RatingSerializer(source='rating', read_only=True, required=False)
@@ -19,7 +22,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'reviewed_user','review_author','rating', 'rating_details', 'created', 'comment')
+        fields = ('id', 'reviewed_user','review_author', 'rating', 'rating_details', 'created', 'comment')
 
 class ReviewedUserSerializer(serializers.ModelSerializer):
     reviewed_user = serializers.PrimaryKeyRelatedField(many=True,queryset=Review.objects.all())
