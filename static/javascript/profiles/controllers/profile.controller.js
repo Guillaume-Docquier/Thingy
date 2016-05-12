@@ -15,6 +15,7 @@
 
     // Functions and data
     vm.sendMessage = sendMessage;
+    vm.validateRecipient = validateRecipient;
     vm.getUnreadMessages = getUnreadMessages;
     vm.unreadNum = 0;
     vm.profile = '';
@@ -25,7 +26,12 @@
     // Bindings
     vm.newMessage = {
       body: '',
-      recipient: ''
+      recipient: {
+        username: '',
+        id: '',
+        valid: false
+      },
+      type: 4
     };
 
     activate();
@@ -61,9 +67,10 @@
       * @name profileErrorFn
       * @desc Redirect to index and log error in the console
       */
-      function profileErrorFn(data, status, headers, config) {
+      function profileErrorFn(data) {
         $location.url('/');
-        console.log("Error loading profile");
+        alert('Could not load profile.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       /**
@@ -79,8 +86,9 @@
       * @name getRErrorFn
       * @desc Log error in the console
       */
-      function getRErrorFn(data, status, headers, config) {
-        console.log("Error loading received messages");
+      function getRErrorFn(data) {
+        alert('Could not load received messages.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       /**
@@ -95,13 +103,18 @@
         * @name postsErrorFn
         * @desc Log error in the console
         */
-      function postsErrorFn(data, status, headers, config) {
-        console.log("Error loading Thingies");
+      function postsErrorFn(data) {
+        alert('Could not load posts.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
     function sendMessage() {
-      Message.sendMessage(vm.newMessage).then(sendSuccessFn, sendErrorFn);
+      Message.sendMessage(
+        vm.newMessage.type,
+        vm.newMessage.body,
+        vm.newMessage.recipient.id
+      ).then(sendSuccessFn, sendErrorFn);
 
       function sendSuccessFn() {
         alert('Message sent!');
@@ -109,7 +122,23 @@
 
       function sendErrorFn(data) {
         alert('Could not send your message.');
-        console.log('Error: ' + JSON.stringify(data.data));
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+    }
+
+    function validateRecipient() {
+      console.log('Validating.');
+      Profile.get(vm.newMessage.recipient.username).then(validateSuccessFn, validateErrorFn);
+
+      function validateSuccessFn(data) {
+        // TODO green highlight
+        vm.newMessage.recipient.id = data.data.id;
+        vm.newMessage.recipient.valid = 1;
+      }
+
+      function validateErrorFn(data) {
+        // TODO red highlight
+        vm.newMessage.recipient.valid = 0;
       }
     }
 

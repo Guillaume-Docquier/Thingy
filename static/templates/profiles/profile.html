@@ -92,9 +92,9 @@
 
         				  <div class="modal-body">
 
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-success': vm.newMessage.recipient.username && vm.newMessage.recipient.valid, 'has-error': vm.newMessage.recipient.username.length > 3 && !vm.newMessage.recipient.valid}">
                       <label for="messageRecipient">Recipient</label>
-                      <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient" placeholder="Input message here" />
+                      <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient.username" ng-change="vm.validateRecipient()" placeholder="Input message here" />
                     </div><!--form-group-->
 
             				<div class="form-group">

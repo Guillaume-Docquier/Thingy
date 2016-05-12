@@ -29,11 +29,11 @@
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
-    function sendMessage(message) {
+    function sendMessage(type, body, recipientId) {
       return $http.post('api/v1/messages/', {
-        type: '',
-        body: '',
-        recipient: ''
+        type: type,
+        body: body,
+        recipient: recipientId
       });
     }
 
