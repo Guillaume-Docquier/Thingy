@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 #from posts.serializers import PostSerializer
 
-from authentication.models import Account, Review, UserImage
+from authentication.models import Account, UserImage
 
 from posts.fields import Base64ImageField
 #from posts.models import Post
@@ -57,47 +57,52 @@ class AuthorPostSerializer(serializers.ModelSerializer):
 
 
 
-class SimpleReviewSerializer(serializers.ModelSerializer):
-    revieweduser = AccountSerializer(read_only=True, required=False)
+# class SimpleReviewSerializer(serializers.ModelSerializer):
+#     revieweduser = AccountSerializer(read_only=True, required=False)
+#
+#     class Meta:
+#         model = Review
+#         fields = ('id', 'rating', 'revieweduser')
 
-    class Meta:
-        model = Review
-        fields = ('id', 'rating', 'revieweduser')
 
-
-
-class AccountWithReviews(AccountSerializer):
-    reviews = SimpleReviewSerializer(read_only=True, required=False, many=True)
-
-    class Meta(AccountSerializer.Meta):
-        fields = ('id', 'email', 'username', 'created_at', 'updated_at',
-                  'first_name', 'last_name', 'tagline', 'password',
-                  'confirm_password', 'reviews' , 'image')
-
-class ReviewSerializer(serializers.ModelSerializer):
-
-    revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
-    #revieweduser = AccountSerializer()
-    #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
-    #post = PostSerializer(read_only=True, required=False)
-    #= AccountSerializer()
-
-    class Meta:
-        model = Review
-        fields = ('id', 'rating', 'comment', 'revieweduser')
-        #read_only_fields = ('id')
-
-    #def create(self, validated_data):
-        #revieweduser_data = validated_data.pop('revieweduser')
-        #username = Review.objects.create(**validated_data)
-        #Account.objects.create(username=username, **profile_data)
-        #return username
-        read_only_fields = ('id')
-
-    # def get_validation_exclusions(self, *args, **kwargs):
-    #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
-    #
-    #     return exclusions + ['author']
+#
+# class AccountWithReviews(AccountSerializer):
+#     reviews = SimpleReviewSerializer(read_only=True, required=False, many=True)
+#
+#     class Meta(AccountSerializer.Meta):
+#         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
+#                   'first_name', 'last_name', 'tagline', 'password',
+#                   'confirm_password', 'reviews' , 'image')
+#
+#
+#
+# class ReviewSerializer(serializers.ModelSerializer):
+#     #author = AccountSerializer(read_only=True, required=False)
+#     author = serializers.ReadOnlyField(source = 'author.username')
+#
+#     #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+#
+#     #revieweduser = AccountSerializer()
+#     #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
+#     #post = PostSerializer(read_only=True, required=False)
+#     #= AccountSerializer()
+#
+#     class Meta:
+#         model = Review
+#         fields = ('id','author' ,'rating', 'comment', 'revieweduser')
+#         read_only_fields = ('id')
+#
+#     #def create(self, validated_data):
+#         #revieweduser_data = validated_data.pop('revieweduser')
+#         #username = Review.objects.create(**validated_data)
+#         #Account.objects.create(username=username, **profile_data)
+#         #return username
+#         #read_only_fields = ('id')
+#
+#     # def get_validation_exclusions(self, *args, **kwargs):
+#     #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
+#     #
+#     #     return exclusions + ['author']
 
 class UserImageSerializer(serializers.HyperlinkedModelSerializer):
 

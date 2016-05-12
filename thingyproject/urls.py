@@ -9,10 +9,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from thingyproject.views import IndexView
-from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, ReviewViewSet, PhotoList, PhotoDetail, ReviewList
-from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, RegionViewSet, PostReviewViewSet, ConditionViewSet
+from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, PhotoList, PhotoDetail
+from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
+    RegionViewSet, ConditionViewSet, StatusViewSet
+from review.views import ReviewViewSet, ReviewedUserViewSet
 from message.views import MessageViewSet, RecipientViewSet
-
 
 
 
@@ -21,14 +22,14 @@ admin.autodiscover()
 router = routers.SimpleRouter()
 #router = DefaultRouter()
 router.register(r'accounts', AccountViewSet)
+router.register(r'reviewedusers', ReviewedUserViewSet)
+
 router.register(r'reviews', ReviewViewSet)
-#router.register(r'reviews', ReviewList)
 router.register(r'authorposts',AuthorPostsViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubCategoryViewSet)
 router.register(r'regions', RegionViewSet)
-router.register(r'postreviews', ReviewViewSet)
 router.register(r'conditions', ConditionViewSet)
 #router.register(r'statuses', StatusViewSet)
 
@@ -44,7 +45,7 @@ accounts_router = routers.NestedSimpleRouter(
 accounts_router.register(r'posts', AccountPostsViewSet)
 
 urlpatterns = [
-    url(r'^review/$', views.ReviewList.as_view()),
+    #url(r'^review/$', views.ReviewList.as_view()),
     url(r'', include(router.urls)),
     url(r'^authorposts/(?P<pk>[0-9]+)/$', AuthorPostsViewSet.as_view({'get': 'retrieve'}), name='index'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

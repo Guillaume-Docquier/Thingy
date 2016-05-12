@@ -49,11 +49,9 @@ class Post(models.Model):
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default = 1)
 
-
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
-
 
     # The default image is default.png so we should always have it in media/postimages/
     image = models.ImageField(upload_to='postimages/', default='postimages/default.png')
@@ -64,26 +62,25 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
-class Post_rating(models.Model):
-    postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    avg_rating = models.IntegerField(default=0)
-    nr_of_ratings = models.IntegerField(default=0)
+# class Post_rating(models.Model):
+#     postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+#     avg_rating = models.IntegerField(default=0)
+#     nr_of_ratings = models.IntegerField(default=0)
+#
+#     def __unicode__(self):
+#         return '{0}'.format(self.content)
 
-    def __unicode__(self):
-        return '{0}'.format(self.content)
+    # # @property
+    # def reviews(self):
+    #     return self.postreview_set.all()
 
-
-    # @property
-    def reviews(self):
-        return self.postreview_set.all()
-
-class PostReview(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    rating = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500)
-    reviewauthor = models.ForeignKey(Account, null=True)
-    def __unicode__(self):
-        return u'%s (%d)' % (self.post, self.id)
+# class PostReview(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+#     rating = models.IntegerField(default=0)
+#     comment = models.CharField(max_length=500)
+#     reviewauthor = models.ForeignKey(Account, null=True)
+#     def __unicode__(self):
+#         return u'%s (%d)' % (self.post, self.id)
 
 
 class PostImage(models.Model):

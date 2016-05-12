@@ -63,15 +63,15 @@ class Account(AbstractBaseUser):
 
 
 
-
-class Review(models.Model):
-    revieweduser = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
-    comment = models.CharField(max_length=500)
-    #comments = models.CharField(max_length=500)
-
-    def __unicode__(self):
-        return u'%s (%d)' % (self.revieweduser, self.id)
+#
+# class Review(models.Model):
+#     #revieweduser = models.ForeignKey(Account, related_name='reviews')
+#     author = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
+#     rating = models.IntegerField(default=0)
+#     comment = models.CharField(max_length=500)
+#
+#     def __unicode__(self):
+#         return u'%s (%d)' % (self.revieweduser, self.id)
 
 
 class UserImage(models.Model):
