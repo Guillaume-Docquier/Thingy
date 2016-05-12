@@ -1,3 +1,7 @@
+/**
+* ProfileController
+* @namespace thingy.profiles.controllers
+*/
 (function(){
   'use strict'
 
@@ -31,7 +35,7 @@
         id: '',
         valid: false
       },
-      type: 4
+      type: 4 // Private message
     };
 
     activate();
@@ -109,6 +113,10 @@
       }
     }
 
+    /**
+    * @name sendMessage
+    * @desc Send a private message to another user
+    */
     function sendMessage() {
       Message.sendMessage(
         vm.newMessage.type,
@@ -116,32 +124,53 @@
         vm.newMessage.recipient.id
       ).then(sendSuccessFn, sendErrorFn);
 
+      /**
+      * @name sendSuccessFn
+      * @desc Display success message
+      */
       function sendSuccessFn() {
         alert('Message sent!');
       }
 
+      /**
+      * @name sendErrorFn
+      * @desc Display an error message and log the details in the console
+      */
       function sendErrorFn(data) {
         alert('Could not send your message.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
+    /**
+    * @name validateRecipient
+    * @desc Send a request to the db to verify if this username exists
+    */
     function validateRecipient() {
-      console.log('Validating.');
       Profile.get(vm.newMessage.recipient.username).then(validateSuccessFn, validateErrorFn);
 
+      /**
+      * @name validateSuccessFn
+      * @desc Update 'newMessage' in the viewmodel
+      */
       function validateSuccessFn(data) {
-        // TODO green highlight
         vm.newMessage.recipient.id = data.data.id;
         vm.newMessage.recipient.valid = 1;
       }
 
+      /**
+      * @name validateErrorFn
+      * @desc Update 'newMessage' in the viewmodel to reflect a failure
+      */
       function validateErrorFn(data) {
-        // TODO red highlight
         vm.newMessage.recipient.valid = 0;
       }
     }
 
+    /**
+    * @name getUnreadMessages
+    * @desc Get the number of unread messages
+    */
     function getUnreadMessages() {
       vm.unreadNum = 0;
       for(var i = 0; i < vm.receivedMessages.length; i++) {
