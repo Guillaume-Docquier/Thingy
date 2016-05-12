@@ -25,6 +25,7 @@
     vm.register = register;
     vm.setAuthenticatedAccount = setAuthenticatedAccount;
     vm.unauthenticate = unauthenticate;
+    vm.redirect = '';
 
     /**
     * @name login
@@ -34,7 +35,8 @@
     * @returns {Promise}
     * @memberOf thingy.authentication.services.Authentication
     */
-    function login(username, password) {
+    function login(username, password, redirect) {
+      vm.redirect = redirect;
       return $http.post('/api/v1/auth/login/', {
         username: username, password: password
       }).then(loginSuccessFn, loginErrorFn);
@@ -47,7 +49,8 @@
         vm.setAuthenticatedAccount(data.data);
         // Allows pages to save data before refresh
         $rootScope.$broadcast('login');
-        location.reload();
+        //location.reload();
+        window.location = '/' + vm.redirect
       }
 
       /**
@@ -55,6 +58,7 @@
        * @desc Log the error in the console
        */
       function loginErrorFn(data) {
+        alert('Could not log in.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
@@ -70,8 +74,8 @@
     * @returns {Promise}
     * @memberOf thingy.authentication.services.Authentication
     */
-    function register(username, email, first_name, last_name, password) {
-      console.log('username:' + username + ', email: '+ email + ', first_name: ' + first_name + ', last_name: ' + last_name + ', password: ' + password);
+    function register(username, email, first_name, last_name, password, redirect) {
+      vm.redirect = redirect;
       return $http.post('/api/v1/accounts/', {
         username: username,
         email: email,
@@ -85,7 +89,7 @@
       * @desc Log the new user in
       */
       function registerSuccessFn(data, status, headers, config) {
-        vm.login(email, password);
+        vm.login(email, password, vm.redirect);
       }
 
       /**

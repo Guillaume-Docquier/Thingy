@@ -9,7 +9,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
 		<a href='index.html'>
 			<img id='logo' src='/static/images/LoggaVit.png'></img>
@@ -21,10 +21,10 @@
 		<li><a href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
 		<li><a href ='/thingies/search'>SEARCH THINGY</a></li>
 		<li><a href ='/thingies/add'>ADD THINGY</a></li>
-		<li><a href="/users/{{ user.username }}/settings">SETTINGS</a></li>
+		<li><a href="/settings">SETTINGS</a></li>
         <li><a href="javascript:void(0)" ng-click="vm.logout()">LOGOUT</a></li>
-        
-        
+
+
         {% else %}
 		<li><a href="javascript:void(0)"
 			ng-dialog="/static/templates/authentication/login.html"
@@ -32,7 +32,7 @@
 		<li id="registerbtn"><a href="javascript:void(0)"
 			ng-dialog="/static/templates/authentication/register.html"
 			ng-dialog-controller="LoginRegisterController as vm">REGISTER</a></li>
-						
+
 		{% endif %}
       </ul>
     </div>

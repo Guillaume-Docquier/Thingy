@@ -23,9 +23,10 @@
     vm.destroy = destroy;
     vm.update = update;
     vm.imageDisplay = '';
+    vm.authenticated = Authentication.isAuthenticated();
 
     // Bindings
-    vm.profile;
+    vm.profile = '';
     vm.imageUpload = '';
 
     activate();
@@ -37,25 +38,15 @@
     * @memberOf thingy.profiles.controllers.SettingsController
     */
     function activate() {
-      var authenticatedAccount = Authentication.getAuthenticatedAccount();
-      var username = $routeParams.username;
 
       // Redirect if not logged in
-      if (!authenticatedAccount) {
-        $location.url('/');
-        alert('You are not authorized to view this page.');
+      if (!vm.authenticated) {
+        $location.url('/login?redirect=settings');
         return;
       }
-      else {
-        // Redirect if logged in, but not the owner of this profile.
-        if (authenticatedAccount.username !== username) {
-          $location.url('/');
-          alert('You are not authorized to view this page.');
-          return;
-        }
-      }
 
-      Profile.get(username).then(profileSuccessFn, profileErrorFn);
+      if (vm.authenticated)
+        Profile.get(Authentication.getAuthenticatedAccount().username).then(profileSuccessFn, profileErrorFn);
 
       /**
       * @name profileSuccessFn
