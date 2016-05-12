@@ -52,7 +52,7 @@
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
 					  <li><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
-					  <li><a data-toggle="tab" href="#messages__tab">Messages <span class="badge">4</span></a></li>
+					  <li><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
 					</ul>
 
 				</div><!-- col-xs-12 -->
@@ -72,8 +72,8 @@
 					<p>reviews...</p>
 				  </div>
 				  <div id="messages__tab" class="tab-pane fade">
-            <div ng-repeat='message in vm.messages'>
-  						<message message="message">hi</message>
+            <div ng-repeat='message in vm.receivedMessages'>
+  						<message message="message"></message>
             </div>
 				  </div>
 				</div>
