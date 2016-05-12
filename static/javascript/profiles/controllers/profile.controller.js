@@ -75,8 +75,7 @@
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
         // Fetch more info if own profile
-        if (vm.isAuthenticated)
-          vm.isOwner = vm.profile.username == Authentication.getAuthenticatedAccount().username;
+        vm.isOwner = vm.isAuthenticated && vm.profile.username == Authentication.getAuthenticatedAccount().username;
         if(vm.isOwner)
         {
           Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
