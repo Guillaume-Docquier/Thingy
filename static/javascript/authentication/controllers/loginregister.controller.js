@@ -57,7 +57,10 @@
     */
     function login() {
       console.log("Logging in...");
-      Authentication.login(vm.username, vm.password, $location.search().redirect || $location.url());
+      var redirect = $location.url();
+      if($location.search().redirect)
+        redirect = '/' + $location.search().redirect;
+      Authentication.login(vm.username, vm.password, redirect);
     }
 
     /**
@@ -67,7 +70,10 @@
     */
     function register() {
       console.log("Registering...");
-      Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password, $location.search().redirect || $location.url());
+      var redirect = $location.url();
+      if($location.search().redirect)
+        redirect = '/' + $location.search().redirect;
+      Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password, redirect);
     }
   }
 })();

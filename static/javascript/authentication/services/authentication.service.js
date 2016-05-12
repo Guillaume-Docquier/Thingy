@@ -50,7 +50,8 @@
         // Allows pages to save data before refresh
         $rootScope.$broadcast('login');
         //location.reload();
-        window.location = '/' + vm.redirect
+        console.log('redir: ' + vm.redirect);
+        window.location = vm.redirect;
       }
 
       /**
