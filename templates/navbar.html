@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
 		{% if user.is_authenticated %}
-		<li><a href="/users/{{ user.username }}"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
+		<li><a href="/profile"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
 		<li><a href ='/thingies/search'>SEARCH THINGY</a></li>
 		<li><a href ='/thingies/add'>ADD THINGY</a></li>
 		<li><a href="/settings">SETTINGS</a></li>

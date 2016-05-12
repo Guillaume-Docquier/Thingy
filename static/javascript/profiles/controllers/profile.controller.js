@@ -23,6 +23,7 @@
     vm.getUnreadMessages = getUnreadMessages;
     vm.unreadNum = 0;
     vm.isOwner = false;
+    vm.isAuthenticated = Authentication.isAuthenticated();
     vm.profile = '';
     vm.receivedMessages = [];
     vm.sentMessages = [];
@@ -47,13 +48,23 @@
     * @memberOf thingy.profiles.controllers.ProfileController
     */
     function activate() {
+      // Needed for public profiles
       var username = $routeParams.username;
 
-      // Prevents a bug where Profile.get("something.something") returns index.html's code...
-      if (username.match(/\./)) {
-        window.location = '/';
+      // When visiting a public profile
+      if(username) {
+        // There's a bug if username contains a dot.
+        if (username.match(/\./)) {
+          $location.url('/');
+          return;
+        }
+      }
+      // When visiting a private profile
+      else if(!vm.isAuthenticated) {
+        $location.url('/');
         return;
       }
+      else username = Authentication.getAuthenticatedAccount().username;
 
       Profile.get(username).then(profileSuccessFn, profileErrorFn);
 
@@ -64,7 +75,7 @@
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
         // Fetch more info if own profile
-        if (Authentication.isAuthenticated())
+        if (vm.isAuthenticated)
           vm.isOwner = vm.profile.username == Authentication.getAuthenticatedAccount().username;
         if(vm.isOwner)
         {

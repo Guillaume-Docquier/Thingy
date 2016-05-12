@@ -31,6 +31,12 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/register.html',
     })
+    // Profile
+    .when('/profile', {
+      controller: 'ProfileController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/profiles/profile.html'
+    })
     // Thingy search
     .when('/thingies/search', {
       controller: 'SearchController',
