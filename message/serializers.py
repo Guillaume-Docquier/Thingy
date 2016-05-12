@@ -14,13 +14,20 @@ class MessageSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     type_details = messTypeSerializer(source='messtypes', read_only=True, required=False)
     type = serializers.PrimaryKeyRelatedField(queryset=messTypes.objects.all())
+<<<<<<< HEAD
     #condition_details = ConditionSerializer(source='condition', read_only=True, required=False)
     #condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
 
     class Meta:
         model = Message
         fields = ('id','author', 'type_details', 'type', 'created', 'body',  'unread','recipient')
+=======
 
+    class Meta:
+        model = Message
+>>>>>>> c8665b3f95931893102d6fc9524fe70758e58483
+
+        fields = ('id','author', 'type', 'created', 'body', 'unread', 'recipient')
 
 class RecipientSerializer(serializers.ModelSerializer):
 
@@ -28,7 +35,6 @@ class RecipientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('username', 'messages')
-
 
 # recipient = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
 # recipient = serializers.StringRelatedField(many=True)

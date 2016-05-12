@@ -11,10 +11,10 @@ from itertools import groupby
 from django.http import JsonResponse
 
 from posts.filters import PostFilter
-from posts.models import Post, Category, Subcategory, Region, Town, PostReview, Condition, Status
+from posts.models import Post, Category, Subcategory, Region, Town, Condition, Status
 from posts.permissions import IsAuthorOfPost
-from posts.serializers import PostSerializer, PostWithReviews, CategorySerializer, SubCategorySerializer, \
-    RegionSerializer, TownSerializer,PostReviewSerializer, ConditionSerializer, StatusSerializer
+from posts.serializers import PostSerializer, CategorySerializer, SubCategorySerializer, \
+    RegionSerializer, TownSerializer, ConditionSerializer, StatusSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -29,7 +29,7 @@ class PostViewSet(viewsets.ModelViewSet):
     search_fields = ('title', 'description')
 
     def get_serializer_class(self):
-        return PostWithReviews if self.action == 'retrieve' else PostSerializer
+        return  PostSerializer
 
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
@@ -125,18 +125,18 @@ class TownViewSet(viewsets.ViewSet):
         return super(TownViewSet, self).perform_create(serializer)
 
 
-class PostReviewViewSet(viewsets.ViewSet):
-    queryset = PostReview.objects.all()
-    serializer_class = PostReviewSerializer
-
-    def list(self, request):
-        queryset = PostReview.objects.all()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, serializer):
-        instance = serializer.save(author=self.request.user)
-        return super(PostReviewViewSet, self).perform_create(serializer)
+# class PostReviewViewSet(viewsets.ViewSet):
+#     queryset = PostReview.objects.all()
+#     serializer_class = PostReviewSerializer
+#
+#     def list(self, request):
+#         queryset = PostReview.objects.all()
+#         serializer = self.serializer_class(queryset, many=True)
+#         return Response(serializer.data)
+#
+#     def create(self, serializer):
+#         instance = serializer.save(author=self.request.user)
+#         return super(PostReviewViewSet, self).perform_create(serializer)
 
 
 

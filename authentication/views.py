@@ -9,9 +9,9 @@ from rest_framework.views import APIView
 from rest_framework import permissions, viewsets, status, views, generics
 from rest_framework.response import Response
 
-from authentication.models import Account, Review
+from authentication.models import Account
 from authentication.permissions import IsAccountOwner
-from authentication.serializers import AccountSerializer, AuthorPostSerializer, ReviewSerializer
+from authentication.serializers import AccountSerializer, AuthorPostSerializer
 
 class AuthorPostsViewSet(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -141,22 +141,26 @@ class LogoutView(views.APIView):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
-class ReviewViewSet(viewsets.ViewSet):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-
-    def list(self, request):
-        queryset = Review.objects.all()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, serializer):
-        instance = serializer.save()
-        return super(ReviewViewSet, self).perform_create(serializer)
-
-class ReviewList(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+# class ReviewViewSet(viewsets.ViewSet):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
+#
+#     def preform_create(self, serializer):
+#         serializer.save(author=self.request.user)
+#
+#     def list(self, request):
+#         queryset = Review.objects.all()
+#         serializer = self.serializer_class(queryset, many=True)
+#         return Response(serializer.data)
+#
+#     # def create(self, serializer):
+#     #     instance = serializer.save()
+#     #     return super(ReviewViewSet, self).perform_create(serializer)
+#
+#
+# class ReviewList(generics.ListCreateAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
 
 
 

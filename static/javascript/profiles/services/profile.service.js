@@ -66,7 +66,7 @@
     * @memberOf thingy.profiles.services.Profile
     */
     function getReceivedMessages(id) {
-      return $http.get('api/v1/messages/' + id + '/received/');
+      return $http.get('api/v1/recipient/' + id + '/');
     }
 
     /**
