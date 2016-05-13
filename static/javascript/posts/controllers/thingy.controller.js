@@ -80,9 +80,9 @@
         vm.availability = classes[vm.post.status_details.id];
       }
 
-      function postErrorFn() {
-        alert('Error in retrieving post');
-        console.log(data.data.error);
+      function postErrorFn(data) {
+        alert('Could not retrieve post.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -99,9 +99,9 @@
         console.log(data.data);
       }
 
-      function rentErrorFn(data, status, headers, config) {
-        alert('We could not send your request.');
-        console.log(data.data.error);
+      function rentErrorFn(data) {
+        alert('Could not send rent request.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
   }

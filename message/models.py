@@ -15,7 +15,7 @@ class Message(models.Model):
 
     recipient = models.ForeignKey(Account, related_name='messages')
     author = models.ForeignKey(Account)
-    type = models.ForeignKey(messTypes,on_delete=models.CASCADE)
+    type = models.ForeignKey(messTypes, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     body = models.CharField(max_length=400,blank=True, default='')
     unread = models.BooleanField(default=True)

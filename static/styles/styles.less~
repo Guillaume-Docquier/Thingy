@@ -5,6 +5,7 @@
 @import './general.less';
 @import './header.less';
 @import './navbar.less';
+@import './footer.less';
 /*@import './home.less';*/
 @import './authentication.less';
 @import './add.less';
@@ -14,5 +15,5 @@
 @import './profiles.less';
 @import './profile.less';
 @import './advertisement.less';
-@import './footer.less';
+
 

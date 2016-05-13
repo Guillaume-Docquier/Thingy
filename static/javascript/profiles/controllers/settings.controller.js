@@ -23,9 +23,10 @@
     vm.destroy = destroy;
     vm.update = update;
     vm.imageDisplay = '';
+    vm.authenticated = Authentication.isAuthenticated();
 
     // Bindings
-    vm.profile;
+    vm.profile = '';
     vm.imageUpload = '';
 
     activate();
@@ -37,25 +38,15 @@
     * @memberOf thingy.profiles.controllers.SettingsController
     */
     function activate() {
-      var authenticatedAccount = Authentication.getAuthenticatedAccount();
-      var username = $routeParams.username;
 
       // Redirect if not logged in
-      if (!authenticatedAccount) {
-        $location.url('/');
-        alert('You are not authorized to view this page.');
+      if (!vm.authenticated) {
+        $location.url('/login?redirect=settings');
         return;
       }
-      else {
-        // Redirect if logged in, but not the owner of this profile.
-        if (authenticatedAccount.username !== username) {
-          $location.url('/');
-          alert('You are not authorized to view this page.');
-          return;
-        }
-      }
 
-      Profile.get(username).then(profileSuccessFn, profileErrorFn);
+      if (vm.authenticated)
+        Profile.get(Authentication.getAuthenticatedAccount().username).then(profileSuccessFn, profileErrorFn);
 
       /**
       * @name profileSuccessFn
@@ -90,9 +81,10 @@
       * @name profileErrorFn
       * @desc Redirect to index
       */
-      function profileErrorFn(data, status, headers, config) {
+      function profileErrorFn(data) {
         $location.url('/');
         alert('That user does not exist.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -120,9 +112,9 @@
       * @name profileErrorFn
       * @desc Display error snackbar
       */
-      function destroyErrorFn(data, status, headers, config) {
+      function destroyErrorFn(data) {
         alert('Could not destroy your account.');
-        console.log(data.data.error);
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -134,13 +126,13 @@
     */
     function update() {
       vm.profile.image = vm.imageUpload.base64;
-      Profile.update(vm.profile).then(profileSuccessFn, profileErrorFn);
+      Profile.update(vm.profile).then(updateSuccessFn, updateErrorFn);
 
       /**
       * @name profileSuccessFn
       * @desc Log the user out if the username changed
       */
-      function profileSuccessFn(data, status, headers, config) {
+      function updateSuccessFn(data, status, headers, config) {
         alert('Your profile has been updated. If you changed your username, you will need to log in again');
         // Logout if username changed, could also prompt to relog
         if(vm.profile.oldUsername != vm.profile.username)
@@ -153,9 +145,9 @@
       * @name profileErrorFn
       * @desc Show error in console
       */
-      function profileErrorFn(data, status, headers, config) {
-        alert('An error occurred');
-        console.log(data.data);
+      function updateErrorFn(data) {
+        alert('Could not update profile.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
   }

@@ -9,10 +9,10 @@ INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('2', 'Rented');
 INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('3', 'Unavailable');
 INSERT INTO `thingy`.`posts_status` (`id`, `name`) VALUES ('4', 'Inactive');
 
-INSERT INTO `thingy`.`messages_messtypes` (`id`, `type`) VALUES ('1', 'Rent Request');
-INSERT INTO `thingy`.`messages_messtypes` (`id`, `type`) VALUES ('2', 'Rent Accepted');
-INSERT INTO `thingy`.`messages_messtypes` (`id`, `type`) VALUES ('3', 'Rent Declined');
-INSERT INTO `thingy`.`messages_messtypes` (`id`, `type`) VALUES ('4', 'Private Message');
+INSERT INTO `thingy`.`message_messtypes` (`id`, `type`) VALUES ('1', 'Rent Request');
+INSERT INTO `thingy`.`message_messtypes` (`id`, `type`) VALUES ('2', 'Rent Accepted');
+INSERT INTO `thingy`.`message_messtypes` (`id`, `type`) VALUES ('3', 'Rent Declined');
+INSERT INTO `thingy`.`message_messtypes` (`id`, `type`) VALUES ('4', 'Private Message');
 
 INSERT INTO `thingy`.`review_rating` (`id`, `rating_grade`) VALUES ('1', '1');
 INSERT INTO `thingy`.`review_rating` (`id`, `rating_grade`) VALUES ('2', '2');
