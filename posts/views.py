@@ -26,7 +26,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_class = PostFilter
     ordering_fields = ('title', 'price', 'created_at')
 
-    search_fields = ('title', 'description')
+    search_fields = ('title', 'description', 'location')
 
     def get_serializer_class(self):
         return  PostSerializer
