@@ -39,18 +39,18 @@
         vm.receivedMessages = data.data;
       }
 
-      function receivedErrorFn(data, status, headers, config) {
+      function receivedErrorFn(data) {
         alert('Could not retrieve your messages');
-        console.log(data.data.error);
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       function sentSuccessFn(data, status, headers, config) {
         vm.sentMessages = data.data;
       }
 
-      function sentErrorFn(data, status, headers, config) {
+      function sentErrorFn(data) {
         alert('Could not retrieve sent messages.');
-        console.log(data.data.error);
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -63,9 +63,9 @@
         console.log(data.data);
       }
 
-      function messageErrorFn(data, status, headers, config) {
+      function messageErrorFn(data) {
         alert('Could not send your message.');
-        console.log(data.data.error);
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -78,7 +78,7 @@
         vm.recipient = data.data;
       }
 
-      function validateErrorFn(data, status, headers, config) {
+      function validateErrorFn(data) {
         // TODO red highlight
         vm.recipient = '';
       }

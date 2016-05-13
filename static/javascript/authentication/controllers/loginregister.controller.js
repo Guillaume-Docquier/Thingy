@@ -46,7 +46,8 @@
       $scope.$on('$destroy', function() {
         cleanDialog();
         // Was bound on the template, need to unbind here
-        $('.nav-tabs a').unbind('click'); });
+        $('.nav-tabs a').unbind('click');
+      });
     }
 
     /**
@@ -56,7 +57,10 @@
     */
     function login() {
       console.log("Logging in...");
-      Authentication.login(vm.username, vm.password);
+      var redirect = $location.url();
+      if($location.search().redirect)
+        redirect = '/' + $location.search().redirect;
+      Authentication.login(vm.username, vm.password, redirect);
     }
 
     /**
@@ -66,7 +70,10 @@
     */
     function register() {
       console.log("Registering...");
-      Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password);
+      var redirect = $location.url();
+      if($location.search().redirect)
+        redirect = '/' + $location.search().redirect;
+      Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password, redirect);
     }
   }
 })();

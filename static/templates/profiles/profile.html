@@ -37,9 +37,9 @@
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					</h6>
-					<div class="hidden-xs">
+					<div class="hidden-xs" ng-show=vm.isOwner>
 						<a href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a href="users/{{vm.profile.username}}/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+						<a href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
 				</div>
 			</div> <!-- /row --->
@@ -50,9 +50,9 @@
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
-					  <li><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
-					  <li><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
 					</ul>
 
 				</div><!-- col-xs-12 -->
@@ -74,7 +74,42 @@
 					<p>Reviews...</p>
 					<p>The user can see own reviews and other reviews</p>
 				  </div>
+
 				  <div id="messages__tab" class="tab-pane fade">
+            <div class=" hidden-xs col-xs-12 col-sm-12 form-group">
+              <br>
+        			<button type="button" id="" class="btn btn-default" data-toggle="modal" data-target="#myModal">New message</button>
+        		</div><!--/col-xs-12 col-sm-12-->
+            <div id="myModal" class="modal fade" role="dialog">
+      				<div class="modal-dialog">
+        				<!-- Modal content-->
+        				<div class="modal-content">
+
+        				  <div class="modal-header">
+          					<button type="button" class="close" data-dismiss="modal">&times;</button>
+          					<h4 class="modal-title">New private message</h4>
+        				  </div><!--modal-header-->
+
+        				  <div class="modal-body">
+
+                    <div class="form-group" ng-class="{'has-success': vm.newMessage.recipient.username && vm.newMessage.recipient.valid, 'has-error': vm.newMessage.recipient.username.length > 3 && !vm.newMessage.recipient.valid}">
+                      <label for="messageRecipient">Recipient</label>
+                      <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient.username" ng-change="vm.validateRecipient()" placeholder="Input message here" />
+                    </div><!--form-group-->
+
+            				<div class="form-group">
+            				  <label for="messageBody">Message</label>
+            				  <textarea type="text" class="form-control" id="messageBody" rows="8"  ng-model="vm.newMessage.body" placeholder="Input message here" />
+            				</div><!--form-group-->
+      				    </div><!--/modal-body-->
+
+          				<div class="modal-footer">
+          					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.sendMessage()">Send</button>
+          				</div><!--modal-footer-->
+
+        			  </div><!--modal-content-->
+      			  </div><!--modal-dialog-->
+      			</div><!--modal-fade-->
             <!--
             					<p>List of read and unread messages, pop up window to answear? Conecetd to email?</p>
             -->

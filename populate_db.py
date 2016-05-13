@@ -19,7 +19,7 @@ from posts.models import Region, Town
 
 #swedish letters is not working - need encoding
 
-def populate():
+def populate_reg():
 	region_list = ["Norrbotten", "Västerbotten", "Jämtland", "Västernorrland", "Gävleborg", "Dalarna", "Värmland", "Örebro", "Västmanland", "Uppsala", "Stockholm", "Södermanland", "Skaraborg", "Östergötland", "Göteborg", "Älvsborg", "Jönköping", "Kalmar", "Gotland", "Halland", "Kronoberg", "Blekinge", "Skåne"]
 	town_list = [
 ["Kiruna", "Pajala", "Övertorneå", "Kalix", "Överkalix", "Haparanda", "Gällivare", "Jokkmokk", "Arjeplog", "Boden", "Älvsbyn", "Arvidsjaur", "Piteå", "Luleå"],
@@ -63,6 +63,38 @@ def add_town(reg, name):
 	
 	t.save()
 if __name__ == '__main__':
-	populate()
+	populate_reg()
 		 
 
+from posts.models import Category, Subcategory
+
+def populate_cat():
+	category_list = ["Automotive", "Home", "Fashion", "Events", "Hobby", "Books", "Other"]
+	subcategory_list = [
+[ "Cars", "Parts", "Tools", "Bicycles", "Caravans", "Boats", "Motorcycles", "Scooters", "Other"],
+[ "Painting", "Woodwork", "Garden Tools", "Furniture", "Other"],
+[ "Formalwear Men", "Formalwear Women", "Other"],
+[ "Kitchen", "Audio", "Picture", "Lighting", "Furniture", "Other"],
+[ "Sports Equipment", "Leisure Equipment", "Tools", "Fishing", "Toys", "Hunting", "Other"],
+[ "Course Literature", "Travel Guides", "Other"],
+["Other"]
+]
+
+	for i in range(len(category_list)):
+		category = add_category(category_list[i])
+		for elem in subcategory_list[i]:
+			add_subcategory(cat=category, name=elem)
+
+
+def add_category(category_name):
+	c = Category.objects.get_or_create(cname=category_name)[0]
+	c.save()
+	#print (c)
+	return c
+
+def add_subcategory(cat, name):
+	s = Subcategory.objects.get_or_create(category=cat, sub_cat_name=name)[0]
+
+	s.save()
+if __name__ == '__main__':
+	populate_cat()

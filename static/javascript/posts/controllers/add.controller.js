@@ -51,24 +51,27 @@
         vm.categories = data.data;
       }
 
-      function categoriesErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function categoriesErrorFn(data) {
+        alert('Could not load categories.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       function regionsSuccessFn(data, status, headers, config) {
         vm.regions = data.data;
       }
 
-      function regionsErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function regionsErrorFn(data) {
+        alert('Could not load regions.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
 
       function conditionsSuccessFn(data, status, headers, config) {
         vm.conditions = data.data;
       }
 
-      function conditionsErrorFn(data, status, headers, config) {
-        alert(data.data.error);
+      function conditionsErrorFn(data) {
+        alert('Could not load conditions.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
@@ -101,9 +104,9 @@
       * @name createPostErrorFn
       * @desc Propogate error event and show snackbar with error message
       */
-      function addPostErrorFn(data, status, headers, config) {
-        alert('Ooops, you entered wrong information.');
-        console.log(data);
+      function addPostErrorFn(data) {
+        alert('Could not add post.');
+        console.error('Error: ' + JSON.stringify(data.data));
       };
     }
   }

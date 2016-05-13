@@ -19,6 +19,24 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/home/index.html'
     })
+    // Login
+    .when('/login', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/authentication/login.html',
+    })
+    // Register
+    .when('/register', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/authentication/register.html',
+    })
+    // Profile
+    .when('/profile', {
+      controller: 'ProfileController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/profiles/profile.html'
+    })
     // Thingy search
     .when('/thingies/search', {
       controller: 'SearchController',
@@ -45,7 +63,7 @@
       templateUrl: '/static/templates/profiles/profile.html'
     })
     // User settings
-    .when('/users/:username/settings', {
+    .when('/settings', {
       controller: 'SettingsController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/settings.html'
