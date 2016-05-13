@@ -9,7 +9,7 @@
   });
 </script>
 
-<ul class="nav nav-tabs">
+<ul id="auth__taboptions" class="nav nav-tabs">
   <li><a data-toggle="tab" href="#login">Login</a></li>
   <li class="active"><a data-toggle="tab" href="#register">Register</a></li>
 </ul>
@@ -55,17 +55,24 @@
 
         <div class="form-group">
           <label for="register__username">Username</label>
-          <input type="text" class="form-control" id="register__username" ng-model="vm.username" placeholder="ex: gudoc123" />
+          <input type="text" class="form-control" id="register__username" ng-model="vm.username" placeholder="Username" />
         </div>
 
         <div class="form-group">
           <label for="register__email">Email</label>
-          <input type="email" class="form-control" id="register__email" ng-model="vm.email" placeholder="ex: test@test.com" />
+          <input type="email" class="form-control" id="register__email" ng-model="vm.email" placeholder="ex: john@mail.com" />
         </div>
 
         <div class="form-group">
           <label for="register__password">Password</label>
           <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Secret password" />
+          <span id="helpBlock" class="help-block">Password requires at least 8 characters and need to include numbers, lowercase and uppercase letters.</span>
+        </div>
+        
+        <!-- TODOJS add confirm pass here, already implemented on backend side -->
+        <div class="form-group">
+          <label for="register__password">Confirm password</label>
+          <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Password" />
         </div>
 
         <div class="form-group">
