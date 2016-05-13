@@ -42,7 +42,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class AccountPostsViewSet(viewsets.ViewSet):
-    queryset = Post.objects.select_related('author').all()
+    queryset = Post.objects.select_related('author').all().order_by('-created_at')
     serializer_class = PostSerializer
 
     def list(self, request, account_username=None):
@@ -90,7 +90,7 @@ class SubCategoryViewSet(viewsets.ViewSet):
         return super(SubCategoryViewSet, self).perform_create(serializer)
 
 class RegionViewSet(viewsets.ViewSet):
-    queryset = Region.objects.all()
+    queryset = Region.objects.all().order_by('name')
     serializer_class = RegionSerializer
 
     def list(self, request):
@@ -112,7 +112,7 @@ class RegionViewSet(viewsets.ViewSet):
 
 
 class TownViewSet(viewsets.ViewSet):
-    queryset = Town.objects.all()
+    queryset = Town.objects.all().order_by('name')
     serializer_class = TownSerializer
 
     def list(self, request):
