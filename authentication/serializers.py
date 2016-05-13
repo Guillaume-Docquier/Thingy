@@ -2,6 +2,8 @@ from django.contrib.auth import update_session_auth_hash
 
 from rest_framework import serializers
 
+from django.core.validators import RegexValidator
+
 #from posts.serializers import PostSerializer
 
 from authentication.models import Account, UserImage
@@ -12,8 +14,9 @@ from posts.fields import Base64ImageField
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=False)
-    confirm_password = serializers.CharField(write_only=True, required=False)
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
+    password = serializers.CharField(write_only=True, required=False, min_length = 8, validators=[alphanumeric])
+    confirm_password = serializers.CharField(write_only=True, required=False, min_length = 8, validators=[alphanumeric])
     # The client-side will send a base64 string of the image binary data.
     # Base64ImageField is in posts.fields.py and converts the string to binary data.
     # The model uses a normal ImageField after that.
