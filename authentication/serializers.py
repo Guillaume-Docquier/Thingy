@@ -48,7 +48,10 @@ class AccountSerializer(serializers.ModelSerializer):
 
             update_session_auth_hash(self.context.get('request'), instance)
 
+
+
             return instance
+
 
 class AuthorPostSerializer(serializers.ModelSerializer):
       posts = serializers.StringRelatedField(many=True)
@@ -57,6 +60,11 @@ class AuthorPostSerializer(serializers.ModelSerializer):
           model = Account
           fields = ('id', 'username', 'posts')
 
+          class UserImageSerializer(serializers.HyperlinkedModelSerializer):
+              class Meta:
+                  model = UserImage
+                  fields = ('url', 'id', 'user', 'image')
+                  user = serializers.Field(source='user.username')
 
 
 
@@ -106,10 +114,3 @@ class AuthorPostSerializer(serializers.ModelSerializer):
 #     #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
 #     #
 #     #     return exclusions + ['author']
-
-class UserImageSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = UserImage
-        fields = ('url','id', 'user', 'image')
-        user = serializers.Field(source='user.username')
