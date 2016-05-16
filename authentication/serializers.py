@@ -35,7 +35,10 @@ class AccountSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.tagline = validated_data.get('tagline', instance.tagline)
+        instance.image = validated_data.get('image', instance.image)
 
         instance.save()
 
