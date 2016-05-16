@@ -15,7 +15,7 @@
 			<div class="col-sm-4">
 				<div class="form-group">
 				  <label for="thingy__title">Title</label>
-				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" placeholder="Awesome title" />
+				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" placeholder="Title of thingy" />
 				</div>
 
 				  <div class="form-group">
@@ -28,7 +28,7 @@
 				  <div class="form-group">
 					<label for="thingy__subcategory">Sub-Category</label>
 					<select class="form-control" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
-					  <option value="">- Required -</option>
+					  <option value="">- None -</option>
 					</select>
 				  </div>
 
@@ -47,7 +47,7 @@
 				<div class="form-group">
 				  <label for="thingy__price">Price per day</label>
 				  <div class="input-group">
-					<input type="text" class="form-control" id="thingy__price" ng-model="vm.price" placeholder="50">
+					<input type="text" class="form-control" id="thingy__price" ng-model="vm.price" placeholder="100">
 					<span class="input-group-addon">SEK</span>
 				  </div>
 				</div>

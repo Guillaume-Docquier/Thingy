@@ -1,13 +1,20 @@
+<div id="row__start" class="row">
 <div class="jumbotron text-center" id='homeJumbotron'>
   <h1>Thingy</h1>
   <h5>Collaborative consumtion made easy for you</h5>
   <form class="form-inline">
     <input type="Search" class="form-control" size="50" placeholder="Search thingy" ng-model="vm.searchTerm" required>
+
+  <div class="form-group">
+	<select class="form-control" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
+	<option value="">Region</option>
+	</select>
+  </div> 
     <button type="button" id="search_btn_home" class="btn" ng-click="vm.search(false)">Search</button>
   </form>
 </div>
 
-
+<div id="gallery1">
 <div class="container-fluid bg-3 text-center">
 
 <div class="hidden-xs">
@@ -64,3 +71,5 @@
 	  </div>
 	</div> <!-- hidden-xs-->
 </div><br><br>
+
+</div>
