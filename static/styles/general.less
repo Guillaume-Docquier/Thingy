@@ -47,10 +47,17 @@ h6 {
 
 }
 
-.form-control {
-	height: 5vh;
+label {
 	font-size: @font-size-form-xs;
-	margin-bottom: 0.5em;
+	@media (min-width: @screen-sm) {
+		font-size: @font-size-form-sm;
+	}
+}
+
+.form-control {
+	
+	font-size: @font-size-form-xs;
+	margin-bottom: 0.1em;
 	padding: 0 1em 0 1em;
 	@media (min-width: @screen-sm) {
 		font-size: @font-size-form-sm;
