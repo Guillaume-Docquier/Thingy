@@ -13,7 +13,7 @@ from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorP
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, ConditionViewSet, StatusViewSet
 from review.views import ReviewViewSet, ReviewedUserViewSet
-from message.views import MessageViewSet, RecipientViewSet
+from message.views import *
 
 
 
@@ -36,8 +36,10 @@ router.register(r'conditions', ConditionViewSet)
 #router.register(r'userphotos', PhotoList)
 
 #Routing for message-app
-router.register(r'messages', MessageViewSet)
-router.register(r'recipient', RecipientViewSet)
+#router.register(r'messages', MessageViewSet)
+router.register(r'messages', RentMessageViewSet)
+#router.register(r'recipients', RecipientViewSet)
+router.register(r'requests', RequestSerializer)
 
 
 accounts_router = routers.NestedSimpleRouter(

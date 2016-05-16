@@ -1,39 +1,33 @@
 from rest_framework import serializers
-from message.models import Message, messTypes
+from message.models import *
 from authentication.models import Account
 
-class messTypeSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
+
+class ChoicesField(serializers.Field):
+    def __init__(self, choices, **kwargs):
+        self._choices = choices
+        super(ChoicesField, self).__init__(**kwargs)
+
+    def to_representation(self, obj):
+        return self._choices[obj]
+
+    def to_internal_value(self, data):
+        return getattr(self._choices, data)
+
+class RentMessageSerializer(serializers.ModelSerializer):
+    rentee = serializers.ReadOnlyField(source='rentee.username')
+
     class Meta:
-        model = messTypes
-        fields = ('id', 'type')
-        #read_only_fields = ('id')
+        model = RentMessage
+        fields = '__all__'
 
-class MessageSerializer(serializers.ModelSerializer):
 
-    author = serializers.ReadOnlyField(source='author.username')
-    type_details = messTypeSerializer(source='type', read_only=True, required=False)
-    type = serializers.PrimaryKeyRelatedField(queryset=messTypes.objects.all())
-
-    #condition_details = ConditionSerializer(source='condition', read_only=True, required=False)
-    #condition = serializers.PrimaryKeyRelatedField(queryset=Condition.objects.all(), write_only=True)
+class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Message
-        fields = ('id', 'author', 'type_details', 'type', 'created', 'body',  'unread', 'recipient')
+        model = Request
+        fields = '__all__'
 
-class RecipientSerializer(serializers.ModelSerializer):
 
-    messages = MessageSerializer(many=True)
-    class Meta:
-        model = Account
-        fields = ('username', 'messages')
 
-# recipient = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
-# recipient = serializers.StringRelatedField(many=True)
-# location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
-# type = messTypeSerializer()
-#type = serializers.PrimaryKeyRelatedField(queryset=messTypes.objects.all(), write_only=True)
 
-#messages = serializers.StringRelatedField(many=True)
-#messages = serializers.PrimaryKeyRelatedField(queryset=Message.objects.all())
