@@ -62,7 +62,6 @@ class Account(AbstractBaseUser):
         return self.review_set.all()
 
 
-
 #
 # class Review(models.Model):
 #     #revieweduser = models.ForeignKey(Account, related_name='reviews')
