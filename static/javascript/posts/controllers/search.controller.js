@@ -62,7 +62,7 @@
         if($location.search().region)
         {
           vm.region = findObjectContainingKey(vm.regions, 'name', $location.search().region);
-          vm.subregion = findObjectContainingKey(vm.regions.towns, 'name', ($location.search().subregion || ''));
+          vm.subregion = findObjectContainingKey(vm.region.towns, 'name', ($location.search().subregion || ''));
         }
         // Done
         Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
