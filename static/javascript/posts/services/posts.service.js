@@ -85,12 +85,13 @@
       // Loop through arguments and create a query string
       for(; i < j; i++)
       {
-        //console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
         if(arguments[i])
         {
           query += (argumentNames[i] + '=' + arguments[i] + '&');
         }
       }
+      // Remove the last character
+      query = query.slice(0, -1);
       return $http.get('/api/v1/posts/' + query);
     }
 

@@ -75,14 +75,15 @@
     * @returns {Promise}
     * @memberOf thingy.authentication.services.Authentication
     */
-    function register(username, email, first_name, last_name, password, redirect) {
+    function register(username, email, first_name, last_name, password, confirm, redirect) {
       vm.redirect = redirect;
       return $http.post('/api/v1/accounts/', {
         username: username,
         email: email,
         first_name: first_name,
         last_name: last_name,
-        password: password
+        password: password,
+        confirm_password: confirm
       }).then(registerSuccessFn, registerErrorFn);
 
       /**
@@ -90,6 +91,7 @@
       * @desc Log the new user in
       */
       function registerSuccessFn(data, status, headers, config) {
+        alert('Register successful!');
         vm.login(email, password, vm.redirect);
       }
 
