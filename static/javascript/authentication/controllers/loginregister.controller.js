@@ -135,6 +135,7 @@
           if (vm.username.length == 0)
             vm.valid.username = -1;
           else {
+            // TODO
             // Query db to see if username if free
             // vm.help.username = 'This username is already in use.'
           }

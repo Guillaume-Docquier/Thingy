@@ -91,6 +91,7 @@
       * @desc Log the new user in
       */
       function registerSuccessFn(data, status, headers, config) {
+        alert('Register successful!');
         vm.login(email, password, vm.redirect);
       }
 
