@@ -100,7 +100,7 @@
         vm.maxPrice,
         vm.region ? vm.region.name : '',
         vm.subregion ? vm.subregion.name : '',
-        vm.condition.cond_desc
+        vm.condition ? vm.condition.cond_desc : '',
       ).then(searchSuccessFn, searchErrorFn);
 
       /**
