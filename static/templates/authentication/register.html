@@ -53,26 +53,28 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-success': vm.valid.username == 1, 'has-error': vm.valid.username == -1}">
           <label for="register__username">Username</label>
-          <input type="text" class="form-control" id="register__username" ng-model="vm.username" placeholder="Username" />
+          <input type="text" class="form-control" id="register__username" ng-model="vm.username" ng-blur="vm.validate('username')" placeholder="Username" />
+          <span class="help-block">{{vm.usernameHelp}}</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-success': vm.valid.email == 1, 'has-error': vm.valid.email == -1}">
           <label for="register__email">Email</label>
-          <input type="email" class="form-control" id="register__email" ng-model="vm.email" placeholder="ex: john@mail.com" />
+          <input type="text" class="form-control" id="register__email" ng-model="vm.email" ng-blur="vm.validate('email')" placeholder="ex: john@mail.com" />
+          <span class="help-block">{{vm.emailHelp}}</span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-success': vm.valid.password == 1, 'has-error': vm.valid.password == -1}">
           <label for="register__password">Password</label>
-          <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Secret password" />
-          <span id="helpBlock" class="help-block">Password requires at least 8 characters and need to include numbers, lowercase and uppercase letters.</span>
+          <input type="password" class="form-control" id="register__password" ng-model="vm.password" ng-change="vm.validate('password')" placeholder="Secret password" />
+          <span class="help-block">{{vm.passwordHelp}}</span>
         </div>
-        
-        <!-- TODOJS add confirm pass here, already implemented on backend side -->
-        <div class="form-group">
-          <label for="register__password">Confirm password</label>
-          <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Password" />
+
+        <div class="form-group" ng-class="{'has-success': vm.valid.confirm == 1, 'has-error': vm.valid.confirm == -1}">
+          <label for="register__confirm">Confirm password</label>
+          <input type="password" class="form-control" id="register__confirm" ng-model="vm.confirmPassword" ng-change="vm.validate('confirm')" placeholder="Password" />
+          <span class="help-block">{{vm.confirmHelp}}</span>
         </div>
 
         <div class="form-group">
