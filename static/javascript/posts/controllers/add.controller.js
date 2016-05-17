@@ -96,8 +96,8 @@
       * @desc Show snackbar with success message
       */
       function addPostSuccessFn(data, status, headers, config) {
-        $route.reload();
         alert('Post created!');
+        $location.url('/thingies/details/' + data.data.id);
       }
 
       /**

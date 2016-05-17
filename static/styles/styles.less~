@@ -17,6 +17,9 @@
 @import './advertisement.less';
 @import './message-directive.less';
 @import './reviews.less';
+@import './about.less';
 @import './settings.less';
+@import './manage-post.less';
+
 
 
