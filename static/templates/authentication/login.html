@@ -8,9 +8,10 @@
     e.preventDefault();
   });
 </script>
+
 <ul id="auth__taboptions" class="nav nav-tabs">
-  <li><a data-toggle="tab" href="#login">Login</a></li>
-  <li class="active"><a data-toggle="tab" href="#register">Register</a></li>
+  <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
+  <li><a data-toggle="tab" href="#register">Register</a></li>
 </ul>
 
 <div class="tab-content">
@@ -68,7 +69,7 @@
           <input type="password" class="form-control" id="register__password" ng-model="vm.password" placeholder="Password" />
           <span id="helpBlock" class="help-block">Password requires at least 8 characters and need to include numbers, lowercase and uppercase letters.</span>
         </div>
-        
+
         <!-- TODOJS add confirm pass here, already implemented on backend side -->
          <div class="form-group">
           <label for="register__password">Confirm password</label>
