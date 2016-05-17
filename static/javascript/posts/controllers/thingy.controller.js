@@ -25,7 +25,7 @@
     activate()
 
     function activate() {
-      var thingyId = $routeParams.thingyid;
+      var thingyId = $routeParams.postid;
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
       vm.profile = Authentication.getAuthenticatedAccount();
