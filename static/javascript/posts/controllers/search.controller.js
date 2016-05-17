@@ -94,12 +94,12 @@
       console.log('Searching...');
       Posts.search(
         vm.searchTerm,  // Matches Title or Description
-        vm.category.cname,
-        vm.subcategory.name,
+        vm.category ? vm.category.cname : '',
+        vm.subcategory ? vm.subcategory.name : '',
         vm.minPrice,
         vm.maxPrice,
-        vm.region.name,
-        vm.subregion.name,
+        vm.region ? vm.region.name : '',
+        vm.subregion ? vm.subregion.name : '',
         vm.condition.cond_desc
       ).then(searchSuccessFn, searchErrorFn);
 
