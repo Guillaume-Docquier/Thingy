@@ -17,8 +17,11 @@
     vm.conditions = [];
     vm.search = search;
     vm.selection = selection;
-    vm.advanced = ($location.search().advanced == 'true');
-    vm.buffer = [0,0,0];
+    vm.toggleAdvanced = toggleAdvanced;
+    vm.advanced = {
+      status: $location.search().advanced == 'true',
+      text: $location.search().advanced == 'true' ? '<< Basic search' : 'Advanced search >>'
+    }
 
     // Bindings
     // Empty strings to prevent errors due to undefined values
@@ -135,6 +138,11 @@
           return objects[i];
       }
       return '';
+    }
+
+    // Toggle advanced search text
+    function toggleAdvanced() {
+      vm.advanced.text = !vm.advanced.status ? '<< Basic search' : 'Advanced search >>';
     }
   }
 })();

@@ -35,7 +35,7 @@
     }
 
     function search(advanced){
-      window.location = '/thingies/search?advanced=' + advanced + '&search=' + vm.searchTerm + '&region=' + vm.region.name;
+      window.location = '/thingies/search?advanced=' + advanced + '&search=' + vm.searchTerm + '&region=' + (vm.region.name || '');
     }
   }
 })();

@@ -1,16 +1,3 @@
-<script>
-		$('.AdvancedSearch').click(function(){
-		var $this = $(this);
-		$this.toggleClass('AdvancedSearch');
-		if($this.hasClass('AdvancedSearch')){
-			$this.text('Advanced search >>');			
-		} else {
-			$this.text('<< Less Advanced search');
-		}
-	});
-</script>
-
-
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2">
@@ -44,7 +31,7 @@
 					<div id="formgroup__advsearch" class="form-group">
 
 						<div class="span4 collapse-group">
-						    <div class="collapse" ng-class="{'in': vm.advanced}" id="advancedSearch">
+						    <div class="collapse" ng-class="{'in': vm.advanced.status}" id="advancedSearch">
 
 
 								  <div id="formgroup__advsearch1" class="form-group">
@@ -56,7 +43,7 @@
 
 								 <div class="row">
 									  <div class="col-xs-6">
-										  
+
 											<div class="form-group">
 											  <label for="thingy__price__from">Price From</label>
 											  <div class="input-group">
@@ -101,10 +88,10 @@
 
 							</div>
 							    <p>
-									<div class=AdvancedSearch__style>
-										  <button class="AdvancedSearch" type="button" data-toggle="collapse" 
-										  data-target="#advancedSearch" aria-expanded="{{vm.advanced}}" 
-										  aria-controls="collapseExample">Advanced search >></button>
+									<div class="AdvancedSearch__style">
+										  <button class="AdvancedSearch" type="button" data-toggle="collapse"
+										  data-target="#advancedSearch" aria-expanded="{{vm.advanced.status}}"
+										  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
 									</div>
 								</p>
 							</div>
