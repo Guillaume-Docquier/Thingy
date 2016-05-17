@@ -20,17 +20,23 @@
     // Functions and data
     vm.login = login;
     vm.register = register;
+    vm.validate = validate;
+    vm.formIsValid = formIsValid;
+    vm.clearValidity = clearValidity;
     vm.valid = {
+      firstName: 0,
+      lastName: 0,
       username: 0,
       email: 0,
       password: 0,
       confirm: 0
     };
-    vm.validate = validate;
-    vm.usernameHelp = '';
-    vm.emailHelp = '';
-    vm.passwordHelp = 'Password must contain numbers, lowercase and uppercase letters and be at least 8 characters long.';
-    vm.confirmHelp = '';
+    vm.help = {
+      username: '',
+      email: '',
+      password: 'Password must contain numbers, lowercase and uppercase letters and be at least 8 characters long.',
+      confirm: ''
+    }
 
     // Bindings
     vm.firstName = '';
@@ -89,39 +95,62 @@
     * @memberOf thingy.authentication.controllers.LoginRegisterController
     */
     function register() {
+      if (!vm.formIsValid())
+      {
+        //showErrors();
+        alert('Some information is missing.');
+        return;
+      }
       console.log("Registering...");
       var redirect = $location.url();
       if($location.search().redirect)
         redirect = '/' + $location.search().redirect;
       Authentication.register(vm.username, vm.email, vm.firstName, vm.lastName, vm.password, vm.confirmPassword, redirect);
+
+      function showErrors() {
+        // Put errors on empty fields
+        for (var key in vm.valid) {
+          if (vm.valid.hasOwnProperty(key)) {
+            if (vm.valid[key] != 1) vm.valid[key] = -1;
+          }
+        }
+      }
     }
 
     function validate(type) {
       switch(type) {
+        case 'firstName':
+          vm.valid.firstName = 1;
+          if (vm.firstName.length == 0)
+            vm.valid.firstName = -1;
+          break;
+        case 'lastName':
+          vm.valid.lastName = 1;
+          if (vm.lastName.length == 0)
+            vm.valid.lastName = -1;
+          break;
         case 'username':
           vm.valid.username = 1;
           vm.usernameHelp = '';
           if (vm.username.length == 0)
-            vm.valid.username = 0;
+            vm.valid.username = -1;
           else {
             // Query db to see if username if free
-            // vm.usernameHelp = 'This username is already in use.'
+            // vm.help.username = 'This username is already in use.'
           }
           break;
         case 'email':
           vm.valid.email = 1;
-          vm.emailHelp = '';
-          if (vm.email.length == 0)
-            vm.valid.email = 0;
-          else {
-            if (!vm.email.match(/.+\@.+\..+/)) // Match xxx@xxx.xxx
-              vm.valid.email = -1;
+          vm.help.email = '';
+          if (!vm.email.match(/.+\@.+\..+/)) // Match xxx@xxx.xxx
+          {
+            vm.valid.email = -1;
+            vm.help.email = 'Invalid email format. It should look like xxx@yyy.zzz';
           }
-          if (vm.valid.email != 1) vm.emailHelp = 'Invalid email format. It should look like xxx@yyy.zzz';
           break;
         case 'password':
           vm.valid.password = 1;
-          vm.passwordHelp = '';
+          vm.help.password = '';
           if (vm.password.length == 0)
             vm.valid.password = 0;
           else {
@@ -136,11 +165,11 @@
             if (!vm.password.match(/[a-z]/g)) // At least 1 lowercase
               vm.valid.password = -1;
           }
-          if (vm.valid.password != 1) vm.passwordHelp = 'Password must contain numbers, lowercase and uppercase letters and be at least 8 characters long.';
+          if (vm.valid.password != 1) vm.help.password = 'Password must contain numbers, lowercase and uppercase letters and be at least 8 characters long.';
           break;
         case 'confirm':
           vm.valid.confirm = 1;
-          vm.confirmHelp = '';
+          vm.help.confirm = '';
           if (vm.confirmPassword.length == 0)
             vm.valid.confirm = 0;
           else {
@@ -149,9 +178,25 @@
             if (vm.valid.password == -1) // Password must be valid
               vm.valid.confirm = -1;
           }
-          if (vm.valid.confirm != 1) vm.confirmHelp = 'This field should match your password and your password should be valid.'
+          if (vm.valid.confirm != 1) vm.help.confirm = 'This field should match your password and your password should be valid.';
           break;
       }
+    }
+
+    function formIsValid() {
+      var valid = 1;
+      for (var key in vm.valid) {
+        if (vm.valid.hasOwnProperty(key) && vm.valid[key] != 1)
+        {
+          valid = 0;
+          vm.valid[key] = -1; // Set empty fields to errors
+        }
+      }
+      return valid;
+    }
+
+    function clearValidity(fieldName) {
+      vm.valid[fieldName] = 0;
     }
   }
 })();
