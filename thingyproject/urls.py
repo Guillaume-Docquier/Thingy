@@ -13,7 +13,7 @@ from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorP
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, ConditionViewSet, StatusViewSet
 from review.views import ReviewViewSet, ReviewedUserViewSet
-from message.views import MessageViewSet, RecipientViewSet
+from message.views import *
 
 
 
@@ -21,7 +21,7 @@ admin.autodiscover()
 
 router = routers.SimpleRouter()
 #router = DefaultRouter()
-router.register(r'accounts', AccountViewSet)
+router.register(r'accounts', AccountViewSet),
 router.register(r'reviewedusers', ReviewedUserViewSet)
 
 router.register(r'reviews', ReviewViewSet)
@@ -36,8 +36,10 @@ router.register(r'conditions', ConditionViewSet)
 #router.register(r'userphotos', PhotoList)
 
 #Routing for message-app
-router.register(r'messages', MessageViewSet)
-router.register(r'recipient', RecipientViewSet)
+#router.register(r'messages', MessageViewSet)
+router.register(r'messages', RentMessageViewSet)
+#router.register(r'recipients', RecipientViewSet)
+router.register(r'requests', RequestSerializer)
 
 
 accounts_router = routers.NestedSimpleRouter(
@@ -45,7 +47,7 @@ accounts_router = routers.NestedSimpleRouter(
 accounts_router.register(r'posts', AccountPostsViewSet)
 
 urlpatterns = [
-    #url(r'^review/$', views.ReviewList.as_view()),
+      #url(r'^review/$', views.ReviewList.as_view()),
     url(r'', include(router.urls)),
     url(r'^authorposts/(?P<pk>[0-9]+)/$', AuthorPostsViewSet.as_view({'get': 'retrieve'}), name='index'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

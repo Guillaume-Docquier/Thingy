@@ -1,28 +1,24 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from message.models import Message
-from message.serializers import MessageSerializer, RecipientSerializer
+from message.models import *
+from message.serializers import *
 from authentication.models import Account
 from rest_framework import filters
-from message.filters import MessageFilter
+from message.filters import *
 
-class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializer
+class RentMessageViewSet(viewsets.ModelViewSet):
+    queryset = RentMessage.objects.all()
+    serializer_class = RentMessageSerializer
 
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
 
-    filter_class = MessageFilter
+    filter_class = RentMessageFilter
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(rentee=self.request.user)
 
-class RecipientViewSet(viewsets.ModelViewSet):
-    queryset = Account.objects.all()
-    serializer_class = RecipientSerializer
 
-    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
-    #filter_class = RecipientFilter
-    #ordering_fields = ('title', 'price', 'created_at')
+class RequestSerializer(viewsets.ModelViewSet):
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
 
-    #search_fields = ('title', 'description')
