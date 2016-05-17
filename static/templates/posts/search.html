@@ -105,7 +105,9 @@
 			<div id="searchresult"><h3>Search Results</h3></div>
 
 			<div ng-repeat='thingy in vm.posts'>
-			  <post thingy="thingy" ng-click="vm.selection(thingy)"></post>
+				<div class="clickable">
+				  <post thingy="thingy" ng-click="vm.selection(thingy)"></post>
+				</div>
 			</div>
 
 			<div ng-show="vm.posts.length == 0">
@@ -118,8 +120,8 @@
 		<div class="col-sm-4" ng-show="vm.selectedPost">
 			<div class= "fixed col-sm-4" >
                 <div class="hidden-xs">
-                    <div id="thingyaddbox">
-                        <post thingy="vm.selectedPost"></post>
+                    <div class="unclickable">
+                      <post thingy="vm.selectedPost"></post>
                     </div>
                     <div class="form-group">
                         <a href={{'thingies/details/'+vm.selectedPost.id}}><button type="button" class="btn btn-default">Rent/Read more</button></a>
