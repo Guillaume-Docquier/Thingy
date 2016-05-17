@@ -37,16 +37,61 @@
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					</h6>
-					<div class="hidden-xs" ng-show=vm.isOwner>
-						<a href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+					<div class="hidden-xs" >
+						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
+						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
+						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary" data-toggle="modal" data-target="#createReview">Create review</button>			
 					</div>
 				</div>
 			</div> <!-- /row --->
 			</div> <!-- cliente -->
 		</div> <!-- /col-sm-3 -->
+		
+					<div id="createReview" class="modal fade" role="dialog">
+								<div id="modal-dialog__createReview" class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Write a review of this user</h4>
+									  </div><!--/modal-header-->
+
+									  <div class="modal-body">
+										<div class="form-group">
+										  <label for="reviewTextBody">Describe your over all experience with {{ vm.profile.username }} and the rented thingy</label>
+										  <textarea type="text" class="form-control" id="reviewTextBody" rows="8"  ng-model="" placeholder="" />
+										</div><!--form-group-->
+										
+										 <label for="starRating">Rate  {{ vm.profile.username }} </label>
+										<form id="starRating" role="form">
+											<label class="radio-inline">
+											  <input type="radio" name="optradio">1
+											</label>
+											<label class="radio-inline">
+											  <input type="radio" name="optradio">2
+											</label>
+											<label class="radio-inline">
+											  <input type="radio" name="optradio">3
+											</label>
+											<label class="radio-inline">
+											  <input type="radio" name="optradio">4
+											</label>
+											<label class="radio-inline">
+											  <input type="radio" name="optradio">5
+											</label>
+										  </form>
+										
+									  </div><!--/modal-body-->
+
+									  <div class="modal-footer">
+										 <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="">Submit</button>
+									  </div><!--modal-footer-->
+								  </div><!--modal-content-->
+							  </div><!--modal-dialog-->
+							</div><!--modal-fade-->
+		
 		<div class="col-sm-7">
 			<div class="row">
+				
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
@@ -69,10 +114,44 @@
 					<p>Contacts...</p>
 					<p>Optional, are we suppose to ba able to have contacts? Go to other profiles?</p>
 				  </div> <!-- /contacts__tab -->
-				  <div id="reviews__tab" class="tab-pane fade">
-					<p>Reviews...</p>
-					<p>The user can see own reviews and other reviews</p>
+				  <div id="reviews__tab" class="tab-pane fade">			  			
+						<div id="reviewbox" class="row">
+							<div class="col-xs-3">
+								<!-- TODOJS get the senders profile picture -->
+								<img src="/static/images/felicia.jpg" class="img-circle img-responsive" alt="Image"/>
+								<p>Reviewers name</p>
+							</div>
+							<div class="col-xs-9">
+								<div class="row">
+									<div class="col-xs-7">
+										<h5>					
+										  <span class="glyphicon glyphicon-star yellow"></span>
+										  <span class="glyphicon glyphicon-star yellow"></span>
+										  <span class="glyphicon glyphicon-star yellow"></span>
+										  <span class="glyphicon glyphicon-star yellow"></span>
+										  <span class="glyphicon glyphicon-star yellow"></span>
+										</h5>
+									</div>
+									<!-- TODOJS make date/time work? -->
+									<div class="col-xs-5">
+										12 may 11.15pm
+									</div>
+								</div> <!-- /row -->
+								<div class="row">
+									<div class="col-xs-12">
+										<p>Morbi hendrerit enim ut quam sollicitudin, quis lobortis felis dapibus. Praesent placerat, 
+										quam vel maximus fermentum, diam augue tristique orci, vitae accumsan nisi ipsum eu dolor. Etiam congue, 
+										nunc et interdum congue, tellus ligula tincidunt eros, quis ullamcorper dolor urna ut tortor. Fusce ac c
+										ommodo ligula, quis pharetra ipsum. Sed felis ligula, auctor id lacinia sed, fermentum sit amet mauris. Done
+										c vel dictum sapien, ac tristique nulla. Maecenas dignissim, eros sed laoreet malesuada, turpi
+										s turpis dictum purus, ac sollicitudin libero lacus eget diam.</p>
+									</div>
+								</div> <!-- /row -->
+							</div> <!-- /col-xs-10 -->
+						</div> <!-- /row -->
+
 				  </div> <!-- /reviews__tab -->
+				 
 
 				  <div id="messages__tab" class="tab-pane fade">
 					  <div class="row">
@@ -121,3 +200,5 @@
 </div> <!-- /container-fluid -->
 
 </div>
+
+
