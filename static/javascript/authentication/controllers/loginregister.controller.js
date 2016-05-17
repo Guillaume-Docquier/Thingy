@@ -144,9 +144,9 @@
           if (vm.confirmPassword.length == 0)
             vm.valid.confirm = 0;
           else {
-            if (vm.password != vm.confirmPassword)
+            if (vm.password != vm.confirmPassword) // Must match the password
               vm.valid.confirm = -1;
-            if (vm.valid.password == -1)
+            if (vm.valid.password == -1) // Password must be valid
               vm.valid.confirm = -1;
           }
           if (vm.valid.confirm != 1) vm.confirmHelp = 'This field should match your password and your password should be valid.'
