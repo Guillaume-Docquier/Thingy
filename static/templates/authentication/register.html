@@ -44,36 +44,36 @@
         <div class='row'>
           <div class="form-group col-xs-6" ng-class="{'has-success': vm.valid.firstName == 1, 'has-error': vm.valid.firstName == -1}">
             <label for="register__fname">First name</label>
-            <input type="text" class="form-control" id="register__fname" ng-model="vm.firstName" ng-focus="vm.clearValidity('firstName')" ng-blur="vm.validate('firstName')" placeholder="ex: John" />
+            <input type="text" class="form-control" id="register__fname" ng-model="vm.firstName" ng-focus="vm.clearValidity('firstName')" ng-blur="vm.validate('firstName')" placeholder="" />
           </div>
 
           <div class="form-group col-xs-6" ng-class="{'has-success': vm.valid.lastName == 1, 'has-error': vm.valid.lastName == -1}">
             <label for="register__lname">Last name</label>
-            <input type="text" class="form-control" id="register__lname" ng-model="vm.lastName" ng-focus="vm.clearValidity('lastName')" ng-blur="vm.validate('lastName')" placeholder="ex: Doe" />
+            <input type="text" class="form-control" id="register__lname" ng-model="vm.lastName" ng-focus="vm.clearValidity('lastName')" ng-blur="vm.validate('lastName')" placeholder="" />
           </div>
         </div>
 
         <div class="form-group" ng-class="{'has-success': vm.valid.username == 1, 'has-error': vm.valid.username == -1}">
           <label for="register__username">Username</label>
-          <input type="text" class="form-control" id="register__username" ng-model="vm.username" ng-focus="vm.clearValidity('username')" ng-blur="vm.validate('username')" placeholder="Username" />
+          <input type="text" class="form-control" id="register__username" ng-model="vm.username" ng-focus="vm.clearValidity('username')" ng-blur="vm.validate('username')" placeholder="" />
           <span class="help-block">{{vm.help.username}}</span>
         </div>
 
         <div class="form-group" ng-class="{'has-success': vm.valid.email == 1, 'has-error': vm.valid.email == -1}">
           <label for="register__email">Email</label>
-          <input type="text" class="form-control" id="register__email" ng-model="vm.email" ng-focus="vm.clearValidity('email')" ng-blur="vm.validate('email')" placeholder="ex: john@mail.com" />
+          <input type="text" class="form-control" id="register__email" ng-model="vm.email" ng-focus="vm.clearValidity('email')" ng-blur="vm.validate('email')" placeholder="" />
           <span class="help-block">{{vm.help.email}}</span>
         </div>
 
         <div class="form-group" ng-class="{'has-success': vm.valid.password == 1, 'has-error': vm.valid.password == -1}">
           <label for="register__password">Password</label>
-          <input type="password" class="form-control" id="register__password" ng-model="vm.password" ng-change="vm.validate('password')" placeholder="Secret password" />
+          <input type="password" class="form-control" id="register__password" ng-model="vm.password" ng-change="vm.validate('password')" placeholder="" />
           <span class="help-block">{{vm.help.password}}</span>
         </div>
 
         <div class="form-group" ng-class="{'has-success': vm.valid.confirm == 1, 'has-error': vm.valid.confirm == -1}">
           <label for="register__confirm">Confirm password</label>
-          <input type="password" class="form-control" id="register__confirm" ng-model="vm.confirmPassword" ng-change="vm.validate('confirm')" placeholder="Password" />
+          <input type="password" class="form-control" id="register__confirm" ng-model="vm.confirmPassword" ng-change="vm.validate('confirm')" placeholder="" />
           <span class="help-block">{{vm.help.confirm}}</span>
         </div>
 
