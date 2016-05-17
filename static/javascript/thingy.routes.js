@@ -19,9 +19,24 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/home/index.html'
     })
+    
+// About Us
+    .when('/thingies/about', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/home/About.html',
+    })
+    
+// Carrers
+    .when('/thingies/carrers', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/home/carrers.html',
+    })
+    
     // Login
     .when('/login', {
-      controller: 'LoginRegisterController',
+      controller: 'ThingyController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/login.html',
     })
