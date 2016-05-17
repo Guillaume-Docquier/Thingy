@@ -95,7 +95,6 @@
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
-					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
 					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
 					</ul>
@@ -110,10 +109,7 @@
 							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
 						</div>
 				  </div> <!-- /thingies__tab -->
-				  <div id="contacts__tab" class="tab-pane fade">
-					<p>Contacts...</p>
-					<p>Optional, are we suppose to ba able to have contacts? Go to other profiles?</p>
-				  </div> <!-- /contacts__tab -->
+
 				  <div id="reviews__tab" class="tab-pane fade">			  			
 						<div id="reviewbox" class="row">
 							<div class="col-xs-3">
