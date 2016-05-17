@@ -10,6 +10,13 @@ body {
 	}
 }
 
+.clickable {
+	cursor: pointer;
+}
+
+.unclickable {
+	cursor: default;
+}
 
 .page-row {
 	display: table-row; //<-- This one makes the footer wierd without the body property
@@ -47,6 +54,10 @@ h6 {
 
 }
 
+a {
+	color: @standard-text-color-light;
+}
+
 label {
 	font-size: @font-size-form-xs;
 	@media (min-width: @screen-sm) {
@@ -55,7 +66,7 @@ label {
 }
 
 .form-control {
-	
+
 	font-size: @font-size-form-xs;
 	margin-bottom: 0.1em;
 	padding: 0 1em 0 1em;
@@ -73,4 +84,11 @@ label {
 		font-size: @font-size-form-sm;
 	}
 
+}
+
+.btn-danger {
+	font-size: @font-size-form-xs;
+	@media (min-width: @screen-sm) {
+		font-size: @font-size-form-sm;
+	}
 }
