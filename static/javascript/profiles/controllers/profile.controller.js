@@ -21,6 +21,7 @@
     vm.sendMessage = sendMessage;
     vm.validateRecipient = validateRecipient;
     vm.getUnreadMessages = getUnreadMessages;
+    vm.createReview = createReview;
     vm.unreadNum = 0;
     vm.isOwner = false;
     vm.isAuthenticated = Authentication.isAuthenticated();
@@ -28,6 +29,7 @@
     vm.receivedMessages = [];
     vm.sentMessages = [];
     vm.posts = [];
+    vm.reviews = [];
     vm.ratings = [1,2,3,4,5]
 
     // Bindings
@@ -41,7 +43,7 @@
       type: 4 // Private message
     };
     vm.description = '';
-    vm.rating = 0;
+    vm.rating = '';
 
     activate();
 
@@ -81,10 +83,48 @@
         vm.isOwner = vm.isAuthenticated && vm.profile.username == Authentication.getAuthenticatedAccount().username;
         if(vm.isOwner)
         {
-          Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
+        //Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
         }
         Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
+        Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
+
+        /**
+          * @name postsSucessFn
+          * @desc Update 'posts' on viewmodel
+          */
+        function postsSuccessFn(data, status, headers, config) {
+          vm.posts = data.data;
+        }
+
+        /**
+          * @name postsErrorFn
+          * @desc Log error in the console
+          */
+        function postsErrorFn(data) {
+          alert('Could not load posts.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
+
+        /**
+          * @name postsSucessFn
+          * @desc Update 'posts' on viewmodel
+          */
+        function reviewsSuccessFn(data) {
+          vm.reviews = data.data;
+          for(var i = 0; i < vm.reviews.length; i++) {
+            vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
+          }
+        }
+
+        /**
+          * @name postsErrorFn
+          * @desc Log error in the console
+          */
+        function reviewsErrorFn(data) {
+          alert('Could not load reviews.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
       }
 
       /**
@@ -112,23 +152,6 @@
       */
       function getRErrorFn(data) {
         alert('Could not load received messages.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
-
-      /**
-        * @name postsSucessFn
-        * @desc Update 'posts' on viewmodel
-        */
-      function postsSuccessFn(data, status, headers, config) {
-        vm.posts = data.data;
-      }
-
-      /**
-        * @name postsErrorFn
-        * @desc Log error in the console
-        */
-      function postsErrorFn(data) {
-        alert('Could not load posts.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
@@ -196,6 +219,35 @@
       for(var i = 0; i < vm.receivedMessages.length; i++) {
         if(vm.receivedMessages[i].unread)
           vm.unreadNum++;
+      }
+    }
+
+    /**
+    * @name createReview
+    * @desc Create a review
+    */
+    function createReview() {
+      Profile.createReview(
+        vm.profile.id,
+        vm.description,
+        vm.rating
+      ).then(reviewSuccessFn, reviewErrorFn);
+
+      /**
+      * @name reviewSuccessFn
+      * @desc Notifiy of success
+      */
+      function reviewSuccessFn(data) {
+        alert('Review created!');
+      }
+
+      /**
+      * @name reviewErrorFn
+      * @desc Notify of error and log it in the console
+      */
+      function reviewErrorFn() {
+        alert('Could not create the review.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
   }

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+	<div class="panel panel-default post" >
+		<div class="panel-body">
+			<div id="reviewbox" class="row">
+				<div class="col-xs-3">
+					<!-- TODOJS get the senders profile picture -->
+					<img src="/static/images/felicia.jpg" class="img-circle img-responsive" alt="Image"/>
+					<p>{{review.review_author}}</p>
+				</div>
+				<div class="col-xs-9">
+					<div class="row">
+						<div class="col-xs-7">
+							<h5>
+								<img ng-src="static/images/rating_{{review.rating_details.rating_grade}}.png"></span>
+							</h5>
+						</div>
+						<!-- TODOJS make date/time work? -->
+						<div class="col-xs-5">
+							{{review.created}}
+						</div>
+					</div> <!-- /row -->
+					<div class="row">
+						<div class="col-xs-12">
+							<p>{{review.comment}}</p>
+						</div>
+					</div> <!-- /row -->
+				</div> <!-- /col-xs-10 -->
+			</div> <!-- /row -->
+		</div>
+	</div>
+</div> <!-- /container-fluid -->

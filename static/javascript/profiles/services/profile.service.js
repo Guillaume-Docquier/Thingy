@@ -20,6 +20,8 @@
     vm.destroy = destroy
     vm.get = get
     vm.update = update;
+    vm.getReviews = getReviews;
+    vm.createReview = createReview;
 
     /**
     * @name destroy
@@ -54,6 +56,27 @@
     */
     function update(profile) {
       return $http.put('/api/v1/accounts/' + profile.oldUsername + '/', profile);
+    }
+
+    function getReviews(profileId) {
+      return $http.get('api/v1/reviews/?reviewed_user=' + profileId);
+    }
+
+    /**
+    * @name createReview
+    * @desc Create a review for a given user
+    * @param {number} reviewedUserId The id of the reviewed user
+    * @param {string} comment A comment about the user experience
+    * @param {number} rating A rating from 1 to 5
+    * @returns {Promise}
+    * @memberOf thingy.profile.services.Profile
+    */
+    function createReview(reviewedUserId, comment, rating) {
+      return $http.post('api/v1/reviews/', {
+        reviewed_user: reviewedUserId,
+        comment: comment,
+        rating: rating
+      });
     }
   }
 })();
