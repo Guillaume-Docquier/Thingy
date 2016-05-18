@@ -2,12 +2,14 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 
+from django.db.models import Count
 from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
 
 from rest_framework import permissions, viewsets, status, views, generics
 from rest_framework.response import Response
+from rest_framework.decorators import list_route, detail_route
 
 from authentication.models import Account
 from authentication.permissions import IsAccountOwner
@@ -87,6 +89,18 @@ class AccountViewSet(viewsets.ModelViewSet):
             'status': 'Bad request',
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+    @detail_route()
+    def unread(self, request, username=None):
+        result = self.get_queryset().filter(id=username).filter(posts__basemessage__rentmessage__unread=True).annotate(
+            count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
+        return Response(result)
+
+    # @list_route()
+    # def unread(self, request):
+    #     result = self.get_queryset().filter(posts__basemessage__rentmessage__unread=True).annotate(count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
+    #     #result = RentMessage.objects.filter(thingy__author=1, unread=True).count()
+    #     return Response(result)
 
     def get_queryset(self):
         queryset = Account.objects.order_by('-created_at')
@@ -216,3 +230,5 @@ class PhotoDetail(views.APIView):
 
     def pre_save(self, obj):
         obj.owner = self.request.user
+
+

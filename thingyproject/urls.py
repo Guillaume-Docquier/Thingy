@@ -36,11 +36,8 @@ router.register(r'conditions', ConditionViewSet)
 #router.register(r'userphotos', PhotoList)
 
 #Routing for message-app
-#router.register(r'messages', MessageViewSet)
-router.register(r'messages', RentMessageViewSet)
-#router.register(r'recipients', RecipientViewSet)
-router.register(r'requests', RequestSerializer)
-
+router.register(r'rentmessages', RentMessageViewSet)
+router.register(r'requests', RequestViewSet)
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account')
