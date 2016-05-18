@@ -7,7 +7,7 @@ STATUS_CHOICES = (
 
 #For messages
 RENT_CHOICES = (
-    ('Rent','Rent request'),
+    ('Rent', 'Rent request'),
     ('Acc', 'Rent accepted'),
     ('Dec', 'Rent declined'),
 )

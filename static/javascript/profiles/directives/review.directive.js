@@ -3,23 +3,23 @@
 
   angular
     .module('thingy.profiles.directives')
-    .directive('message', message);
+    .directive('review', review);
 
   /**
-  * @namespace Message
+  * @namespace Review
   */
-  function message() {
+  function review() {
     /**
     * @name directive
     * @desc The directive to be returned
-    * @memberOf thingy.profiles.directives.Message
+    * @memberOf thingy.profiles.directives.Review
     */
     var directive = {
       restrict: 'E',
       scope: {
-        message: '='
+        review: '='
       },
-      templateUrl: '/static/templates/profiles/message-directive.html'
+      templateUrl: '/static/templates/profiles/review-directive.html'
     };
 
     return directive;

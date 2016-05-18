@@ -103,7 +103,7 @@
       }
 
       function postErrorFn(data) {
-        alert('Could not retrieve post');
+        alert('Could not retrieve post.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }

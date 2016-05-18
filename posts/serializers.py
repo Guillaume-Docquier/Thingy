@@ -96,6 +96,8 @@ class PostSerializer(serializers.ModelSerializer):
         return exclusions + ['author']
 
 
+
+
 # class SimplePostReviewSerializer(serializers.ModelSerializer):
 #     reviewauthor = AccountSerializer(read_only=True, required=False)
 #

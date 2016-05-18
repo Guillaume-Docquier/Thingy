@@ -8,7 +8,7 @@ from message.choices import *
 
 class BaseMessage(models.Model):
 
-    thingy_id = models.ForeignKey(Post)
+    thingy = models.ForeignKey(Post)
     rentee = models.ForeignKey(Account)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -18,6 +18,7 @@ class BaseMessage(models.Model):
 #Extends basemessage
 class RentMessage(BaseMessage):
     type = models.CharField(max_length=4, choices=RENT_CHOICES, default='Rent')
+    unread = models.BooleanField(default=True)
 
 #Extends basemessage
 class Request(BaseMessage):
@@ -25,5 +26,7 @@ class Request(BaseMessage):
 
 class PrivateMessage(models.Model):
     pass
+
+
 
 

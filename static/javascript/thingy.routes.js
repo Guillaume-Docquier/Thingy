@@ -36,7 +36,7 @@
 
     // Login
     .when('/login', {
-      controller: 'ThingyController',
+      controller: 'LoginRegisterController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/login.html',
     })
