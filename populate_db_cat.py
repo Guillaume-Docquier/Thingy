@@ -16,15 +16,15 @@ django.setup()
 from posts.models import Category, Subcategory
 
 def populate():
-	category_list = ["Automotive", "Home", "Fashion", "Events", "Hobby", "Books", "Other"]
+	category_list = ["MOTORS", "HOME & GARDEN" , "BEAUTY, HEALTH & GROCERIES" , "ELECTRONICS" , "LEISURE & HOBBIES" , "BUSINESS", "OTHERS" ]
 	subcategory_list = [
-[ "Cars", "Parts", "Tools", "Bicycles", "Caravans", "Boats", "Motorcycles", "Scooters", "Other"],
-[ "Painting", "Woodwork", "Garden Tools", "Furniture", "Other"],
-[ "Formalwear Men", "Formalwear Women", "Other"],
-[ "Kitchen", "Audio", "Picture", "Lighting", "Furniture", "Other"],
-[ "Sports Equipment", "Leisure Equipment", "Tools", "Fishing", "Toys", "Hunting", "Other"],
-[ "Course Literature", "Travel Guides", "Other"],
-["Other"]
+["Cars ", "Caravans" , "Truck & Construction" , "Auto Parts & Accessories", "Mopeds" , "Forest - & Agricultural Machinery" , "Boats" , "Motorcycles" , "Snowmobiles","Boat parts & Accessories","Motorcycle parts & Accessories "],
+["Building & garden" , "Furniture & Home Furnishings" , "Household & Appliances", "Tools"],
+["Clothes & Footwear" , "Accessories & Watches" , "Children 's Clothing & Shoes" ,"Toys"],
+["Computer & Video Games" , "Sound & Vision" , "Phones & Accessories"],
+["Tickets" , "Pets", "Musical Equipment" , "Travel" , "Hobbies & Collectibles" , "Sports & Leisure" , "Books & Student Literature" , "Horses & Equestrian" , "Bicycles" , "Hunting & Fishing"],
+["Business Acquisitions " , "Equipment & Machines" , "Commercial & Real Estate" , "Services" ],
+["Others"]
 ]
 
 	for i in range(len(category_list)):

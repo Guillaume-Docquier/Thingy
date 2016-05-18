@@ -37,20 +37,52 @@
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					  <span class="glyphicon glyphicon-star yellow"></span>
 					</h6>
-					<div class="hidden-xs" ng-show=vm.isOwner>
-						<a href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+					<div class="hidden-xs" >
+						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
+						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
+						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary" data-toggle="modal" data-target="#createReview">Create review</button>
 					</div>
 				</div>
 			</div> <!-- /row --->
 			</div> <!-- cliente -->
 		</div> <!-- /col-sm-3 -->
+
+					<div id="createReview" class="modal fade" role="dialog">
+								<div id="modal-dialog__createReview" class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Write a review of this user</h4>
+									  </div><!--/modal-header-->
+
+									  <div class="modal-body">
+										<div class="form-group">
+										  <label for="reviewTextBody">Describe your over all experience with {{ vm.profile.username }} and the rented thingy</label>
+										  <textarea type="text" class="form-control" id="reviewTextBody" rows="8"  ng-model="vm.description" placeholder="" />
+										</div><!--form-group-->
+
+										<label for="starRating">Rate  {{ vm.profile.username }} </label>
+										<form id="starRating" role="form">
+											<label ng-repeat="rating in vm.ratings" class="radio-inline">
+											  <input type="radio" name="optradio" ng-model="vm.rating">{{ rating }}
+											</label>
+										</form>
+
+									  </div><!--/modal-body-->
+
+									  <div class="modal-footer">
+										 <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="">Submit</button>
+									  </div><!--modal-footer-->
+								  </div><!--modal-content-->
+							  </div><!--modal-dialog-->
+							</div><!--modal-fade-->
+
 		<div class="col-sm-7">
 			<div class="row">
+
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
-					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#contacts__tab">Contacts</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
 					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
 					</ul>
@@ -58,70 +90,100 @@
 				</div><!-- col-xs-12 -->
 				</div><!-- /row -->
 				<div class="row">
-
 				<div class="tab-content">
 				  <div id="thingies__tab" class="tab-pane fade in active">
 					  <!-- Manage my Thingies: Remove/change ad -->
 						<div ng-repeat='thingy in vm.posts'>
-  						<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
-            </div>
-				  </div>
-				  <div id="contacts__tab" class="tab-pane fade">
-					<p>Contacts...</p>
-					<p>Optional, are we suppose to ba able to have contacts? Go to other profiles?</p>
-				  </div>
+							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
+						</div>
+				  </div> <!-- /thingies__tab -->
+
 				  <div id="reviews__tab" class="tab-pane fade">
-					<p>Reviews...</p>
-					<p>The user can see own reviews and other reviews</p>
-				  </div>
+					<div class="container-fluid">
+						<div class="panel panel-default post" >
+							<div class="panel-body">				
+								<div id="reviewbox" class="row">
+									<div class="col-xs-3">
+										<!-- TODOJS get the senders profile picture -->
+										<img src="/static/images/felicia.jpg" class="img-circle img-responsive" alt="Image"/>
+										<p>Reviewers name</p>
+									</div>
+									<div class="col-xs-9">
+										<div class="row">
+											<div class="col-xs-7">
+												<h5>					
+												  <span class="glyphicon glyphicon-star yellow"></span>
+												  <span class="glyphicon glyphicon-star yellow"></span>
+												  <span class="glyphicon glyphicon-star yellow"></span>
+												  <span class="glyphicon glyphicon-star yellow"></span>
+												  <span class="glyphicon glyphicon-star yellow"></span>
+												</h5>
+											</div>
+											<!-- TODOJS make date/time work? -->
+											<div class="col-xs-5">
+												12 may 11.15pm
+											</div>
+										</div> <!-- /row -->
+										<div class="row">
+											<div class="col-xs-12">
+												<p>Morbi hendrerit enim ut quam sollicitudin, quis lobortis felis dapibus. Praesent placerat, 
+												quam vel maximus fermentum, diam augue tristique orci, vitae accumsan nisi ipsum eu dolor. Etiam congue, 
+												nunc et interdum congue, tellus ligula tincidunt eros, quis ullamcorper dolor urna ut tortor. Fusce ac c
+												ommodo ligula, quis pharetra ipsum. Sed felis ligula, auctor id lacinia sed, fermentum sit amet mauris. Done
+												c vel dictum sapien, ac tristique nulla. Maecenas dignissim, eros sed laoreet malesuada, turpi
+												s turpis dictum purus, ac sollicitudin libero lacus eget diam.</p>
+											</div>
+										</div> <!-- /row -->
+									</div> <!-- /col-xs-10 -->
+								</div> <!-- /row -->
+							</div>
+						</div>
+					</div> <!-- /container-fluid -->
+				  </div> <!-- /reviews__tab -->
+
 
 				  <div id="messages__tab" class="tab-pane fade">
-            <div class=" hidden-xs col-xs-12 col-sm-12 form-group">
-              <br>
-        			<button type="button" id="" class="btn btn-default" data-toggle="modal" data-target="#myModal">New message</button>
-        		</div><!--/col-xs-12 col-sm-12-->
-            <div id="myModal" class="modal fade" role="dialog">
-      				<div class="modal-dialog">
-        				<!-- Modal content-->
-        				<div class="modal-content">
+					  <div class="row">
+						<div class="col-xs-12 col-sm-12 form-group">
+						<br>
+							<button type="button" id="" class="btn btn-default" data-toggle="modal" data-target="#myModal">New message</button>
+						</div><!--/col-xs-12 col-sm-12-->
+					</div> <!-- /row -->
 
-        				  <div class="modal-header">
-          					<button type="button" class="close" data-dismiss="modal">&times;</button>
-          					<h4 class="modal-title">New private message</h4>
-        				  </div><!--modal-header-->
+					<div id="myModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">New private message</h4>
+							  </div><!--/modal-header-->
 
-        				  <div class="modal-body">
+							  <div class="modal-body">
+								<div class="form-group" ng-class="{'has-success': vm.newMessage.recipient.username && vm.newMessage.recipient.valid, 'has-error': vm.newMessage.recipient.username.length > 3 && !vm.newMessage.recipient.valid}">
+								  <label for="messageRecipient">Recipient</label>
+								  <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient.username" ng-change="vm.validateRecipient()" placeholder="Input message here" />
+								</div><!--form-group-->
 
-                    <div class="form-group" ng-class="{'has-success': vm.newMessage.recipient.username && vm.newMessage.recipient.valid, 'has-error': vm.newMessage.recipient.username.length > 3 && !vm.newMessage.recipient.valid}">
-                      <label for="messageRecipient">Recipient</label>
-                      <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient.username" ng-change="vm.validateRecipient()" placeholder="Input message here" />
-                    </div><!--form-group-->
+								<div class="form-group">
+								  <label for="messageBody">Message</label>
+								  <textarea type="text" class="form-control" id="messageBody" rows="8"  ng-model="vm.newMessage.body" placeholder="Input message here" />
+								</div><!--form-group-->
+							  </div><!--/modal-body-->
 
-            				<div class="form-group">
-            				  <label for="messageBody">Message</label>
-            				  <textarea type="text" class="form-control" id="messageBody" rows="8"  ng-model="vm.newMessage.body" placeholder="Input message here" />
-            				</div><!--form-group-->
-      				    </div><!--/modal-body-->
+							  <div class="modal-footer">
+								 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.sendMessage()">Send</button>
+							  </div><!--modal-footer-->
+						  </div><!--modal-content-->
+					  </div><!--modal-dialog-->
+					</div><!--modal-fade-->
 
-          				<div class="modal-footer">
-          					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.sendMessage()">Send</button>
-          				</div><!--modal-footer-->
+					<div ng-repeat='message in vm.receivedMessages'>
+						<message message="message"></message>
+					</div>
+				</div> <!-- /messages__tab -->
 
-        			  </div><!--modal-content-->
-      			  </div><!--modal-dialog-->
-      			</div><!--modal-fade-->
-            <!--
-            					<p>List of read and unread messages, pop up window to answear? Conecetd to email?</p>
-            -->
-            <div ng-repeat='message in vm.receivedMessages'>
-  						<message message="message"></message>
-            </div>
-				  </div>
-				</div>
-
-
-				</div> <!-- row -->
-		</div> <!-- col-sm-7 -->
+			</div> <!-- /row tab-content-->
+		</div> <!-- /col-sm-7 -->
 		<div class="col-sm-1"></div>
 		</div> <!-- /row -->
 </div> <!-- /container-fluid -->

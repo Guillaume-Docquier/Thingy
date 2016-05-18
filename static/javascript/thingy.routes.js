@@ -19,9 +19,24 @@
       controllerAs: 'vm',
       templateUrl: '/static/templates/home/index.html'
     })
+
+// About Us
+    .when('/thingies/about', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/home/About.html',
+    })
+
+// Carrers
+    .when('/thingies/carrers', {
+      controller: 'LoginRegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/home/carrers.html',
+    })
+
     // Login
     .when('/login', {
-      controller: 'LoginRegisterController',
+      controller: 'ThingyController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/authentication/login.html',
     })
@@ -44,12 +59,19 @@
       templateUrl: '/static/templates/posts/search.html',
       reloadOnSearch: false
     })
-    // Thingy detailed
-    .when('/thingies/details/:thingyid', {
+    // Thingy detailes
+    .when('/thingies/details/:postid', {
       controller: 'ThingyController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/posts/thingy.html',
     })
+     // Thingy manage-post
+    .when('/thingies/manage/:postid', {
+      controller: 'UpdateController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/posts/manage-post.html',
+    })
+
     // Thingy add
     .when('/thingies/add', {
       controller: 'AddController',

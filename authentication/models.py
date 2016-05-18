@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
+#from review.models import Review
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
@@ -43,6 +44,8 @@ class Account(AbstractBaseUser):
     # The default image is default.png so we should always have it in media/userimages/
     image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
 
+    # _review = models.ForeignKey(Review, null=True, on_delete=models.CASCADE)
+
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
@@ -57,9 +60,9 @@ class Account(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
-    # @property
-    def reviews(self):
-        return self.review_set.all()
+    # # @property
+    # def review(self):
+    #     return self._review
 
 
 

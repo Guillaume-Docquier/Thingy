@@ -21,7 +21,7 @@ admin.autodiscover()
 
 router = routers.SimpleRouter()
 #router = DefaultRouter()
-router.register(r'accounts', AccountViewSet)
+router.register(r'accounts', AccountViewSet),
 router.register(r'reviewedusers', ReviewedUserViewSet)
 
 router.register(r'reviews', ReviewViewSet)
@@ -44,7 +44,7 @@ accounts_router = routers.NestedSimpleRouter(
 accounts_router.register(r'posts', AccountPostsViewSet)
 
 urlpatterns = [
-    #url(r'^review/$', views.ReviewList.as_view()),
+      #url(r'^review/$', views.ReviewList.as_view()),
     url(r'', include(router.urls)),
     url(r'^authorposts/(?P<pk>[0-9]+)/$', AuthorPostsViewSet.as_view({'get': 'retrieve'}), name='index'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

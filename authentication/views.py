@@ -43,7 +43,6 @@ class AuthorPostsViewSetDetail(viewsets.ViewSet):
 
 
 
-
 class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
     queryset = Account.objects.all()
@@ -90,6 +89,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
+
     @detail_route()
     def unread(self, request, username=None):
         result = self.get_queryset().filter(id=username).filter(posts__basemessage__rentmessage__unread=True).annotate(
@@ -101,6 +101,40 @@ class AccountViewSet(viewsets.ModelViewSet):
     #     result = self.get_queryset().filter(posts__basemessage__rentmessage__unread=True).annotate(count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
     #     #result = RentMessage.objects.filter(thingy__author=1, unread=True).count()
     #     return Response(result)
+
+    # def perform_update(self, request):
+    #     serializer = self.serializer_class(data=request.data)
+    #
+    #     if serializer.is_valid():
+    #         account = Account.objects.update_user(**serializer.validated_data)
+    #         account.first_name = serializer.validated_data.get('first_name')
+    #         account.last_name = serializer.validated_data.get('last_name')
+    #         account.save()
+    #
+    #         account.username = validated_data.get('username', account.username)
+    #         account.tagline = validated_data.get('tagline', account.tagline)
+    #
+    #         account.save()
+    #
+    #         password = validated_data.get('password', None)
+    #         confirm_password = validated_data.get('confirm_password', None)
+    #
+    #         if password and confirm_password and password == confirm_password:
+    #             account.set_password(password)
+    #             account.save()
+    #
+    #         serializer.save()
+    #
+    #         update_session_auth_hash(self.context.get('request'), instance)
+    #
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #
+    #
+    #     return Response({
+    #         'status': 'Bad request',
+    #         'message': 'Account could not be updated with received data.'
+    #     }, status=status.HTTP_400_BAD_REQUEST)
+
 
     def get_queryset(self):
         queryset = Account.objects.order_by('-created_at')

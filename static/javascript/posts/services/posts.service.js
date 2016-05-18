@@ -14,6 +14,7 @@
     vm.getAllRegions = getAllRegions;
     vm.getAllConditions = getAllConditions;
     vm.add = add;
+    vm.update = update;
     vm.getAllPosts = getAllPosts;
     vm.getSinglePost = getSinglePost;
     vm.getUserPosts = getUserPosts;
@@ -43,6 +44,19 @@
     // Adds a new post
     function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
       return $http.post('/api/v1/posts/', {
+        title: title,
+        description: description,
+        price: price,
+        condition: conditionID,
+        subcategory: subcategoryID,
+        location: subregionID,
+        image: image64
+      });
+    }
+
+    // Updates a post
+    function update(id, title, description, price, conditionID, subcategoryID, subregionID, image64) {
+      return $http.put('/api/v1/posts/' + id + '/', {
         title: title,
         description: description,
         price: price,
@@ -85,12 +99,13 @@
       // Loop through arguments and create a query string
       for(; i < j; i++)
       {
-        //console.log(argumentNames[i] + ': ' + JSON.stringify(arguments[i]));
         if(arguments[i])
         {
           query += (argumentNames[i] + '=' + arguments[i] + '&');
         }
       }
+      // Remove the last character
+      query = query.slice(0, -1);
       return $http.get('/api/v1/posts/' + query);
     }
 

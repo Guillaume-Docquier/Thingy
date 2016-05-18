@@ -1,7 +1,7 @@
 
   <!-- Display the settings if logged in -->
   <div ng-show=vm.authenticated>
-	  
+
 	  <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2">
@@ -12,59 +12,59 @@
 		</div> <!--row-->
 	    <div class="row">
 			<div class="col-sm-2"></div>
-			<div class="col-sm-4">
 				<form role="form" class="settings" ng-submit="vm.update()">
-				  <div class="form-group">
-					<label for="settings__email">Email</label>
-					<input type="text" class="form-control" id="settings__email" ng-model="vm.profile.email" placeholder="ex. john@example.com" />
-				  </div>
+    			<div class="col-sm-4">
+    				  <div class="form-group">
+    					<label for="settings__email">Email</label>
+    					<input type="text" class="form-control" id="settings__email" ng-model="vm.profile.email" placeholder="" />
+    				  </div>
 
-				  <div class="form-group">
-					<label for="settings__password">New Password</label>
-					<input type="password" class="form-control" id="settings__password" ng-model="vm.profile.password" placeholder="secret password" />
-				  </div>
+    				  <div class="form-group">
+    					<label for="settings__password">New Password</label>
+    					<input type="password" class="form-control" id="settings__password" ng-model="vm.profile.password" placeholder="" />
+    				  </div>
 
-				  <div class="form-group">
-					<label for="settings__confirm-password">Confirm Password</label>
-					<input type="password" class="form-control" id="settings__confirm-password" ng-model="vm.profile.confirm_password" placeholder="copy of secret password" />
-				  </div>
+    				  <div class="form-group">
+    					<label for="settings__confirm-password">Confirm Password</label>
+    					<input type="password" class="form-control" id="settings__confirm-password" ng-model="vm.profile.confirm_password" placeholder="" />
+    				  </div>
 
-				  <div class="form-group">
-					<label for="settings__username">Username</label>
-					<input type="text" class="form-control" id="settings__username" ng-model="vm.profile.username" placeholder="vm.profile.username" />
-				  </div>
+    				  <div class="form-group">
+    					<label for="settings__username">Username</label>
+    					<input type="text" class="form-control" id="settings__username" ng-model="vm.profile.username" placeholder="vm.profile.username" />
+    				  </div>
 
-				  <div class='row'>
-					<div class="form-group col-xs-6">
-					  <label for="register__fname">First name</label>
-					  <input type="text" class="form-control" id="register__fname" ng-model="vm.profile.first_name" placeholder="ex: John" />
-					</div>
+    				  <div class='row'>
+    					<div class="form-group col-xs-6">
+    					  <label for="register__fname">First name</label>
+    					  <input type="text" class="form-control" id="register__fname" ng-model="vm.profile.first_name" placeholder="" />
+    					</div>
 
-					<div class="form-group col-xs-6">
-					  <label for="register__lname">Last name</label>
-					  <input type="text" class="form-control" id="register__lname" ng-model="vm.profile.last_name" placeholder="ex: Doe" />
-					</div>
-				  </div>
+    					<div class="form-group col-xs-6">
+    					  <label for="register__lname">Last name</label>
+    					  <input type="text" class="form-control" id="register__lname" ng-model="vm.profile.last_name" placeholder="" />
+    					</div>
+    				  </div>
 
-				  <div class="form-group">
-					<label for="settings__tagline">Tagline</label>
-					<textarea class="form-control" id="settings__tagline" ng-model="vm.profile.tagline" placeholder="" />
-				  </div>
-			</div> <!-- col-sm-4 -->
-			<div class="col-sm-4">
-				  <div class="form-group">
-					<label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Profile picture</label>
-					<p><img id='profilePicture' ng-src='{{vm.imageDisplay}}'></img></p>
-					<input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
-				  </div>
+    				  <div class="form-group">
+    					<label for="settings__tagline">Tagline</label>
+    					<textarea class="form-control" id="settings__tagline" ng-model="vm.profile.tagline" placeholder="" />
+    				  </div>
+    			</div> <!-- col-sm-4 -->
+    			<div class="col-sm-4">
+    				  <div class="form-group">
+    					<label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Profile picture</label>
+    					<p><img id='profilePicture' ng-src='{{vm.imageDisplay}}'></img></p>
+    					<input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
+    				  </div>
 
-				  <div class="form-group">
-					<button id="btn__submit__settings" type="submit" class="btn">Submit</button>
-					<button type="button" class="btn btn-danger pull-right" ng-click="vm.destroy()">Delete Account</button>
-				  </div>
-				</form>
-			</div> <!-- col-sm-4 -->
+    				  <div class="form-group">
+    					<button id="btn__submit__settings" type="submit" class="btn">Submit</button>
+    					<button type="button" class="btn btn-danger pull-right" ng-click="vm.destroy()">Delete Account</button>
+    				  </div>
+    			</div> <!-- col-sm-4 -->
+        </form>
 			<div class="col-sm-2"></div>
-		</div> <!-- /row -->	
+		</div> <!-- /row -->
   </div> <!-- /container-fluid -->
 </div>

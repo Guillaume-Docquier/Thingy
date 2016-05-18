@@ -3,24 +3,24 @@
 
   angular
     .module('thingy.posts.controllers')
-    .controller('AddController', AddController);
+    .controller('UpdateController', UpdateController);
 
-  AddController.$inject = ['$rootScope', '$scope', 'Authentication', '$route', '$cookies', '$location', 'Posts'];
+  UpdateController.$inject = ['$rootScope', '$scope', 'Authentication', '$route', '$cookies', '$location', 'Posts', '$routeParams'];
 
-  function AddController($rootScope, $scope, Authentication, $route, $cookies, $location, Posts) {
+  function UpdateController($rootScope, $scope, Authentication, $route, $cookies, $location, Posts, $routeParams) {
     var vm = this;
 
     // Functions and Data
-    vm.add = add;
+    vm.destroy = destroy;
+    vm.update = update;
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
+    vm.imageDisplay = '';
     vm.imageUpload = '';
 
     // Bindings, empty string to prevent unwanted behaviour
-    vm.title;
-    vm.description;
-    vm.price;
+    vm.post = '';
     vm.condition = '';
     vm.category = '';
     vm.subcategory = '';
@@ -30,9 +30,14 @@
     activate();
 
     function activate() {
+      if (!Authentication.isAuthenticated())
+        $location.url('/');
       Posts.getAllCategories().then(categoriesSuccessFn, categoriesErrorFn);
       Posts.getAllRegions().then(regionsSuccessFn, regionsErrorFn);
       Posts.getAllConditions().then(conditionsSuccessFn, conditionsErrorFn);
+
+      var thingyId = $routeParams.postid;
+      Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
 
       bindEvents();
 
@@ -73,21 +78,49 @@
         alert('Could not load conditions.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
+
+      function postSuccessFn(data) {
+        if (Authentication.getAuthenticatedAccount().id != data.data.author.id)
+          $location.url('/');
+        vm.post = data.data;
+        vm.imageDisplay = 'media/' + vm.post.image;
+
+        vm.region = findObjectContainingKey(vm.regions, 'name', vm.post.location_details.region.name);
+        vm.subregion = findObjectContainingKey(vm.region.towns, 'name', vm.post.location_details.name);
+        vm.category = findObjectContainingKey(vm.categories, 'cname', vm.post.subcategory_details.category.cname);
+        vm.subcategory = findObjectContainingKey(vm.category.subcategories, 'name', vm.post.subcategory_details.sub_cat_name);
+        vm.condition = findObjectContainingKey(vm.conditions, 'cond_desc', vm.post.condition_details.cond_desc);
+
+        // Finds which object contains value as key.
+        function findObjectContainingKey(objects, key, value) {
+          for(var i = 0; i < objects.length; i++)
+          {
+            if(objects[i][key].toLowerCase() == value.toLowerCase())
+              return objects[i];
+          }
+          return '';
+        }
+      }
+
+      function postErrorFn(data) {
+        alert('Could not retrieve post');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
     }
 
-    function add() {
-      console.log(vm.imageUpload);
+    function update() {
       if (Authentication.isAuthenticated())
       {
-        Posts.add(
-          vm.title,
-          vm.description,
-          vm.price,
+        Posts.update(
+          vm.post.id,
+          vm.post.title,
+          vm.post.description,
+          vm.post.price,
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
           vm.imageUpload.base64
-        ).then(addPostSuccessFn, addPostErrorFn);
+        ).then(updatePostSuccessFn, updatePostErrorFn);
       }
       else alert('You need to log in first');
 
@@ -95,19 +128,23 @@
       * @name createPostSuccessFn
       * @desc Show snackbar with success message
       */
-      function addPostSuccessFn(data, status, headers, config) {
-        alert('Post created!');
-        $location.url('/thingies/details/' + data.data.id);
+      function updatePostSuccessFn(data) {
+        alert('Post updated!');
+        $location.url('/thingies/details/' + vm.post.id);
       }
 
       /**
       * @name createPostErrorFn
       * @desc Propogate error event and show snackbar with error message
       */
-      function addPostErrorFn(data) {
-        alert('Could not add post.');
+      function updatePostErrorFn(data) {
+        alert('Could not update post.');
         console.error('Error: ' + JSON.stringify(data.data));
       };
+    }
+
+    function destroy() {
+
     }
   }
 })();
