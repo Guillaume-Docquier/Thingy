@@ -7,7 +7,7 @@
 				<h3>Change Thingy Ad</h3>
 			</div>
 		</div> <!--row-->
-		<form role="form" ng-submit="vm.add()" enctype="multipart/form-data">
+		<form role="form" ng-submit="vm.update()" enctype="multipart/form-data">
 		<!-- <form role="form" action="/api/v1/posts/" method="POST" enctype="multipart/form-data"> -->
 		<div class="row">
 			<div class="col-sm-2">
@@ -15,7 +15,7 @@
 			<div class="col-sm-4">
 				<div class="form-group">
 				  <label for="thingy__title">Title</label>
-				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" placeholder={{thingy.title}} />
+				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.post.title" placeholder="Title" />
 				</div>
 
 				  <div class="form-group">
@@ -47,7 +47,7 @@
 				<div class="form-group">
 				  <label for="thingy__price">Price per day</label>
 				  <div class="input-group">
-					<input type="text" class="form-control" id="thingy__price" ng-model="vm.price" placeholder="{thingy.price}}">
+					<input type="text" class="form-control" id="thingy__price" ng-model="vm.post.price" placeholder="{thingy.price}}">
 					<span class="input-group-addon">SEK</span>
 				  </div>
 				</div>
@@ -61,14 +61,14 @@
 
 				<div class="form-group">
 				  <label for="thingy__description">Description</label>
-				  <textarea type="text" class="form-control" rows="8" id="thingy__description" ng-model="vm.description" placeholder="{{thingy.description}}" />
+				  <textarea type="text" class="form-control" rows="8" id="thingy__description" ng-model="vm.post.description" placeholder="{{thingy.description}}" />
 				</div>
 
 		</div> <!-- /col-sm-4 -->
 		<div class ="col-sm-4">
 				<div class="form-group">
 					<label for="thingy__picture" class="control-label"><span class="glyphicon glyphicon-camera"></span> Upload new picture</label>
-					<p><img id='camera' src='/static/images/camera.png'></img></p>
+					<p><img id='camera' src={{vm.imageDisplay}}></img></p>
 					<input type='file' ng-model="vm.imageUpload" base-sixty-four-input accept="image/*">
 				</div>
 
