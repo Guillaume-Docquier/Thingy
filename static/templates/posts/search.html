@@ -20,7 +20,7 @@
 					  <label for="thingy__search">Search for thingies</label>
 					  <input type="text" class="form-control input-sm" id="thingy__search" ng-model="vm.searchTerm" placeholder="Thingy" />
 					</div>
-					
+
 					<div class="form-group">
 						<label for="thingy__region">Region</label>
 						<select class="form-control input-sm" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
@@ -34,7 +34,7 @@
 						  <option value="">All categories</option>
 						</select>
 					</div>
-			
+
 
 					<div class="form-group hidden-xs">
 						  <button type="submit" class="btn btn-default">Search</button>
@@ -42,9 +42,9 @@
 
 
 
-					  
+
 			</div> <!-- /col-sm-4 -->
-					  
+
 				<div class="col-sm-4">
 					<div id="formgroup__advsearch" class="form-group">
 						<div class="span4 collapse-group">
@@ -71,20 +71,20 @@
 											</div>
 									  </div> <!-- col-xs-6-->
 								 </div> <!-- /row -->
-								 
+
 								 <div class="form-group">
 									<label for="thingy__subregion">Town</label>
 									<select class="form-control input-sm" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
 									<option value="">All towns</option>
 									</select>
 								  </div>
-								
+
 								  <div id="formgroup__advsearch1" class="form-group">
 									<label for="thingy__subcategory">Sub-Category</label>
 									<select class="form-control input-sm" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
 									  <option value="">All sub-categories</option>
 									</select>
-								  </div>							  								 									 
+								  </div>
 
 								<div class="form-group">
 								  <label for="thingy__condition">Condition</label>
@@ -94,7 +94,7 @@
 								</div>
 								</div> <!-- /col-sm-4 -->
 							</div>
-							</div>   
+							</div>
 					   <p>
 							<div class="AdvancedSearch__style">
 								  <button class="AdvancedSearch" type="button" data-toggle="collapse"
@@ -102,7 +102,7 @@
 								  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
 							</div>
 						</p>
-						
+
 						<div class="form-group visible-xs">
 							  <button type="submit" class="btn btn-default">Search</button>
 						</div>
@@ -112,17 +112,17 @@
 		<div class="col-sm-2">
 		</div> <!-- /col-sm-2 -->
 	</div> <!-- /row -->
-	
-	
+
+
 	<div class="row">
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8">
 			<div id="searchresult"><h3>Search Results</h3></div>
 
 				<div ng-repeat='thingy in vm.posts'>
-					<div class="clickable">
+					<a href="/thingies/details/{{thingy.id}}">
 					  <post-overview thingy="thingy" ng-click="vm.selection(thingy)"></post-overview>
-					</div>
+					</a>
 				</div>
 
 				<div ng-show="vm.posts.length == 0">
@@ -130,6 +130,6 @@
 				</div>
 			</div>
 		<div class="col-sm-2"></div>
-	
+
 	</div><!-- /row-->
 </div> <!-- /container-fluid -->
