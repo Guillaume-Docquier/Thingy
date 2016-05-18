@@ -22,14 +22,14 @@
 
 // About Us
     .when('/thingies/about', {
-      controller: 'LoginRegisterController',
+      controller: '',
       controllerAs: 'vm',
       templateUrl: '/static/templates/home/About.html',
     })
 
 // Carrers
     .when('/thingies/carrers', {
-      controller: 'LoginRegisterController',
+      controller: '',
       controllerAs: 'vm',
       templateUrl: '/static/templates/home/carrers.html',
     })
