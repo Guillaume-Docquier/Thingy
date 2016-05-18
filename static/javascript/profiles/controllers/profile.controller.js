@@ -28,6 +28,7 @@
     vm.receivedMessages = [];
     vm.sentMessages = [];
     vm.posts = [];
+    vm.ratings = [1,2,3,4,5]
 
     // Bindings
     vm.newMessage = {
@@ -39,6 +40,8 @@
       },
       type: 4 // Private message
     };
+    vm.description = '';
+    vm.rating = 0;
 
     activate();
 
