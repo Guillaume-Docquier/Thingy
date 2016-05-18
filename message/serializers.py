@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from message.models import *
-from authentication.models import Account
-
 
 class ChoicesField(serializers.Field):
     def __init__(self, choices, **kwargs):
@@ -27,6 +25,10 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = '__all__'
+
+
+
+
 
 
 
