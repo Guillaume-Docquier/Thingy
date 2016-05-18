@@ -11,7 +11,7 @@
 			<div class="col-sm-2">
 			</div> <!-- /col-sm-2 -->
 
-			<div class="col-sm-8" id="thingy_search_column">
+			<div class="col-sm-4" id="thingy_search_column">
 <!--
 				<div id="search" class="tab-pane fade in active">
 -->
@@ -20,30 +20,38 @@
 					  <label for="thingy__search">Search for thingies</label>
 					  <input type="text" class="form-control input-sm" id="thingy__search" ng-model="vm.searchTerm" placeholder="Thingy" />
 					</div>
+					
+					<div class="form-group">
+						<label for="thingy__region">Region</label>
+						<select class="form-control input-sm" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
+						<option value="">All regions</option>
+						</select>
+					</div>
 
 					<div class="form-group">
 						<label for="thingy__category">Category</label>
 						<select class="form-control input-sm" id="thingy__category" ng-model="vm.category" ng-options="category.cname for category in vm.categories">
 						  <option value="">All categories</option>
 						</select>
-					  </div>
+					</div>
+			
 
+					<div class="form-group hidden-xs">
+						  <button type="submit" class="btn btn-default">Search</button>
+					</div>
+
+
+
+					  
+			</div> <!-- /col-sm-4 -->
+					  
+				<div class="col-sm-4">
 					<div id="formgroup__advsearch" class="form-group">
-
 						<div class="span4 collapse-group">
 						    <div class="collapse" ng-class="{'in': vm.advanced.status}" id="advancedSearch">
 
-
-								  <div id="formgroup__advsearch1" class="form-group">
-									<label for="thingy__subcategory">Sub-Category</label>
-									<select class="form-control input-sm" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
-									  <option value="">All sub-categories</option>
-									</select>
-								  </div>
-
-								 <div class="row">
+									<div class="row">
 									  <div class="col-xs-6">
-
 											<div class="form-group">
 											  <label for="thingy__price__from">Price From</label>
 											  <div class="input-group">
@@ -63,21 +71,20 @@
 											</div>
 									  </div> <!-- col-xs-6-->
 								 </div> <!-- /row -->
-
-								  <div class="form-group">
-									<label for="thingy__region">Region</label>
-									<select class="form-control input-sm" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
-									<option value="">All regions</option>
-									</select>
-								  </div>
-
-								  <div class="form-group">
+								 
+								 <div class="form-group">
 									<label for="thingy__subregion">Town</label>
 									<select class="form-control input-sm" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
 									<option value="">All towns</option>
 									</select>
 								  </div>
-
+								
+								  <div id="formgroup__advsearch1" class="form-group">
+									<label for="thingy__subcategory">Sub-Category</label>
+									<select class="form-control input-sm" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
+									  <option value="">All sub-categories</option>
+									</select>
+								  </div>							  								 									 
 
 								<div class="form-group">
 								  <label for="thingy__condition">Condition</label>
@@ -85,26 +92,27 @@
 									<option value="">All conditions</option>
 								  </select>
 								</div>
-
+								</div> <!-- /col-sm-4 -->
 							</div>
-							    <p>
-									<div class="AdvancedSearch__style">
-										  <button class="AdvancedSearch" type="button" data-toggle="collapse"
-										  data-target="#advancedSearch" aria-expanded="{{vm.advanced.status}}"
-										  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
-									</div>
-								</p>
+							</div>   
+					   <p>
+							<div class="AdvancedSearch__style">
+								  <button class="AdvancedSearch" type="button" data-toggle="collapse"
+								  data-target="#advancedSearch" aria-expanded="{{vm.advanced.status}}"
+								  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
 							</div>
-					</div> <!--/form-group-->
+						</p>
+						
+						<div class="form-group visible-xs">
+							  <button type="submit" class="btn btn-default">Search</button>
+						</div>
 
-					<div class="form-group">
-						  <button type="submit" class="btn btn-default">Search</button>
-					</div>
 			  </form>
 	    </div> <!-- /col-sm-8 -->
 		<div class="col-sm-2">
 		</div> <!-- /col-sm-2 -->
 	</div> <!-- /row -->
+	
 	
 	<div class="row">
 		<div class="col-sm-2"></div>
