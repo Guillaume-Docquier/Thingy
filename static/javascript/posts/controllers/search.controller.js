@@ -100,7 +100,7 @@
         vm.maxPrice,
         vm.region ? vm.region.name : '',
         vm.subregion ? vm.subregion.name : '',
-        vm.condition ? vm.condition.cond_desc : '',
+        vm.condition ? vm.condition.cond_desc : ''
       ).then(searchSuccessFn, searchErrorFn);
 
       /**
@@ -142,7 +142,7 @@
 
     // Toggle advanced search text
     function toggleAdvanced() {
-      vm.advanced.text = !vm.advanced.status ? '<< Basic search' : 'Advanced search >>';
+      vm.advanced.text = ( vm.advanced.text == 'Advanced search >>' ? '<< Basic search' : 'Advanced search >>' );
     }
   }
 })();
