@@ -5,9 +5,9 @@
     .module('thingy.posts.services')
     .service('Posts', Posts);
 
-  Posts.$inject = ['$http'];
+  Posts.$inject = ['$http', 'Authentication'];
 
-  function Posts($http) {
+  function Posts($http, Authentication) {
     var vm = this;
 
     vm.getAllCategories = getAllCategories;
@@ -110,12 +110,14 @@
     }
 
     // Sends a rent request/reply (request,accept,decline)
-    function rent(userId, postId, request, period, message) {
-      return $http.post('api/v1/posts/' + postId + '/rent/', {
-        userId: userId,
-        request: request,
-        period: JSON.stringify(period),
-        message: message
+    function rent(postId, period, message) {
+      return $http.post('api/v1/requests/', {
+        start_date: period.start,
+        end_date: period.end,
+        body: message,
+        status: 'Pen',
+        rentee: Authentication.getAuthenticatedAccount().id,
+        thingy: postId
       });
     }
   }

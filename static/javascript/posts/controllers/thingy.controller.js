@@ -69,8 +69,8 @@
         allDayDefault: 'true'
       };
       vm.period = {
-        start: moment().format('ddd, MMMM Do'),
-        end: moment().add(1, 'days').format('ddd, MMMM Do')
+        start: moment().format('YYYY-MM-DD'),
+        end: moment().add(1, 'days').format('YYYY-MM-DD')//.format('ddd, MMMM Do')
       }
 
 
@@ -90,7 +90,7 @@
     function rent() {
       // Requires authentication
       if(Authentication.isAuthenticated)
-        Posts.rent(vm.profile.id, vm.post.id, 'request', vm.period, vm.message).then(rentSuccessFn, rentErrorFn);
+        Posts.rent(vm.post.id, vm.period, vm.message).then(rentSuccessFn, rentErrorFn);
       else
         alert('You need to be logged in.');
 
