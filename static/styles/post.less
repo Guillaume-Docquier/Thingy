@@ -18,27 +18,10 @@
 	margin: 0;
 }
 
-.post {
-	background-color: @panel-add-color;
-	border: 5px black;
-  border-radius: 5px;
+#image__column__searchpanel .col-xs-5 .col-sm-3 {
+	padding: 0;
 }
 
-.post .col-xs-4 {
-	padding-top: 0em;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-
-.post .col-xs-8 {
-	padding-top: 0em;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-
-.post h5 {
-	margin-top: 0;
-}
 
 #posttitle h5 {
 	margin: 0;
@@ -46,19 +29,18 @@
 }
 
 #price {
-	background-color: @standard-color-light;
+
+	margin-top: 0;
+	background-color: @standard-text-color-semilight;
 	padding: 0;
-	border: 1px @standard-color-light;
+	border: 1px @standard-text-color-semilight;
     border-radius: 5px;
 
-/*
-    margin-top: 50%;
-*/
 	padding-left: 0;
 	box-shadow: 0 0 5px gray;
 
 	text-align: center;
-	color: @standard-text-color-semilight;
+	color: white;
 	font-size: 14px;
 	@media (min-width: @screen-sm) {
 		font-size: 24px;
@@ -87,7 +69,7 @@
 }
 
 #SEKday {
-	color: @standard-text-color-semilight;
+	color: white;
 	.p_in_post;
 }
 
@@ -97,4 +79,10 @@
 
 #condition p{
 	.p_in_post;
+}
+
+#search__panel {
+
+ 	background-color: @panel-add-color;
+	border-radius: 5px;
 }

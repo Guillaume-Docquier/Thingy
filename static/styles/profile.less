@@ -1,8 +1,24 @@
 #reviewbox .row {max-width: 100%}
 
+#image__rating__profile {
+	width: 60%;
+}
+
 #message__tab {
     height:10px;
     overflow-y:scroll;
+}
+
+#btn__new__message {
+	float: right;
+	margin-top: 0.5em;
+	margin-right: 01em;
+	color: white;
+	background-color: @btn-submit-color;
+	font-size: @font-size-form-xs;
+	@media (min-width: @screen-sm) {
+		font-size: @font-size-form-sm;
+	}
 }
 
 #profile__panel .col-xs-4 {
