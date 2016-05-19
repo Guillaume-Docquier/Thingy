@@ -25,9 +25,9 @@
 
 
     /**
-    * @name getReceivedMessages
-    * @desc Get all received messages of a user
-    * @param {string} id The id of the user
+    * @name sendMessage
+    * @desc Send a private message
+    * @param {}
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
@@ -66,7 +66,7 @@
     * @memberOf thingy.messages.services.Message
     */
     function getReceivedMessages(id) {
-      return $http.get('api/v1/rentmessages/?rentee=' + Authentication.getAuthenticatedAccount().id);
+      return $http.get('api/v1/rentmessages/?thingy__author=' + Authentication.getAuthenticatedAccount().id);
     }
 
     /**

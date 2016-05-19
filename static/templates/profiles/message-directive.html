@@ -8,11 +8,11 @@
 		<div class="col-xs-10">
 			<div class="row">
 				<div class="col-xs-8">
-					<h5>From {{message.author}}</h5>
+					<h5>From {{message.author}}{{message.rentee}}</h5>
 				</div>
 				<!-- TODOJS make date/time work? -->
 				<div class="col-xs-4">
-					12 may 11.15pm
+					{{message.created_at}}
 				</div>
 			</div> <!-- /row -->
 			<div class="row">
