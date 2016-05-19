@@ -89,8 +89,10 @@
         * @desc Update 'posts' on viewmodel
         */
         function reviewsSuccessFn(data) {
-          vm.reviews = data.data;
+          // Most recent first
+          vm.reviews = data.data.reverse();
           var totalRating = 0;
+          // Format dates and calculate average rating
           for(var i = 0; i < vm.reviews.length; i++) {
             vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
             totalRating += vm.reviews[i].rating_details.rating_grade;
@@ -132,10 +134,20 @@
 
       /**
       * @name reviewSuccessFn
-      * @desc Notifiy of success
+      * @desc Notifiy of success and add the new review to 'reviews'
       */
       function reviewSuccessFn(data) {
         alert('Review created!');
+        var review = {
+          reviewed_user: vm.profile.id,
+          review_author: Authentication.getAuthenticatedAccount().username,
+          comment: vm.description,
+          created: moment().format('MMMM Do HH:mm'),
+          rating_details: {
+            rating_grade: vm.rating
+          }
+        }
+        vm.reviews.unshift(review);
       }
 
       /**

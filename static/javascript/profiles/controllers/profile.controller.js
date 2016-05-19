@@ -196,7 +196,6 @@
         Message.markAsRead(message).then(markSuccessFn, markErrorFn);
 
       function markSuccessFn(data) {
-        console.log('Yes!');
         vm.unreadNumber--;
       }
 

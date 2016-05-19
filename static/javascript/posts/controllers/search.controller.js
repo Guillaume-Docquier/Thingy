@@ -91,7 +91,6 @@
     }
 
     function search() {
-      console.log('Searching...');
       Posts.search(
         vm.searchTerm,  // Matches Title or Description
         vm.category ? vm.category.cname : '',
@@ -109,7 +108,6 @@
       */
       function searchSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
-        console.log(data);
       }
 
       /**
@@ -127,7 +125,6 @@
       vm.locationUrl ='https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc&q=' + thingy.location_details.name + ',Sweden';
       //vm.trustedLocationUrl = $sce.getTrustedResourceUrl(vm.locationUrl);
       vm.locationUrlt = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc &q= Stockholm,Sweden';
-      console.log('vm.locationUrl: ' + vm.locationUrl);
     }
 
     // Finds which object contains value as key.

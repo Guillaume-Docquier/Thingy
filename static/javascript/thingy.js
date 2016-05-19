@@ -9,6 +9,7 @@
       'thingy.home',
       'thingy.profiles',
       'thingy.posts',
+      'thingy.utility',
     ]);
 
   angular

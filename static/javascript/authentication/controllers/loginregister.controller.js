@@ -82,7 +82,6 @@
     * @memberOf thingy.authentication.controllers.LoginRegisterController
     */
     function login() {
-      console.log("Logging in...");
       var redirect = $location.url();
       if($location.search().redirect)
         redirect = '/' + $location.search().redirect;
@@ -101,7 +100,6 @@
         alert('Some information is missing.');
         return;
       }
-      console.log("Registering...");
       var redirect = $location.url();
       if($location.search().redirect)
         redirect = '/' + $location.search().redirect;

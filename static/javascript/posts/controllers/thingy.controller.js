@@ -94,9 +94,8 @@
       else
         alert('You need to be logged in.');
 
-      function rentSuccessFn(data, status, headers, config) {
+      function rentSuccessFn(data) {
         alert('Your request has been submitted!');
-        console.log(data.data);
       }
 
       function rentErrorFn(data) {
