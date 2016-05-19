@@ -32,13 +32,10 @@
 <!--
 					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
 -->
-					<h6>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					</h6>
+          <h5>
+            <!-- <img ng-src="static/images/rating_{{vm.profile.average_rating}}.png"/> -->
+            <img ng-src="static/images/rating_{{vm.averageRating}}.png"/>
+          </h5>
 					<div class="hidden-xs" >
 						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
 						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
