@@ -21,9 +21,16 @@ class RentMessageSerializer(serializers.ModelSerializer):
 
 
 class RequestSerializer(serializers.ModelSerializer):
-
+    rentee = serializers.ReadOnlyField(source='rentee.username')
     class Meta:
         model = Request
+        fields = '__all__'
+
+class PrivateMessageSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+
+    class Meta:
+        model = PrivateMessage
         fields = '__all__'
 
 
