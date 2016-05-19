@@ -71,7 +71,9 @@ bower_components/
 
 # Local thumbnails and local images
 Thumbs.db
-media/*
+media/postimages/*
+media/userimages/*
 
 # Keep default images
-!media/*/default.png
+!media/postimages/default.png
+!media/userimages/default.png
