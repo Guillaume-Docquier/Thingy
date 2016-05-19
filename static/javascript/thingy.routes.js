@@ -80,7 +80,7 @@
     })
     // User profile
     .when('/users/:username', {
-      controller: 'ProfileController',
+      controller: 'UsersController',
       controllerAs: 'vm',
       templateUrl: '/static/templates/profiles/profile.html'
     })

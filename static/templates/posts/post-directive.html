@@ -11,8 +11,7 @@
 		</div> <!-- /col-xs-6-->
 		<div id="manage__post" class="col-xs-3">
 			<div class="row">
-				<div class="col-xs-6"><a href='thingies/manage/{{thingy.id}}'>Change</a></div>
-				<div class="col-xs-6"><a href="#">Remove</a></div>
+				<div class="col-xs-12" ng-show="{{owned}}"><a href='thingies/manage/{{thingy.id}}'>Manage</a></div>
 			</div> <!-- /row -->
 		</div> <!-- /col-xs-3 -->
 	</div> <!-- /row -->

@@ -96,7 +96,7 @@
 				  <div id="thingies__tab" class="tab-pane fade in active">
 					  <!-- Manage my Thingies: Remove/change ad -->
 						<div ng-repeat='thingy in vm.posts'>
-							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
+							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy" owned="{{vm.isOwner}}"></post></a>
 						</div>
 				  </div> <!-- /thingies__tab -->
 

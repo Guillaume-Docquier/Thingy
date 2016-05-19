@@ -9,28 +9,26 @@
     .module('thingy.profiles.controllers')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts', 'Message', 'Authentication'];
+  ProfileController.$inject = ['$location', 'Profile', 'Posts', 'Message', 'Authentication'];
 
   /**
   * @namespace ProfileController
   */
-  function ProfileController($scope, $location, $routeParams, Profile, Posts, Message, Authentication) {
+  function ProfileController($location, Profile, Posts, Message, Authentication) {
     var vm = this;
 
     // Functions and data
     vm.sendMessage = sendMessage;
     vm.validateRecipient = validateRecipient;
     vm.getUnreadMessages = getUnreadMessages;
-    vm.createReview = createReview;
     vm.unreadNum = 0;
-    vm.isOwner = false;
+    vm.isOwner = true;
     vm.isAuthenticated = Authentication.isAuthenticated();
     vm.profile = '';
     vm.receivedMessages = [];
     vm.sentMessages = [];
     vm.posts = [];
     vm.reviews = [];
-    vm.ratings = [1,2,3,4,5]
 
     // Bindings
     vm.newMessage = {
@@ -42,8 +40,6 @@
       },
       type: 4 // Private message
     };
-    vm.description = '';
-    vm.rating = '';
 
     activate();
 
@@ -53,89 +49,16 @@
     * @memberOf thingy.profiles.controllers.ProfileController
     */
     function activate() {
-      // Needed for public profiles
-      var username = $routeParams.username;
-
-      // When visiting a public profile
-      if(username) {
-        // There's a bug if username contains a dot.
-        if (username.match(/\./)) {
-          $location.url('/');
-          return;
-        }
-      }
-      // When visiting a private profile
-      else if(!vm.isAuthenticated) {
+      if(!vm.isAuthenticated) {
         $location.url('/');
         return;
       }
-      else username = Authentication.getAuthenticatedAccount().username;
+      else vm.profile = Authentication.getAuthenticatedAccount();
 
-      Profile.get(username).then(profileSuccessFn, profileErrorFn);
-
-      /**
-      * @name profileSuccessProfile
-      * @desc Update 'profile' on viewmodel
-      */
-      function profileSuccessFn(data, status, headers, config) {
-        vm.profile = data.data;
-        // Fetch more info if own profile
-        vm.isOwner = vm.isAuthenticated && vm.profile.username == Authentication.getAuthenticatedAccount().username;
-        if(vm.isOwner)
-        {
-        //Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
-        //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
-        }
-        Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
-        Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
-
-        /**
-          * @name postsSucessFn
-          * @desc Update 'posts' on viewmodel
-          */
-        function postsSuccessFn(data, status, headers, config) {
-          vm.posts = data.data;
-        }
-
-        /**
-          * @name postsErrorFn
-          * @desc Log error in the console
-          */
-        function postsErrorFn(data) {
-          alert('Could not load posts.');
-          console.error('Error: ' + JSON.stringify(data.data));
-        }
-
-        /**
-          * @name postsSucessFn
-          * @desc Update 'posts' on viewmodel
-          */
-        function reviewsSuccessFn(data) {
-          vm.reviews = data.data;
-          for(var i = 0; i < vm.reviews.length; i++) {
-            vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
-          }
-        }
-
-        /**
-          * @name postsErrorFn
-          * @desc Log error in the console
-          */
-        function reviewsErrorFn(data) {
-          alert('Could not load reviews.');
-          console.error('Error: ' + JSON.stringify(data.data));
-        }
-      }
-
-      /**
-      * @name profileErrorFn
-      * @desc Redirect to index and log error in the console
-      */
-      function profileErrorFn(data) {
-        $location.url('/');
-        alert('Could not load profile.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
+      //Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
+      //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
+      Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
+      Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
 
       /**
       * @name getRSuccessFn
@@ -152,6 +75,43 @@
       */
       function getRErrorFn(data) {
         alert('Could not load received messages.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+
+      /**
+        * @name postsSucessFn
+        * @desc Update 'posts' on viewmodel
+        */
+      function postsSuccessFn(data, status, headers, config) {
+        vm.posts = data.data;
+      }
+
+      /**
+        * @name postsErrorFn
+        * @desc Log error in the console
+        */
+      function postsErrorFn(data) {
+        alert('Could not load posts.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+
+      /**
+        * @name reviewsSuccessFn
+        * @desc Update 'reviews' on viewmodel
+        */
+      function reviewsSuccessFn(data) {
+        vm.reviews = data.data;
+        for(var i = 0; i < vm.reviews.length; i++) {
+          vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
+        }
+      }
+
+      /**
+        * @name reviewsErrorFn
+        * @desc Log error in the console
+        */
+      function reviewsErrorFn(data) {
+        alert('Could not load reviews.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
