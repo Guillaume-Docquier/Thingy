@@ -20,8 +20,8 @@
     // Functions and data
     vm.sendMessage = sendMessage;
     vm.validateRecipient = validateRecipient;
-    vm.getUnreadMessages = getUnreadMessages;
-    vm.unreadNum = 0;
+    vm.markAsRead = markAsRead;
+    vm.unreadNumber = 0;
     vm.isOwner = true;
     vm.isAuthenticated = Authentication.isAuthenticated();
     vm.profile = '';
@@ -56,7 +56,7 @@
       }
       else vm.profile = Authentication.getAuthenticatedAccount();
 
-      //Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
+      Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
       //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
       Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
       Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
@@ -65,9 +65,26 @@
       * @name getRSuccessFn
       * @desc Update 'receivedMessages' on viewmodel
       */
-      function getRSuccessFn(data, status, headers, config) {
-        vm.receivedMessages = data.data.messages;
-        vm.getUnreadMessages();
+      function getRSuccessFn(data) {
+        vm.receivedMessages = data.data;
+        Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);
+
+        /**
+        * @name unreadSuccessFn
+        * @desc Update 'unreadNumber' on viewmodel
+        */
+        function unreadSuccessFn(data) {
+          vm.unreadNumber = data.data[0] ? data.data[0].count : 0;
+        }
+
+        /**
+        * @name unreadErrorFn
+        * @desc Log error in the console
+        */
+        function unreadErrorFn(data) {
+          alert('Could not fetch the number of unread messages.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
       }
 
       /**
@@ -174,15 +191,18 @@
       }
     }
 
-    /**
-    * @name getUnreadMessages
-    * @desc Get the number of unread messages
-    */
-    function getUnreadMessages() {
-      vm.unreadNum = 0;
-      for(var i = 0; i < vm.receivedMessages.length; i++) {
-        if(vm.receivedMessages[i].unread)
-          vm.unreadNum++;
+    function markAsRead(message) {
+      if (message.unread)
+        Message.markAsRead(message).then(markSuccessFn, markErrorFn);
+
+      function markSuccessFn(data) {
+        console.log('Yes!');
+        vm.unreadNumber--;
+      }
+
+      function markErrorFn(data) {
+        alert('Could not mark as read.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
