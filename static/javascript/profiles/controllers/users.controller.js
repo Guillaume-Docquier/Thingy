@@ -25,6 +25,7 @@
     vm.posts = [];
     vm.reviews = [];
     vm.ratings = [1,2,3,4,5]
+    vm.averageRating = 0;
 
     // Bindings
     vm.description = '';
@@ -67,37 +68,40 @@
         Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
 
         /**
-          * @name postsSucessFn
-          * @desc Update 'posts' on viewmodel
-          */
+        * @name postsSucessFn
+        * @desc Update 'posts' on viewmodel
+        */
         function postsSuccessFn(data, status, headers, config) {
           vm.posts = data.data;
         }
 
         /**
-          * @name postsErrorFn
-          * @desc Log error in the console
-          */
+        * @name postsErrorFn
+        * @desc Log error in the console
+        */
         function postsErrorFn(data) {
           alert('Could not load posts.');
           console.error('Error: ' + JSON.stringify(data.data));
         }
 
         /**
-          * @name postsSucessFn
-          * @desc Update 'posts' on viewmodel
-          */
+        * @name postsSucessFn
+        * @desc Update 'posts' on viewmodel
+        */
         function reviewsSuccessFn(data) {
           vm.reviews = data.data;
+          var totalRating = 0;
           for(var i = 0; i < vm.reviews.length; i++) {
             vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
+            totalRating += vm.reviews[i].rating_details.rating_grade;
           }
+          vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
         }
 
         /**
-          * @name postsErrorFn
-          * @desc Log error in the console
-          */
+        * @name postsErrorFn
+        * @desc Log error in the console
+        */
         function reviewsErrorFn(data) {
           alert('Could not load reviews.');
           console.error('Error: ' + JSON.stringify(data.data));

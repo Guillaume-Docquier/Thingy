@@ -3,7 +3,8 @@
 			<div id="reviewbox" class="row">
 				<div class="col-xs-3">
 					<!-- TODOJS get the senders profile picture -->
-					<div id="review__picture" >
+			<div id="review__picture" >
+						<!-- <img id="image" ng-src="/media/{{review.author.image}}" class="img-circle img-responsive" alt="Author picture"/> -->
 						<img id="image" src="/static/images/corre.jpg" class="img-resposive"  alt="Image"/>
 					</div>
 					<p id="review__author">{{review.review_author}}</p>
@@ -12,7 +13,7 @@
 					<div class="row">
 						<div class="col-xs-7">
 							<h5>
-								<img id="image__rating" ng-src="static/images/rating_{{review.rating_details.rating_grade}}.png"></span>
+								<img id="image__rating" ng-src="static/images/rating_{{review.rating_details.rating_grade}}.png"/>
 							</h5>
 						</div>
 						<!-- TODOJS make date/time work? -->
