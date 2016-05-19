@@ -37,9 +37,9 @@
             <img id="image__rating__profile" ng-src="static/images/rating_{{vm.averageRating}}.png"/>
           </h5>
 					<div class="hidden-xs" >
-						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
-						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary" data-toggle="modal" data-target="#createReview">Create review</button>
+						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary col-xs-12" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a>
+						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary col-xs-12"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#createReview">Create review</button>
 					</div>
 				</div>
 			</div> <!-- /row --->
