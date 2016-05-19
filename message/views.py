@@ -24,6 +24,16 @@ class RequestViewSet(viewsets.ModelViewSet):
                                    created_at=instance.created_at, body=instance.body,
                                    type='Rent', unread=True)
 
+class PrivateMessageViewSet(viewsets.ModelViewSet):
+    queryset = PrivateMessage.objects.all()
+    serializer_class = PrivateMessageSerializer
+
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
+    filter_class = PrivateMessageFilter
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 
 
