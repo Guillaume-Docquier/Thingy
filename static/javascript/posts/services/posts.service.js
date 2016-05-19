@@ -115,7 +115,6 @@
         start_date: period.start,
         end_date: period.end,
         body: message,
-        status: 'Pen',
         rentee: Authentication.getAuthenticatedAccount().id,
         thingy: postId
       });

@@ -17,12 +17,12 @@ class BaseMessage(models.Model):
 
 #Extends basemessage
 class RentMessage(BaseMessage):
-    type = models.CharField(max_length=4, choices=RENT_CHOICES, default='Rent')
+    type = models.CharField(max_length=13, choices=RENT_CHOICES, default='Rent request')
     unread = models.BooleanField(default=True)
 
 #Extends basemessage
 class Request(BaseMessage):
-    status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='Pen')
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='Pending')
 
 class PrivateMessage(models.Model):
     author = models.ForeignKey(Account)
@@ -30,7 +30,3 @@ class PrivateMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     body = models.CharField(max_length=2000, blank=True)
     unread = models.BooleanField(default=True)
-
-
-
-

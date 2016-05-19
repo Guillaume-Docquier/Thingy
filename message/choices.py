@@ -1,13 +1,13 @@
 #For request
 STATUS_CHOICES = (
-    ('Pen', 'Pending'),
-    ('Acc', 'Accepted'),
-    ('Dec', 'Declined'),
+    ('Pending', 'Pending'),
+    ('Accepted', 'Accepted'),
+    ('Declined', 'Declined'),
 )
 
 #For messages
 RENT_CHOICES = (
-    ('Rent', 'Rent request'),
-    ('Acc', 'Rent accepted'),
-    ('Dec', 'Rent declined'),
+    ('Rent request', 'Rent request'),
+    ('Rent accepted', 'Rent accepted'),
+    ('Rent declined', 'Rent declined'),
 )
