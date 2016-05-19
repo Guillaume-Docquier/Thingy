@@ -25,7 +25,11 @@ class Request(BaseMessage):
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='Pen')
 
 class PrivateMessage(models.Model):
-    pass
+    author = models.ForeignKey(Account)
+    recipient = models.ForeignKey(Account, related_name='recipient')
+    created_at = models.DateTimeField(auto_now_add=True)
+    body = models.CharField(max_length=2000, blank=True)
+    unread = models.BooleanField(default=True)
 
 
 
