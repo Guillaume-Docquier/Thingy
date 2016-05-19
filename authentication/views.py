@@ -7,13 +7,14 @@ from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
 
-from rest_framework import permissions, viewsets, status, views, generics
+from rest_framework import permissions, viewsets, status, views, generics, filters
 from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
 
 from authentication.models import Account
 from authentication.permissions import IsAccountOwner
 from authentication.serializers import AccountSerializer, AuthorPostSerializer
+from authentication.filters import *
 
 class AuthorPostsViewSet(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -47,6 +48,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
+    filter_class = AccountFilter
 
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
