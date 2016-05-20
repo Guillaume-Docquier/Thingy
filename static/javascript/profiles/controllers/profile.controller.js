@@ -67,6 +67,7 @@
       */
       function getRSuccessFn(data) {
         vm.receivedMessages = data.data.reverse();
+        // Format the date and change the type
         for (var i = 0; i < vm.receivedMessages.length; i++)
           vm.receivedMessages[i].created_at = moment(vm.receivedMessages[i].created_at).format('MMMM Do HH:mm');
         Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);

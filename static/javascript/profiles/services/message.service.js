@@ -51,7 +51,7 @@
       message.unread = false;
       var apiEndpoint;
       switch(message.type) {
-        case 'Rent':
+        case 'Rent request':
           apiEndpoint = 'rentmessages';
           break;
       }
