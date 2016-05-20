@@ -21,7 +21,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'reviewed_user','review_author', 'review_author_image', 'rating', 'rating_details', 'created', 'comment')
+        fields = ('id', 'reviewed_user','review_author', 'rating', 'rating_details', 'created', 'comment')
 
 class ReviewedUserSerializer(serializers.ModelSerializer):
     reviewed_user = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())

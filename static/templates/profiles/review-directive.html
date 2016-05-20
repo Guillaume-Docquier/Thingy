@@ -3,10 +3,9 @@
 				<div class="col-xs-3">
 					<!-- TODOJS get the senders profile picture -->
 			<div id="review__picture" >
-						<!-- <img id="image" ng-src="/media/{{review.author.image}}" class="img-circle img-responsive" alt="Author picture"/> -->
-						<img id="image" src="/static/images/corre.jpg" class="img-resposive"  alt="Image"/>
+						<img id="image" ng-src="/media/{{review.author.image}}" class="img-circle img-responsive" alt="Author picture"/>
 					</div>
-					<p id="review__author">{{review.review_author}}</p>
+					<p id="review__author">{{review.review_author.username}}</p>
 				</div>
 				<div class="col-xs-9">
 					<div class="row">
