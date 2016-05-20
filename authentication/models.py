@@ -1,7 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
-#from review.models import Review
+
+#from review.views import ReviewViewSet
+#import Review
+from django.db.models import Avg
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
@@ -44,7 +47,6 @@ class Account(AbstractBaseUser):
     # The default image is default.png so we should always have it in media/userimages/
     image = models.ImageField(upload_to='userimages/', default='userimages/default.png')
 
-    # _review = models.ForeignKey(Review, null=True, on_delete=models.CASCADE)
 
     objects = AccountManager()
 
@@ -60,21 +62,11 @@ class Account(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
-    # # @property
-    # def review(self):
-    #     return self._review
+    @property
+    def avg_rating(self):
+        from review import models
+        return models.Review.objects.filter(reviewed_user=self.id).aggregate(avg_rating=Avg('rating__rating_grade')).values()
 
-
-
-#
-# class Review(models.Model):
-#     #revieweduser = models.ForeignKey(Account, related_name='reviews')
-#     author = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
-#     rating = models.IntegerField(default=0)
-#     comment = models.CharField(max_length=500)
-#
-#     def __unicode__(self):
-#         return u'%s (%d)' % (self.revieweduser, self.id)
 
 
 class UserImage(models.Model):

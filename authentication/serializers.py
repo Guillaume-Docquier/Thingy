@@ -23,11 +23,13 @@ class AccountSerializer(serializers.ModelSerializer):
     image = Base64ImageField(required=False)
     #image = serializers.ImageField(max_length=None, use_url=True, required=False)
 
+    avg_rating = serializers.ReadOnlyField()
+
     class Meta:
         model = Account
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password', 'confirm_password',
-                    'image')
+                    'image', 'avg_rating')
         read_only_fields = ('created_at', 'updated_at',)
 
     def create(self, validated_data):
@@ -69,52 +71,3 @@ class AuthorPostSerializer(serializers.ModelSerializer):
                   model = UserImage
                   fields = ('url', 'id', 'user', 'image')
                   user = serializers.Field(source='user.username')
-
-
-
-# class SimpleReviewSerializer(serializers.ModelSerializer):
-#     revieweduser = AccountSerializer(read_only=True, required=False)
-#
-#     class Meta:
-#         model = Review
-#         fields = ('id', 'rating', 'revieweduser')
-
-
-#
-# class AccountWithReviews(AccountSerializer):
-#     reviews = SimpleReviewSerializer(read_only=True, required=False, many=True)
-#
-#     class Meta(AccountSerializer.Meta):
-#         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
-#                   'first_name', 'last_name', 'tagline', 'password',
-#                   'confirm_password', 'reviews' , 'image')
-#
-#
-#
-# class ReviewSerializer(serializers.ModelSerializer):
-#     #author = AccountSerializer(read_only=True, required=False)
-#     author = serializers.ReadOnlyField(source = 'author.username')
-#
-#     #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
-#
-#     #revieweduser = AccountSerializer()
-#     #revieweduser = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all(), write_only=True)
-#     #post = PostSerializer(read_only=True, required=False)
-#     #= AccountSerializer()
-#
-#     class Meta:
-#         model = Review
-#         fields = ('id','author' ,'rating', 'comment', 'revieweduser')
-#         read_only_fields = ('id')
-#
-#     #def create(self, validated_data):
-#         #revieweduser_data = validated_data.pop('revieweduser')
-#         #username = Review.objects.create(**validated_data)
-#         #Account.objects.create(username=username, **profile_data)
-#         #return username
-#         #read_only_fields = ('id')
-#
-#     # def get_validation_exclusions(self, *args, **kwargs):
-#     #     exclusions = super(ReviewSerializer, self).get_validation_exclusions()
-#     #
-#     #     return exclusions + ['author']

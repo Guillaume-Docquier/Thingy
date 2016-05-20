@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from thingyproject.views import IndexView
-from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet, PhotoList, PhotoDetail
+from authentication.views import AccountViewSet, LoginView, LogoutView , AuthorPostsViewSet
 from posts.views import AccountPostsViewSet, PostViewSet, CategoryViewSet, SubCategoryViewSet, \
     RegionViewSet, ConditionViewSet, StatusViewSet
 from review.views import ReviewViewSet, ReviewedUserViewSet

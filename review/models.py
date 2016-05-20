@@ -14,6 +14,7 @@ class Review(models.Model):
 
     reviewed_user = models.ForeignKey(Account, related_name='reviewed_user')
     review_author = models.ForeignKey(Account)
+    #review_author_image = Account.image
     created = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=400,blank=True, default='')
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, null=True)
