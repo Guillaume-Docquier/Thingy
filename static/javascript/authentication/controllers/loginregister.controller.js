@@ -9,12 +9,12 @@
     .module('thingy.authentication.controllers')
     .controller('LoginRegisterController', LoginRegisterController);
 
-  LoginRegisterController.$inject = ['$location', '$rootScope', '$scope', 'Authentication'];
+  LoginRegisterController.$inject = ['$location', '$rootScope', '$scope', 'Authentication', 'Profile'];
 
   /**
   * @namespace LoginRegisterController
   */
-  function LoginRegisterController($location, $rootScope, $scope, Authentication) {
+  function LoginRegisterController($location, $rootScope, $scope, Authentication, Profile) {
     var vm = this;
 
     // Functions and data
@@ -96,7 +96,6 @@
     function register() {
       if (!vm.formIsValid())
       {
-        //showErrors();
         alert('Some information is missing.');
         return;
       }
@@ -133,10 +132,23 @@
           if (vm.username.length == 0)
             vm.valid.username = -1;
           else {
-            // TODO
-            // Query db to see if username if free
-            // vm.help.username = 'This username is already in use.'
+            Profile.usernameAvailable(vm.username).then(querySuccessFn, queryErrorFn);
+
+            function querySuccessFn(data) {
+              // Username is in use because it was found
+              if (data.data.length > 0)
+              {
+                vm.help.username = 'This username is already in use.';
+                vm.valid.username = -1;
+              }
+            }
+
+            function queryErrorFn(data) {
+              alert('Error checking availability.');
+              console.error('Error: ' + JSON.stringify(data.data));
+            }
           }
+          if (vm.valid.username != -1) vm.help.username = '';
           break;
         case 'email':
           vm.valid.email = 1;
