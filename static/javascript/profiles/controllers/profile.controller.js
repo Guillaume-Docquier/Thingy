@@ -33,11 +33,11 @@
     vm.valid = {
       recipient: 0,
       body: 0
-    }
+    };
     vm.help = {
       recipient: '',
       body: ''
-    }
+    };
 
     // Bindings
     vm.newMessage = {

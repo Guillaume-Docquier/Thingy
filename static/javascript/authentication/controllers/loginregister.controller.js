@@ -36,7 +36,7 @@
       email: '',
       password: 'Password must contain numbers, lowercase and uppercase letters and be at least 8 characters long.',
       confirm: ''
-    }
+    };
 
     // Bindings
     vm.firstName = '';

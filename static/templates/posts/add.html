@@ -13,55 +13,63 @@
 			<div class="col-sm-2">
 			</div> <!--col-sm-2-->
 			<div class="col-sm-4">
-				<div class="form-group">
+				<div class="form-group" ng-class="{'has-success': vm.valid.title == 1, 'has-error': vm.valid.title == -1}">
 				  <label for="thingy__title">Title of Thingy</label>
-				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" placeholder="" />
+				  <input type="text" class="form-control input-xs" id="thingy__title" ng-model="vm.title" ng-blur="vm.validate('title')" placeholder="" />
+					<span class="help-block">{{vm.help.title}}</span>
 				</div>
 
-				  <div class="form-group">
-					<label for="thingy__category">Category</label>
-					<select class="form-control" id="thingy__category" ng-model="vm.category" ng-options="category.cname for category in vm.categories">
-					  <option value="">- Required -</option>
-					</select>
+				  <div class="form-group" ng-class="{'has-success': vm.valid.category == 1, 'has-error': vm.valid.category == -1}">
+						<label for="thingy__category">Category</label>
+						<select class="form-control" id="thingy__category" ng-model="vm.category" ng-blur="vm.validate('category')" ng-options="category.cname for category in vm.categories">
+						  <!-- <option value="">- Required -</option> -->
+						</select>
+						<span class="help-block">{{vm.help.category}}</span>
 				  </div>
 
-				  <div class="form-group">
-					<label for="thingy__subcategory">Sub-Category</label>
-					<select class="form-control" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
-					  <option value="">- None -</option>
-					</select>
+				  <div class="form-group" ng-class="{'has-success': vm.valid.subcategory == 1, 'has-error': vm.valid.subcategory == -1}">
+						<label for="thingy__subcategory">Sub-Category</label>
+						<select class="form-control" id="thingy__subcategory" ng-model="vm.subcategory" ng-blur="vm.validate('subcategory')" ng-options="subcategory.name for subcategory in vm.category.subcategories">
+						  <!-- <option value="">- None -</option> -->
+						</select>
+						<span class="help-block">{{vm.help.subcategory}}</span>
 				  </div>
 
-				  <div class="form-group">
-					<label for="thingy__region">Region</label>
-					<select class="form-control" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
-					</select>
+				  <div class="form-group" ng-class="{'has-success': vm.valid.region == 1, 'has-error': vm.valid.region == -1}">
+						<label for="thingy__region">Region</label>
+						<select class="form-control" id="thingy__region" ng-model="vm.region" ng-blur="vm.validate('region')" ng-options="region.name for region in vm.regions">
+						</select>
+						<span class="help-block">{{vm.help.region}}</span>
 				  </div>
 
-				  <div class="form-group">
-					<label for="thingy__subregion">Town</label>
-					<select class="form-control" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
-					</select>
+				  <div class="form-group" ng-class="{'has-success': vm.valid.subregion == 1, 'has-error': vm.valid.subregion == -1}">
+						<label for="thingy__subregion">Town</label>
+						<select class="form-control" id="thingy__subregion" ng-model="vm.subregion" ng-blur="vm.validate('subregion')" ng-options="subregion.name for subregion in vm.region.towns">
+						</select>
+						<span class="help-block">{{vm.help.subregion}}</span>
 				  </div>
 
-				<div class="form-group">
+				<div class="form-group" ng-class="{'has-success': vm.valid.price == 1, 'has-error': vm.valid.price == -1}">
 				  <label for="thingy__price">Price per day</label>
 				  <div class="input-group">
-					<input type="text" class="form-control" id="thingy__price" ng-model="vm.price" placeholder="">
-					<span class="input-group-addon">SEK</span>
+						<input type="text" class="form-control" id="thingy__price" ng-model="vm.price" ng-blur="vm.validate('price')" placeholder="">
+						<span class="input-group-addon">SEK</span>
 				  </div>
+					<span class="help-block">{{vm.help.price}}</span>
 				</div>
 
-				<div class="form-group">
-			      <label for="thingy__condition">Condition</label>
-			      <select class="form-control" id="thingy__condition" ng-model="vm.condition" ng-options="condition.cond_desc for condition in vm.conditions">
-				    <option value="">- Required -</option>
-			      </select>
-			    </div>
+				<div class="form-group" ng-class="{'has-success': vm.valid.condition == 1, 'has-error': vm.valid.condition == -1}">
+		      <label for="thingy__condition">Condition</label>
+		      <select class="form-control" id="thingy__condition" ng-model="vm.condition" ng-blur="vm.validate('condition')" ng-options="condition.cond_desc for condition in vm.conditions">
+			    	<!-- <option value="">- Required -</option> -->
+		      </select>
+					<span class="help-block">{{vm.help.condition}}</span>
+			  </div>
 
-				<div class="form-group">
+				<div class="form-group" ng-class="{'has-success': vm.valid.description == 1, 'has-error': vm.valid.description == -1}">
 				  <label for="thingy__description">Description of your Thingy</label>
-				  <textarea type="text" class="form-control" rows="8" id="thingy__description" ng-model="vm.description" placeholder="" />
+				  <textarea type="text" class="form-control" rows="8" id="thingy__description" ng-model="vm.description" ng-blur="vm.validate('description')" placeholder="" />
+					<span class="help-block">{{vm.help.description}}</span>
 				</div>
 
 		</div> <!-- /col-sm-4 -->
