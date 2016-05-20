@@ -6,35 +6,61 @@
     		<div class="col-xs-5 col-sm-3" id="image__column__searchpanel">
     		          <img id='box' ng-src='media/{{thingy.image}}'></img>
     		</div>
-    		<div class="col-xs-3 col-sm-5">
-    			<div id="posttitle">
-    				<h5>{{thingy.title}}</h5>
-    			</div>
-    		</div> <!-- /col-xs-6-->
-    		<div class="col-xs-4 col-sm-4">
-				 <div id="price">
-				<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
-			  </div>
-          </div>
-    	</div> <!-- /row -->
-      <div class="row">
-        <div class="col-xs-5 col-sm-3" >
+    		<div class="col-xs-7 col-sm-9">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6">
+						<div id="posttitle">
+							<h5>{{thingy.title}}</h5>
+						</div>
+					</div> <!-- /col-xs-6-->
+					<div class="col-xs-6 col-sm-6">
+					  <div id="price">
+						<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
+					  </div>
+					</div><!-- /col-xs-4 -->
+			    </div> <!-- /row -->
+			
+			  <div class="row">
 
-        </div> <!-- /col-xs-4 -->
-        <div class="col-xs-3 col-sm-5">
-		      <div class="hidden-xs">
-            <div id="condition">
-              <p>Condition: {{thingy.condition_details.cond_desc}}</p>
-            </div>
-          </div>
-          <div id="location">
-            <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}</p>
-          </div>
-        </div> <!-- /col-xs-4 -->
-        <div class="col-xs-4 col-sm-4">
-
-        </div><!-- /col-xs-4 -->
-      </div> <!-- /row -->
-    </div>
-  </div>
+				<div class="col-xs-12 col-sm-12">
+					  <div class="hidden-xs">
+						<div id="condition">
+						  <p>Condition: {{thingy.condition_details.cond_desc}}</p>
+						</div>
+					 </div>
+					<div id="location">
+						<p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}</p>
+					</div>
+				</div> <!-- /col-xs-12 -->
+			  </div> <!-- /row -->
+			  
+			  <div class="row hidden-xs" id="description__row">
+				  <div class="col-xs-12" id="description_column" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+					  <!-- /MAKE THIS WORK IN MOBILE FORMAT(REMOVE IT) -->
+					<span>{{thingy.description}}</span>
+				  </div>
+			  </div><!-- /row -->
+			  
+			  <div id="suppliername" class="row">
+				  <div class="col-xs-12">
+					 <div >
+						<p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p>
+					  </div>
+						  <div id="reviews">
+							<p>
+							  <!-- <img ng-src="static/images/rating_{{vm.post.author.average_rating}}.png"/> -->
+							  <span class="glyphicon glyphicon-star yellow"></span>
+							  <span class="glyphicon glyphicon-star yellow"></span>
+							  <span class="glyphicon glyphicon-star yellow"></span>
+							  <span class="glyphicon glyphicon-star"></span>
+							  <span class="glyphicon glyphicon-star"></span>
+							</p>
+						</div>
+						</div>
+			  </div><!-- /row -->
+		  
+			</div><!-- /col-xs-7 -->
+		</div><!--/row-->
+  </div><!--/panel-body-->
+  </div><!--/search_panel-->
 </div> <!-- /container-fluid -->

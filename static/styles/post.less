@@ -7,10 +7,15 @@
 	}
 }
 
+#post-directive__post {
+	margin-top: 1em;
+}
+
 #manage__post a {
 	color: @standard-text-color-light;
    display: block;
-   text-align: center;
+   text-align: right;
+   margin-right: 1em;
 }
 
 #box{
@@ -68,6 +73,11 @@
 	.p_in_post;
 }
 
+#suppliername row {
+	margin-top: 2em;
+}
+
+
 #SEKday {
 	color: white;
 	.p_in_post;
@@ -85,4 +95,19 @@
 
  	background-color: @panel-add-color;
 	border-radius: 5px;
+}
+
+#description__row{
+	position:relative;
+    width:300px;
+    @media (min-width: @screen-md) {
+	width:500px;
+	}
+
+}
+
+#description_column{
+    max-width:80%;
+    float:left;
+    .p_in_post;
 }
