@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 
-from django.db.models import Count
+from django.db.models import Count, Avg
 from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
@@ -15,6 +15,8 @@ from authentication.models import Account
 from authentication.permissions import IsAccountOwner
 from authentication.serializers import AccountSerializer, AuthorPostSerializer
 from authentication.filters import *
+
+from review.models import *
 
 class AuthorPostsViewSet(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -99,6 +101,15 @@ class AccountViewSet(viewsets.ModelViewSet):
         result = self.get_queryset().filter(id=username).filter(posts__basemessage__rentmessage__unread=True).annotate(
             count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
         return Response(result)
+
+    @detail_route()
+    def avg_review(self, request, username=None):
+
+        average = Review.objects.filter(reviewed_user=username).aggregate(rating=Avg('rating__rating_grade')).values()
+        #result = self.get_queryset().filter(id=username).annotate(
+        #    average_rating=int(average['rating'])).values()
+        # result = Review.objects.filter(reviewed_user=1).annotate(rating=Avg('rating__rating_grade')).values()
+        return Response(average)
 
     # @list_route()
     # def unread(self, request):
