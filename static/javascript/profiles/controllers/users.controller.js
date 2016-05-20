@@ -140,7 +140,7 @@
         alert('Review created!');
         var review = {
           reviewed_user: vm.profile.id,
-          review_author: Authentication.getAuthenticatedAccount().username,
+          review_author: Authentication.getAuthenticatedAccount(),
           comment: vm.description,
           created: moment().format('MMMM Do HH:mm'),
           rating_details: {
