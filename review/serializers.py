@@ -26,6 +26,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     rating_details = RatingSerializer(source='rating', read_only=True, required=False)
     rating = serializers.PrimaryKeyRelatedField(queryset=Rating.objects.all(), write_only=True)
 
+
     class Meta:
         model = Review
         fields = ('id', 'reviewed_user','review_author', 'review_author_image', 'rating', 'rating_details', 'created', 'comment')
