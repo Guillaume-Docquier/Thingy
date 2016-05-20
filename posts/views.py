@@ -125,19 +125,6 @@ class TownViewSet(viewsets.ViewSet):
         return super(TownViewSet, self).perform_create(serializer)
 
 
-# class PostReviewViewSet(viewsets.ViewSet):
-#     queryset = PostReview.objects.all()
-#     serializer_class = PostReviewSerializer
-#
-#     def list(self, request):
-#         queryset = PostReview.objects.all()
-#         serializer = self.serializer_class(queryset, many=True)
-#         return Response(serializer.data)
-#
-#     def create(self, serializer):
-#         instance = serializer.save(author=self.request.user)
-#         return super(PostReviewViewSet, self).perform_create(serializer)
-
 
 
 class ConditionViewSet(viewsets.ViewSet):

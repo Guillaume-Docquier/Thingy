@@ -62,28 +62,4 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
-# class Post_rating(models.Model):
-#     postID = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-#     avg_rating = models.IntegerField(default=0)
-#     nr_of_ratings = models.IntegerField(default=0)
-#
-#     def __unicode__(self):
-#         return '{0}'.format(self.content)
-
-    # # @property
-    # def reviews(self):
-    #     return self.postreview_set.all()
-
-# class PostReview(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-#     rating = models.IntegerField(default=0)
-#     comment = models.CharField(max_length=500)
-#     reviewauthor = models.ForeignKey(Account, null=True)
-#     def __unicode__(self):
-#         return u'%s (%d)' % (self.post, self.id)
-
-
-class PostImage(models.Model):
-    post = models.ForeignKey(Post)
-    image = models.ImageField(max_length = None,  upload_to='Images', default = 'Images/None-No-img.jpg')
 

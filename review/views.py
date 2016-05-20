@@ -6,6 +6,7 @@ from authentication.models import Account
 from review.permissions import IsAuthorOfReview
 from rest_framework import filters
 from review.filters import *
+from django.db.models import Avg, Max, Min
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -25,17 +26,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         instance = serializer.save(review_author=self.request.user)
         return super(ReviewViewSet, self).perform_create(serializer)
-
-    # def calculate_avg(id):
-    #     querylist = list(Review.objects.filter(reviewed_user = id))
-    #     avg = 0;
-    #     for i in querylist:
-    #         print (i)
-    #         avg = avg + i.rating
-    #     avg = avg/len(querylist);
-    #     return avg
-    #
-    # print (calculate_avg(1))
 
 class ReviewedUserViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
