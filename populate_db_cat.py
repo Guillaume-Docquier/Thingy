@@ -16,14 +16,14 @@ django.setup()
 from posts.models import Category, Subcategory
 
 def populate():
-	category_list = ["MOTORS", "HOME & GARDEN" , "BEAUTY, HEALTH & GROCERIES" , "ELECTRONICS" , "LEISURE & HOBBIES" , "BUSINESS", "OTHERS" ]
+	category_list = ["Automotive", "Home and garden" , "Beauty and health" , "Electronics" , "Leisure and hobbies" , "Business", "Others" ]
 	subcategory_list = [
-["Cars ", "Caravans" , "Truck & Construction" , "Auto Parts & Accessories", "Mopeds" , "Forest - & Agricultural Machinery" , "Boats" , "Motorcycles" , "Snowmobiles","Boat parts & Accessories","Motorcycle parts & Accessories "],
-["Building & garden" , "Furniture & Home Furnishings" , "Household & Appliances", "Tools"],
-["Clothes & Footwear" , "Accessories & Watches" , "Children 's Clothing & Shoes" ,"Toys"],
-["Computer & Video Games" , "Sound & Vision" , "Phones & Accessories"],
-["Tickets" , "Pets", "Musical Equipment" , "Travel" , "Hobbies & Collectibles" , "Sports & Leisure" , "Books & Student Literature" , "Horses & Equestrian" , "Bicycles" , "Hunting & Fishing"],
-["Business Acquisitions " , "Equipment & Machines" , "Commercial & Real Estate" , "Services" ],
+["Cars ", "Caravans", "Truck and Construction", "Auto Parts and Accessories", "Mopeds", "Forest - and Agricultural Machinery", "Boats", "Motorcycles", "Snowmobiles", "Boat parts and Accessories", "Motorcycle parts and Accessories "],
+["Building and garden", "Furniture and Home Furnishings" , "Household and Appliances", "Tools"],
+["Clothes and Footwear", "Accessories and Watches", "Children's Clothing and Shoes", "Toys"],
+["Computer and Video Games" , "Audio and Video" , "Phones and Accessories"],
+["Tickets" , "Pets", "Musical Equipment" , "Travel" , "Hobbies and Collectibles" , "Sports and Leisure" , "Books and Student Literature" , "Horses and Equestrian" , "Bicycles" , "Hunting and Fishing"],
+["Business Acquisitions " , "Equipment and Machines" , "Commercial and Real Estate" , "Services" ],
 ["Others"]
 ]
 
