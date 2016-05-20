@@ -94,5 +94,3 @@ class PostSerializer(serializers.ModelSerializer):
         exclusions = super(PostSerializer, self).get_validation_exclusions()
 
         return exclusions + ['author']
-
-

@@ -23,11 +23,13 @@ class AccountSerializer(serializers.ModelSerializer):
     image = Base64ImageField(required=False)
     #image = serializers.ImageField(max_length=None, use_url=True, required=False)
 
+    avg_rating = serializers.ReadOnlyField()
+
     class Meta:
         model = Account
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'tagline', 'password', 'confirm_password',
-                    'image')
+                    'image', 'avg_rating')
         read_only_fields = ('created_at', 'updated_at',)
 
     def create(self, validated_data):

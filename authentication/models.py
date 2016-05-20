@@ -3,6 +3,8 @@ from django.contrib.auth.models import BaseUserManager
 from django.db import models
 
 #from review.views import ReviewViewSet
+#import Review
+from django.db.models import Avg
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
@@ -60,9 +62,11 @@ class Account(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
-    # # @property
-    # def rating(self):
-    #     return calculate_avg(self.id)
+    @property
+    def avg_rating(self):
+        from review import models
+        return models.Review.objects.filter(reviewed_user=self.id).aggregate(avg_rating=Avg('rating__rating_grade')).values()
+
 
 
 class UserImage(models.Model):

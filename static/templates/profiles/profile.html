@@ -29,24 +29,23 @@
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
 					<!-- TODOJS add hometown? Should we have this -->
+<!--
 					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
-					<h6>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					  <span class="glyphicon glyphicon-star yellow"></span>
-					</h6>
+-->
+          <h5>
+            <!-- <img ng-src="static/images/rating_{{vm.profile.average_rating}}.png"/> -->
+            <img id="image__rating__profile" ng-src="static/images/rating_{{vm.averageRating}}.png"/>
+          </h5>
 					<div class="hidden-xs" >
-						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
-						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary" data-toggle="modal" data-target="#createReview">Create review</button>			
+						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary col-xs-12" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a>
+						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary col-xs-12"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary col-xs-12" data-toggle="modal" data-target="#createReview">Create review</button>
 					</div>
 				</div>
 			</div> <!-- /row --->
 			</div> <!-- cliente -->
 		</div> <!-- /col-sm-3 -->
-		
+
 					<div id="createReview" class="modal fade" role="dialog">
 								<div id="modal-dialog__createReview" class="modal-dialog">
 									<div class="modal-content">
@@ -58,45 +57,32 @@
 									  <div class="modal-body">
 										<div class="form-group">
 										  <label for="reviewTextBody">Describe your over all experience with {{ vm.profile.username }} and the rented thingy</label>
-										  <textarea type="text" class="form-control" id="reviewTextBody" rows="8"  ng-model="" placeholder="" />
+										  <textarea type="text" class="form-control" id="reviewTextBody" rows="8"  ng-model="vm.description" placeholder="" />
 										</div><!--form-group-->
-										
-										 <label for="starRating">Rate  {{ vm.profile.username }} </label>
+
+										<label for="starRating">Rate  {{ vm.profile.username }} </label>
 										<form id="starRating" role="form">
-											<label class="radio-inline">
-											  <input type="radio" name="optradio">1
+											<label ng-repeat="rating in vm.ratings" class="radio-inline">
+											  <input type="radio" name="optradio" ng-model="vm.rating" ng-value=rating>{{rating}}
 											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="optradio">2
-											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="optradio">3
-											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="optradio">4
-											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="optradio">5
-											</label>
-										  </form>
-										
+										</form>
+
 									  </div><!--/modal-body-->
 
 									  <div class="modal-footer">
-										 <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="">Submit</button>
+										 <button type="submit" class="btn btn-default" data-dismiss="modal" ng-click="vm.createReview()">Submit</button>
 									  </div><!--modal-footer-->
 								  </div><!--modal-content-->
 							  </div><!--modal-dialog-->
 							</div><!--modal-fade-->
-		
+
 		<div class="col-sm-7">
 			<div class="row">
-				
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
-					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNum>{{vm.unreadNum}}</span></a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNumber>{{vm.unreadNumber}}</span></a></li>
 					</ul>
 
 				</div><!-- col-xs-12 -->
@@ -106,57 +92,25 @@
 				  <div id="thingies__tab" class="tab-pane fade in active">
 					  <!-- Manage my Thingies: Remove/change ad -->
 						<div ng-repeat='thingy in vm.posts'>
-							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy"></post></a>
+							<a href="thingies/details/{{thingy.id}}"><post thingy="thingy" owned="{{vm.isOwner}}"></post></a>
 						</div>
 				  </div> <!-- /thingies__tab -->
 
-				  <div id="reviews__tab" class="tab-pane fade">			  			
-						<div id="reviewbox" class="row">
-							<div class="col-xs-3">
-								<!-- TODOJS get the senders profile picture -->
-								<img src="/static/images/felicia.jpg" class="img-circle img-responsive" alt="Image"/>
-								<p>Reviewers name</p>
-							</div>
-							<div class="col-xs-9">
-								<div class="row">
-									<div class="col-xs-7">
-										<h5>					
-										  <span class="glyphicon glyphicon-star yellow"></span>
-										  <span class="glyphicon glyphicon-star yellow"></span>
-										  <span class="glyphicon glyphicon-star yellow"></span>
-										  <span class="glyphicon glyphicon-star yellow"></span>
-										  <span class="glyphicon glyphicon-star yellow"></span>
-										</h5>
-									</div>
-									<!-- TODOJS make date/time work? -->
-									<div class="col-xs-5">
-										12 may 11.15pm
-									</div>
-								</div> <!-- /row -->
-								<div class="row">
-									<div class="col-xs-12">
-										<p>Morbi hendrerit enim ut quam sollicitudin, quis lobortis felis dapibus. Praesent placerat, 
-										quam vel maximus fermentum, diam augue tristique orci, vitae accumsan nisi ipsum eu dolor. Etiam congue, 
-										nunc et interdum congue, tellus ligula tincidunt eros, quis ullamcorper dolor urna ut tortor. Fusce ac c
-										ommodo ligula, quis pharetra ipsum. Sed felis ligula, auctor id lacinia sed, fermentum sit amet mauris. Done
-										c vel dictum sapien, ac tristique nulla. Maecenas dignissim, eros sed laoreet malesuada, turpi
-										s turpis dictum purus, ac sollicitudin libero lacus eget diam.</p>
-									</div>
-								</div> <!-- /row -->
-							</div> <!-- /col-xs-10 -->
-						</div> <!-- /row -->
-
+				  <div id="reviews__tab" class="tab-pane fade">
+            <div ng-repeat='review in vm.reviews'>
+              <review review="review"></review>
+            </div>
 				  </div> <!-- /reviews__tab -->
-				 
+
 
 				  <div id="messages__tab" class="tab-pane fade">
 					  <div class="row">
-						<div class="col-xs-12 col-sm-12 form-group">
-						<br>
-							<button type="button" id="" class="btn btn-default" data-toggle="modal" data-target="#myModal">New message</button>
-						</div><!--/col-xs-12 col-sm-12-->
+						<div class="col-xs-9"></div>
+						<div class="col-xs-3 form-group">
+							<button type="button" id="btn__new__message" class="btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> New message</button>
+						</div>
 					</div> <!-- /row -->
-					
+
 					<div id="myModal" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -185,7 +139,7 @@
 					</div><!--modal-fade-->
 
 					<div ng-repeat='message in vm.receivedMessages'>
-						<message message="message"></message>
+						<message message="message" ng-click="vm.markAsRead(message)"></message>
 					</div>
 				</div> <!-- /messages__tab -->
 
@@ -196,5 +150,3 @@
 </div> <!-- /container-fluid -->
 
 </div>
-
-

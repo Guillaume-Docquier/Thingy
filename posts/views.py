@@ -22,11 +22,11 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.order_by('-created_at')
     serializer_class = PostSerializer
 
-    filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter, filters.SearchFilter)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
     filter_class = PostFilter
     ordering_fields = ('title', 'price', 'created_at')
 
-    search_fields = ('title', 'description', 'location')
+    search_fields = ('title', 'description',  )
 
     def get_serializer_class(self):
         return  PostSerializer

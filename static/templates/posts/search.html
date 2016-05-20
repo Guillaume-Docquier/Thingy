@@ -11,7 +11,7 @@
 			<div class="col-sm-2">
 			</div> <!-- /col-sm-2 -->
 
-			<div class="col-sm-4">
+			<div class="col-sm-4" id="thingy_search_column">
 <!--
 				<div id="search" class="tab-pane fade in active">
 -->
@@ -22,28 +22,36 @@
 					</div>
 
 					<div class="form-group">
+						<label for="thingy__region">Region</label>
+						<select class="form-control input-sm" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
+						<option value="">All regions</option>
+						</select>
+					</div>
+
+					<div class="form-group">
 						<label for="thingy__category">Category</label>
 						<select class="form-control input-sm" id="thingy__category" ng-model="vm.category" ng-options="category.cname for category in vm.categories">
 						  <option value="">All categories</option>
 						</select>
-					  </div>
+					</div>
 
+
+					<div class="form-group hidden-xs">
+						  <button type="submit" class="btn btn-default">Search</button>
+					</div>
+
+
+
+
+			</div> <!-- /col-sm-4 -->
+
+				<div class="col-sm-4">
 					<div id="formgroup__advsearch" class="form-group">
-
 						<div class="span4 collapse-group">
 						    <div class="collapse" ng-class="{'in': vm.advanced.status}" id="advancedSearch">
 
-
-								  <div id="formgroup__advsearch1" class="form-group">
-									<label for="thingy__subcategory">Sub-Category</label>
-									<select class="form-control input-sm" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
-									  <option value="">All sub-categories</option>
-									</select>
-								  </div>
-
-								 <div class="row">
+									<div class="row">
 									  <div class="col-xs-6">
-
 											<div class="form-group">
 											  <label for="thingy__price__from">Price From</label>
 											  <div class="input-group">
@@ -64,20 +72,19 @@
 									  </div> <!-- col-xs-6-->
 								 </div> <!-- /row -->
 
-								  <div class="form-group">
-									<label for="thingy__region">Region</label>
-									<select class="form-control input-sm" id="thingy__region" ng-model="vm.region" ng-options="region.name for region in vm.regions">
-									<option value="">All regions</option>
-									</select>
-								  </div>
-
-								  <div class="form-group">
+								 <div class="form-group">
 									<label for="thingy__subregion">Town</label>
 									<select class="form-control input-sm" id="thingy__subregion" ng-model="vm.subregion" ng-options="subregion.name for subregion in vm.region.towns">
 									<option value="">All towns</option>
 									</select>
 								  </div>
 
+								  <div id="formgroup__advsearch1" class="form-group">
+									<label for="thingy__subcategory">Sub-Category</label>
+									<select class="form-control input-sm" id="thingy__subcategory" ng-model="vm.subcategory" ng-options="subcategory.name for subcategory in vm.category.subcategories">
+									  <option value="">All sub-categories</option>
+									</select>
+								  </div>
 
 								<div class="form-group">
 								  <label for="thingy__condition">Condition</label>
@@ -85,62 +92,44 @@
 									<option value="">All conditions</option>
 								  </select>
 								</div>
-
+								</div> <!-- /col-sm-4 -->
 							</div>
-							    <p>
-									<div class="AdvancedSearch__style">
-										  <button class="AdvancedSearch" type="button" data-toggle="collapse"
-										  data-target="#advancedSearch" aria-expanded="{{vm.advanced.status}}"
-										  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
-									</div>
-								</p>
 							</div>
-					</div> <!--/form-group-->
+					   <p>
+							<div class="AdvancedSearch__style">
+								  <button class="AdvancedSearch" type="button" data-toggle="collapse"
+								  data-target="#advancedSearch" aria-expanded="{{vm.advanced.status}}"
+								  aria-controls="collapseExample" ng-click="vm.toggleAdvanced()">{{vm.advanced.text}}</button>
+							</div>
+						</p>
 
-					<div class="form-group">
-						  <button type="submit" class="btn btn-default">Search</button>
-					</div>
+						<div class="form-group visible-xs">
+							  <button type="submit" class="btn btn-default">Search</button>
+						</div>
+
 			  </form>
-
-			<div id="searchresult"><h3>Search Results</h3></div>
-
-			<div ng-repeat='thingy in vm.posts'>
-				<div class="clickable">
-				  <post-overview thingy="thingy" ng-click="vm.selection(thingy)"></post-overview>
-				</div>
-			</div>
-
-			<div ng-show="vm.posts.length == 0">
-				No Thingies matched your search. Try searching something less specific.
-			</div>
-
-		</div> <!-- /col-sm-4 -->
-
-		<!-- TODOJS make the map work -->
-		<div class="col-sm-4"  ng-show="vm.selectedPost">
-			<div class= "fixed col-sm-4" >
-                <div class="hidden-xs">
-                    <div class="unclickable">
-                      <post thingy="vm.selectedPost"></post>
-                    </div>
-                    <div class="form-group">
-                        <a href={{'thingies/details/'+vm.selectedPost.id}}><button type="button" class="btn btn-default">Rent/Read more</button></a>
-                    </div>
-                    <p>
-                       <iframe
-                            width="100%"
-                            height="200px"
-                            frameborder="0" style="border:0"
-														src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc &q= Stockholm,Sweden"
-														allowfullscreen>
-                        </iframe>
-                    </p>
-                </div>
-			</div>
-		</div> <!-- /col-sm-4 -->
-
+	    </div> <!-- /col-sm-8 -->
 		<div class="col-sm-2">
 		</div> <!-- /col-sm-2 -->
-
 	</div> <!-- /row -->
+
+
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<div id="searchresult"><h3>Search Results</h3></div>
+
+				<div ng-repeat='thingy in vm.posts'>
+					<a href="/thingies/details/{{thingy.id}}">
+					  <post-overview thingy="thingy" ng-click="vm.selection(thingy)"></post-overview>
+					</a>
+				</div>
+
+				<div ng-show="vm.posts.length == 0">
+					No Thingies matched your search. Try searching something less specific.
+				</div>
+			</div>
+		<div class="col-sm-2"></div>
+
+	</div><!-- /row-->
 </div> <!-- /container-fluid -->

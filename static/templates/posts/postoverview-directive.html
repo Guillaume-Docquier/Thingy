@@ -1,21 +1,27 @@
 <!-- The directive is rendered before being inserted so we need a container here -->
 <div class="container-fluid">
-  <div class="panel panel-default post" >
+  <div id="search__panel" class="panel panel-default post" >
     <div class="panel-body">
 	    <div class="row">
-    		<div class="col-xs-3"></div>
-    		<div class="col-xs-6">
+    		<div class="col-xs-5 col-sm-3" id="image__column__searchpanel">
+    		          <img id='box' ng-src='media/{{thingy.image}}'></img>
+    		</div>
+    		<div class="col-xs-3 col-sm-5">
     			<div id="posttitle">
     				<h5>{{thingy.title}}</h5>
     			</div>
     		</div> <!-- /col-xs-6-->
-  		  <div class="col-xs-3"></div>
+    		<div class="col-xs-4 col-sm-4">
+				 <div id="price">
+				<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
+			  </div>
+          </div>
     	</div> <!-- /row -->
       <div class="row">
-        <div class="col-xs-3" id="">
-          <img id='box' ng-src='media/{{thingy.image}}'></img>
+        <div class="col-xs-5 col-sm-3" >
+
         </div> <!-- /col-xs-4 -->
-        <div class="col-xs-5">
+        <div class="col-xs-3 col-sm-5">
 		      <div class="hidden-xs">
             <div id="condition">
               <p>Condition: {{thingy.condition_details.cond_desc}}</p>
@@ -25,10 +31,8 @@
             <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}</p>
           </div>
         </div> <!-- /col-xs-4 -->
-        <div class="col-xs-4">
-          <div id="price">
-            <p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
-          </div>
+        <div class="col-xs-4 col-sm-4">
+
         </div><!-- /col-xs-4 -->
       </div> <!-- /row -->
     </div>

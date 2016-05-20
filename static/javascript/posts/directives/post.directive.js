@@ -21,7 +21,8 @@
     var directive = {
       restrict: 'E',
       scope: {
-        thingy: '='
+        thingy: '=',
+        owned: '@'
       },
       templateUrl: '/static/templates/posts/post-directive.html'
     };

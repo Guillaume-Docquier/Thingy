@@ -5,15 +5,16 @@
     .module('thingy.posts.services')
     .service('Posts', Posts);
 
-  Posts.$inject = ['$http'];
+  Posts.$inject = ['$http', 'Authentication'];
 
-  function Posts($http) {
+  function Posts($http, Authentication) {
     var vm = this;
 
     vm.getAllCategories = getAllCategories;
     vm.getAllRegions = getAllRegions;
     vm.getAllConditions = getAllConditions;
     vm.add = add;
+    vm.update = update;
     vm.getAllPosts = getAllPosts;
     vm.getSinglePost = getSinglePost;
     vm.getUserPosts = getUserPosts;
@@ -43,6 +44,19 @@
     // Adds a new post
     function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
       return $http.post('/api/v1/posts/', {
+        title: title,
+        description: description,
+        price: price,
+        condition: conditionID,
+        subcategory: subcategoryID,
+        location: subregionID,
+        image: image64
+      });
+    }
+
+    // Updates a post
+    function update(id, title, description, price, conditionID, subcategoryID, subregionID, image64) {
+      return $http.put('/api/v1/posts/' + id + '/', {
         title: title,
         description: description,
         price: price,
@@ -96,12 +110,13 @@
     }
 
     // Sends a rent request/reply (request,accept,decline)
-    function rent(userId, postId, request, period, message) {
-      return $http.post('api/v1/posts/' + postId + '/rent/', {
-        userId: userId,
-        request: request,
-        period: JSON.stringify(period),
-        message: message
+    function rent(postId, period, message) {
+      return $http.post('api/v1/requests/', {
+        start_date: period.start,
+        end_date: period.end,
+        body: message,
+        rentee: Authentication.getAuthenticatedAccount().id,
+        thingy: postId
       });
     }
   }

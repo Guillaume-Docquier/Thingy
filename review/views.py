@@ -27,11 +27,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
         instance = serializer.save(review_author=self.request.user)
         return super(ReviewViewSet, self).perform_create(serializer)
 
-    # def calculate_avg(id):
-    #     return Review.objects.filter(reviewed_user = id).aggregate(rating=Avg('rating__rating_grade'))
-    #
-    # print calculate_avg(3)
-
 class ReviewedUserViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = ReviewedUserSerializer

@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             name='RentMessage',
             fields=[
                 ('basemessage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='message.BaseMessage')),
-                ('type', models.CharField(choices=[(b'Rent', b'Rent request'), (b'Acc', b'Rent accepted'), (b'Dec', b'Rent declined')], default='Rent', max_length=4)),
+                ('type', models.CharField(choices=[(b'Rent request', b'Rent request'), (b'Rent accepted', b'Rent accepted'), (b'Rent declined', b'Rent declined')], default='Rent request', max_length=13)),
             ],
             bases=('message.basemessage',),
         ),
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             name='Request',
             fields=[
                 ('basemessage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='message.BaseMessage')),
-                ('status', models.CharField(choices=[(b'Pen', b'Pending'), (b'Acc', b'Accepted'), (b'Dec', b'Declined')], default='Pen', max_length=3)),
+                ('status', models.CharField(choices=[(b'Pending', b'Pending'), (b'Accepted', b'Accepted'), (b'Declined', b'Declined')], default='Pending', max_length=8)),
             ],
             bases=('message.basemessage',),
         ),

@@ -2,16 +2,21 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 
+from django.db.models import Count, Avg
 from django.db.models.query_utils import Q
 
 from rest_framework.views import APIView
 
-from rest_framework import permissions, viewsets, status, views, generics
+from rest_framework import permissions, viewsets, status, views, generics, filters
 from rest_framework.response import Response
+from rest_framework.decorators import list_route, detail_route
 
 from authentication.models import Account
 from authentication.permissions import IsAccountOwner
 from authentication.serializers import AccountSerializer, AuthorPostSerializer
+from authentication.filters import *
+
+from review.models import *
 
 class AuthorPostsViewSet(viewsets.ViewSet):
     queryset = Account.objects.all()
@@ -45,6 +50,9 @@ class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
+    filter_class = AccountFilter
 
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
@@ -87,6 +95,22 @@ class AccountViewSet(viewsets.ModelViewSet):
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+    @detail_route()
+    def unread(self, request, username=None):
+        result = self.get_queryset().filter(id=username).filter(posts__basemessage__rentmessage__unread=True).annotate(
+            count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
+        return Response(result)
+
+    @detail_route()
+    def avg_review(self, request, username=None):
+
+        average = Review.objects.filter(reviewed_user=username).aggregate(rating=Avg('rating__rating_grade')).values()
+        #result = self.get_queryset().filter(id=username).annotate(
+        #    average_rating=int(average['rating'])).values()
+        # result = Review.objects.filter(reviewed_user=1).annotate(rating=Avg('rating__rating_grade')).values()
+        return Response(average)
 
 
     def get_queryset(self):
@@ -140,4 +164,3 @@ class LogoutView(views.APIView):
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
-

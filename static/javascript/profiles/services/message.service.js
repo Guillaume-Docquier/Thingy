@@ -18,14 +18,16 @@
     var vm = this;
 
     vm.sendMessage = sendMessage;
+    vm.markAsRead = markAsRead;
     vm.getReceivedMessages = getReceivedMessages;
     vm.getSentMessages = getSentMessages;
+    vm.getUnreadNumber = getUnreadNumber;
 
 
     /**
-    * @name getReceivedMessages
-    * @desc Get all received messages of a user
-    * @param {string} id The id of the user
+    * @name sendMessage
+    * @desc Send a private message
+    * @param {}
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
@@ -37,6 +39,25 @@
       });
     }
 
+
+    /**
+    * @name markAsRead
+    * @desc Mark the message as read
+    * @param {Object} message The message to mark as read
+    * @returns {Promise}
+    * @memberOf thingy.messages.services.Message
+    */
+    function markAsRead(message) {
+      message.unread = false;
+      var apiEndpoint;
+      switch(message.type) {
+        case 'Rent request':
+          apiEndpoint = 'rentmessages';
+          break;
+      }
+      return $http.put('api/v1/' + apiEndpoint + '/' + message.id + '/', message);
+    }
+
     /**
     * @name getReceivedMessages
     * @desc Get all received messages of a user
@@ -45,7 +66,7 @@
     * @memberOf thingy.messages.services.Message
     */
     function getReceivedMessages(id) {
-      return $http.get('api/v1/recipient/' + id + '/');
+      return $http.get('api/v1/rentmessages/?thingy__author=' + Authentication.getAuthenticatedAccount().id);
     }
 
     /**
@@ -57,6 +78,16 @@
     */
     function getSentMessages(id) {
       return $http.get('api/v1/messages/' + id + '/sent/');
+    }
+
+    /**
+    * @name getUnreadNumber
+    * @desc Get the number of unread messages
+    * @returns {Promise}
+    * @memberOf thingy.messages.services.Message
+    */
+    function getUnreadNumber() {
+      return $http.get('api/v1/accounts/' + Authentication.getAuthenticatedAccount().id + '/unread/');
     }
   }
 })();

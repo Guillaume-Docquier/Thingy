@@ -9,13 +9,13 @@
     .module('thingy.authentication.services')
     .service('Authentication', Authentication);
 
-  Authentication.$inject = ['$cookies', '$http', '$route', '$rootScope'];
+  Authentication.$inject = ['$cookies', '$http', '$route', '$rootScope', 'Utility'];
 
   /**
   * @namespace Authentication
   * @desc Service for authenticating users
   */
-  function Authentication($cookies, $http, $route, $rootScope) {
+  function Authentication($cookies, $http, $route, $rootScope, Utility) {
     var vm = this;
 
     vm.getAuthenticatedAccount = getAuthenticatedAccount;
@@ -47,10 +47,7 @@
        */
       function loginSuccessFn(data, status, headers, config) {
         vm.setAuthenticatedAccount(data.data);
-        // Allows pages to save data before refresh
         $rootScope.$broadcast('login');
-        //location.reload();
-        console.log('redir: ' + vm.redirect);
         window.location = vm.redirect;
       }
 

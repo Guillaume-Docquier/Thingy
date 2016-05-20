@@ -23,7 +23,6 @@ router = routers.SimpleRouter()
 #router = DefaultRouter()
 router.register(r'accounts', AccountViewSet),
 router.register(r'reviewedusers', ReviewedUserViewSet)
-
 router.register(r'reviews', ReviewViewSet)
 router.register(r'authorposts',AuthorPostsViewSet)
 router.register(r'posts', PostViewSet)
@@ -36,10 +35,10 @@ router.register(r'conditions', ConditionViewSet)
 #router.register(r'userphotos', PhotoList)
 
 #Routing for message-app
-#router.register(r'messages', MessageViewSet)
-router.register(r'messages', RentMessageViewSet)
-#router.register(r'recipients', RecipientViewSet)
-router.register(r'requests', RequestSerializer)
+router.register(r'rentmessages', RentMessageViewSet)
+router.register(r'privatemessages', PrivateMessageViewSet)
+router.register(r'requests', RequestViewSet)
+
 
 
 accounts_router = routers.NestedSimpleRouter(

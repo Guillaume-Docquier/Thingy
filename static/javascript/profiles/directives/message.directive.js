@@ -6,7 +6,7 @@
     .directive('message', message);
 
   /**
-  * @namespace Post
+  * @namespace Message
   */
   function message() {
     /**

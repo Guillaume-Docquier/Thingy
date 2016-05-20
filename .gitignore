@@ -69,6 +69,11 @@ bower_components/
 # Backups made by gedit
 *~
 
-# Local thumbnails and images
+# Local thumbnails and local images
 Thumbs.db
-media/
+media/postimages/*
+media/userimages/*
+
+# Keep default images
+!media/postimages/default.png
+!media/userimages/default.png

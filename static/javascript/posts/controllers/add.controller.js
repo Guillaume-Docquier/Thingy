@@ -76,7 +76,6 @@
     }
 
     function add() {
-      console.log(vm.imageUpload);
       if (Authentication.isAuthenticated())
       {
         Posts.add(

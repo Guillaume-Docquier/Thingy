@@ -32,7 +32,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'reviewed_user','review_author', 'review_author_image', 'rating', 'rating_details', 'created', 'comment')
 
 class ReviewedUserSerializer(serializers.ModelSerializer):
-    reviewed_user = serializers.PrimaryKeyRelatedField(many=True,queryset=Review.objects.all())
+    reviewed_user = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
 
     class Meta:
         model = Account

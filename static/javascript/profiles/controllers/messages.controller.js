@@ -31,7 +31,6 @@
         alert('You need to log in first');
         return;
       }
-      console.log('Loading messages');
       Profile.getReceivedMessages(vm.profile.id).then(receivedSuccessFn, receivedErrorFn);
       Profile.getSentMessages(vm.profile.id).then(sentSuccessFn, sentErrorFn);
 
@@ -60,7 +59,6 @@
 
       function messageSuccessFn(data, status, headers, config) {
         alert('Message sent!');
-        console.log(data.data);
       }
 
       function messageErrorFn(data) {

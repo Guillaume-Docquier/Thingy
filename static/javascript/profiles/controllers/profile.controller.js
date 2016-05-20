@@ -9,25 +9,27 @@
     .module('thingy.profiles.controllers')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$scope', '$location', '$routeParams', 'Profile', 'Posts', 'Message', 'Authentication'];
+  ProfileController.$inject = ['$location', 'Profile', 'Posts', 'Message', 'Authentication'];
 
   /**
   * @namespace ProfileController
   */
-  function ProfileController($scope, $location, $routeParams, Profile, Posts, Message, Authentication) {
+  function ProfileController($location, Profile, Posts, Message, Authentication) {
     var vm = this;
 
     // Functions and data
     vm.sendMessage = sendMessage;
     vm.validateRecipient = validateRecipient;
-    vm.getUnreadMessages = getUnreadMessages;
-    vm.unreadNum = 0;
-    vm.isOwner = false;
+    vm.markAsRead = markAsRead;
+    vm.unreadNumber = 0;
+    vm.isOwner = true;
     vm.isAuthenticated = Authentication.isAuthenticated();
     vm.profile = '';
     vm.receivedMessages = [];
     vm.sentMessages = [];
     vm.posts = [];
+    vm.reviews = [];
+    vm.averageRating = 0;
 
     // Bindings
     vm.newMessage = {
@@ -48,59 +50,44 @@
     * @memberOf thingy.profiles.controllers.ProfileController
     */
     function activate() {
-      // Needed for public profiles
-      var username = $routeParams.username;
-
-      // When visiting a public profile
-      if(username) {
-        // There's a bug if username contains a dot.
-        if (username.match(/\./)) {
-          $location.url('/');
-          return;
-        }
-      }
-      // When visiting a private profile
-      else if(!vm.isAuthenticated) {
+      if(!vm.isAuthenticated) {
         $location.url('/');
         return;
       }
-      else username = Authentication.getAuthenticatedAccount().username;
+      else vm.profile = Authentication.getAuthenticatedAccount();
 
-      Profile.get(username).then(profileSuccessFn, profileErrorFn);
-
-      /**
-      * @name profileSuccessProfile
-      * @desc Update 'profile' on viewmodel
-      */
-      function profileSuccessFn(data, status, headers, config) {
-        vm.profile = data.data;
-        // Fetch more info if own profile
-        vm.isOwner = vm.isAuthenticated && vm.profile.username == Authentication.getAuthenticatedAccount().username;
-        if(vm.isOwner)
-        {
-          Message.getReceivedMessages(vm.profile.id).then(getRSuccessFn, getRErrorFn);
-        //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
-        }
-        Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
-      }
-
-      /**
-      * @name profileErrorFn
-      * @desc Redirect to index and log error in the console
-      */
-      function profileErrorFn(data) {
-        $location.url('/');
-        alert('Could not load profile.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
+      Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
+      //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
+      Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
+      Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
 
       /**
       * @name getRSuccessFn
       * @desc Update 'receivedMessages' on viewmodel
       */
-      function getRSuccessFn(data, status, headers, config) {
-        vm.receivedMessages = data.data.messages;
-        vm.getUnreadMessages();
+      function getRSuccessFn(data) {
+        vm.receivedMessages = data.data.reverse();
+        // Format the date and change the type
+        for (var i = 0; i < vm.receivedMessages.length; i++)
+          vm.receivedMessages[i].created_at = moment(vm.receivedMessages[i].created_at).format('MMMM Do HH:mm');
+        Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);
+
+        /**
+        * @name unreadSuccessFn
+        * @desc Update 'unreadNumber' on viewmodel
+        */
+        function unreadSuccessFn(data) {
+          vm.unreadNumber = data.data[0] ? data.data[0].count : 0;
+        }
+
+        /**
+        * @name unreadErrorFn
+        * @desc Log error in the console
+        */
+        function unreadErrorFn(data) {
+          alert('Could not fetch the number of unread messages.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
       }
 
       /**
@@ -126,6 +113,29 @@
         */
       function postsErrorFn(data) {
         alert('Could not load posts.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+
+      /**
+        * @name reviewsSuccessFn
+        * @desc Update 'reviews' on viewmodel
+        */
+      function reviewsSuccessFn(data) {
+        vm.reviews = data.data;
+        var totalRating = 0;
+        for(var i = 0; i < vm.reviews.length; i++) {
+          vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
+          totalRating += vm.reviews[i].rating_details.rating_grade;
+        }
+        vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
+      }
+
+      /**
+        * @name reviewsErrorFn
+        * @desc Log error in the console
+        */
+      function reviewsErrorFn(data) {
+        alert('Could not load reviews.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
@@ -184,15 +194,46 @@
       }
     }
 
+    function markAsRead(message) {
+      if (message.unread)
+        Message.markAsRead(message).then(markSuccessFn, markErrorFn);
+
+      function markSuccessFn(data) {
+        vm.unreadNumber--;
+      }
+
+      function markErrorFn(data) {
+        alert('Could not mark as read.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+    }
+
     /**
-    * @name getUnreadMessages
-    * @desc Get the number of unread messages
+    * @name createReview
+    * @desc Create a review
     */
-    function getUnreadMessages() {
-      vm.unreadNum = 0;
-      for(var i = 0; i < vm.receivedMessages.length; i++) {
-        if(vm.receivedMessages[i].unread)
-          vm.unreadNum++;
+    function createReview() {
+      Profile.createReview(
+        vm.profile.id,
+        vm.description,
+        vm.rating
+      ).then(reviewSuccessFn, reviewErrorFn);
+
+      /**
+      * @name reviewSuccessFn
+      * @desc Notifiy of success
+      */
+      function reviewSuccessFn(data) {
+        alert('Review created!');
+      }
+
+      /**
+      * @name reviewErrorFn
+      * @desc Notify of error and log it in the console
+      */
+      function reviewErrorFn() {
+        alert('Could not create the review.');
+        console.error('Error: ' + JSON.stringify(data.data));
       }
     }
   }
