@@ -262,13 +262,17 @@
 
     function markAsRead(message) {
       if (message.unread)
+      {
+        message.unread = false;
         Message.markAsRead(message).then(markSuccessFn, markErrorFn);
+      }
 
       function markSuccessFn(data) {
         vm.unreadNumber--;
       }
 
       function markErrorFn(data) {
+        message.unread = true;
         alert('Could not mark as read.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
