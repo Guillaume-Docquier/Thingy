@@ -9,17 +9,18 @@
     .module('thingy.profiles.services')
     .service('Profile', Profile);
 
-  Profile.$inject = ['$http', 'Authentication'];
+  Profile.$inject = ['$http', 'Authentication', '$window'];
 
   /**
   * @namespace Profile
   */
-  function Profile($http, Authentication) {
+  function Profile($http, Authentication, $window) {
     var vm = this;
 
     vm.destroy = destroy
     vm.get = get
     vm.update = update;
+    vm.usernameAvailable = usernameAvailable;
     vm.getReviews = getReviews;
     vm.createReview = createReview;
 
@@ -56,6 +57,10 @@
     */
     function update(profile) {
       return $http.put('/api/v1/accounts/' + profile.oldUsername + '/', profile);
+    }
+
+    function usernameAvailable(username) {
+      return $http.get('api/v1/accounts/?username=' + username);
     }
 
     function getReviews(profileId) {

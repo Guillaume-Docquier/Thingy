@@ -15,7 +15,27 @@
     vm.categories = [];
     vm.regions = [];
     vm.conditions = [];
-    vm.imageUpload = '';
+    vm.validate = validate;
+    vm.valid = {
+      title: 0,
+      category: 0,
+      subcategory: 0,
+      region: 0,
+      subregion: 0,
+      price: 0,
+      condition: 0,
+      description: 0
+    };
+    vm.help = {
+      title: '',
+      category: '',
+      subcategory: '',
+      region: '',
+      subregion: '',
+      price: '',
+      condition: '',
+      description: ''
+    };
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.title;
@@ -26,6 +46,7 @@
     vm.subcategory = '';
     vm.region = '';
     vm.subregion = '';
+    vm.imageUpload = '';
 
     activate();
 
@@ -76,6 +97,11 @@
     }
 
     function add() {
+      if (!formIsValid())
+      {
+        alert('Some information is missing.');
+        return;
+      }
       if (Authentication.isAuthenticated())
       {
         Posts.add(
@@ -107,6 +133,31 @@
         alert('Could not add post.');
         console.error('Error: ' + JSON.stringify(data.data));
       };
+
+      function formIsValid() {
+        var valid = 1;
+        for (var key in vm.valid) {
+          if (vm.valid.hasOwnProperty(key) && vm.valid[key] != 1)
+          {
+            valid = 0;
+            vm.valid[key] = -1; // Set empty fields to errors
+          }
+        }
+        return valid;
+      }
+    }
+
+    function validate(type) {
+      if(vm[type])
+      {
+        vm.valid[type] = 1;
+        vm.help[type] = '';
+      }
+      else
+      {
+        vm.valid[type] = -1;
+        vm.help[type] = 'This field is required.';
+      }
     }
   }
 })();

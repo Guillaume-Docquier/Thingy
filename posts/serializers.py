@@ -72,9 +72,6 @@ class PostSerializer(serializers.ModelSerializer):
     location_details = TownSerializer(source='location', read_only=True, required=False)
 
     location =  serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
-    #image = serializers.ImageField(source='image', max_length=None, use_url = True, required=False)
-
-    #location = serializers.PrimaryKeyRelatedField(queryset=Town.objects.all(), write_only=True)
 
     status_details = StatusSerializer(source='status', read_only=True, required=False)
     status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), write_only=True, required=False)

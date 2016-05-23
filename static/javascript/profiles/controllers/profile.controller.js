@@ -19,7 +19,7 @@
 
     // Functions and data
     vm.sendMessage = sendMessage;
-    vm.validateRecipient = validateRecipient;
+    vm.validate = validate;
     vm.markAsRead = markAsRead;
     vm.unreadNumber = 0;
     vm.isOwner = true;
@@ -30,14 +30,21 @@
     vm.posts = [];
     vm.reviews = [];
     vm.averageRating = 0;
+    vm.valid = {
+      recipient: 0,
+      body: 0
+    };
+    vm.help = {
+      recipient: '',
+      body: ''
+    };
 
     // Bindings
     vm.newMessage = {
       body: '',
       recipient: {
         username: '',
-        id: '',
-        valid: false
+        id: ''
       },
       type: 4 // Private message
     };
@@ -145,6 +152,11 @@
     * @desc Send a private message to another user
     */
     function sendMessage() {
+      if (!formIsValid())
+      {
+        alert('Some information is missing.');
+        return;
+      }
       Message.sendMessage(
         vm.newMessage.type,
         vm.newMessage.body,
@@ -167,31 +179,77 @@
         alert('Could not send your message.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
+
+      function formIsValid() {
+        var valid = 1;
+        for (var key in vm.valid) {
+          if (vm.valid.hasOwnProperty(key) && vm.valid[key] != 1)
+          {
+            valid = 0;
+            vm.valid[key] = -1; // Set empty fields to errors
+          }
+        }
+        return valid;
+      }
     }
 
     /**
-    * @name validateRecipient
+    * @name validate
     * @desc Send a request to the db to verify if this username exists
     */
-    function validateRecipient() {
-      Profile.get(vm.newMessage.recipient.username).then(validateSuccessFn, validateErrorFn);
+    function validate(type) {
+      switch(type) {
+        case 'recipient':
+          if (vm.newMessage.recipient.username.length == 0)
+          {
+            vm.help.recipient = 'You need a recipient.';
+            vm.newMessage.recipient.id = '';
+            vm.valid.recipient = -1;
+          }
+          else Profile.usernameAvailable(vm.newMessage.recipient.username).then(querySuccessFn, queryErrorFn);
 
-      /**
-      * @name validateSuccessFn
-      * @desc Update 'newMessage' in the viewmodel
-      */
-      function validateSuccessFn(data) {
-        vm.newMessage.recipient.id = data.data.id;
-        vm.newMessage.recipient.valid = 1;
-      }
+          /**
+          * @name querySuccessFn
+          * @desc Update 'newMessage' in the viewmodel
+          */
+          function querySuccessFn(data) {
+            // Username is valid because it was found
+            if (data.data.length > 0)
+            {
+              vm.help.recipient = '';
+              vm.newMessage.recipient.id = data.data.id;
+              vm.valid.recipient = 1;
+            }
+            else
+            {
+              vm.help.recipient = 'This user does not exit.'
+              vm.newMessage.recipient.id = '';
+              vm.valid.recipient = -1;
+            }
+          }
 
-      /**
-      * @name validateErrorFn
-      * @desc Update 'newMessage' in the viewmodel to reflect a failure
-      */
-      function validateErrorFn(data) {
-        vm.newMessage.recipient.valid = 0;
-      }
+          /**
+          * @name queryErrorFn
+          * @desc Log the error in the console
+          */
+          function queryErrorFn(data) {
+            alert('Error checking availability.');
+            console.error('Error: ' + JSON.stringify(data.data));
+          }
+          break;
+        case 'body' :
+          if (!vm.newMessage.body)
+          {
+            vm.help.body = 'You did not write a message!';
+            vm.valid.body = -1;
+          }
+          else
+          {
+            vm.help.body = '';
+            vm.valid.body = 1;
+          }
+          break;
+        }
     }
 
     function markAsRead(message) {
