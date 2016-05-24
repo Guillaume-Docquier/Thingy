@@ -54,6 +54,8 @@
       */
       function profileSuccessFn(data, status, headers, config) {
         vm.profile = data.data;
+        // Renew authentication
+        Authentication.setAuthenticatedAccount(vm.profile);
         // Updating the username will require both the old and new one.
         vm.profile.oldUsername = vm.profile.username;
         // We will change the image url to a base64 one later
@@ -134,11 +136,11 @@
       */
       function updateSuccessFn(data, status, headers, config) {
         alert('Your profile has been updated. If you changed your username, you will need to log in again');
-        // Logout if username changed, could also prompt to relog
+        // Logout if username changed, user will then be prompted to relog
         if(vm.profile.oldUsername != vm.profile.username)
           Authentication.logout();
-        else
-          $route.reload();
+
+        else $route.reload();
       }
 
       /**

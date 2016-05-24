@@ -118,7 +118,7 @@
        */
       function logoutSuccessFn(data, status, headers, config) {
         vm.unauthenticate();
-        window.location = '/';
+        window.location.reload(true);
       }
 
       /**

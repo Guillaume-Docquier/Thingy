@@ -131,12 +131,9 @@
           */
         function reviewsSuccessFn(data) {
           vm.reviews = data.data;
-          var totalRating = 0;
-          for(var i = 0; i < vm.reviews.length; i++) {
+          // Format dates
+          for(var i = 0; i < vm.reviews.length; i++)
             vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
-            totalRating += vm.reviews[i].rating_details.rating_grade;
-          }
-          vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
         }
 
         /**
