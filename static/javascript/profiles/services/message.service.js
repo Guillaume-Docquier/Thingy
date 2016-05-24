@@ -48,13 +48,12 @@
     * @memberOf thingy.messages.services.Message
     */
     function markAsRead(message) {
-      message.unread = false;
       var apiEndpoint;
-      switch(message.type) {
-        case 'Rent request':
-          apiEndpoint = 'rentmessages';
-          break;
-      }
+      if (message.type)
+        apiEndpoint = 'rentmessages';
+      else
+        apiEndpoint = 'privatemessages';
+        
       return $http.put('api/v1/' + apiEndpoint + '/' + message.id + '/', message);
     }
 

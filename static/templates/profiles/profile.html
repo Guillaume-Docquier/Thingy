@@ -25,6 +25,7 @@
 			<div class="row">
 				<div class="col-xs-4 col-sm-12">
 					<img ng-src="/media/{{vm.profile.image}}" class="img-responsive" style="width:100%"><img>
+					<button ng-hide=vm.isOwner type="button" id="profile__button5" class="btn btn-primary visible-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> Send message</button>
 				</div>
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
@@ -32,16 +33,16 @@
 <!--
 					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
 -->
-          <h5>
-            <!-- <img ng-src="static/images/rating_{{vm.profile.average_rating}}.png"/> -->
-            <img id="image__rating__profile" ng-src="static/images/rating_{{vm.averageRating}}.png"/>
-          </h5>
-					<div class="hidden-xs" >
-						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
-						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
-						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary" data-toggle="modal" data-target="#createReview">Create review</button><br>
-						<button ng-hide=vm.isOwner type="button" id="profile__button4" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> Send message</button>
-					</div>
+					  <h5>
+						<!-- <img ng-src="static/images/rating_{{vm.profile.average_rating}}.png"/> -->
+						<img id="image__rating__profile" ng-src="static/images/rating_{{vm.averageRating}}.png"/>
+					  </h5>
+					
+						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary hidden-xs" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
+						<a ng-show=vm.isOwner href="/settings" id="profile__button2" role="button" class="btn btn-primary hidden-xs"><span class="glyphicon glyphicon-cog"></span> Settings</a><br>
+						<button ng-hide=vm.isOwner type="button" id="profile__button3" class="btn btn-primary hidden-xs" data-toggle="modal" data-target="#createReview">Create review</button><br>
+						<button ng-hide=vm.isOwner type="button" id="profile__button4" class="btn btn-primary hidden-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> Send message</button>
+	
 				</div>
 			</div> <!-- /row --->
 			</div> <!-- cliente -->

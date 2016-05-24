@@ -61,88 +61,96 @@
         $location.url('/');
         return;
       }
-      else vm.profile = Authentication.getAuthenticatedAccount();
+      else Profile.get(Authentication.getAuthenticatedAccount().username).then(profileSuccessFn, profileErrorFn);
 
-      Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
-      //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
-      Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
-      Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
-
-      /**
-      * @name getRSuccessFn
-      * @desc Update 'receivedMessages' on viewmodel
-      */
-      function getRSuccessFn(data) {
-        vm.receivedMessages = data.data.reverse();
-        // Format the date and change the type
-        for (var i = 0; i < vm.receivedMessages.length; i++)
-          vm.receivedMessages[i].created_at = moment(vm.receivedMessages[i].created_at).format('MMMM Do HH:mm');
-        Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);
+      function profileSuccessFn(data) {
+        vm.profile = data.data;
+        Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
+        Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
+        Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
+        //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
 
         /**
-        * @name unreadSuccessFn
-        * @desc Update 'unreadNumber' on viewmodel
+        * @name getRSuccessFn
+        * @desc Update 'receivedMessages' on viewmodel
         */
-        function unreadSuccessFn(data) {
-          vm.unreadNumber = data.data[0] ? data.data[0].count : 0;
+        function getRSuccessFn(data) {
+          vm.receivedMessages = data.data.reverse();
+          // Format the date and change the type
+          for (var i = 0; i < vm.receivedMessages.length; i++)
+            vm.receivedMessages[i].created_at = moment(vm.receivedMessages[i].created_at).format('MMMM Do HH:mm');
+          Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);
+
+          /**
+          * @name unreadSuccessFn
+          * @desc Update 'unreadNumber' on viewmodel
+          */
+          function unreadSuccessFn(data) {
+            vm.unreadNumber = data.data[0] ? data.data[0].count : 0;
+          }
+
+          /**
+          * @name unreadErrorFn
+          * @desc Log error in the console
+          */
+          function unreadErrorFn(data) {
+            alert('Could not fetch the number of unread messages.');
+            console.error('Error: ' + JSON.stringify(data.data));
+          }
         }
 
         /**
-        * @name unreadErrorFn
+        * @name getRErrorFn
         * @desc Log error in the console
         */
-        function unreadErrorFn(data) {
-          alert('Could not fetch the number of unread messages.');
+        function getRErrorFn(data) {
+          alert('Could not load received messages.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
+
+        /**
+          * @name postsSucessFn
+          * @desc Update 'posts' on viewmodel
+          */
+        function postsSuccessFn(data, status, headers, config) {
+          vm.posts = data.data;
+        }
+
+        /**
+          * @name postsErrorFn
+          * @desc Log error in the console
+          */
+        function postsErrorFn(data) {
+          alert('Could not load posts.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
+
+        /**
+          * @name reviewsSuccessFn
+          * @desc Update 'reviews' on viewmodel
+          */
+        function reviewsSuccessFn(data) {
+          vm.reviews = data.data;
+          var totalRating = 0;
+          for(var i = 0; i < vm.reviews.length; i++) {
+            vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
+            totalRating += vm.reviews[i].rating_details.rating_grade;
+          }
+          vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
+        }
+
+        /**
+          * @name reviewsErrorFn
+          * @desc Log error in the console
+          */
+        function reviewsErrorFn(data) {
+          alert('Could not load reviews.');
           console.error('Error: ' + JSON.stringify(data.data));
         }
       }
 
-      /**
-      * @name getRErrorFn
-      * @desc Log error in the console
-      */
-      function getRErrorFn(data) {
-        alert('Could not load received messages.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
-
-      /**
-        * @name postsSucessFn
-        * @desc Update 'posts' on viewmodel
-        */
-      function postsSuccessFn(data, status, headers, config) {
-        vm.posts = data.data;
-      }
-
-      /**
-        * @name postsErrorFn
-        * @desc Log error in the console
-        */
-      function postsErrorFn(data) {
-        alert('Could not load posts.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
-
-      /**
-        * @name reviewsSuccessFn
-        * @desc Update 'reviews' on viewmodel
-        */
-      function reviewsSuccessFn(data) {
-        vm.reviews = data.data;
-        var totalRating = 0;
-        for(var i = 0; i < vm.reviews.length; i++) {
-          vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
-          totalRating += vm.reviews[i].rating_details.rating_grade;
-        }
-        vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
-      }
-
-      /**
-        * @name reviewsErrorFn
-        * @desc Log error in the console
-        */
-      function reviewsErrorFn(data) {
-        alert('Could not load reviews.');
+      function profileErrorFn(data) {
+        alert('Could not load profile.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
@@ -254,13 +262,17 @@
 
     function markAsRead(message) {
       if (message.unread)
+      {
+        message.unread = false;
         Message.markAsRead(message).then(markSuccessFn, markErrorFn);
+      }
 
       function markSuccessFn(data) {
         vm.unreadNumber--;
       }
 
       function markErrorFn(data) {
+        message.unread = true;
         alert('Could not mark as read.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
