@@ -108,6 +108,8 @@
       */
       function searchSuccessFn(data, status, headers, config) {
         vm.posts = data.data;
+        // Very basic, not fault proof
+        $("body").animate({scrollTop: $('#searchresult').offset().top - 90}, "slow");
       }
 
       /**
