@@ -2,6 +2,9 @@ from rest_framework import permissions
 
 class IsAuthorOfPost(permissions.BasePermission):
     def has_object_permission(self, request, view, post):
-        if request.user:
-            return post.author == request.user
-        return False
+        if request.user.is_admin == 1:
+            return True
+        else:
+            if request.user:
+                return post.author == request.user
+            return False
