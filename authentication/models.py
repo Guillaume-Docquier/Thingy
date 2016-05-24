@@ -65,7 +65,11 @@ class Account(AbstractBaseUser):
     @property
     def avg_rating(self):
         from review import models
-        return models.Review.objects.filter(reviewed_user=self.id).aggregate(avg_rating=Avg('rating__rating_grade')).values()
+        data = models.Review.objects.filter(reviewed_user=self.id).aggregate(avg_rating=Avg('rating__rating_grade')).values()
+        if data[0] == None:
+            return 'Not rated yet'
+        else:
+            return data[0]
 
 
 

@@ -18,29 +18,38 @@
         <div class="col-xs-5">
 		<div class="hidden-xs">
          <div id="description">
-			 <p>{{thingy.description}}</p>
+			 <p>Description: {{thingy.description}}</p>
          </div>
 
           <div id="condition">
             <p>Condition: {{thingy.condition_details.cond_desc}}</p>
           </div>
+
+          <div id="category">
+            <p>Category: {{thingy.subcategory_details.category.cname}}</p>
+          </div>
+          <div id="subcategory">
+            <p>Subcategory:{{thingy.subcategory_details.sub_cat_name}}</p>
+          </div>
+
           </div>
           <div id="location">
-            <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}, {{thingy.location_details.name}}</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.name}}, {{thingy.location_details.region.name}}</p>
           </div>
           <div id="suppliername">
             <p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p>
           </div>
           <!-- TODOJS add rating stars -->
           <div id="reviews"class="hidden-xs">
-            <p>
-              <!-- <img ng-src="static/images/rating_{{vm.post.author.average_rating}}.png"/> -->
+              <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+
+            <!--p>
               <span class="glyphicon glyphicon-star yellow"></span>
               <span class="glyphicon glyphicon-star yellow"></span>
               <span class="glyphicon glyphicon-star yellow"></span>
               <span class="glyphicon glyphicon-star"></span>
               <span class="glyphicon glyphicon-star"></span>
-            </p>
+            </p-->
           </div> <!-- /hidden-xs -->
         </div> <!-- /col-xs-4 -->
         <div class="col-xs-4">

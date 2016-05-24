@@ -29,10 +29,12 @@
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div id="ad_page_title" class="col-sm-6">
-			<h1>{{vm.post.title}}</h1> <h1>{{vm.post.price}} SEK/day</h1>
-			<h6>{{vm.post.location_details.region.name}}, {{vm.post.location_details.name}}</h6>
+			<h1>{{vm.post.title}}</h1> <h1><span style="color:#4d4d4d"> Price: </span>{{vm.post.price}} SEK/day</h1>
+			<h6><span style="color:#4d4d4d"> Location: </span>{{vm.post.location_details.region.name}}, {{vm.post.location_details.name}}</h6>
+            <p><span style="color:#4d4d4d"> Category: </span>{{vm.post.subcategory_details.category.cname}}, {{vm.post.subcategory_details.sub_cat_name}}</p>
+
 		</div>
-		<div class="col-sm-3"></div>
+
 	</div><!--/row-->
 
 	<div class="row">
@@ -82,7 +84,7 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-12">
-				  <p>{{vm.post.description}}</p>
+				  <p><span style="color:#4d4d4d"> Description: </span>{{vm.post.description}}</p>
 				</div><!--/col-xs-12-->
 			</div> <!--/row-->
 
@@ -105,13 +107,16 @@
 				<h6>{{vm.post.location_details.region.name}}, {{vm.post.location_details.name}}</h6>
 -->
 		    <!-- TODOJS get the reviews-->
-		    <h6>
+
+                <p>Rating: {{vm.post.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+
+		    <!--h6>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
 				  <span class="glyphicon glyphicon-star yellow"></span>
-            </h6>
+            </h6-->
 
 			</div><!--col-xs-8 col-sm-4-->
 

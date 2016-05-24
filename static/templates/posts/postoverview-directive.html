@@ -27,36 +27,37 @@
 						<div id="condition">
 						  <p>Condition: {{thingy.condition_details.cond_desc}}</p>
 						</div>
+                        <div id="subcategory">
+                            <p>Category: {{thingy.subcategory_details.category.cname}}, {{thingy.subcategory_details.sub_cat_name}}</p>
+                        </div>
 					 </div>
 					<div id="location">
-						<p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.region.name}}</p>
+						<p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.name}}, {{thingy.location_details.region.name}}</p>
 					</div>
 				</div> <!-- /col-xs-12 -->
 			  </div> <!-- /row -->
 			  
-			  <div class="row hidden-xs" id="description__row">
+			  <!--div class="row hidden-xs" id="description__row">
 				  <div class="col-xs-12" id="description_column" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 					  <!-- /MAKE THIS WORK IN MOBILE FORMAT(REMOVE IT) -->
-					<span>{{thingy.description}}</span>
+					<!--span>{{thingy.description}}</span>
 				  </div>
 			  </div><!-- /row -->
 			  
 			  <div id="suppliername" class="row">
 				  <div class="col-xs-12">
-					 <div >
-						<p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p>
-					  </div>
-						  <div id="reviews">
-							<p>
-							  <!-- <img ng-src="static/images/rating_{{vm.post.author.average_rating}}.png"/> -->
+                      <div ><p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p></div>
+                      <div id="reviews">
+                          <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+							<!--p>
 							  <span class="glyphicon glyphicon-star yellow"></span>
 							  <span class="glyphicon glyphicon-star yellow"></span>
 							  <span class="glyphicon glyphicon-star yellow"></span>
 							  <span class="glyphicon glyphicon-star"></span>
 							  <span class="glyphicon glyphicon-star"></span>
-							</p>
-						</div>
-						</div>
+							</p-->
+                      </div>
+                  </div>
 			  </div><!-- /row -->
 		  
 			</div><!-- /col-xs-7 -->
