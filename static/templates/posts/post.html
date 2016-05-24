@@ -12,9 +12,7 @@
             </div> <!-- /row -->
                    <div class="row">
                         <div class="col-xs-3" id="">
-                          <!-- Raises an error in the console: GET http://127.0.0.2:8000/media/ 404 (Not Found) -->
-                          <!-- This is due to "src='media/'+thingy.image" first equals to media/ then 'media/'+thingy.image... -->
-                          <img id='box' ng-src={{'media/'+thingy.image}}></img>
+                          <img id='box' ng-src="media/{{thingy.image}}"></img>
                         </div> <!-- /col-xs-4 -->
                             <div class="col-xs-5">
                                 <div class="hidden-xs">
