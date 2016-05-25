@@ -21,6 +21,9 @@ class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
 
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter)
+    filter_class = RequestFilter
+
     def perform_create(self, serializer):
         instance = serializer.save(rentee=self.request.user)
         post = Post.objects.get(Q(id=instance.thingy_id))

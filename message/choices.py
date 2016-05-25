@@ -3,6 +3,7 @@ STATUS_CHOICES = (
     ('Pending', 'Pending'),
     ('Accepted', 'Accepted'),
     ('Declined', 'Declined'),
+    ('Ended', 'Ended')
 )
 
 #For messages
