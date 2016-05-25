@@ -71,6 +71,16 @@ class Account(AbstractBaseUser):
         else:
             return data[0]
 
+    @property
+    def avg_rating_round(self):
+        from review import models
+        data = models.Review.objects.filter(reviewed_user=self.id).aggregate(
+            avg_rating=Avg('rating__rating_grade')).values()
+        if data[0] == None:
+            return 'Not rated yet'
+        else:
+            return round(data[0])
+
 
 
 class UserImage(models.Model):

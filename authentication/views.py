@@ -1,4 +1,6 @@
 import json
+import M2Crypto
+import string
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -103,14 +105,14 @@ class AccountViewSet(viewsets.ModelViewSet):
             count=Count('posts__basemessage__rentmessage__unread')).values('id', 'count')
         return Response(result)
 
-    @detail_route()
-    def avg_review(self, request, username=None):
-
-        average = Review.objects.filter(reviewed_user=username).aggregate(rating=Avg('rating__rating_grade')).values()
-        #result = self.get_queryset().filter(id=username).annotate(
-        #    average_rating=int(average['rating'])).values()
-        # result = Review.objects.filter(reviewed_user=1).annotate(rating=Avg('rating__rating_grade')).values()
-        return Response(average)
+    # @detail_route()
+    # def avg_review(self, request, username=None):
+    #
+    #     average = Review.objects.filter(reviewed_user=username).aggregate(rating=Avg('rating__rating_grade')).values()
+    #     #result = self.get_queryset().filter(id=username).annotate(
+    #     #    average_rating=int(average['rating'])).values()
+    #     # result = Review.objects.filter(reviewed_user=1).annotate(rating=Avg('rating__rating_grade')).values()
+    #     return Response(average)
 
 
     def get_queryset(self):
@@ -156,6 +158,39 @@ class LoginView(views.APIView):
                 'status': 'Unauthorized',
                 'message': 'Username/password combination invalid.'
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+    def random_password(length):
+        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+        password = ''
+        for i in range(length):
+            password += chars[ord(M2Crypto.m2.rand_bytes(1)) % len(chars)]
+        return password
+
+    # print random_password(12) + " new pass"  this works!!
+
+    def update(self, request, format=None):
+        data = json.loads(request.body)
+
+        username = data.get('username', None)
+
+        newpassword = random_password(12)
+        print newpassword
+
+        try:
+            user = Account.objects.get(Q(username=username) | Q(email=username))
+            user.set_password(newpassword)
+
+            email_res = user.email
+
+
+
+        except Account.DoesNotExist:
+            return Response({
+                'status': 'Unauthorized',
+                'message': 'Username/email does not exist.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
+    #print random_password(12) + " new pass"  this works!!
 
 class LogoutView(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
