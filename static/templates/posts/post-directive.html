@@ -10,7 +10,7 @@
 			</div>
 		</div> <!-- /col-xs-9-->
 	</div> <!-- /row -->
-	
+
        <div class="row">
         <div class="col-xs-3" id="">
           <img id='box' ng-src='media/{{thingy.image}}'></img>
@@ -41,7 +41,7 @@
           </div>
           <!-- TODOJS add rating stars -->
           <div id="reviews"class="hidden-xs">
-              <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+              <p>Rating: {{thingy.author.avg_rating}}<span ng-hide="thingy.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
 
             <!--p>
               <span class="glyphicon glyphicon-star yellow"></span>
@@ -57,11 +57,11 @@
             <p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
           </div>
         </div><!-- /col-xs-4 -->
-		
+
 			<div id="manage__post" class="row">
 				<div class="col-xs-12" ng-show="{{owned}}"><a href='thingies/manage/{{thingy.id}}'>Manage</a></div>
 			</div> <!-- /row -->
-        
+
       </div> <!-- /row -->
       </div>
     </div>

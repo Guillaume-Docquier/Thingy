@@ -108,7 +108,7 @@
 -->
 		    <!-- TODOJS get the reviews-->
 
-                <p>Rating: {{vm.post.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+                <p>Rating: {{vm.post.author.avg_rating}}<span ng-hide="vm.post.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
 
 		    <!--h6>
 				  <span class="glyphicon glyphicon-star yellow"></span>
@@ -120,7 +120,7 @@
 
 			</div><!--col-xs-8 col-sm-4-->
 
-		 
+
 
 		<div class=" hidden-xs col-xs-12 col-sm-12 form-group">
 			<button type="button" id="rent_thingy_btn" class="btn btn-default" data-toggle="modal" data-target="#myModal">Rent Thingy</button>

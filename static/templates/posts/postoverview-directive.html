@@ -19,7 +19,7 @@
 					  </div>
 					</div><!-- /col-xs-4 -->
 			    </div> <!-- /row -->
-			
+
 			  <div class="row">
 
 				<div class="col-xs-12 col-sm-12">
@@ -36,19 +36,19 @@
 					</div>
 				</div> <!-- /col-xs-12 -->
 			  </div> <!-- /row -->
-			  
+
 			  <!--div class="row hidden-xs" id="description__row">
 				  <div class="col-xs-12" id="description_column" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 					  <!-- /MAKE THIS WORK IN MOBILE FORMAT(REMOVE IT) -->
 					<!--span>{{thingy.description}}</span>
 				  </div>
 			  </div><!-- /row -->
-			  
+
 			  <div id="suppliername" class="row">
 				  <div class="col-xs-12">
                       <div ><p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p></div>
                       <div id="reviews">
-                          <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+                          <p>Rating: {{thingy.author.avg_rating}}<span ng-hide="thingy.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
 							<!--p>
 							  <span class="glyphicon glyphicon-star yellow"></span>
 							  <span class="glyphicon glyphicon-star yellow"></span>
@@ -59,7 +59,7 @@
                       </div>
                   </div>
 			  </div><!-- /row -->
-		  
+
 			</div><!-- /col-xs-7 -->
 		</div><!--/row-->
   </div><!--/panel-body-->
