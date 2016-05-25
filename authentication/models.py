@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 
+
 #from review.views import ReviewViewSet
 #import Review
 from django.db.models import Avg
