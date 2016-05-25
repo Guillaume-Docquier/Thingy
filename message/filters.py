@@ -12,6 +12,11 @@ class PrivateMessageFilter(django_filters.FilterSet):
         model = PrivateMessage
         fields = ['author', 'recipient', 'created_at', 'unread']
 
+class RequestFilter(django_filters.FilterSet):
+    class Meta:
+        model = Request
+        fields = ['rentee', 'thingy__author', 'status']
+
 
 
 
