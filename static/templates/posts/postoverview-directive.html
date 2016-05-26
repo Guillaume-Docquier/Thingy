@@ -3,18 +3,18 @@
   <div id="search__panel" class="panel panel-default post" >
     <div class="panel-body">
 	    <div class="row">
-    		<div class="col-xs-5 col-sm-3" id="image__column__searchpanel">
+    		<div class="col-sm-3 hidden-xs" id="image__column__searchpanel">
     		          <img id='box' ng-src='media/{{thingy.image}}'></img>
     		</div>
-    		<div class="col-xs-7 col-sm-9">
+    		<div class="col-xs-12 col-sm-9">
 				<div class="row">
-					<div class="col-xs-6 col-sm-6">
+					<div class="col-xs-12 col-sm-6">
 						<div id="posttitle">
 							<h5>{{thingy.title}}</h5>
 						</div>
 					</div> <!-- /col-xs-6-->
-					<div class="col-xs-6 col-sm-6">
-					  <div id="price">
+					<div class="hidden-xs col-sm-6">
+					  <div class="price">
 						<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
 					  </div>
 					</div><!-- /col-xs-4 -->
@@ -37,28 +37,19 @@
 				</div> <!-- /col-xs-12 -->
 			  </div> <!-- /row -->
 
-			  <!--div class="row hidden-xs" id="description__row">
-				  <div class="col-xs-12" id="description_column" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-					  <!-- /MAKE THIS WORK IN MOBILE FORMAT(REMOVE IT) -->
-					<!--span>{{thingy.description}}</span>
-				  </div>
-			  </div><!-- /row -->
-
 			  <div id="suppliername" class="row">
 				  <div class="col-xs-12">
                       <div ><p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p></div>
                       <div id="reviews">
-                          <p>Rating: {{thingy.author.avg_rating}}<span ng-hide="thingy.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
-							<!--p>
-							  <span class="glyphicon glyphicon-star yellow"></span>
-							  <span class="glyphicon glyphicon-star yellow"></span>
-							  <span class="glyphicon glyphicon-star yellow"></span>
-							  <span class="glyphicon glyphicon-star"></span>
-							  <span class="glyphicon glyphicon-star"></span>
-							</p-->
+
+                          <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+
                       </div>
                   </div>
 			  </div><!-- /row -->
+		                        <div class="price visible-xs">
+						<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
+					</div>
 
 			</div><!-- /col-xs-7 -->
 		</div><!--/row-->

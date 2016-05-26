@@ -30,9 +30,6 @@
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
 					<!-- TODOJS add hometown? Should we have this -->
-<!--
-					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
--->
 					  <h5>
 						  <img id="image__rating__profile" ng-src="static/images/rating_{{vm.profile.avg_rating_round}}.png"/>
 					  </h5>
@@ -118,7 +115,7 @@
 				  <div id="messages__tab" class="tab-pane fade">
 					  <div class="row">
 						<div class="col-xs-9"></div>
-						<div class="col-xs-3 form-group">
+						<div class="col-xs-3">
 							<button type="button" id="btn__new__message" class="btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> New message</button>
 						</div>
 					</div> <!-- /row -->
