@@ -3,12 +3,15 @@
 	<div id="messagebox" class="row">
 		<div class="col-xs-2">
 			<!-- TODOJS get the senders profile picture -->
-			<img src="/static/images/felicia.jpg" class="img-circle img-responsive" alt="Image"/>
+			<img ng-show="message.author" ng-src="/media/{{message.author.image}}" class="img-circle img-responsive" alt="Image"/>
+			<div ng-show="message.type" class="system-message-icon">
+				<span class="glyphicon" ng-class="{'glyphicon-refresh': message.type == 'Rent request', 'glyphicon-ok': message.type == 'Rent accepted', 'glyphicon-remove': message.type == 'Rent declined'}" aria-hidden="true"></span>
+			</div>
 		</div>
 		<div class="col-xs-10">
 			<div class="row">
 				<div class="col-xs-8">
-					<h5 ng-show="message.author">From {{message.author}}</h5>
+					<h5 ng-show="message.author">From {{message.author.username}}</h5>
 					<h5 ng-show="!message.author">{{message.type}}</h5>
 				</div>
 				<!-- TODOJS make date/time work? -->

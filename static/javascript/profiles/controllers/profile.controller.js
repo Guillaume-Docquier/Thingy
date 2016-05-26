@@ -21,6 +21,7 @@
     vm.sendMessage = sendMessage;
     vm.validate = validate;
     vm.markAsRead = markAsRead;
+    vm.getReceivedMessages = getReceivedMessages;
     vm.unreadNumber = 0;
     vm.isOwner = true;
     vm.isAuthenticated = Authentication.isAuthenticated();
@@ -29,7 +30,6 @@
     vm.sentMessages = [];
     vm.posts = [];
     vm.reviews = [];
-    vm.averageRating = 0;
     vm.valid = {
       recipient: 0,
       body: 0
@@ -66,7 +66,7 @@
         vm.profile = data.data;
         Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
         Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
-        Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
+        vm.getReceivedMessages();
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
 
         /**
@@ -96,15 +96,6 @@
             alert('Could not fetch the number of unread messages.');
             console.error('Error: ' + JSON.stringify(data.data));
           }
-        }
-
-        /**
-        * @name getRErrorFn
-        * @desc Log error in the console
-        */
-        function getRErrorFn(data) {
-          alert('Could not load received messages.');
-          console.error('Error: ' + JSON.stringify(data.data));
         }
 
         /**
@@ -147,6 +138,28 @@
 
       function profileErrorFn(data) {
         alert('Could not load profile.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+    }
+
+    function getReceivedMessages() {
+      Message.getSystemMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+      Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+
+      function getMessagesSuccessFn(data) {
+        // Temporary, will need to sort by date instead
+        var messages = data.data.reverse();
+        // Format the date and change the type
+        for (var i = 0; i < messages.length; i++)
+        {
+          messages[i].created_at = moment(messages[i].created_at).format('MMMM Do HH:mm');
+          vm.receivedMessages.push(messages[i]);
+          console.log(messages[i]);
+        }
+      }
+
+      function getMessagesErrorFn(data) {
+        alert('Could not fetch received messages.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }

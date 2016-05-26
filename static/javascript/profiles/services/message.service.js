@@ -19,7 +19,8 @@
 
     vm.sendMessage = sendMessage;
     vm.markAsRead = markAsRead;
-    vm.getReceivedMessages = getReceivedMessages;
+    vm.getSystemMessages = getSystemMessages;
+    vm.getPrivateMessages = getPrivateMessages;
     vm.getSentMessages = getSentMessages;
     vm.getUnreadNumber = getUnreadNumber;
 
@@ -57,14 +58,25 @@
     }
 
     /**
-    * @name getReceivedMessages
-    * @desc Get all received messages of a user
+    * @name getSystemMessages
+    * @desc Get all received system messages of a user
     * @param {string} id The id of the user
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
-    function getReceivedMessages(id) {
+    function getSystemMessages() {
       return $http.get('api/v1/rentmessages/?thingy__author=' + Authentication.getAuthenticatedAccount().id);
+    }
+
+    /**
+    * @name getPrivateMessages
+    * @desc Get all received private messages of a user
+    * @param {string} id The id of the user
+    * @returns {Promise}
+    * @memberOf thingy.messages.services.Message
+    */
+    function getPrivateMessages() {
+      return $http.get('api/v1/privatemessages/?recipient=' + Authentication.getAuthenticatedAccount().id);
     }
 
     /**
