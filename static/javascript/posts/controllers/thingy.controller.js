@@ -90,7 +90,11 @@
     function rent() {
       // Requires authentication
       if(Authentication.isAuthenticated)
-        Posts.rent(vm.post.id, vm.period, vm.message).then(rentSuccessFn, rentErrorFn);
+        Posts.rent('request', {
+          postId: vm.post.id,
+          period: vm.period,
+          message:  vm.message
+        }).then(rentSuccessFn, rentErrorFn);
       else
         alert('You need to be logged in.');
 

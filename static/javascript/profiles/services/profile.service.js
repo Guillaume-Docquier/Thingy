@@ -23,6 +23,7 @@
     vm.usernameAvailable = usernameAvailable;
     vm.getReviews = getReviews;
     vm.createReview = createReview;
+    vm.getOffers = getOffers;
 
     /**
     * @name destroy
@@ -82,6 +83,10 @@
         comment: comment,
         rating: rating
       });
+    }
+
+    function getOffers(profileId) {
+      return $http.get('api/v1/requests/?ordering=-created_at&thingy__author=' + profileId);
     }
   }
 })();

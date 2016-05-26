@@ -81,7 +81,8 @@
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
 					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNumber>{{vm.unreadNumber}}</span></a></li>
-					</ul>
+            <li ng-show=vm.isOwner><a data-toggle="tab" href="#offers__tab">Offers</li>
+          </ul>
 
 				</div><!-- col-xs-12 -->
 				</div><!-- /row -->
@@ -155,6 +156,19 @@
 						<message message="message" ng-click="vm.markAsRead(message)"></message>
 					</div>
 				</div> <!-- /messages__tab -->
+
+        <div id="offers__tab" class="tab-pane fade">
+          <h2>Pending offers</h2>
+          <div ng-show="!vm.pendingOffers.length">You have no pending offers.</div>
+          <div ng-repeat='offer in vm.pendingOffers'>
+            <offer offer="offer"></offer>
+          </div>
+          <h2>Processed offers</h2>
+          <div ng-show="!vm.processedOffers.length">You never processed offers.</div>
+          <div ng-repeat='offer in vm.processedOffers'>
+            <offer offer="offer"></offer>
+          </div>
+        </div> <!-- /offers__tab -->
 
 			</div> <!-- /row tab-content-->
 		</div> <!-- /col-sm-7 -->

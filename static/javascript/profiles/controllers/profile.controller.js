@@ -30,6 +30,8 @@
     vm.sentMessages = [];
     vm.posts = [];
     vm.reviews = [];
+    vm.pendingOffers = [];
+    vm.processedOffers = [];
     vm.valid = {
       recipient: 0,
       body: 0
@@ -66,6 +68,7 @@
         vm.profile = data.data;
         Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
         Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
+        Profile.getOffers(vm.profile.id).then(offersSuccessFn, offersErrorFn);
         vm.getReceivedMessages();
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
 
@@ -99,6 +102,29 @@
         * @desc Log error in the console
         */
         function reviewsErrorFn(data) {
+          alert('Could not load reviews.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
+
+        /**
+        * @name offersSuccessFn
+        * @desc Update 'offers' on viewmodel
+        */
+        function offersSuccessFn(data) {
+          var offers = data.data;
+          // Sort pending / accepted or decline
+          for (var i = 0; i < offers.length; i++)
+          {
+            if (offers[i].status == 'Pending') vm.pendingOffers.push(offers[i]);
+            else vm.processedOffers.push(offers[i]);
+          }
+        }
+
+        /**
+        * @name offersErrorFn
+        * @desc Log error in the console
+        */
+        function offersErrorFn(data) {
           alert('Could not load reviews.');
           console.error('Error: ' + JSON.stringify(data.data));
         }
