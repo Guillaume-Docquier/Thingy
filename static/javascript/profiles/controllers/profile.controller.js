@@ -70,35 +70,6 @@
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
 
         /**
-        * @name getRSuccessFn
-        * @desc Update 'receivedMessages' on viewmodel
-        */
-        function getRSuccessFn(data) {
-          vm.receivedMessages = data.data.reverse();
-          // Format the date and change the type
-          for (var i = 0; i < vm.receivedMessages.length; i++)
-            vm.receivedMessages[i].created_at = moment(vm.receivedMessages[i].created_at).format('MMMM Do HH:mm');
-          Message.getUnreadNumber().then(unreadSuccessFn, unreadErrorFn);
-
-          /**
-          * @name unreadSuccessFn
-          * @desc Update 'unreadNumber' on viewmodel
-          */
-          function unreadSuccessFn(data) {
-            vm.unreadNumber = data.data[0] ? data.data[0].count : 0;
-          }
-
-          /**
-          * @name unreadErrorFn
-          * @desc Log error in the console
-          */
-          function unreadErrorFn(data) {
-            alert('Could not fetch the number of unread messages.');
-            console.error('Error: ' + JSON.stringify(data.data));
-          }
-        }
-
-        /**
         * @name postsSucessFn
         * @desc Update 'posts' on viewmodel
         */
@@ -219,18 +190,24 @@
           * @desc Update 'newMessage' in the viewmodel
           */
           function querySuccessFn(data) {
-            // Username is valid because it was found
-            if (data.data.length > 0)
-            {
-              vm.help.recipient = '';
-              vm.newMessage.recipient.id = data.data[0].id;
-              vm.valid.recipient = 1;
-            }
-            else
+            // No result -> Invalid
+            if (data.data.length < 1)
             {
               vm.help.recipient = 'This user does not exit.'
               vm.newMessage.recipient.id = '';
               vm.valid.recipient = -1;
+            }
+            else if (vm.profile.id == data.data[0].id)
+            {
+              vm.help.recipient = 'You cannot message yourself';
+              vm.newMessage.recipient.id = '';
+              vm.valid.recipient = -1;
+            }
+            else
+            {
+              vm.help.recipient = '';
+              vm.newMessage.recipient.id = data.data[0].id;
+              vm.valid.recipient = 1;
             }
           }
 
@@ -301,8 +278,14 @@
       * @desc Concat to the list of messages and sort the list.
       */
       function getMessagesSuccessFn(data) {
-        vm.receivedMessages = vm.receivedMessages.concat(data.data);
+        // Get number of unread messages and push to list
+        for(var i = 0; i < data.data.length; i++)
+        {
+          if (data.data[i].unread) vm.unreadNumber++;
+          vm.receivedMessages.push(data.data[i]);
+        }
         vm.receivedMessages.sort(sortByDate);
+
 
         /**
         * @name sortByDate
