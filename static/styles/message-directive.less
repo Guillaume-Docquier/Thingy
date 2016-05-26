@@ -5,10 +5,12 @@
 	border-radius: 5px;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
+
 	.col-xs-2 {
 		padding: 0;
 		position: static;
 	}
+
 	&.unread {
 		font-weight: bold;
 		background: darken(@hover-color, 4%);
@@ -16,6 +18,7 @@
 			cursor: pointer;
 		}
 	}
+
 	&:hover {
 		background: @hover-color;
 	}
@@ -23,7 +26,7 @@
 
 .system-message-icon {
 	display: block;
-	margin: @font-size-base auto 0 auto;
+	margin: @font-size-base auto @font-size-base auto;
 	width: @font-size-glyphicon-xl;
 	font-size: @font-size-glyphicon-xl;
 
