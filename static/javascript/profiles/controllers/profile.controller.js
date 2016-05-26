@@ -147,14 +147,12 @@
       Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
 
       function getMessagesSuccessFn(data) {
-        // Temporary, will need to sort by date instead
-        var messages = data.data.reverse();
-        // Format the date and change the type
-        for (var i = 0; i < messages.length; i++)
-        {
-          messages[i].created_at = moment(messages[i].created_at).format('MMMM Do HH:mm');
-          vm.receivedMessages.push(messages[i]);
-          console.log(messages[i]);
+        vm.receivedMessages = vm.receivedMessages.concat(data.data);
+        vm.receivedMessages.sort(sortByDate);
+
+        // Newest first
+        function sortByDate(a, b) {
+          return new Date(b.created_at) - new Date(a.created_at);
         }
       }
 
