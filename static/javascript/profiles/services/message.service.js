@@ -31,9 +31,8 @@
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
-    function sendMessage(type, body, recipientId) {
-      return $http.post('api/v1/messages/', {
-        type: type,
+    function sendMessage(body, recipientId) {
+      return $http.post('api/v1/privatemessages/', {
         body: body,
         recipient: recipientId
       });
@@ -53,7 +52,7 @@
         apiEndpoint = 'rentmessages';
       else
         apiEndpoint = 'privatemessages';
-        
+
       return $http.put('api/v1/' + apiEndpoint + '/' + message.id + '/', message);
     }
 

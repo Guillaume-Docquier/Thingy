@@ -46,7 +46,6 @@
         username: '',
         id: ''
       },
-      type: 4 // Private message
     };
 
     activate();
@@ -163,7 +162,6 @@
         return;
       }
       Message.sendMessage(
-        vm.newMessage.type,
         vm.newMessage.body,
         vm.newMessage.recipient.id
       ).then(sendSuccessFn, sendErrorFn);
@@ -222,7 +220,7 @@
             if (data.data.length > 0)
             {
               vm.help.recipient = '';
-              vm.newMessage.recipient.id = data.data.id;
+              vm.newMessage.recipient.id = data.data[0].id;
               vm.valid.recipient = 1;
             }
             else
