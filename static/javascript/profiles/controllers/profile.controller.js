@@ -99,26 +99,26 @@
         }
 
         /**
-          * @name postsSucessFn
-          * @desc Update 'posts' on viewmodel
-          */
+        * @name postsSucessFn
+        * @desc Update 'posts' on viewmodel
+        */
         function postsSuccessFn(data, status, headers, config) {
           vm.posts = data.data;
         }
 
         /**
-          * @name postsErrorFn
-          * @desc Log error in the console
-          */
+        * @name postsErrorFn
+        * @desc Log error in the console
+        */
         function postsErrorFn(data) {
           alert('Could not load posts.');
           console.error('Error: ' + JSON.stringify(data.data));
         }
 
         /**
-          * @name reviewsSuccessFn
-          * @desc Update 'reviews' on viewmodel
-          */
+        * @name reviewsSuccessFn
+        * @desc Update 'reviews' on viewmodel
+        */
         function reviewsSuccessFn(data) {
           vm.reviews = data.data;
           // Format dates
@@ -127,44 +127,30 @@
         }
 
         /**
-          * @name reviewsErrorFn
-          * @desc Log error in the console
-          */
+        * @name reviewsErrorFn
+        * @desc Log error in the console
+        */
         function reviewsErrorFn(data) {
           alert('Could not load reviews.');
           console.error('Error: ' + JSON.stringify(data.data));
         }
       }
 
+
+      /**
+      * @name profileErrorFn
+      * @desc Log error in the console
+      */
       function profileErrorFn(data) {
         alert('Could not load profile.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
-    function getReceivedMessages() {
-      Message.getSystemMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
-      Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
-
-      function getMessagesSuccessFn(data) {
-        vm.receivedMessages = vm.receivedMessages.concat(data.data);
-        vm.receivedMessages.sort(sortByDate);
-
-        // Newest first
-        function sortByDate(a, b) {
-          return new Date(b.created_at) - new Date(a.created_at);
-        }
-      }
-
-      function getMessagesErrorFn(data) {
-        alert('Could not fetch received messages.');
-        console.error('Error: ' + JSON.stringify(data.data));
-      }
-    }
 
     /**
     * @name sendMessage
-    * @desc Send a private message to another user
+    * @desc Send a private message to another user.
     */
     function sendMessage() {
       if (!formIsValid())
@@ -179,7 +165,7 @@
 
       /**
       * @name sendSuccessFn
-      * @desc Display success message
+      * @desc Display success message.
       */
       function sendSuccessFn() {
         alert('Message sent!');
@@ -187,13 +173,18 @@
 
       /**
       * @name sendErrorFn
-      * @desc Display an error message and log the details in the console
+      * @desc Display an error message and log the details in the console.
       */
       function sendErrorFn(data) {
         alert('Could not send your message.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
 
+
+      /**
+      * @name formIsValid
+      * @desc Check if all fields are valid.
+      */
       function formIsValid() {
         var valid = 1;
         for (var key in vm.valid) {
@@ -209,7 +200,8 @@
 
     /**
     * @name validate
-    * @desc Send a request to the db to verify if this username exists
+    * @desc Validate input depending on type
+    * @param {String} type The type of input to validate
     */
     function validate(type) {
       switch(type) {
@@ -266,6 +258,10 @@
         }
     }
 
+    /**
+    * @name markAsRead
+    * @desc Mark a message as read if it can.
+    */
     function markAsRead(message) {
       if (message.unread)
       {
@@ -273,10 +269,18 @@
         Message.markAsRead(message).then(markSuccessFn, markErrorFn);
       }
 
+      /**
+      * @name markSuccessFn
+      * @desc Update the number of unread messages.
+      */
       function markSuccessFn(data) {
         vm.unreadNumber--;
       }
 
+      /**
+      * @name markErrorFn
+      * @desc Notify of error and log in console.
+      */
       function markErrorFn(data) {
         message.unread = true;
         alert('Could not mark as read.');
@@ -285,30 +289,36 @@
     }
 
     /**
-    * @name createReview
-    * @desc Create a review
+    * @name getReceivedMessages
+    * @desc Fetch system and private messages.
     */
-    function createReview() {
-      Profile.createReview(
-        vm.profile.id,
-        vm.description,
-        vm.rating
-      ).then(reviewSuccessFn, reviewErrorFn);
+    function getReceivedMessages() {
+      Message.getSystemMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+      Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
 
       /**
-      * @name reviewSuccessFn
-      * @desc Notifiy of success
+      * @name getMessagesSuccessFn
+      * @desc Concat to the list of messages and sort the list.
       */
-      function reviewSuccessFn(data) {
-        alert('Review created!');
+      function getMessagesSuccessFn(data) {
+        vm.receivedMessages = vm.receivedMessages.concat(data.data);
+        vm.receivedMessages.sort(sortByDate);
+
+        /**
+        * @name sortByDate
+        * @desc Sort array by dates, most recent first.
+        */
+        function sortByDate(a, b) {
+          return new Date(b.created_at) - new Date(a.created_at);
+        }
       }
 
       /**
-      * @name reviewErrorFn
-      * @desc Notify of error and log it in the console
+      * @name getMessagesErrorFn
+      * @desc Notify of error and log in console.
       */
-      function reviewErrorFn() {
-        alert('Could not create the review.');
+      function getMessagesErrorFn(data) {
+        alert('Could not fetch received messages.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
