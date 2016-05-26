@@ -3,13 +3,22 @@
 	padding:2vh 2vh 2vh 2vh;
 	border: 1px solid @btn-other-color-light;
 	border-radius: 5px;
-	margin-top: 1em;
-	margin-bottom: 1em;
-}
-
-#messagebox .col-xs-2 {
-	padding: 0;
-	position: static;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	.col-xs-2 {
+		padding: 0;
+		position: static;
+	}
+	&.unread {
+		font-weight: bold;
+		background: darken(@hover-color, 4%);
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	&:hover {
+		background: @hover-color;
+	}
 }
 
 .system-message-icon {

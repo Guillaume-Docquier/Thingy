@@ -1,6 +1,6 @@
 <!-- The directive is rendered before being inserted so we need a container here -->
 <div class="container-fluid">
-	<div id="messagebox" class="row">
+	<div id="messagebox" class="row" ng-class="{'unread': message.unread}">
 		<div class="col-xs-2">
 			<img ng-show="message.author" ng-src="/media/{{message.author.image}}" class="img-circle img-responsive" alt="Image"/>
 			<div ng-show="message.type" class="system-message-icon">
