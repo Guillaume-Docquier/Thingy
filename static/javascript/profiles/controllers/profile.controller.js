@@ -21,6 +21,7 @@
     vm.sendMessage = sendMessage;
     vm.validate = validate;
     vm.markAsRead = markAsRead;
+    vm.getReceivedMessages = getReceivedMessages;
     vm.unreadNumber = 0;
     vm.isOwner = true;
     vm.isAuthenticated = Authentication.isAuthenticated();
@@ -29,7 +30,6 @@
     vm.sentMessages = [];
     vm.posts = [];
     vm.reviews = [];
-    vm.averageRating = 0;
     vm.valid = {
       recipient: 0,
       body: 0
@@ -46,7 +46,6 @@
         username: '',
         id: ''
       },
-      type: 4 // Private message
     };
 
     activate();
@@ -67,7 +66,7 @@
         vm.profile = data.data;
         Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
         Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
-        Message.getReceivedMessages().then(getRSuccessFn, getRErrorFn);
+        vm.getReceivedMessages();
         //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
 
         /**
@@ -97,15 +96,6 @@
             alert('Could not fetch the number of unread messages.');
             console.error('Error: ' + JSON.stringify(data.data));
           }
-        }
-
-        /**
-        * @name getRErrorFn
-        * @desc Log error in the console
-        */
-        function getRErrorFn(data) {
-          alert('Could not load received messages.');
-          console.error('Error: ' + JSON.stringify(data.data));
         }
 
         /**
@@ -152,6 +142,26 @@
       }
     }
 
+    function getReceivedMessages() {
+      Message.getSystemMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+      Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+
+      function getMessagesSuccessFn(data) {
+        vm.receivedMessages = vm.receivedMessages.concat(data.data);
+        vm.receivedMessages.sort(sortByDate);
+
+        // Newest first
+        function sortByDate(a, b) {
+          return new Date(b.created_at) - new Date(a.created_at);
+        }
+      }
+
+      function getMessagesErrorFn(data) {
+        alert('Could not fetch received messages.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+    }
+
     /**
     * @name sendMessage
     * @desc Send a private message to another user
@@ -163,7 +173,6 @@
         return;
       }
       Message.sendMessage(
-        vm.newMessage.type,
         vm.newMessage.body,
         vm.newMessage.recipient.id
       ).then(sendSuccessFn, sendErrorFn);
@@ -222,7 +231,7 @@
             if (data.data.length > 0)
             {
               vm.help.recipient = '';
-              vm.newMessage.recipient.id = data.data.id;
+              vm.newMessage.recipient.id = data.data[0].id;
               vm.valid.recipient = 1;
             }
             else

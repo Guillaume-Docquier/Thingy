@@ -5,6 +5,7 @@ from datetime import datetime
 import time
 import datetime
 from autoupdate import *
+from authentication.serializers import AccountSerializer
 
 class ChoicesField(serializers.Field):
     def __init__(self, choices, **kwargs):
@@ -33,17 +34,9 @@ class RequestSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PrivateMessageSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
+    author = AccountSerializer(read_only=True, required=False)
     a = time.strftime("%x")
     print(a)
     class Meta:
         model = PrivateMessage
         fields = '__all__'
-
-
-
-
-
-
-
-
