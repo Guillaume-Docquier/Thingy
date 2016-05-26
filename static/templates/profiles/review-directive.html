@@ -1,7 +1,6 @@
 <div class="container-fluid">
 			<div id="reviewbox" class="row">
 				<div class="col-xs-3">
-					<!-- TODOJS get the senders profile picture -->
 			<div id="review__picture" >
 						<img id="image" ng-src='media/{{review.review_author.image}}' class="img-circle img-responsive" alt="Author picture"/>
 					</div>
@@ -14,7 +13,6 @@
 								<img id="image__rating" ng-src="static/images/rating_{{review.rating_details.rating_grade}}.png"/>
 							</h5>
 						</div>
-						<!-- TODOJS make date/time work? -->
 						<div id="review__date" class="col-xs-5">
 							<p>{{review.created | date : "MMM d, y 'at' HH:mm"}}</p>
 						</div>

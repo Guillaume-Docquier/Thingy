@@ -11,7 +11,7 @@
 		</div> <!-- /col-xs-9-->
 	</div> <!-- /row -->
 
-	
+
     <div class="row">
         <div class="col-sm-3 hidden-xs">
           <img id='box' ng-src='media/{{thingy.image}}'></img>
@@ -33,35 +33,34 @@
 				<p>Subcategory: {{thingy.subcategory_details.sub_cat_name}}</p>
 			  </div>
            </div> <!-- /hidden-xs -->
-          
+
           <div id="location">
             <p><span class="glyphicon glyphicon-map-marker"></span>{{thingy.location_details.name}}, {{thingy.location_details.region.name}}</p>
           </div>
           <div id="suppliername">
             <p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p>
           </div>
-          <!-- TODOJS add rating stars -->
 
           <div id="reviews" class="hidden-xs">
-              <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
-		  </div> 
+              <p>Rating: {{thingy.author.avg_rating | number : 3}}<span class="glyphicon glyphicon-star yellow"></span></p>
+		  </div>
 		</div> <!-- /col-sm-5 -->
-      
+
         <div class="col-sm-4">
           <div class="price hidden-xs">
             <p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
           </div>
         </div><!-- /col-xs-4 -->
-    </div> <!-- /row -->		
+    </div> <!-- /row -->
 	<div class="row">
 		<div class="col-xs-8 visible-xs">
 			<div class="price">
 				<p>{{thingy.price}} <span id="SEKday">SEK/day</span></p>
 			</div>
-			</div>	
+			</div>
 		<div id="manage__post" class="col-xs-4 col-sm-12" ng-show="{{owned}}"><a href='thingies/manage/{{thingy.id}}'>Manage</a></div>
 	</div> <!-- /row -->
-        
+
       </div> <!-- /row -->
       </div>
     </div>

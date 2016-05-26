@@ -42,7 +42,7 @@
                       <div ><p><span class="glyphicon glyphicon-user"></span>{{thingy.author.username}}</p></div>
                       <div id="reviews">
 
-                          <p>Rating: {{thingy.author.avg_rating}}<span class="glyphicon glyphicon-star yellow"></span></p>
+                          <p>Rating: {{thingy.author.avg_rating | number : 3}}<span class="glyphicon glyphicon-star yellow"></span></p>
 
                       </div>
                   </div>

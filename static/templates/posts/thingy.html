@@ -106,18 +106,7 @@
 <!--
 				<h6>{{vm.post.location_details.region.name}}, {{vm.post.location_details.name}}</h6>
 -->
-		    <!-- TODOJS get the reviews-->
-
-                <p>Rating: {{vm.post.author.avg_rating}}<span ng-hide="vm.post.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
-
-		    <!--h6>
-				  <span class="glyphicon glyphicon-star yellow"></span>
-				  <span class="glyphicon glyphicon-star yellow"></span>
-				  <span class="glyphicon glyphicon-star yellow"></span>
-				  <span class="glyphicon glyphicon-star yellow"></span>
-				  <span class="glyphicon glyphicon-star yellow"></span>
-            </h6-->
-
+                <p>Rating: {{vm.post.author.avg_rating | number : 3}}<span ng-hide="vm.post.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
 			</div><!--col-xs-8 col-sm-4-->
 
 
@@ -200,12 +189,5 @@
 
 		<div class="col-sm-3"></div>
 	</div><!--/row-->
-
-
-<!--
-  Calendar test, you can remove it or place it where a calendar should be.
-  Dimensions might not fit and are set in javascript, add TODOJS if you want me to take care of it.
--->
-<!-- <div ui-calendar="vm.uiConfig.calendar" ng-model="vm.eventSources"></div> -->
 
 </div> <!--/container-fluid-->
