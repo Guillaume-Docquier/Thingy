@@ -72,12 +72,10 @@
       Profile.get(vm.recipientName).then(validateSuccessFn, validateErrorFn);
 
       function validateSuccessFn(data, status, headers, config) {
-        // TODO green highlight
         vm.recipient = data.data;
       }
 
       function validateErrorFn(data) {
-        // TODO red highlight
         vm.recipient = '';
       }
     }

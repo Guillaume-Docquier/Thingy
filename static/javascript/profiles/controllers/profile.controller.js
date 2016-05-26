@@ -9,12 +9,12 @@
     .module('thingy.profiles.controllers')
     .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = ['$location', 'Profile', 'Posts', 'Message', 'Authentication'];
+  ProfileController.$inject = ['$location', 'Profile', 'Posts', 'Message', 'Authentication', '$scope'];
 
   /**
   * @namespace ProfileController
   */
-  function ProfileController($location, Profile, Posts, Message, Authentication) {
+  function ProfileController($location, Profile, Posts, Message, Authentication, $scope) {
     var vm = this;
 
     // Functions and data
@@ -63,6 +63,27 @@
         return;
       }
       else Profile.get(Authentication.getAuthenticatedAccount().username).then(profileSuccessFn, profileErrorFn);
+
+      // Move a pending offer to the processed offers
+      $scope.$on('offer.processed', function (event, offer) {
+        for (var i = 0; i < vm.pendingOffers.length; i++)
+        {
+          if (vm.pendingOffers[i].id == offer.id)
+          {
+            vm.pendingOffers.splice(i, 1);
+            break;
+          }
+        }
+        vm.processedOffers.unshift(offer);
+      });
+
+      /**
+      * @name process
+      * @desc Move a pending request to the processed requests
+      */
+      function process() {
+
+      }
 
       function profileSuccessFn(data) {
         vm.profile = data.data;

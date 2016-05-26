@@ -5,9 +5,9 @@
     .module('thingy.profiles.controllers')
     .controller('OffersController', OffersController);
 
-  OffersController.$inject = ['Authentication', 'Posts', '$scope'];
+  OffersController.$inject = ['Authentication', 'Posts', '$scope', '$rootScope'];
 
-  function OffersController(Authentication, Posts, $scope) {
+  function OffersController(Authentication, Posts, $scope, $rootScope) {
     var vm = this;
 
     // Functions and Data
@@ -17,7 +17,6 @@
     function rent(status, id) {
       Posts.rent(status, {request: vm.offer}).then(rentSuccessFn, rentErrorFn);
 
-      // TODO Broadcast the event so that profile.controller can move the offer from pending to processed
       function rentSuccessFn(data) {
         if (status == 'accept')
         {
@@ -29,6 +28,9 @@
           alert('The offer was declined.');
           vm.offer.status = 'Declined';
         }
+
+        //Broadcast the event so that profile.controller can move the offer from pending to processed
+        $rootScope.$broadcast('offer.processed', vm.offer);
       }
 
       function rentErrorFn(data) {
