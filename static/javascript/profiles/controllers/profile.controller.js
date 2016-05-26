@@ -92,9 +92,6 @@
         */
         function reviewsSuccessFn(data) {
           vm.reviews = data.data;
-          // Format dates
-          for(var i = 0; i < vm.reviews.length; i++)
-            vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
         }
 
         /**
