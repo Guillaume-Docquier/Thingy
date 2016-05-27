@@ -1,9 +1,4 @@
 from rest_framework import serializers
-from message.models import *
-from datetime import date
-from datetime import datetime
-import time
-import datetime
 from autoupdate import *
 
 class ChoicesField(serializers.Field):
@@ -34,8 +29,7 @@ class RequestSerializer(serializers.ModelSerializer):
 
 class PrivateMessageSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
-    a = time.strftime("%x")
-    print(a)
+
     class Meta:
         model = PrivateMessage
         fields = '__all__'

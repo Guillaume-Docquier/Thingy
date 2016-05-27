@@ -4,6 +4,8 @@ from authentication.serializers import AccountSerializer
 from posts.models import Post, Category, Subcategory, Region, Town, Condition, Status
 from posts.fields import Base64ImageField
 
+from custom_functions import *
+
 
 class CategorySerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -78,16 +80,36 @@ class PostSerializer(serializers.ModelSerializer):
 
     image = Base64ImageField(required=False)
 
+    longitude = serializers.ReadOnlyField()
+    latitude = serializers.ReadOnlyField()
+
 
     class Meta:
         model = Post
 
         fields = ('id', 'author', 'title', 'description', 'price',
                   'condition_details', 'condition', 'location_details',
-                  'location', 'created_at', 'subcategory_details' , 'subcategory', 'updated_at', 'image', 'status', 'status_details')
+                  'location', 'created_at', 'subcategory_details' , 'subcategory', 'updated_at', 'image', 'status', 'status_details',
+                  'area_code', 'latitude', 'longitude')
         #read_only_fields = ('id', 'created_at', 'updated_at' )#, 'location_details', 'subcategory_details', 'condition_details')
+        #read_only_fields = ('longitude', 'latitude')
 
     def get_validation_exclusions(self, *args, **kwargs):
         exclusions = super(PostSerializer, self).get_validation_exclusions()
 
         return exclusions + ['author']
+
+    def create(self, validated_data):
+
+        post = Post.objects.create(**validated_data)
+
+        lng_lat_dict = coordinates(post.area_code)
+
+        post.longitude = lng_lat_dict['lng']
+        post.latitude = lng_lat_dict['lat']
+        post.save()
+
+        return post
+
+
+

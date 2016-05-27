@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from rest_framework import filters
 from rest_framework import generics
+from custom_functions import *
 
 from itertools import groupby
 
@@ -39,6 +40,8 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         instance = serializer.save(author=self.request.user)
         return super(PostViewSet, self).perform_create(serializer)
+
+
 
 
 class AccountPostsViewSet(viewsets.ViewSet):
