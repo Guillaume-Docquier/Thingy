@@ -90,14 +90,11 @@
         */
         function reviewsSuccessFn(data) {
           // Most recent first
-          vm.reviews = data.data.reverse();
-          var totalRating = 0;
-          // Format dates and calculate average rating
+          vm.reviews = data.data;
+          // Format dates
           for(var i = 0; i < vm.reviews.length; i++) {
-            vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
-            totalRating += vm.reviews[i].rating_details.rating_grade;
+            //vm.reviews[i].created = moment(vm.reviews[i].created).format('MMMM Do HH:mm');
           }
-          vm.averageRating = Math.round( totalRating / (vm.reviews.length || 1) );
         }
 
         /**
@@ -142,7 +139,7 @@
           reviewed_user: vm.profile.id,
           review_author: Authentication.getAuthenticatedAccount(),
           comment: vm.description,
-          created: moment().format('MMMM Do HH:mm'),
+          created: new Date().toISOString(),
           rating_details: {
             rating_grade: vm.rating
           }

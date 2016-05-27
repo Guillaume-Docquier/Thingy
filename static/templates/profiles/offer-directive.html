@@ -1,0 +1,36 @@
+<!-- The directive is rendered before being inserted so we need a container here -->
+<div class="container-fluid">
+	<div id="messagebox" class="row">
+		<div class="col-xs-2">
+			<div class="system-message-icon">
+				<span class="glyphicon" ng-class="{'glyphicon-refresh': offer.status == 'Pending', 'glyphicon-ok': offer.status == 'Accepted', 'glyphicon-remove': offer.status == 'Declined', 'glyphicon-check': offer.status == 'Ended'}" aria-hidden="true"></span>
+			</div>
+		</div>
+		<div class="col-xs-10">
+			<div class="row">
+				<div class="col-xs-8">
+					<h5>From {{offer.rentee.username}}</h5>
+					<h5>Status: {{offer.status}}</h5>
+				</div>
+				<div class="col-xs-4">
+					{{offer.created_at | date : "MMM d, y 'at' HH:mm"}}
+				</div>
+			</div> <!-- /row -->
+			<div class="row">
+				<div class="col-xs-12">
+					<p>Comment: {{offer.body}}</p>
+				</div>
+			</div> <!-- /row -->
+			<div class="row" ng-show="offer.status == 'Pending'">
+				<div class="col-xs-3"></div>
+				<div class="col-xs-3">
+					<button type="button" ng-click="vm.rent('accept', offer.id)" class="btn btn-success">Accept</button>
+				</div>
+				<div class="col-xs-3">
+					<button type="button" ng-click="vm.rent('decline', offer.id)" class="btn btn-danger">Decline</button>
+				</div>
+				<div class="col-xs-3"></div>
+			</div>
+		</div>
+  </div>
+</div> <!-- /container-fluid -->

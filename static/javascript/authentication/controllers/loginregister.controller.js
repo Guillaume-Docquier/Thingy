@@ -19,6 +19,7 @@
 
     // Functions and data
     vm.login = login;
+    vm.forgotpassword = forgotpassword;
     vm.register = register;
     vm.validate = validate;
     vm.formIsValid = formIsValid;
@@ -86,6 +87,10 @@
       if($location.search().redirect)
         redirect = '/' + $location.search().redirect;
       Authentication.login(vm.username, vm.password, redirect);
+    }
+    
+    function forgotpassword() {
+      
     }
 
     /**

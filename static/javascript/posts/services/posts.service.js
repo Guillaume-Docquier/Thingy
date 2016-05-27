@@ -110,14 +110,33 @@
     }
 
     // Sends a rent request/reply (request,accept,decline)
-    function rent(postId, period, message) {
-      return $http.post('api/v1/requests/', {
-        start_date: period.start,
-        end_date: period.end,
-        body: message,
-        rentee: Authentication.getAuthenticatedAccount().id,
-        thingy: postId
-      });
+    function rent(status, data) {
+      switch (status)
+      {
+        case 'request':
+          return $http.post('api/v1/requests/', {
+            start_date: data.period.start,
+            end_date: data.period.end,
+            body: data.message,
+            rentee: Authentication.getAuthenticatedAccount().id,
+            thingy: data.postId
+          });
+        case 'accept':
+          return $http.put('api/v1/requests/' + data.request.id + '/', {
+            thingy: data.request.thingy,
+            start_date: data.request.start_date,
+            end_date: data.request.end_date,
+            status: 'Accepted'
+          });
+        case 'decline':
+          return $http.put('api/v1/requests/' + data.request.id + '/', {
+            thingy: data.request.thingy,
+            start_date: data.request.start_date,
+            end_date: data.request.end_date,
+            status: 'Declined'
+          });
+      }
+
     }
   }
 })();

@@ -30,11 +30,8 @@
 				<div id="profile__name" class="col-xs-7 col-sm-12">
 					<h1>{{ vm.profile.username }}</h1>
 					<!-- TODOJS add hometown? Should we have this -->
-<!--
-					<h6><span class="glyphicon glyphicon-map-marker"></span> Town, Region</h6>
--->
 					  <h5>
-						  <img id="image__rating__profile" ng-src="static/images/rating_{{vm.profile.average_rating}}.png"/>
+						  <img id="image__rating__profile" ng-src="static/images/rating_{{vm.profile.avg_rating_round}}.png"/>
 					  </h5>
 
 						<a ng-show=vm.isOwner href="thingies/add" id="profile__button1" role="button" class="btn btn-primary hidden-xs" ><span class="glyphicon glyphicon-plus-sign"></span> Add Thingy</a><br>
@@ -84,7 +81,8 @@
 					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
 					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
 					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show=vm.unreadNumber>{{vm.unreadNumber}}</span></a></li>
-					</ul>
+            <li ng-show=vm.isOwner><a data-toggle="tab" href="#offers__tab">Offers</li>
+          </ul>
 
 				</div><!-- col-xs-12 -->
 				</div><!-- /row -->
@@ -118,7 +116,7 @@
 				  <div id="messages__tab" class="tab-pane fade">
 					  <div class="row">
 						<div class="col-xs-9"></div>
-						<div class="col-xs-3 form-group">
+						<div class="col-xs-3">
 							<button type="button" id="btn__new__message" class="btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span> New message</button>
 						</div>
 					</div> <!-- /row -->
@@ -158,6 +156,19 @@
 						<message message="message" ng-click="vm.markAsRead(message)"></message>
 					</div>
 				</div> <!-- /messages__tab -->
+
+        <div id="offers__tab" class="tab-pane fade">
+          <h2>Pending offers</h2>
+          <div ng-show="!vm.pendingOffers.length">You have no pending offers.</div>
+          <div ng-repeat='offer in vm.pendingOffers'>
+            <offer offer="offer"></offer>
+          </div>
+          <h2>Processed offers</h2>
+          <div ng-show="!vm.processedOffers.length">You never processed offers.</div>
+          <div ng-repeat='offer in vm.processedOffers'>
+            <offer offer="offer"></offer>
+          </div>
+        </div> <!-- /offers__tab -->
 
 			</div> <!-- /row tab-content-->
 		</div> <!-- /col-sm-7 -->

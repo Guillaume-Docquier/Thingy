@@ -30,7 +30,7 @@ class RequestViewSet(viewsets.ModelViewSet):
         RentMessage.objects.create(thingy_id=instance.thingy_id, rentee=instance.rentee,
                                    start_date=instance.start_date, end_date=instance.end_date,
                                    created_at=instance.created_at, body="The user %s wants to rent your Thingy. You can go in 'My requests' to accept or decline the offer. Additional comment from the user: %s" % (post.author.username, instance.body),
-                                   type='Rent request', unread=True)
+                                   type='Rent request', unread=True)        
 
 class PrivateMessageViewSet(viewsets.ModelViewSet):
     queryset = PrivateMessage.objects.all()
