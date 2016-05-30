@@ -24,7 +24,8 @@
       subregion: 0,
       price: 0,
       condition: 0,
-      description: 0
+      description: 0,
+      area_code: 0
     };
     vm.help = {
       title: '',
@@ -34,7 +35,8 @@
       subregion: '',
       price: '',
       condition: '',
-      description: ''
+      description: '',
+      area_code: ''
     };
 
     // Bindings, empty string to prevent unwanted behaviour
@@ -46,6 +48,7 @@
     vm.subcategory = '';
     vm.region = '';
     vm.subregion = '';
+    vm.area_code = '';
     vm.imageUpload = '';
 
     activate();
@@ -111,6 +114,7 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
+          vm.area_code,
           vm.imageUpload.base64
         ).then(addPostSuccessFn, addPostErrorFn);
       }

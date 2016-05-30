@@ -7,23 +7,14 @@
 
   angular
     .module('thingy.posts.controllers')
-    .config(function(uiGmapGoogleMapApiProvider) {
-      uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyDnKFezpw2JUfe2wh43THS3tTFeK72_WMA',
-        libraries: 'weather,geometry,visualization'
-      });
-    });
-
-  angular
-    .module('thingy.posts.controllers')
     .controller('ThingyController', ThingyController);
 
-  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', 'uiGmapGoogleMapApi'];
+  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', '$timeout', '$http', '$sce'];
 
   /**
   * @namespace ThingyController
   */
-  function ThingyController(Posts, $routeParams, Authentication, $scope, uiGmapGoogleMapApi) {
+  function ThingyController(Posts, $routeParams, Authentication, $scope, $timeout, $http, $sce) {
     var vm = this;
 
     // Functions and Data
@@ -33,7 +24,7 @@
     vm.uiConfig = '';
     vm.eventSources = {};
     vm.availability = '';
-    vm.map = '';
+    vm.gMapsUrl = '';
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.period = {};
@@ -50,8 +41,6 @@
       var thingyId = $routeParams.postid;
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
-      uiGmapGoogleMapApi.then(gMapsLoaded);
-      vm.map = { center: { latitude: 59.8586, longitude: 17.6389 }, zoom: 11 };
       vm.profile = Authentication.getAuthenticatedAccount();
       // Calendar, not used right now
       vm.uiConfig = {
@@ -107,6 +96,7 @@
         var classes = ['', 'btn-success', 'btn-warning', 'btn-danger']
         vm.post = data.data;
         vm.availability = classes[vm.post.status_details.id];
+        vm.gMapsUrl = $sce.trustAsResourceUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc&q=" + vm.post.area_code + ",Sweden");
       }
 
       /**
@@ -116,15 +106,6 @@
       function postErrorFn(data) {
         alert('Could not retrieve post.');
         console.error('Error: ' + JSON.stringify(data.data));
-      }
-
-      /**
-      * @name gMapsLoaded
-      * @desc Callback for google maps
-      * @param {Object} maps The google maps object
-      */
-      function gMapsLoaded(maps) {
-        // Can do stuff here
       }
     }
 

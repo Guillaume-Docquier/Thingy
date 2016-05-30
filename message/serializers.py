@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from autoupdate import *
+#from autoupdate import *
 from authentication.serializers import AccountSerializer
+from models import *
 
 class ChoicesField(serializers.Field):
     def __init__(self, choices, **kwargs):
