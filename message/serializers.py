@@ -15,7 +15,8 @@ class ChoicesField(serializers.Field):
         return getattr(self._choices, data)
 
 class RentMessageSerializer(serializers.ModelSerializer):
-    rentee = serializers.ReadOnlyField(source='rentee.username')
+    rentee = AccountSerializer(read_only=True, required=False)
+    recipient = AccountSerializer(read_only=True, required=False)
 
     class Meta:
         model = RentMessage
@@ -24,6 +25,7 @@ class RentMessageSerializer(serializers.ModelSerializer):
 
 class RequestSerializer(serializers.ModelSerializer):
     rentee = AccountSerializer(read_only=True, required=False)
+    recipient = AccountSerializer(read_only=True, required=False)
 
     class Meta:
         model = Request
