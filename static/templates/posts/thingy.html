@@ -171,19 +171,17 @@
 
 	<div class="row">
 		<div class="col-sm-3"></div>
-
-
-
-
-
-
-  		<div class="col-sm-6" id="map_thingy">
-  			<ui-gmap-google-map
-            center='vm.map.center'
-            zoom='vm.map.zoom'>
-        </ui-gmap-google-map>
-  		</div>
-
+		<div class="col-sm-6" id="map_thingy">
+			<p>
+			  <iframe
+					width="100%"
+					height="200px"
+					frameborder="0" style="border:0"
+					ng-src="{{vm.gMapsUrl}}"
+					allowfullscreen>
+			  </iframe>
+			</p>
+		</div>
 		<div class="col-sm-3"></div>
 	</div><!--/row-->
 </div> <!--/container-fluid-->

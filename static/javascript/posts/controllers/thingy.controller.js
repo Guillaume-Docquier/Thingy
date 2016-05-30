@@ -7,23 +7,14 @@
 
   angular
     .module('thingy.posts.controllers')
-    .config(function(uiGmapGoogleMapApiProvider) {
-      uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyDnKFezpw2JUfe2wh43THS3tTFeK72_WMA',
-        libraries: 'weather,geometry,visualization'
-      });
-    });
-
-  angular
-    .module('thingy.posts.controllers')
     .controller('ThingyController', ThingyController);
 
-  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', 'uiGmapGoogleMapApi', '$timeout'];
+  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', '$timeout', '$http', '$sce'];
 
   /**
   * @namespace ThingyController
   */
-  function ThingyController(Posts, $routeParams, Authentication, $scope, uiGmapGoogleMapApi, $timeout) {
+  function ThingyController(Posts, $routeParams, Authentication, $scope, $timeout, $http, $sce) {
     var vm = this;
 
     // Functions and Data
@@ -33,15 +24,7 @@
     vm.uiConfig = '';
     vm.eventSources = {};
     vm.availability = '';
-    vm.map = {
-      // Works
-      center: { // Montreal
-        latitude: 45.5017,
-        longitude: -73.5673
-      },
-      zoom: 11,
-      control: {}
-    };
+    vm.gMapsUrl = '';
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.period = {};
@@ -58,7 +41,6 @@
       var thingyId = $routeParams.postid;
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
-      uiGmapGoogleMapApi.then(gMapsLoaded);
       vm.profile = Authentication.getAuthenticatedAccount();
       // Calendar, not used right now
       vm.uiConfig = {
@@ -114,8 +96,7 @@
         var classes = ['', 'btn-success', 'btn-warning', 'btn-danger']
         vm.post = data.data;
         vm.availability = classes[vm.post.status_details.id];
-        // Works
-        vm.map.center = ({latitude: 55.7047, longitude: 13.1910}); // Lund
+        vm.gMapsUrl = $sce.trustAsResourceUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyAu_fehsrcpOMagU3vcHVOaxbnkuxU4LLc&q=" + vm.post.area_code + ",Sweden");
       }
 
       /**
@@ -126,19 +107,6 @@
         alert('Could not retrieve post.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
-
-      /**
-      * @name gMapsLoaded
-      * @desc Callback for google maps
-      * @param {Object} maps The google maps object
-      */
-      function gMapsLoaded(maps) {
-        // Can do stuff here?
-        // Works
-        console.log(maps);
-        // DOES NOT WORK ... ???
-        vm.map.center = ({latitude: 59.8586, longitude: 17.6389}); // Uppsala
-      }
     }
 
     /**
@@ -146,8 +114,6 @@
     * @desc Produce a rent request
     */
     function rent() {
-      // Works
-      vm.map.center = {latitude: 48.8566, longitude: 2.3522}; // Paris
       // Requires authentication
       if(Authentication.isAuthenticated)
         Posts.rent('request', {
