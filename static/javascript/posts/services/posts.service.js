@@ -56,7 +56,7 @@
     }
 
     // Updates a post
-    function update(id, title, description, price, conditionID, subcategoryID, subregionID, image64) {
+    function update(id, title, description, price, conditionID, subcategoryID, subregionID, areaCode, image64) {
       return $http.put('/api/v1/posts/' + id + '/', {
         title: title,
         description: description,
@@ -64,6 +64,7 @@
         condition: conditionID,
         subcategory: subcategoryID,
         location: subregionID,
+        area_code: areaCode,
         image: image64
       });
     }

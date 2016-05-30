@@ -119,6 +119,7 @@
           vm.condition.id,
           vm.subcategory.id,
           vm.subregion.id,
+          vm.post.area_code,
           vm.imageUpload.base64
         ).then(updatePostSuccessFn, updatePostErrorFn);
       }
