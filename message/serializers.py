@@ -45,13 +45,10 @@ class RequestSerializer(serializers.ModelSerializer):
         return instance
 
 class PrivateMessageSerializer(serializers.ModelSerializer):
-
-
-
-
+    # author = serializers.ReadOnlyField(source='author.username')
     author = AccountSerializer(read_only=True, required=False)
-    a = time.strftime("%x")
-    print(a)
+    #a = time.strftime("%x")
+    #print(a)
 
     class Meta:
         model = PrivateMessage

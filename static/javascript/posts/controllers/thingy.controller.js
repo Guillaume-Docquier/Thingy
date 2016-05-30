@@ -1,13 +1,29 @@
+/**
+* ThingyController
+* @namespace thingy.posts.controllers
+*/
 (function(){
   'use strict'
 
   angular
     .module('thingy.posts.controllers')
+    .config(function(uiGmapGoogleMapApiProvider) {
+      uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDnKFezpw2JUfe2wh43THS3tTFeK72_WMA',
+        libraries: 'weather,geometry,visualization'
+      });
+    });
+
+  angular
+    .module('thingy.posts.controllers')
     .controller('ThingyController', ThingyController);
 
-  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope'];
+  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', 'uiGmapGoogleMapApi'];
 
-  function ThingyController(Posts, $routeParams, Authentication, $scope) {
+  /**
+  * @namespace ThingyController
+  */
+  function ThingyController(Posts, $routeParams, Authentication, $scope, uiGmapGoogleMapApi) {
     var vm = this;
 
     // Functions and Data
@@ -17,6 +33,7 @@
     vm.uiConfig = '';
     vm.eventSources = {};
     vm.availability = '';
+    vm.map = '';
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.period = {};
@@ -24,12 +41,19 @@
 
     activate()
 
+    /**
+    * @name activate
+    * @desc Actions to be performed when this controller is instantiated
+    * @memberOf thingy.posts.controllers.ThingyController
+    */
     function activate() {
       var thingyId = $routeParams.postid;
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
+      uiGmapGoogleMapApi.then(gMapsLoaded);
+      vm.map = { center: { latitude: 59.8586, longitude: 17.6389 }, zoom: 11 };
       vm.profile = Authentication.getAuthenticatedAccount();
-      // Calendar
+      // Calendar, not used right now
       vm.uiConfig = {
         calendar: {
           height: 450,
@@ -44,6 +68,7 @@
           eventResize: $scope.alertOnResize
         }
       };
+      // Test event sources
       vm.eventSources = {
         events: [
           {
@@ -74,19 +99,39 @@
       }
 
 
-      function postSuccessFn(data, status, headers, config) {
+      /**
+      * @name postSuccessFn
+      * @desc Update 'post' in viewmodel
+      */
+      function postSuccessFn(data) {
         var classes = ['', 'btn-success', 'btn-warning', 'btn-danger']
         vm.post = data.data;
         vm.availability = classes[vm.post.status_details.id];
       }
 
+      /**
+      * @name postErrorFn
+      * @desc Notify of error and log to console
+      */
       function postErrorFn(data) {
         alert('Could not retrieve post.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
+
+      /**
+      * @name gMapsLoaded
+      * @desc Callback for google maps
+      * @param {Object} maps The google maps object
+      */
+      function gMapsLoaded(maps) {
+        // Can do stuff here
+      }
     }
 
-    // Request to rent a Thingy
+    /**
+    * @name rent
+    * @desc Produce a rent request
+    */
     function rent() {
       // Requires authentication
       if(Authentication.isAuthenticated)
@@ -98,10 +143,18 @@
       else
         alert('You need to be logged in.');
 
+      /**
+      * @name rentSuccessFn
+      * @desc Notify of success
+      */
       function rentSuccessFn(data) {
         alert('Your request has been submitted!');
       }
 
+      /**
+      * @name rentErrorFn
+      * @desc Notify of error and log to console
+      */
       function rentErrorFn(data) {
         alert('Could not send rent request.');
         console.error('Error: ' + JSON.stringify(data.data));

@@ -9,7 +9,7 @@
     ]);
 
   angular
-    .module('thingy.posts.controllers', ['ngRoute', 'ngCookies', 'naif.base64', 'ui.calendar']);
+    .module('thingy.posts.controllers', ['ngRoute', 'ngCookies', 'naif.base64', 'ui.calendar', 'uiGmapgoogle-maps']);
 
   angular
     .module('thingy.posts.services', []);

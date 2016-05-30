@@ -1,5 +1,5 @@
 import json
-import M2Crypto
+#import M2Crypto
 import string
 
 from django.contrib.auth import authenticate, login, logout
