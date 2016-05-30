@@ -5,7 +5,7 @@ class RentMessageFilter(django_filters.FilterSet):
 
     class Meta:
         model = RentMessage
-        fields = ['type', 'rentee', 'thingy__author']
+        fields = ['type', 'rentee', 'thingy__author', 'recipient']
 
 class PrivateMessageFilter(django_filters.FilterSet):
     class Meta:
@@ -16,8 +16,3 @@ class RequestFilter(django_filters.FilterSet):
     class Meta:
         model = Request
         fields = ['rentee', 'thingy__author', 'status']
-
-
-
-
-

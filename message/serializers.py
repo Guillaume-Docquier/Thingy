@@ -1,7 +1,8 @@
+from django.db.models.query_utils import Q
 from rest_framework import serializers
-#from autoupdate import *
 from authentication.serializers import AccountSerializer
 from models import *
+from posts.models import Post
 
 class ChoicesField(serializers.Field):
     def __init__(self, choices, **kwargs):
@@ -25,7 +26,6 @@ class RentMessageSerializer(serializers.ModelSerializer):
 
 class RequestSerializer(serializers.ModelSerializer):
     rentee = AccountSerializer(read_only=True, required=False)
-    recipient = AccountSerializer(read_only=True, required=False)
 
     class Meta:
         model = Request
@@ -40,10 +40,12 @@ class RequestSerializer(serializers.ModelSerializer):
         else:
             type = 'Rent declined'
 
+
+        post = Post.objects.get(Q(id=instance.thingy_id))
         RentMessage.objects.create(thingy_id=validated_data.get('thingy').id, rentee=instance.rentee,
                                     start_date=instance.start_date, end_date=instance.end_date,
-                                    created_at=instance.created_at, body="The user %s %s your offer." % (instance.rentee.username, instance.status.lower()),
-                                    type=type, unread=True)
+                                    created_at=instance.created_at, body="The user %s %s your offer." % (post.author.username, instance.status.lower()),
+                                    type=type, unread=True, recipient=instance.rentee)
 
         return instance
 

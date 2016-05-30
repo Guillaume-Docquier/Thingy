@@ -65,7 +65,7 @@
     * @memberOf thingy.messages.services.Message
     */
     function getSystemMessages() {
-      return $http.get('api/v1/rentmessages/?thingy__author=' + Authentication.getAuthenticatedAccount().id);
+      return $http.get('api/v1/rentmessages/?recipient=' + Authentication.getAuthenticatedAccount().id);
     }
 
     /**
