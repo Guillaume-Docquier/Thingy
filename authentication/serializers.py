@@ -34,6 +34,7 @@ class AccountSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at',)
 
     def create(self, validated_data):
+
         return Account.objects.create(**validated_data)
 
     def update(self, instance, validated_data):

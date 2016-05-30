@@ -49,6 +49,10 @@ class Post(models.Model):
     location = models.ForeignKey(Town, on_delete=models.CASCADE, null=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default = 1)
 
+    area_code = models.CharField(max_length=15, blank=False, default=None)
+    latitude = models.CharField(max_length=15, blank=True, null=True, default=None)
+    longitude = models.CharField(max_length=15, blank=True,null=True, default=None)
+
     title = models.CharField(max_length=35)
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=500)
