@@ -18,12 +18,12 @@
     .module('thingy.posts.controllers')
     .controller('ThingyController', ThingyController);
 
-  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', 'uiGmapGoogleMapApi'];
+  ThingyController.$inject = ['Posts', '$routeParams', 'Authentication', '$scope', 'uiGmapGoogleMapApi', '$timeout'];
 
   /**
   * @namespace ThingyController
   */
-  function ThingyController(Posts, $routeParams, Authentication, $scope, uiGmapGoogleMapApi) {
+  function ThingyController(Posts, $routeParams, Authentication, $scope, uiGmapGoogleMapApi, $timeout) {
     var vm = this;
 
     // Functions and Data
@@ -33,7 +33,15 @@
     vm.uiConfig = '';
     vm.eventSources = {};
     vm.availability = '';
-    vm.map = '';
+    vm.map = {
+      // Works
+      center: { // Montreal
+        latitude: 45.5017,
+        longitude: -73.5673
+      },
+      zoom: 11,
+      control: {}
+    };
 
     // Bindings, empty string to prevent unwanted behaviour
     vm.period = {};
@@ -51,7 +59,6 @@
 
       Posts.getSinglePost(thingyId).then(postSuccessFn, postErrorFn);
       uiGmapGoogleMapApi.then(gMapsLoaded);
-      vm.map = { center: { latitude: 59.8586, longitude: 17.6389 }, zoom: 11 };
       vm.profile = Authentication.getAuthenticatedAccount();
       // Calendar, not used right now
       vm.uiConfig = {
@@ -107,6 +114,8 @@
         var classes = ['', 'btn-success', 'btn-warning', 'btn-danger']
         vm.post = data.data;
         vm.availability = classes[vm.post.status_details.id];
+        // Works
+        vm.map.center = ({latitude: 55.7047, longitude: 13.1910}); // Lund
       }
 
       /**
@@ -124,7 +133,11 @@
       * @param {Object} maps The google maps object
       */
       function gMapsLoaded(maps) {
-        // Can do stuff here
+        // Can do stuff here?
+        // Works
+        console.log(maps);
+        // DOES NOT WORK ... ???
+        vm.map.center = ({latitude: 59.8586, longitude: 17.6389}); // Uppsala
       }
     }
 
@@ -133,6 +146,8 @@
     * @desc Produce a rent request
     */
     function rent() {
+      // Works
+      vm.map.center = {latitude: 48.8566, longitude: 2.3522}; // Paris
       // Requires authentication
       if(Authentication.isAuthenticated)
         Posts.rent('request', {
