@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, sys
-#from django.utils.safestring import SafeUnicode 
+#from django.utils.safestring import SafeUnicode
 #from thingy
 #print(settings.BASE_DIR)
 script_path = '/home/alexandergroth/Desktop/Thingy-github'
@@ -10,12 +10,13 @@ sys.path.insert(0, project_dir)
 #os.environment.setdefault('DJANGO_SETTINGS_MODULE', 'thingyproject.settings')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'thingyproject.settings'
 
-import django 
+import django
 django.setup()
 #thingies
 #create
 
-from posts.models import Region, Town
+from posts.models import Region, Town, Category, Subcategory, Condition, Status
+from review.models import Rating
 
 #swedish letters is not working - need encoding
 
@@ -53,20 +54,13 @@ def populate_reg():
 			add_town(reg=region, name=elem)
 
 def add_region(region_name):
-	r = Region.objects.get_or_create(name=region_name)[0]	
+	r = Region.objects.get_or_create(name=region_name)[0]
 	r.save()
-	#print (r)
 	return r
 
 def add_town(reg, name):
 	t = Town.objects.get_or_create(region=reg, name=name)[0]
-	
 	t.save()
-if __name__ == '__main__':
-	populate_reg()
-		 
-
-from posts.models import Category, Subcategory
 
 def populate_cat():
 	category_list = ["MOTORS", "HOME & GARDEN", "BEAUTY, HEALTH & GROCERIES", "ELECTRONICS", "LEISURE & HOBBIES",
@@ -93,12 +87,38 @@ def populate_cat():
 def add_category(category_name):
 	c = Category.objects.get_or_create(cname=category_name)[0]
 	c.save()
-	#print (c)
 	return c
 
 def add_subcategory(cat, name):
 	s = Subcategory.objects.get_or_create(category=cat, sub_cat_name=name)[0]
 
 	s.save()
+
+def populate_cond():
+	condition_desc_list = ["Very good", "Good", "Working", "Bad", "Very bad"]
+	condition_grade_list = [5, 4, 3, 2, 1]
+
+	for i in range(len(condition_desc_list)):
+		conds = Condition.objects.get_or_create(cond_desc=condition_desc_list[i], cond_grade=condition_grade_list[i])[0]
+		conds.save()
+
+def populate_status():
+	status_list = ["Available", "Rented", "Unavailable", "Inactive"]
+
+	for i in range(len(status_list)):
+		statuses = Status.objects.get_or_create(name=status_list[i])[0]
+		statuses.save()
+
+def populate_ratings():
+	rating_list = [1, 2, 3, 4, 5]
+
+	for i in range(len(rating_list)):
+		ratings = Rating.objects.get_or_create(rating_grade=rating_list[i])[0]
+		ratings.save()
+
 if __name__ == '__main__':
+	populate_reg()
 	populate_cat()
+	populate_cond()
+	populate_status()
+	populate_ratings()
