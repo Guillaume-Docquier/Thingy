@@ -1,9 +1,4 @@
 from rest_framework import serializers
-from message.models import *
-from datetime import date
-from datetime import datetime
-import time
-import datetime
 from autoupdate import *
 from authentication.serializers import AccountSerializer
 
@@ -50,9 +45,11 @@ class RequestSerializer(serializers.ModelSerializer):
         return instance
 
 class PrivateMessageSerializer(serializers.ModelSerializer):
+    # author = serializers.ReadOnlyField(source='author.username')
     author = AccountSerializer(read_only=True, required=False)
-    a = time.strftime("%x")
-    print(a)
+    #a = time.strftime("%x")
+    #print(a)
+
     class Meta:
         model = PrivateMessage
         fields = '__all__'
