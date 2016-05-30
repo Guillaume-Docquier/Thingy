@@ -42,7 +42,7 @@
     }
 
     // Adds a new post
-    function add(title, description, price, conditionID, subcategoryID, subregionID, image64) {
+    function add(title, description, price, conditionID, subcategoryID, subregionID, areaCode, image64) {
       return $http.post('/api/v1/posts/', {
         title: title,
         description: description,
@@ -50,6 +50,7 @@
         condition: conditionID,
         subcategory: subcategoryID,
         location: subregionID,
+        area_code: areaCode,
         image: image64
       });
     }
