@@ -103,7 +103,7 @@
 
 			<div class="col-xs-8 col-sm-8">
 				<h5><a href="/users/{{vm.post.author.username}}">{{vm.post.author.username}}</a></h5>
-				
+
 				<!-- TODJS put the star picture here, I have prepered the css style already to the corresponding id -->
                 <p id="image__rating__thingy">Rating: {{vm.post.author.avg_rating | number : 2}}<span ng-hide="vm.post.author.avg_rating == 'Not rated yet'" class="glyphicon glyphicon-star yellow"></span></p>
 			</div><!--col-xs-8 col-sm-4-->
@@ -174,8 +174,9 @@
 			<p>
 			  <iframe
 					width="100%"
-					height="200px"
-					frameborder="0" style="border:0"
+					height="400px"
+					frameborder="0"
+					style="border:0"
 					ng-src="{{vm.gMapsUrl}}"
 					allowfullscreen>
 			  </iframe>
