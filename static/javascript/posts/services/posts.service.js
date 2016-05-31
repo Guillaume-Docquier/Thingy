@@ -116,6 +116,7 @@
       switch (status)
       {
         case 'request':
+          console.log(typeof data.postId);
           return $http.post('api/v1/requests/', {
             start_date: data.period.start,
             end_date: data.period.end,

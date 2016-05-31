@@ -23,8 +23,11 @@
 					<p>{{message.body}}</p>
 -->
 				<p>
-				The user "Username" wants to rent your Thingy. You can go in 'Offers' to accept or decline the offer. 
-				Additional comment from the user: {{message.body}}
+					<div ng-show="message.type == 'Rent request'">The user <a href="users/{{message.rentee.username}}">{{message.rentee.username}}</a> wants to rent your Thingy. You can go in 'Offers' to accept or decline the offer.
+					Additional comment from the user: {{message.body}}</div>
+					<div ng-show="message.type == 'Rent accepted'">The user <a href="users/{{message.thingy.author.username}}">{{message.thingy.author.username}}</a> accepted your offer.</div>
+					<div ng-show="message.type == 'Rent declined'">The user <a href="users/{{message.thingy.author.username}}">{{message.thingy.author.username}}</a> declined your offer.</div>
+					<div ng-show="message.author">{{message.body}}</div>
 				</p>
 				</div>
 			</div> <!-- /row -->

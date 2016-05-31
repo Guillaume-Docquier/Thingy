@@ -44,7 +44,7 @@ class RequestSerializer(serializers.ModelSerializer):
         post = Post.objects.get(Q(id=instance.thingy_id))
         RentMessage.objects.create(thingy_id=validated_data.get('thingy').id, rentee=instance.rentee,
                                     start_date=instance.start_date, end_date=instance.end_date,
-                                    created_at=instance.created_at, body="The user %s %s your offer." % (post.author.username, instance.status.lower()),
+                                    created_at=instance.created_at, body="",
                                     type=type, unread=True, recipient=instance.rentee)
 
         return instance
