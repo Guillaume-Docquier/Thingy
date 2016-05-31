@@ -7,9 +7,8 @@ from posts.models import Post
 from message.choices import *
 
 class BaseMessage(models.Model):
-
     thingy = models.ForeignKey(Post)
-    rentee = models.ForeignKey(Account)
+    rentee = models.ForeignKey(Account, related_name ='bm_rentee')
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -19,6 +18,7 @@ class BaseMessage(models.Model):
 class RentMessage(BaseMessage):
     type = models.CharField(max_length=13, choices=RENT_CHOICES, default='Rent request')
     unread = models.BooleanField(default=True)
+    recipient = models.ForeignKey(Account, related_name ='bm_recipient')
 
 #Extends basemessage
 class Request(BaseMessage):
@@ -26,7 +26,7 @@ class Request(BaseMessage):
 
 class PrivateMessage(models.Model):
     author = models.ForeignKey(Account)
-    recipient = models.ForeignKey(Account, related_name='recipient')
+    recipient = models.ForeignKey(Account, related_name='pm_recipient')
     created_at = models.DateTimeField(auto_now_add=True)
     body = models.CharField(max_length=2000, blank=True)
     unread = models.BooleanField(default=True)
