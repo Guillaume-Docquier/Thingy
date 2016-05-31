@@ -1,6 +1,7 @@
 from django.db.models.query_utils import Q
 from rest_framework import serializers
 from authentication.serializers import AccountSerializer
+from posts.serializers import PostSerializer
 from models import *
 from posts.models import Post
 
@@ -18,6 +19,7 @@ class ChoicesField(serializers.Field):
 class RentMessageSerializer(serializers.ModelSerializer):
     rentee = AccountSerializer(read_only=True, required=False)
     recipient = AccountSerializer(read_only=True, required=False)
+    thingy_details = PostSerializer(source='thingy', read_only=True, required=False)
 
     class Meta:
         model = RentMessage
@@ -26,6 +28,7 @@ class RentMessageSerializer(serializers.ModelSerializer):
 
 class RequestSerializer(serializers.ModelSerializer):
     rentee = AccountSerializer(read_only=True, required=False)
+    thingy_details = PostSerializer(source='thingy', read_only=True, required=False)
 
     class Meta:
         model = Request

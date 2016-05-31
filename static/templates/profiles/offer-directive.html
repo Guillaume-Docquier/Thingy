@@ -18,8 +18,8 @@
 			</div> <!-- /row -->
 			<div class="row">
 				<div class="col-xs-12">
-					<p>Thingy: "Name of Thingy"</p>
-					<p>Renting time: "Start date to End date"</p>
+					<p>Thingy: <a href="thingies/details/{{offer.thingy_details.id}}">{{offer.thingy_details.title}}</a></p>
+					<p>Renting period: {{offer.start_date | date : "MMM d, y"}} to {{offer.end_date | date : "MMM d, y"}}</p>
 					<p>Comment: {{offer.body}}</p>
 				</div>
 			</div> <!-- /row -->

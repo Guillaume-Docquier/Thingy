@@ -19,28 +19,17 @@
 			</div> <!-- /row -->
 			<div class="row">
 				<div class="col-xs-12">
-<!--
-					<p>{{message.body}}</p>
--->
-				<p>
-					<div ng-show="message.type == 'Rent request'">The user <a href="users/{{message.rentee.username}}">{{message.rentee.username}}</a> wants to rent your Thingy. You can go in 'Offers' to accept or decline the offer.
-					Additional comment from the user: {{message.body}}</div>
-					<div ng-show="message.type == 'Rent accepted'">The user <a href="users/{{message.thingy.author.username}}">{{message.thingy.author.username}}</a> accepted your offer.</div>
-					<div ng-show="message.type == 'Rent declined'">The user <a href="users/{{message.thingy.author.username}}">{{message.thingy.author.username}}</a> declined your offer.</div>
-					<div ng-show="message.author">{{message.body}}</div>
-				</p>
+					<p>
+						<div ng-show="message.type == 'Rent request'">
+							<p>The user <a href="users/{{message.rentee.username}}">{{message.rentee.username}}</a> wants to rent your Thingy. You can go in 'Offers' to accept or decline the offer.</p>
+							<p>Additional comment from the user: {{message.body}}</p>
+						</div>
+						<div ng-show="message.type == 'Rent accepted'">The user <a href="users/{{message.thingy_details.author.username}}">{{message.thingy_details.author.username}}</a> accepted your offer.</div>
+						<div ng-show="message.type == 'Rent declined'">The user <a href="users/{{message.thingy_details.author.username}}">{{message.thingy_details.author.username}}</a> declined your offer.</div>
+						<div ng-show="message.author">{{message.body}}</div>
+					</p>
 				</div>
 			</div> <!-- /row -->
-			<div class="row" ng-show="message.type == 'Rent request'">
-				<div class="col-xs-2 col-sm-3"></div>
-				<div class="col-xs-3 col-sm-3">
-					<button type="button" ng-click="vm.rent('accept')" class="btn btn-success">Accept</button>
-				</div>
-				<div class="col-xs-3 col-sm-3">
-					<button type="button" ng-click="vm.rent('decline')" class="btn btn-danger">Decline</button>
-				</div>
-				<div class="col-xs-4 col-sm-3"></div>
-			</div>
 		</div>
   </div>
 </div> <!-- /container-fluid -->
