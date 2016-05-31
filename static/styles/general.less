@@ -1,9 +1,8 @@
 body {
 	height: 100%;
-/*
-	display: table; //<-- This causes the white space on the right of the page
-*/
-	width: 100%;
+	font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
 
 	font-size: 12px;
 	margin-top: 70px;
@@ -11,6 +10,16 @@ body {
 		font-size: 18px;
 	}
 }
+
+/*
+.wrapper {
+	min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+
+
+
 
 .clickable {
 	cursor: pointer;
@@ -20,11 +29,6 @@ body {
 	cursor: default;
 }
 
-.page-row {
-/*
-	display: table-row; //<-- This one makes the footer wierd without the body property
-*/
-}
 
 h1 {
 	font-size: 30px;
@@ -59,6 +63,10 @@ h6 {
 }
 
 a {
+	color: @standard-text-color-light;
+}
+
+a:hover {
 	color: @standard-text-color-light;
 }
 
