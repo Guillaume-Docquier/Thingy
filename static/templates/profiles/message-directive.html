@@ -9,12 +9,16 @@
 		</div>
 		<div class="col-xs-10">
 			<div class="row">
-				<div class="col-xs-7 col-sm-8">
+				<div class="col-xs-6 col-sm-7">
 					<h5 ng-show="message.author">From {{message.author.username}}</h5>
 					<h5 ng-show="!message.author">{{message.type}}</h5>
 				</div>
 				<div class="col-xs-5 col-sm-4">
-					<p>{{message.created_at | date : "MMM d, y 'at' HH:mm"}}</p>
+					<p>{{message.created_at | date : "MMM d, y 'at' HH:mm"}}</p> 
+				</div>
+				<div id="removecross__column" class="col-xs-1 col-sm-1">
+			<!-- TODOJS make the cross work, maybe it should not be a link? -->
+					<a id="removecross" class="glyphicon glyphicon-remove"></a> 
 				</div>
 			</div> <!-- /row -->
 			<div class="row">
@@ -30,6 +34,44 @@
 					</p>
 				</div>
 			</div> <!-- /row -->
+			<div class="row">
+				<!-- TODOJS put the receiver's name in the recipient input field (the replymodel is in the end of this script) -->
+				<div id="reply__btn__column"class="col-xs-12">
+					<button id="reply__btn" type="button" class="btn btn-success" data-toggle="modal" data-target="#replyModal">Reply</button>
+				</div> <!-- /col-xs-12 -->
+			</div> <!-- /row -->
 		</div>
   </div>
 </div> <!-- /container-fluid -->
+
+				<div id="replyModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">New private message</h4>
+							  </div><!--/modal-header-->
+
+							  <div class="modal-body">
+								<div class="form-group" ng-class="{'has-success': vm.valid.recipient == 1, 'has-error': vm.valid.recipient == -1}">
+								  <label for="messageRecipient">Recipient</label>
+								  <input type="text" class="form-control" id="messageRecipient" rows="8"  ng-model="vm.newMessage.recipient.username" ng-change="vm.validate('recipient')" placeholder="Input recipient's username" />
+                  <span class="help-block">{{vm.help.recipient}}</span>
+                </div><!--form-group-->
+
+								<div class="form-group" ng-class="{'has-success': vm.valid.body == 1, 'has-error': vm.valid.body == -1}">
+								  <label for="messageBody">Message</label>
+								  <textarea type="text" class="form-control" id="messageBody" rows="8"  ng-model="vm.newMessage.body" ng-blur="vm.validate('body')" placeholder="Input message here" />
+                  <span class="help-block">{{vm.help.body}}</span>
+              	</div><!--form-group-->
+							  </div><!--/modal-body-->
+
+							  <div class="modal-footer">
+                  <!-- TODOJS The modal closes even if the message was not sent -->
+								 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.sendMessage()">Send</button>
+							  </div><!--modal-footer-->
+						  </div><!--modal-content-->
+					  </div><!--modal-dialog-->
+					</div><!--modal-fade-->
+
+			
