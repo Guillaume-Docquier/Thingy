@@ -30,14 +30,32 @@
     vm.newMessage = {
       body: '',
       recipient: {
-        username: vm.message.author.username,
-        id: vm.message.author.id
+        username: '',
+        id: ''
       },
     };
 
     activate();
 
     function activate() {
+      if (vm.message.author) {
+        vm.newMessage.recipient = {
+          username: vm.message.author.username,
+          id: vm.message.author.id
+        }
+      }
+      else if (vm.message.type == 'Rent request') {
+        vm.newMessage.recipient = {
+          username: vm.message.rentee.username,
+          id: vm.message.rentee.id
+        }
+      }
+      else {
+        vm.newMessage.recipient = {
+          username: vm.message.thingy_details.author.username,
+          id: vm.message.thingy_details.author.id
+        }
+      }
     }
 
     /**
