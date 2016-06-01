@@ -77,10 +77,10 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul id="menu__tabs" class="nav nav-tabs">
-					  <li class="active"><a data-toggle="tab" href="#thingies__tab">Thingies</a></li>
-					  <li><a data-toggle="tab" href="#reviews__tab">Reviews</a></li>
-					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab">Messages <span class="badge" ng-show="vm.unreadNumber">{{vm.unreadNumber}}</span></a></li>
-            <li ng-show=vm.isOwner><a data-toggle="tab" href="#offers__tab">Offers <span class="badge" ng-hide="vm.pendingOffers == 0">{{vm.pendingOffers.length}}</span></a></li>
+					  <li class="active"><a data-toggle="tab" href="#thingies__tab" ng-click="vm.refresh('thingies')">Thingies</a></li>
+					  <li><a data-toggle="tab" href="#reviews__tab" ng-click="vm.refresh('reviews')">Reviews</a></li>
+					  <li ng-show=vm.isOwner><a data-toggle="tab" href="#messages__tab" ng-click="vm.refresh('messages')">Messages <span class="badge" ng-hide="vm.unreadNumber == 0">{{vm.unreadNumber}}</span></a></li>
+            <li ng-show=vm.isOwner><a data-toggle="tab" href="#offers__tab" ng-click="vm.refresh('offers')">Offers <span class="badge" ng-hide="vm.pendingOffers == 0">{{vm.pendingOffers.length}}</span></a></li>
           </ul>
 
 				</div><!-- col-xs-12 -->

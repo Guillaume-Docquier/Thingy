@@ -21,6 +21,7 @@
     vm.sendMessage = sendMessage;
     vm.validate = validate;
     vm.markAsRead = markAsRead;
+    vm.refresh = refresh;
     vm.getReceivedMessages = getReceivedMessages;
     vm.unreadNumber = 0;
     vm.isOwner = true;
@@ -91,78 +92,12 @@
         }
       });
 
-      /**
-      * @name process
-      * @desc Move a pending request to the processed requests
-      */
-      function process() {
-
-      }
-
       function profileSuccessFn(data) {
         vm.profile = data.data;
-        Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
-        Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
-        Profile.getOffers(vm.profile.id).then(offersSuccessFn, offersErrorFn);
-        vm.getReceivedMessages();
-        //Message.getSentMessages(vm.profile.id).then(getSSucessFn, getSErrorFn);
-
-        /**
-        * @name postsSucessFn
-        * @desc Update 'posts' on viewmodel
-        */
-        function postsSuccessFn(data, status, headers, config) {
-          vm.posts = data.data;
-        }
-
-        /**
-        * @name postsErrorFn
-        * @desc Log error in the console
-        */
-        function postsErrorFn(data) {
-          alert('Could not load posts.');
-          console.error('Error: ' + JSON.stringify(data.data));
-        }
-
-        /**
-        * @name reviewsSuccessFn
-        * @desc Update 'reviews' on viewmodel
-        */
-        function reviewsSuccessFn(data) {
-          vm.reviews = data.data;
-        }
-
-        /**
-        * @name reviewsErrorFn
-        * @desc Log error in the console
-        */
-        function reviewsErrorFn(data) {
-          alert('Could not load reviews.');
-          console.error('Error: ' + JSON.stringify(data.data));
-        }
-
-        /**
-        * @name offersSuccessFn
-        * @desc Update 'offers' on viewmodel
-        */
-        function offersSuccessFn(data) {
-          var offers = data.data;
-          // Sort pending / accepted or decline
-          for (var i = 0; i < offers.length; i++)
-          {
-            if (offers[i].status == 'Pending') vm.pendingOffers.push(offers[i]);
-            else vm.processedOffers.push(offers[i]);
-          }
-        }
-
-        /**
-        * @name offersErrorFn
-        * @desc Log error in the console
-        */
-        function offersErrorFn(data) {
-          alert('Could not load reviews.');
-          console.error('Error: ' + JSON.stringify(data.data));
-        }
+        vm.refresh('thingies');
+        vm.refresh('reviews');
+        vm.refresh('messages');
+        vm.refresh('offers');
       }
 
 
@@ -324,41 +259,148 @@
     }
 
     /**
-    * @name getReceivedMessages
-    * @desc Fetch system and private messages.
+    * @name refresh
+    * @desc Refresh a part of the profile
+    * @param {String} what The part of the profile to be refreshed
     */
-    function getReceivedMessages() {
-      Message.getSystemMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
-      Message.getPrivateMessages().then(getMessagesSuccessFn, getMessagesErrorFn);
+    function refresh(what) {
+      switch(what) {
+        case 'thingies':
+          Posts.getUserPosts(vm.profile.username).then(postsSuccessFn, postsErrorFn);
+          break;
+        case 'reviews':
+          Profile.getReviews(vm.profile.id).then(reviewsSuccessFn, reviewsErrorFn);
+          break;
+        case 'messages':
+          vm.getReceivedMessages();
+          break;
+        case 'offers':
+          Profile.getOffers(vm.profile.id).then(offersSuccessFn, offersErrorFn);
+          break;
+      }
 
       /**
-      * @name getMessagesSuccessFn
-      * @desc Concat to the list of messages and sort the list.
+      * @name postsSucessFn
+      * @desc Update 'posts' on viewmodel
       */
-      function getMessagesSuccessFn(data) {
-        // Get number of unread messages and push to list
-        for(var i = 0; i < data.data.length; i++)
+      function postsSuccessFn(data, status, headers, config) {
+        vm.posts = data.data;
+      }
+
+      /**
+      * @name postsErrorFn
+      * @desc Log error in the console
+      */
+      function postsErrorFn(data) {
+        alert('Could not load posts.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+
+      /**
+      * @name reviewsSuccessFn
+      * @desc Update 'reviews' on viewmodel
+      */
+      function reviewsSuccessFn(data) {
+        vm.reviews = data.data;
+      }
+
+      /**
+      * @name reviewsErrorFn
+      * @desc Log error in the console
+      */
+      function reviewsErrorFn(data) {
+        alert('Could not load reviews.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+
+      /**
+      * @name offersSuccessFn
+      * @desc Update 'offers' on viewmodel
+      */
+      function offersSuccessFn(data) {
+        var offers = data.data;
+        vm.pendingOffers = [];
+        vm.processedOffers = [];
+        // Sort pending / accepted or decline
+        for (var i = 0; i < offers.length; i++)
         {
-          if (data.data[i].unread) vm.unreadNumber++;
-          vm.receivedMessages.push(data.data[i]);
-        }
-        vm.receivedMessages.sort(sortByDate);
-
-
-        /**
-        * @name sortByDate
-        * @desc Sort array by dates, most recent first.
-        */
-        function sortByDate(a, b) {
-          return new Date(b.created_at) - new Date(a.created_at);
+          if (offers[i].status == 'Pending') vm.pendingOffers.push(offers[i]);
+          else vm.processedOffers.push(offers[i]);
         }
       }
 
       /**
-      * @name getMessagesErrorFn
+      * @name offersErrorFn
+      * @desc Log error in the console
+      */
+      function offersErrorFn(data) {
+        alert('Could not load reviews.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
+    }
+
+    /**
+    * @name getReceivedMessages
+    * @desc Fetch system and private messages (Nested calls).
+    */
+    function getReceivedMessages() {
+      var unread = 0;
+      var messages = [];
+      Message.getSystemMessages().then(getSMSuccessFn, getSMErrorFn);
+
+      /**
+      * @name getSMSuccessFn
+      * @desc Concat to the list of messages
+      */
+      function getSMSuccessFn(SMs) {
+        // Get number of unread messages and push to list
+        for(var i = 0; i < SMs.data.length; i++)
+        {
+          if (SMs.data[i].unread) unread++;
+          messages.push(SMs.data[i]);
+        }
+        Message.getPrivateMessages().then(getPMSuccessFn, getPMErrorFn);
+
+        /**
+        * @name getPMSuccessFn
+        * @desc Concat to the list of messages and sort the list.
+        */
+        function getPMSuccessFn(PMs) {
+          // Get number of unread messages and push to list
+          for(var i = 0; i < PMs.data.length; i++)
+          {
+            if (PMs.data[i].unread) unread++;
+            messages.push(PMs.data[i]);
+          }
+          messages.sort(sortByDate);
+          // Apply
+          vm.unreadNumber = unread;
+          vm.receivedMessages = messages;
+
+          /**
+          * @name sortByDate
+          * @desc Sort array by dates, most recent first.
+          */
+          function sortByDate(a, b) {
+            return new Date(b.created_at) - new Date(a.created_at);
+          }
+        }
+
+        /**
+        * @name getPMErrorFn
+        * @desc Notify of error and log in console.
+        */
+        function getPMErrorFn(data) {
+          alert('Could not fetch received messages.');
+          console.error('Error: ' + JSON.stringify(data.data));
+        }
+      }
+
+      /**
+      * @name getSMErrorFn
       * @desc Notify of error and log in console.
       */
-      function getMessagesErrorFn(data) {
+      function getSMErrorFn(data) {
         alert('Could not fetch received messages.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
