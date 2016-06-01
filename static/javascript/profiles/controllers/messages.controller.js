@@ -183,7 +183,28 @@
     * @desc Delete a message
     */
     function deleteMessage() {
-      Message.deleteMessage(vm.message.id, vm.message.type).then(deleteSuccessFn, deleteErrorFn);
+      // Deleting an unread message causes a deadlock (JS problem)
+      if (vm.message.unread)
+        Message.markAsRead(vm.message).then(markSuccessFn, markErrorFn);
+      else
+        Message.deleteMessage(vm.message.id, vm.message.type).then(deleteSuccessFn, deleteErrorFn);
+
+      /**
+      * @name deleteSuccessFn
+      * @desc Proceed with message deletion
+      */
+      function markSuccessFn(data) {
+        Message.deleteMessage(vm.message.id, vm.message.type).then(deleteSuccessFn, deleteErrorFn);
+      }
+
+      /**
+      * @name markErrorFn
+      * @desc Log error in console
+      */
+      function markErrorFn(data) {
+        alert('Something went wrong.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
 
       /**
       * @name deleteSuccessFn
