@@ -4,7 +4,7 @@
 			<div id="review__picture" >
 						<img id="image" ng-src='media/{{review.review_author.image}}' class="img-circle img-responsive" alt="Author picture"/>
 					</div>
-					<p id="review__author">{{review.review_author.username}}</p>
+					<p id="review__author"><a href="users/{{review.review_author.username}}">{{review.review_author.username}}</a></p>
 				</div>
 				<div class="col-xs-9">
 					<div class="row">
