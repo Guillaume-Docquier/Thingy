@@ -42,8 +42,8 @@
           </div>
 
           <div id="reviews" class="hidden-xs">
-              <p>Rating: {{thingy.author.avg_rating | number : 2}}<span class="glyphicon glyphicon-star yellow"></span></p>
-		  </div>
+            <img id="image__rating" ng-src="static/images/rating_{{thingy.author.avg_rating_round}}.png"/>
+		      </div>
 		</div> <!-- /col-sm-5 -->
 
         <div class="col-sm-4">
