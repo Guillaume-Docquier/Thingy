@@ -1,3 +1,7 @@
+/**
+* Posts
+* @namespace thingy.posts.services
+*/
 (function(){
   'use strict'
 
@@ -7,6 +11,9 @@
 
   Posts.$inject = ['$http', 'Authentication'];
 
+  /**
+  * @namespace Posts
+  */
   function Posts($http, Authentication) {
     var vm = this;
 
@@ -15,33 +22,67 @@
     vm.getAllConditions = getAllConditions;
     vm.add = add;
     vm.update = update;
+    vm.deletePost = deletePost;
     vm.getAllPosts = getAllPosts;
     vm.getSinglePost = getSinglePost;
     vm.getUserPosts = getUserPosts;
     vm.search = search;
     vm.rent = rent;
 
-    // Returns all posts made
+    /**
+    * @name getAllPosts
+    * @desc Retrieve all posts
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function getAllPosts() {
       return $http.get('/api/v1/posts/');
     }
 
-    // Returns all categories
+    /**
+    * @name getAllCategories
+    * @desc Retrieve all categories
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function getAllCategories() {
       return $http.get('/api/v1/categories/');
     }
 
-    // Returns all regions
+    /**
+    * @name getAllRegions
+    * @desc Retrieve all regions
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function getAllRegions() {
       return $http.get('/api/v1/regions/');
     }
 
-    // Returns all regions
+    /**
+    * @name getAllConditions
+    * @desc Retrieve all conditions
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function getAllConditions() {
       return $http.get('/api/v1/conditions/');
     }
 
-    // Adds a new post
+    /**
+    * @name add
+    * @desc Create a new post
+    * @param {String} title The title of the post
+    * @param {String} description The description of the post
+    * @param {Number} price The price of the post
+    * @param {Number} conditionID The condition of the post
+    * @param {Number} subcategoryID The subcategory of the post
+    * @param {Number} subregionID The subregion of the post
+    * @param {String} areaCode The area code of the post
+    * @param {base64 String} image64 The image of the post
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function add(title, description, price, conditionID, subcategoryID, subregionID, areaCode, image64) {
       return $http.post('/api/v1/posts/', {
         title: title,
@@ -55,7 +96,21 @@
       });
     }
 
-    // Updates a post
+    /**
+    * @name update
+    * @desc Update a post
+    * @param {Number} id The id of the post to update
+    * @param {String} title The new title of the post
+    * @param {String} description The new description of the post
+    * @param {Number} price The new price of the post
+    * @param {Number} conditionID The new condition of the post
+    * @param {Number} subcategoryID The new subcategory of the post
+    * @param {Number} subregionID The new subregion of the post
+    * @param {String} areaCode The new area code of the post
+    * @param {base64 String} image64 The new image of the post
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function update(id, title, description, price, conditionID, subcategoryID, subregionID, areaCode, image64) {
       return $http.put('/api/v1/posts/' + id + '/', {
         title: title,
@@ -69,17 +124,53 @@
       });
     }
 
-    // Gets a post by its ID
-    function getSinglePost(id) {
-      return $http.get('/api/v1/posts/' + id + '/');
+    /**
+    * @name deletePost
+    * @desc Delete a post
+    * @param {Number} postId The id of the post to be deleted
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
+    function deletePost(postId) {
+      return $http.delete('api/v1/posts/' + postId + '/');
     }
 
-    // Gets posts made by a user
+    /**
+    * @name getSinglePost
+    * @desc Retrieves a post
+    * @param {Number} postId The id of the post to be retrieved
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
+    function getSinglePost(postId) {
+      return $http.get('/api/v1/posts/' + postId + '/');
+    }
+
+    /**
+    * @name getUserPosts
+    * @desc Retrieves all post a user has
+    * @param {String} username The username of the user we want the posts
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function getUserPosts(username) {
       return $http.get('/api/v1/accounts/' + username + '/posts/');
     }
 
-    // Searches for Thingies in the db
+    /**
+    * @name search
+    * @desc Searches for posts matching the requirements
+    * @param {String} search A term to be searched for in the description or title
+    * @param {String} category The category of the posts
+    * @param {String} subcategory The subcategory of the posts
+    * @param {Number} minPrice The minimum price for the posts
+    * @param {Number} maxPrice The maximum price for the posts
+    * @param {String} region The region of the posts
+    * @param {String} subregion The subregion of the posts
+    * @param {String} condition the contition of the posts
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function search(search, category, subcategory, minPrice, maxPrice, region, subregion, condition) {
       var query, argumentNames, i, j;
 
@@ -111,7 +202,14 @@
       return $http.get('/api/v1/posts/' + query);
     }
 
-    // Sends a rent request/reply (request,accept,decline)
+    /**
+    * @name rent
+    * @desc Send a rent request/reply (request,accept,decline)
+    * @param {String} status The status of the request
+    * @param {String} data The data to be sent
+    * @returns {Promise}
+    * @memberOf thingy.posts.services.Posts
+    */
     function rent(status, data) {
       switch (status)
       {

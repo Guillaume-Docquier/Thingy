@@ -74,7 +74,21 @@
             break;
           }
         }
+        // Add to processed offers
         vm.processedOffers.unshift(offer);
+      });
+
+      // Remove a deleted message
+      $scope.$on('message.deleted', function (event, message) {
+        for (var i = 0; i < vm.receivedMessages.length; i++)
+        {
+          // Rent messages might have same id as private messages.... Type will differentiate them
+          if (vm.receivedMessages[i].id == message.id && vm.receivedMessages[i].type == message.type)
+          {
+            vm.receivedMessages.splice(i, 1);
+            break;
+          }
+        }
       });
 
       /**
@@ -276,7 +290,7 @@
             vm.valid.body = 1;
           }
           break;
-        }
+      }
     }
 
     /**

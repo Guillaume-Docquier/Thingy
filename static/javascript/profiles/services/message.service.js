@@ -18,6 +18,7 @@
     var vm = this;
 
     vm.sendMessage = sendMessage;
+    vm.deleteMessage = deleteMessage;
     vm.markAsRead = markAsRead;
     vm.getSystemMessages = getSystemMessages;
     vm.getPrivateMessages = getPrivateMessages;
@@ -28,7 +29,8 @@
     /**
     * @name sendMessage
     * @desc Send a private message
-    * @param {}
+    * @param {String} body The message body text
+    * @param {String} recipientId The recipient of the message
     * @returns {Promise}
     * @memberOf thingy.messages.services.Message
     */
@@ -37,6 +39,20 @@
         body: body,
         recipient: recipientId
       });
+    }
+
+    /**
+    * @name deleteMessage
+    * @desc Delete a message
+    * @param {Number} messageId The id of the message to delete
+    * @returns {Promise}
+    * @memberOf thingy.messages.services.Message
+    */
+    function deleteMessage(messageId, type) {
+      if(type)
+        return $http.delete('api/v1/rentmessages/' + messageId + '/');
+      else
+        return $http.delete('api/v1/privatemessages/' + messageId + '/');
     }
 
 

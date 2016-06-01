@@ -11,7 +11,7 @@
     var vm = this;
 
     // Functions and Data
-    vm.destroy = destroy;
+    vm.deletePost = deletePost;
     vm.update = update;
     vm.categories = [];
     vm.regions = [];
@@ -29,6 +29,11 @@
 
     activate();
 
+    /**
+    * @name activate
+    * @desc Actions to be performed when this controller is instantiated
+    * @memberOf thingy.posts.controllers.UpdateController
+    */
     function activate() {
       if (!Authentication.isAuthenticated())
         $location.url('/');
@@ -42,6 +47,10 @@
       bindEvents();
 
 
+      /**
+      * @name bindEvents
+      * @desc Bind various events
+      */
       function bindEvents() {
         // Live preview of the uploaded image
         $scope.$watch(function() { return vm.imageUpload }, function() {
@@ -52,33 +61,62 @@
           }
         });
       }
+
+      /**
+      * @name categoriesSuccessFn
+      * @desc Update 'categories' view model
+      */
       function categoriesSuccessFn(data, status, headers, config) {
         vm.categories = data.data;
       }
 
+      /**
+      * @name categoriesErrorFn
+      * @desc Log error to console
+      */
       function categoriesErrorFn(data) {
         alert('Could not load categories.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
 
+      /**
+      * @name regionsSuccessFn
+      * @desc Update 'regions' view model
+      */
       function regionsSuccessFn(data, status, headers, config) {
         vm.regions = data.data;
       }
 
+      /**
+      * @name regionsErrorFn
+      * @desc Log error to console
+      */
       function regionsErrorFn(data) {
         alert('Could not load regions.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
 
+      /**
+      * @name conditionsSuccessFn
+      * @desc Update 'conditions' view model
+      */
       function conditionsSuccessFn(data, status, headers, config) {
         vm.conditions = data.data;
       }
 
+      /**
+      * @name conditionsErrorFn
+      * @desc Log error to console
+      */
       function conditionsErrorFn(data) {
         alert('Could not load conditions.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
 
+      /**
+      * @name postSuccessFn
+      * @desc Load message data if we are the author
+      */
       function postSuccessFn(data) {
         if (Authentication.getAuthenticatedAccount().id != data.data.author.id)
           $location.url('/');
@@ -102,12 +140,20 @@
         }
       }
 
+      /**
+      * @name postErrorFn
+      * @desc Log error to console
+      */
       function postErrorFn(data) {
         alert('Could not retrieve post.');
         console.error('Error: ' + JSON.stringify(data.data));
       }
     }
 
+    /**
+    * @name update
+    * @desc Update the post
+    */
     function update() {
       if (Authentication.isAuthenticated())
       {
@@ -135,8 +181,8 @@
       }
 
       /**
-      * @name createPostErrorFn
-      * @desc Propogate error event and show snackbar with error message
+      * @name updatePostErrorFn
+      * @desc Log error to console
       */
       function updatePostErrorFn(data) {
         alert('Could not update post.');
@@ -144,8 +190,30 @@
       };
     }
 
-    function destroy() {
+    /**
+    * @name deletePost
+    * @desc Delete the post
+    */
+    function deletePost() {
+      Posts.deletePost(vm.post.id).then(deleteSuccessFn, deleteErrorFn);
 
+      /**
+      * @name deleteSuccessFn
+      * @desc Redirect to profile page
+      */
+      function deleteSuccessFn(data) {
+        alert('Post deleted!');
+        $location.url('/profile');
+      }
+
+      /**
+      * @name deleteErrorFn
+      * @desc Log error to console
+      */
+      function deleteErrorFn(data) {
+        alert('Could not delete post.');
+        console.error('Error: ' + JSON.stringify(data.data));
+      }
     }
   }
 })();

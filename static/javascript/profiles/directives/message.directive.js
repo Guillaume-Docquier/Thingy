@@ -15,6 +15,8 @@
     * @memberOf thingy.profiles.directives.Message
     */
     var directive = {
+      controller: 'MessagesController',
+      controllerAs: 'vm',
       restrict: 'E',
       scope: {
         message: '='
