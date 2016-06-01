@@ -34,6 +34,10 @@
         id: ''
       },
     };
+    vm.author = {
+      username: vm.message.recipient.username,
+      id: vm.message.recipient.id
+    }
 
     activate();
 
@@ -136,7 +140,7 @@
               vm.newMessage.recipient.id = '';
               vm.valid.recipient = -1;
             }
-            else if (vm.profile.id == data.data[0].id)
+            else if (vm.author.id == data.data[0].id)
             {
               vm.help.recipient = 'You cannot message yourself';
               vm.newMessage.recipient.id = '';
