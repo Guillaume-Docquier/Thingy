@@ -14,11 +14,11 @@
 					<h5 ng-show="!message.author">{{message.type}}</h5>
 				</div>
 				<div class="col-xs-5 col-sm-4">
-					<p>{{message.created_at | date : "MMM d, y 'at' HH:mm"}}</p> 
+					<p>{{message.created_at | date : "MMM d, y 'at' HH:mm"}}</p>
 				</div>
 				<div id="removecross__column" class="col-xs-1 col-sm-1">
 			<!-- TODOJS make the cross work, maybe it should not be a link? -->
-					<a id="removecross" class="glyphicon glyphicon-remove"></a> 
+					<a id="removecross" class="glyphicon glyphicon-remove" ng-click="vm.deleteMessage()"></a> 
 				</div>
 			</div> <!-- /row -->
 			<div class="row">
@@ -73,5 +73,3 @@
 						  </div><!--modal-content-->
 					  </div><!--modal-dialog-->
 					</div><!--modal-fade-->
-
-			
