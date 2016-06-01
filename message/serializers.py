@@ -3,7 +3,7 @@ from rest_framework import serializers
 from authentication.serializers import AccountSerializer
 from posts.serializers import PostSerializer
 from models import *
-from posts.models import Post
+from posts.models import Post, Status
 
 class ChoicesField(serializers.Field):
     def __init__(self, choices, **kwargs):
@@ -40,11 +40,17 @@ class RequestSerializer(serializers.ModelSerializer):
         instance.save()
         if instance.status == 'Accepted':
             type = 'Rent accepted'
+            statusId = 2
         else:
             type = 'Rent declined'
+            statusId = 1
 
+        # Update the status
+        post = Post.objects.get(Q(id=validated_data.get('thingy').id))
+        post.status = Status.objects.get(Q(id=statusId))
+        post.save()
 
-        post = Post.objects.get(Q(id=instance.thingy_id))
+        # Create a rent message
         RentMessage.objects.create(thingy_id=validated_data.get('thingy').id, rentee=instance.rentee,
                                     start_date=instance.start_date, end_date=instance.end_date,
                                     created_at=instance.created_at, body="",
