@@ -5,9 +5,9 @@
     .module('thingy.profiles.controllers')
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['Profile', 'Message'];
+  MessagesController.$inject = ['Profile', 'Message', '$scope', '$rootScope'];
 
-  function MessagesController(Profile, Message) {
+  function MessagesController(Profile, Message, $scope, $rootScope) {
     var vm = this;
 
     //Data and functions
@@ -30,8 +30,8 @@
     vm.newMessage = {
       body: '',
       recipient: {
-        username: message.author.username,
-        id: message.author.id
+        username: vm.message.author.username,
+        id: vm.message.author.id
       },
     };
 
