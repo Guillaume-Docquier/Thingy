@@ -13,7 +13,7 @@
 					<h5>Status: {{offer.status}}</h5>
 				</div>
 				<div class="col-xs-4">
-					<p>{{offer.created_at | date : "MMM d, y 'at' HH:mm"}}</p>
+					<p id="date__offer">{{offer.created_at | date : "MMM d, y 'at' HH:mm"}}</p>
 				</div>
 			</div> <!-- /row -->
 			<div class="row">
@@ -23,16 +23,19 @@
 					<p>Comment: {{offer.body}}</p>
 				</div>
 			</div> <!-- /row -->
-			<div class="row" ng-show="offer.status == 'Pending'">
-				<div class="col-xs-3"></div>
-				<div class="col-xs-3">
-					<button type="button" ng-click="vm.rent('accept', offer.id)" class="btn btn-success">Accept</button>
-				</div>
-				<div class="col-xs-3">
-					<button type="button" ng-click="vm.rent('decline', offer.id)" class="btn btn-danger">Decline</button>
-				</div>
-				<div class="col-xs-3"></div>
-			</div>
 		</div>
+		<div class="row" ng-show="offer.status == 'Pending'">
+				<div class="col-sm-7"></div>
+				<div class="col-xs-12 col-sm-5">
+					<form id="accept__decline__btn" class="form-inline" role="form">
+						  <div class="form-group">
+							<button type="button" ng-click="vm.rent('accept', offer.id)" class="btn btn-success">Accept</button>
+						  </div>
+						  <div class="form-group">
+							<button type="button" ng-click="vm.rent('decline', offer.id)" class="btn btn-danger">Decline</button>
+						  </div>
+					</form>
+				</div>
+			</div> <!-- /row -->
   </div>
 </div> <!-- /container-fluid -->
