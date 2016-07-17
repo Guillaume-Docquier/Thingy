@@ -9,19 +9,20 @@ Thingy was created as part of our semester project. We had a few requirements fo
 So we pretty much had carte blanche for our project. As a team of 10 people with different skillsets, we assigned roles which suited everyone best.
 
 # The team  
-Fredrik Johnson - Project manager  
-Astrid Heed - Communication manager  
-Andre Lerdell - Usability team  
-Emil Sundman - Usability team  
-Cornelia Wallander - Front-end dev  
-Felicia Hökars - Front-end dev  
-Guillaume Docquier (me) - Javascript dev  
-Laura D'Angelo - Backend dev  
-Alexander Groth - Backend dev  
-Filip Enblom - Backend dev  
+|Name                   | Role                |
+|-----------------------|---------------------|
+|Astrid Heed            |Communication manager|
+|Andre Lerdell          |Usability team       |
+|Emil Sundman           |Usability team       |
+|Cornelia Wallander     |Front-end dev        |
+|Felicia Hökars         |Front-end dev        |
+|Guillaume Docquier (me)|Javascript dev       |
+|Laura D'Angelo         |Backend dev          |  
+|Alexander Groth        |Backend dev          |
+|Filip Enblom           |Backend dev          |  
 
 # System design  
-Our system is divided in two obvious parts: Front-end and Back-end. We used the Django-Rest framework to set up our backend. It was designed as a RESTful API which the client queried only to load dynamic information on the pages. Our client side was in fact an Angular app. AngularJS1 takes care of all the routing and all the requests to our API. As for the actual web pages, we used the Less css version of Bootstrap v3.  
+Our system is divided in two obvious parts: Front-end and Back-end. We used the Django-Rest framework to set up our backend. It was designed as a RESTful API which the client queried only to load dynamic information on the pages. Our client side uses AngularJS1 to take care of all the routing and all the http requests to our API. As for the actual web pages, we used the Less CSS version of Bootstrap v3.  
 
 # Implemented features  
 In the current state of Thingy, you can do the following:  
@@ -32,8 +33,17 @@ In the current state of Thingy, you can do the following:
 - Send rent requests which must then be accepted by the Thingy's owner.  
 - Send messages to other users.  
 - Review other users.  
-- See your history of accepted/refused rents.  
+- See your history of accepted/refused rents to other users.  
 
 Our application does not handle payments and we did not plan to do it.
 
 # Other ideas we didn't implement  
+These are features we did not implement because of time or complexity constraints
+- Rent a Thingy in a future time
+- Calendar view to rent Thingies at a future time
+- A view for the Thingies you are currently renting from/to someone else
+- An history of the Thingies you have rented from someone else
+- Adding geolocation to suggest Thingies in your area
+- Suggest Thingies based on your preferences, rencent searches or past rents
+- Recover lost password
+- Email activation of your account/Thingies to prevent spam
