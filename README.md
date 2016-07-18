@@ -24,6 +24,10 @@ So we pretty much had carte blanche for our project. As a team of 10 people with
 # System design  
 Our system is divided in two obvious parts: Front-end and Back-end. We used the Django-Rest framework to set up our backend. It was designed as a RESTful API which the client queried only to load dynamic information on the pages. Our client side uses AngularJS1 to take care of all the routing and all the http requests to our API. As for the actual web pages, we used the Less CSS version of Bootstrap v3.  
 
+<p align="center">
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/systemDesign.png"/>
+</p>
+
 # Implemented features  
 In the current state of Thingy, you can do the following:  
 - Create an account.  
