@@ -51,3 +51,19 @@ These are features we did not implement because of time or complexity constraint
 - Suggest Thingies based on your preferences, rencent searches or past rents
 - Recover lost password
 - Email activation of your account/Thingies to prevent spam
+
+# Some screenshots
+### Homepage
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/homepage.png"/><hr/>
+### Browse Thingies
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/search.png"/><hr/>
+### Send a rent request
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/rentRequest.png"/><hr/>
+### User profile
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/profile.png"/><hr/>
+### Reviews
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/reviews.png"/><hr/>
+### Messages
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/messages.png"/><hr/>
+### Offers
+<img src="https://github.com/Guillaume-Docquier/Thingy/blob/master/screens/offers.png"/><hr/>
